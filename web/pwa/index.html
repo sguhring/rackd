@@ -116,6 +116,7 @@
     color:#fff;font-size:14px;font-weight:700;letter-spacing:.02em;
   }
   .mthumb{width:38px;height:38px;border-radius:9px;flex:0 0 auto;object-fit:cover;background:#1c1c1e;}
+  .micon{width:38px;height:38px;border-radius:9px;flex:0 0 auto;background:var(--elev-2);display:flex;align-items:center;justify-content:center;color:var(--label-2);}
   .m-main{flex:1;min-width:0;}
   .m-brand{font-size:11px;color:var(--label-3);font-weight:500;letter-spacing:.02em;}
   .m-name{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-top:1px;}
@@ -563,6 +564,58 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     return {abbr:(letters.slice(0,2)||'?').toUpperCase(), color:PALETTE[h%PALETTE.length]};
   }
 
+  // ===== machine artwork =====
+  // 'icon' = our own stylized line icons (own IP, no logos — safe to commercialize);
+  // 'photo' = the scraped product photos (copyright risk — dev only);
+  // 'badge' = brand initials only.
+  const IMAGES_MODE='icon';
+  // placeholder line icons (viewBox 24, currentColor) — refine with a designer later.
+  const ICONS={
+    press:'<path d="M4 14h16M7 14v4M17 14v4M9 11h6M12 7v4"/><circle cx="12" cy="6" r="1.4"/>',
+    shoulder:'<path d="M12 4v5M8 8h8M5 13h14M8 13v5M16 13v5"/><circle cx="12" cy="4.5" r="1.2"/>',
+    pulldown:'<path d="M4 6h16M9 6v5M15 6v5M9 11h6M12 13v5"/>',
+    row:'<path d="M3 12h8M6 9l-3 3 3 3M13 8h7v8h-7z"/>',
+    legpress:'<path d="M4 17h5v-6M9 11l8-6M14 5h5v5"/>',
+    leg:'<path d="M5 7v9M5 12h7l4 4M16 16h4"/>',
+    curl:'<path d="M3 12h18M6 9v6M18 9v6"/><path d="M2 10v4M22 10v4"/>',
+    fly:'<path d="M12 5v14M12 9 6 6M12 9l6-3M12 15l-6 3M12 15l6 3"/>',
+    ab:'<path d="M6 7c4 3.5 8 3.5 12 0M6 12h12M6 17c4-3.5 8-3.5 12 0"/>',
+    calf:'<path d="M8 4v9l-3 7M8 13h5l3 7"/>',
+    machine:'<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/>',
+  };
+  const GROUP_ICON={push:'press', pull:'pulldown', legs:'legpress', core:'ab'};
+  // model-name keyword -> icon key (most specific first)
+  const ICON_KEYWORDS=[
+    ['leg press','legpress'],['hack squat','legpress'],['squat','legpress'],
+    ['leg extension','leg'],['leg curl','leg'],['hamstring','leg'],['glute','leg'],
+    ['abduct','leg'],['adduct','leg'],['calf','calf'],
+    ['chest press','press'],['bench press','press'],['incline','press'],['decline','press'],
+    ['shoulder press','shoulder'],['overhead','shoulder'],['multi-press','shoulder'],
+    ['lateral raise','shoulder'],['lateral pull','pulldown'],['lat pull','pulldown'],
+    ['pulldown','pulldown'],['pull-up','pulldown'],['chin','pulldown'],
+    ['row','row'],['rear delt','fly'],['pec','fly'],['fly','fly'],['pullover','pulldown'],
+    ['curl','curl'],['bicep','curl'],['tricep','curl'],['pushdown','curl'],['extension','curl'],
+    ['abdominal','ab'],['ab crunch','ab'],['crunch','ab'],['torso','ab'],['back extension','ab'],
+    ['press','press'],
+  ];
+  function iconKeyFor(name,group){
+    const n=(name||'').toLowerCase();
+    for(const [kw,key] of ICON_KEYWORDS){ if(n.includes(kw)) return key; }
+    return GROUP_ICON[group]||'machine';
+  }
+  function badgeHTML(brand){const s=brandStyle((brand||'').toLowerCase());
+    return `<div class="mbadge" style="background:${s.color}">${s.abbr}</div>`;}
+  // the thumbnail for a machine/exercise row, honouring IMAGES_MODE
+  function thumbHTML(brand,name,group,image_url){
+    if(IMAGES_MODE==='photo' && image_url)
+      return `<img class="mthumb" src="${image_url}" loading="lazy" onerror="this.style.display='none'">`;
+    if(IMAGES_MODE!=='badge'){
+      const key=iconKeyFor(name,group);
+      if(ICONS[key]) return `<div class="micon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg></div>`;
+    }
+    return badgeHTML(brand);
+  }
+
   // generic free-weight moves available in any gym (custom workouts)
   const GENERIC=[
     {brand:'barbell',name:'barbell bench press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
@@ -738,7 +791,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const s=brandStyle(brand.toLowerCase());
     let html='<div class="group">';
     list.forEach((m,i)=>{html+=`<div class="row" onclick="catPickModel(${i})">
-      ${m.image_url?`<img class="mthumb" src="${m.image_url}" loading="lazy" onerror="this.outerHTML='<div class=\\'mbadge\\' style=\\'background:${s.color}\\'>${s.abbr}</div>'">`:`<div class="mbadge" style="background:${s.color}">${s.abbr}</div>`}
+      ${thumbHTML(brand, m.model, cat.group, m.image_url)}
       <div class="m-main"><div class="m-name">${m.model.toLowerCase()}</div>
         <div class="m-muscle">${m.machine_type||''}${m.muscle_label?(' · '+m.muscle_label):''}</div></div>${chev()}</div>`;});
     html+='</div>';
@@ -787,9 +840,8 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     ordered.forEach(m=>{
       if(st.filter==='all'&&m.group!==last){ if(html)html+='</div>'; html+=`<div class="sechead">${m.group}</div><div class="group">`; last=m.group; }
       else if(!html){ html+='<div class="group">'; }
-      const b=brandStyle(m.brand);
       html+=`<div class="row" onclick="openMachine('${st.gym.id}','${m.name}')">
-        <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
+        ${thumbHTML(m.brand, m.name, m.group, m.img)}
         <div class="m-main">
           <div class="m-brand">${m.brand}</div>
           <div class="m-name">${m.name}</div>
@@ -887,10 +939,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(catQuery.trim().length<2){ el.innerHTML=''; return; }
     if(!catResults.length){ el.innerHTML='<div class="empty-draft">no matches.</div>'; return; }
     el.innerHTML='<div class="group">'+catResults.map((m,i)=>{
-      const s=brandStyle((m.brand||'').toLowerCase());
       const added=draft.items.some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
       return `<div class="row" onclick="addCatalogResult(${i})">
-        ${m.image_url?`<img class="mthumb" src="${m.image_url}" loading="lazy" onerror="this.outerHTML='<div class=\\'mbadge\\' style=\\'background:${s.color}\\'>${s.abbr}</div>'">`:`<div class="mbadge" style="background:${s.color}">${s.abbr}</div>`}
+        ${thumbHTML(m.brand, m.model, m.muscle_group, m.image_url)}
         <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
         <span class="chev plus">${added?'\u2713':'+'}</span>
       </div>`;}).join('')+'</div>';
