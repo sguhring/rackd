@@ -1,8 +1,8 @@
 // rackd service worker — app shell for offline use.
 // Network-first for our own assets (so edits + live API data show immediately, while
 // still working offline from cache). The cross-origin API is never intercepted.
-const C = 'rackd-v2';
-const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const C = 'rackd-v3';
+const ASSETS = ['./', './index.html', './icons.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(C).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));

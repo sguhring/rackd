@@ -529,6 +529,7 @@
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
+<script src="icons.js"></script>
 <script>
   const BRANDS={
     'hammer strength':{abbr:'HS',color:'#B71C1C'},
@@ -569,20 +570,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // 'photo' = the scraped product photos (copyright risk — dev only);
   // 'badge' = brand initials only.
   const IMAGES_MODE='icon';
-  // placeholder line icons (viewBox 24, currentColor) — refine with a designer later.
-  const ICONS={
-    press:'<path d="M4 14h16M7 14v4M17 14v4M9 11h6M12 7v4"/><circle cx="12" cy="6" r="1.4"/>',
-    shoulder:'<path d="M12 4v5M8 8h8M5 13h14M8 13v5M16 13v5"/><circle cx="12" cy="4.5" r="1.2"/>',
-    pulldown:'<path d="M4 6h16M9 6v5M15 6v5M9 11h6M12 13v5"/>',
-    row:'<path d="M3 12h8M6 9l-3 3 3 3M13 8h7v8h-7z"/>',
-    legpress:'<path d="M4 17h5v-6M9 11l8-6M14 5h5v5"/>',
-    leg:'<path d="M5 7v9M5 12h7l4 4M16 16h4"/>',
-    curl:'<path d="M3 12h18M6 9v6M18 9v6"/><path d="M2 10v4M22 10v4"/>',
-    fly:'<path d="M12 5v14M12 9 6 6M12 9l6-3M12 15l-6 3M12 15l6 3"/>',
-    ab:'<path d="M6 7c4 3.5 8 3.5 12 0M6 12h12M6 17c4-3.5 8-3.5 12 0"/>',
-    calf:'<path d="M8 4v9l-3 7M8 13h5l3 7"/>',
-    machine:'<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/>',
-  };
+  // ICONS + ICON_VIEWBOX are defined in icons.js (loaded before this script).
   const GROUP_ICON={push:'press', pull:'pulldown', legs:'legpress', core:'ab'};
   // model-name keyword -> icon key (most specific first)
   const ICON_KEYWORDS=[
@@ -611,7 +599,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       return `<img class="mthumb" src="${image_url}" loading="lazy" onerror="this.style.display='none'">`;
     if(IMAGES_MODE!=='badge'){
       const key=iconKeyFor(name,group);
-      if(ICONS[key]) return `<div class="micon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg></div>`;
+      if(ICONS[key]) return `<div class="micon"><svg width="30" height="30" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg></div>`;
     }
     return badgeHTML(brand);
   }
