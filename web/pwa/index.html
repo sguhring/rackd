@@ -731,7 +731,8 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // ---- custom workout builder ----
   function pool(){
     const seen={}, out=[];
-    GYMS.forEach(g=>g.machines.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}}));
+    // gym.machines is null until that gym is opened (lazy-loaded from the API), so guard it
+    GYMS.forEach(g=>(g.machines||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}}));
     GENERIC.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});
     return out;
   }
