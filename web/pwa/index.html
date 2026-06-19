@@ -252,11 +252,63 @@
 </head>
 <body>
 <div class="app">
-<!-- ===== screen 1: gym ===== -->
-      <section class="screen active" id="s-gym">
+<!-- ===== screen: home menu ===== -->
+      <section class="screen active" id="s-home">
         <div class="largetitle">
-          <h1>where to?</h1>
-          <div class="sub">pick the gym you're training at. your machines load from its floor.</div>
+          <h1>rackd</h1>
+          <div class="sub">track the exact machine in front of you.</div>
+        </div>
+        <div class="scroll">
+          <div class="sechead">start</div>
+          <div class="group">
+            <div class="row" onclick="goGyms()">
+              <div class="mbadge" style="background:#0A6EBD"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-4h6v4"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">choose gym</div>
+                <div class="m-muscle" id="home-gym-sub">log against a gym's machines</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+            <div class="row" onclick="goWorkouts()">
+              <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7v10M17.5 7v10M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">workout</div>
+                <div class="m-muscle" id="home-work-sub">build, save and track workouts</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== screen: gyms ===== -->
+      <section class="screen" id="s-gym">
+        <div class="navbar">
+          <button class="navback" onclick="goHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>choose your gym</h1>
+          <div class="sub">your machines load from its floor.</div>
+        </div>
+        <div class="scroll">
+          <div id="gymlist"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: workouts ===== -->
+      <section class="screen" id="s-workouts">
+        <div class="navbar">
+          <button class="navback" onclick="goHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>workouts</h1>
+          <div class="sub">build a new one, or continue a saved workout.</div>
         </div>
         <div class="scroll">
           <div class="sechead">start</div>
@@ -280,8 +332,6 @@
           </div>
           <div class="sechead" id="work-head" style="display:none;">your workouts</div>
           <div id="worklist"></div>
-          <div class="sechead">your gyms</div>
-          <div id="gymlist"></div>
         </div>
       </section>
 
@@ -353,9 +403,9 @@
       <!-- ===== screen: custom workout builder ===== -->
       <section class="screen" id="s-custom">
         <div class="navbar">
-          <button class="navback" onclick="goGym()">
+          <button class="navback" onclick="goWorkouts()">
             <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
-            back
+            workouts
           </button>
         </div>
         <div class="largetitle">
@@ -548,7 +598,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     el.classList.add('active');
     const sc=el.querySelector('.scroll'); if(sc) sc.scrollTop=0;
   }
-  function goGym(){show('s-gym');}
+  function goHome(){ renderHome(); show('s-home'); }
+  function goGyms(){ renderGyms(); show('s-gym'); }
+  function goWorkouts(){ renderWorkouts(); show('s-workouts'); }
+  function goGym(){show('s-gym');}       // back-target from the machines screen (gyms list)
   function goMachines(){show('s-machines');}
 
   // ---- screen 1 ----
@@ -602,7 +655,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   async function openCatalog(add){
     cat.add=!!add;   // add-mode: tapping a model adds it to the custom workout draft
-    document.getElementById('cat-back-label').textContent=cat.add?'workout':'home';
+    document.getElementById('cat-back-label').textContent=cat.add?'workout':'workouts';
     document.getElementById('catmove').innerHTML='<div class="empty">loading…</div>';
     show('s-cat-move');
     let list=[];
@@ -668,7 +721,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     st.gym=null; st.session=null; st.catalog=true; // browsing → log directly
     loadLog(item);
   }
-  function catHome(){ if(cat.add) show('s-custom'); else goGym(); }
+  function catHome(){ if(cat.add) show('s-custom'); else show('s-workouts'); }
 
   function buildSegment(){
     const seg=document.getElementById('segment');
@@ -737,7 +790,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     renderW(); renderR(); renderSets();
     show('s-log');
   }
-  function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-custom'); else goMachines(); }
+  function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-workouts'); else goMachines(); }
 
   // ---- custom workout builder ----
   function pool(){
@@ -882,7 +935,13 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
         <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
       </div>`;}).join('')+'</div>';
   }
-  function renderHome(){ renderGyms(); renderWorkouts(); }
+  function renderHome(){
+    renderGyms(); renderWorkouts();
+    const gs=document.getElementById('home-gym-sub');
+    if(gs) gs.textContent=(GYMS.length||0)+" gyms · log against their machines";
+    const ws=document.getElementById('home-work-sub');
+    if(ws) ws.textContent=DB.workouts.length?(DB.workouts.length+' saved · build a new one'):'build, save and track workouts';
+  }
   function updateSessionBar(){
     const bar=document.getElementById('sessbar'), nc=document.getElementById('next-cta');
     if(st.session){
@@ -896,7 +955,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function nextExercise(){
     if(!st.session)return;
     if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
-    else { const n=st.session.name; st.session=null; renderHome(); show('s-gym'); toastMsg(false,'workout saved','“'+n+'” logged'); }
+    else { const n=st.session.name; st.session=null; renderWorkouts(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged'); }
   }
   function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
   function bumpR(d){st.r=Math.max(1,Math.min(30,st.r+d));renderR();}
@@ -977,7 +1036,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
           area:(g.area||'').toLowerCase(), count:g.machine_count,
           brands:(g.brands||[]).map(b=>b.toLowerCase()), here:i===0,
           dist:'', machines:null}));
-        renderGyms();
+        renderHome();
       }
     }catch(e){ /* offline: keep the bundled sample gyms */ }
   }
