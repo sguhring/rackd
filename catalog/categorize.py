@@ -33,12 +33,20 @@ MECHANISM_DEFAULT = "machine"
 # keyword (matched in the model name, longest first) -> (exercise slug, muscles)
 # Muscle groups follow free-exercise-db's primaryMuscles vocabulary, condensed.
 MOVEMENTS: list[tuple[str, str, str]] = [
-    ("incline chest press", "incline-chest-press", "chest · front delts"),
+    ("incline chest press", "incline-chest-press", "upper chest · front delts"),
+    ("incline bench",       "incline-chest-press", "upper chest · front delts"),
+    ("incline press",       "incline-chest-press", "upper chest · front delts"),
+    ("decline bench",       "chest-press",         "lower chest"),
     ("chest press",         "chest-press",         "chest · front delts"),
+    ("bench press",         "chest-press",         "chest · front delts"),
     ("shoulder press",      "shoulder-press",      "delts · triceps"),
     ("overhead press",      "shoulder-press",      "delts · triceps"),
     ("multi-press",         "shoulder-press",      "delts · triceps"),
+    ("viking press",        "shoulder-press",      "delts · triceps"),
     ("lat pulldown",        "lat-pulldown",        "lats · biceps"),
+    ("lateral pull",        "lat-pulldown",        "lats · biceps"),
+    ("lat pull",            "lat-pulldown",        "lats · biceps"),
+    ("lat machine",         "lat-pulldown",        "lats · biceps"),
     ("pulldown",            "lat-pulldown",        "lats · biceps"),
     ("pullover",            "pullover",            "lats"),
     ("iso-lateral row",     "seated-row",          "lats · mid-back"),
@@ -47,6 +55,7 @@ MOVEMENTS: list[tuple[str, str, str]] = [
     ("high row",            "seated-row",          "upper-back · lats"),
     ("row",                 "seated-row",          "mid-back · lats"),
     ("rear delt",           "rear-delt",           "rear delts"),
+    ("side lateral",        "lateral-raise",       "side delts"),
     ("lateral raise",       "lateral-raise",       "side delts"),
     ("biceps curl",         "biceps-curl",         "biceps"),
     ("arm curl",            "biceps-curl",         "biceps"),
@@ -65,6 +74,8 @@ MOVEMENTS: list[tuple[str, str, str]] = [
     ("hamstring",           "leg-curl",            "hamstrings"),
     ("calf",                "calf-raise",          "calves"),
     ("hip thrust",          "hip-thrust",          "glutes"),
+    ("hip press",           "hip-thrust",          "glutes"),
+    ("reverse hyper",       "back-extension",      "lower back · glutes"),
     ("glute",               "glute",               "glutes"),
     ("abductor / adductor", "hip-abduction",       "abductors · adductors"),
     ("hip abduction",       "hip-abduction",       "glutes · abductors"),
@@ -87,7 +98,6 @@ MOVEMENTS: list[tuple[str, str, str]] = [
     ("shrug",               "shrug",               "traps"),
     ("squat",               "hack-squat",          "quads · glutes"),
     ("jammer",              "jammer-press",        "chest · shoulders"),
-    ("lat",                 "lat-pulldown",        "lats · biceps"),
 ]
 
 

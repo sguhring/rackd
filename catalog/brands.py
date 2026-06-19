@@ -67,6 +67,7 @@ _BRAND_ALIASES: dict[str, list[str]] = {
     "Titan": ["titan fitness", "titan"],
     "Bodycraft": ["bodycraft"],
     "Pendulum": ["pendulum"],
+    "Gymleco": ["gymleco"],
 }
 
 # (alias, canonical) sorted longest-alias-first so specific names win.
@@ -150,8 +151,8 @@ _EMPTY_PARENS = re.compile(r"\s*\(\s*\)")
 
 def clean_model(title: str, brand: str | None = None) -> str:
     s = html.unescape(title or "")
-    if brand and s.lower().startswith(brand.lower()):
-        s = s[len(brand):]
+    if brand:  # drop the brand wherever it appears (some sites repeat it mid-title)
+        s = re.sub(rf"\b{re.escape(brand)}\b", "", s, flags=re.I)
     s = _CONSOLE.sub("", s)
     s = _NOISE.sub("", s)
     s = _PARENS.sub("", s)

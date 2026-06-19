@@ -32,12 +32,16 @@ pip install -r requirements.txt
 python build_catalog.py          # live pull + categorize + write scraped_machines.json
 ```
 
-Current result: **~1,100 machines across ~33 brands** — Cybex, Life Fitness, Hammer Strength,
-Precor, Nautilus, Technogym, Hoist, Matrix, Star Trac, Muscle D, Atlantis, FreeMotion, Keiser,
-MedX, … — from four stores (Shopify: `shop.lifefitness.com`, `fitnesssuperstore.com`;
-WooCommerce: `fitnessequipmentempire.com`, `primofitnessusa.com`). **89% auto-mapped** to a
-movement; the unmapped tail is multi-station jungle gyms, functional trainers and cable
-crossovers that genuinely aren't a single movement.
+Current result: **~1,350 machines across 34 brands** — Gymleco, Cybex, Life Fitness, Hammer
+Strength, Precor, Nautilus, Technogym, Hoist, Matrix, Star Trac, Muscle D, Atlantis, FreeMotion,
+Keiser, MedX, … — from five stores: Shopify (`shop.lifefitness.com`, `gymleco.com`,
+`fitnesssuperstore.com`) + WooCommerce (`fitnessequipmentempire.com`, `primofitnessusa.com`).
+~81% auto-mapped to a movement; the unmapped tail is multi-station jungle gyms, functional
+trainers and cable crossovers that genuinely aren't a single movement.
+
+Manufacturer sites checked that have **no structured feed** (brochure WordPress, products as
+pages/configurator — would need brittle HTML scraping, and both are already covered via
+resellers): `atlantisstrength.com`, `arsenalstrength.com`.
 
 ## next
 

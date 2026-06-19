@@ -32,6 +32,7 @@ FS = "https://www.fitnesssuperstore.com"
 SOURCES = [
     # Shopify — the brand's own shop (cleanest) + the Fitness Superstore reseller.
     ShopifyScraper("shop-lifefitness", "https://shop.lifefitness.com"),
+    ShopifyScraper("gymleco", "https://gymleco.com"),  # manufacturer, plate-loaded heavy
     ShopifyScraper("fs-technogym", FS, collections=["technogym"], brands=["Technogym"]),
     ShopifyScraper("fs-matrix",    FS, collections=["matrix"],    brands=["Matrix"]),
     ShopifyScraper("fs-precor",    FS, collections=["precor-strength-equipment"], brands=["Precor"]),
