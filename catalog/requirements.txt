@@ -1,0 +1,4 @@
+httpx>=0.27
+selectolax>=0.3      # fast HTML parsing
+# playwright>=1.44    # for JS-rendered sources (or use the Playwright MCP server)
+sqlmodel>=0.0.21

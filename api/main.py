@@ -1,0 +1,163 @@
+"""rackd API — gyms, their machines, and set logging with per-machine history.
+
+Run:  uvicorn main:app --reload   →   http://127.0.0.1:8000/docs
+"""
+from __future__ import annotations
+
+from datetime import datetime
+from decimal import Decimal
+
+from fastapi import Depends, FastAPI, HTTPException
+from pydantic import BaseModel
+from sqlmodel import Session, select
+
+from database import get_session, init_db
+from models import Brand, Exercise, Gym, GymMachine, Machine, Set, Workout
+
+app = FastAPI(title="rackd", version="0.1.0")
+
+
+@app.on_event("startup")
+def _startup() -> None:
+    init_db()
+
+
+# ── response shapes ───────────────────────────────────────────────────────────
+
+class GymOut(BaseModel):
+    id: int
+    name: str
+    area: str | None
+    machine_count: int
+
+
+class MachineOut(BaseModel):
+    gym_machine_id: int
+    brand: str
+    model: str
+    muscle_label: str | None
+    muscle_group: str | None
+    last: dict | None  # {"weight_kg", "reps", "sets", "logged_at"} or None
+
+
+class LogSetIn(BaseModel):
+    user_id: str
+    workout_id: int | None = None
+    gym_machine_id: int | None = None
+    exercise_id: int | None = None
+    weight_kg: Decimal
+    reps: int
+
+
+# ── endpoints ─────────────────────────────────────────────────────────────────
+
+@app.get("/gyms", response_model=list[GymOut])
+def list_gyms(session: Session = Depends(get_session)):
+    out = []
+    for gym in session.exec(select(Gym)).all():
+        count = len(session.exec(
+            select(GymMachine).where(GymMachine.gym_id == gym.id)
+        ).all())
+        out.append(GymOut(id=gym.id, name=gym.name, area=gym.area, machine_count=count))
+    return out
+
+
+@app.get("/gyms/{gym_id}/machines", response_model=list[MachineOut])
+def gym_machines(gym_id: int, user_id: str | None = None,
+                 session: Session = Depends(get_session)):
+    """The machines on this gym's floor, each with the user's last session on it."""
+    if not session.get(Gym, gym_id):
+        raise HTTPException(404, "gym not found")
+
+    rows = session.exec(
+        select(GymMachine, Machine, Brand, Exercise)
+        .where(GymMachine.gym_id == gym_id)
+        .where(Machine.id == GymMachine.machine_id)
+        .where(Brand.id == Machine.brand_id)
+        .join(Exercise, isouter=True)
+    ).all()
+
+    out = []
+    for gm, machine, brand, exercise in rows:
+        out.append(MachineOut(
+            gym_machine_id=gm.id,
+            brand=brand.name,
+            model=machine.model,
+            muscle_label=machine.muscle_label,
+            muscle_group=exercise.muscle_group if exercise else None,
+            last=_last_on_machine(session, user_id, gm.id) if user_id else None,
+        ))
+    return out
+
+
+@app.post("/sets")
+def log_set(body: LogSetIn, session: Session = Depends(get_session)):
+    """Log a set. Computes is_pr against this user's history on this machine."""
+    if not body.gym_machine_id and not body.exercise_id:
+        raise HTTPException(400, "gym_machine_id or exercise_id required")
+
+    workout_id = body.workout_id
+    if workout_id is None:
+        w = Workout(user_id=body.user_id, started_at=datetime.utcnow())
+        session.add(w)
+        session.commit()
+        session.refresh(w)
+        workout_id = w.id
+
+    is_pr = _is_pr(session, body)
+
+    s = Set(
+        workout_id=workout_id,
+        user_id=body.user_id,
+        gym_machine_id=body.gym_machine_id,
+        exercise_id=body.exercise_id,
+        weight_kg=body.weight_kg,
+        reps=body.reps,
+        is_pr=is_pr,
+    )
+    session.add(s)
+    session.commit()
+    session.refresh(s)
+    return {"id": s.id, "workout_id": workout_id, "is_pr": is_pr}
+
+
+# ── helpers ───────────────────────────────────────────────────────────────────
+
+def _last_on_machine(session: Session, user_id: str, gym_machine_id: int) -> dict | None:
+    """The user's most recent past session on a specific machine."""
+    last = session.exec(
+        select(Set)
+        .where(Set.user_id == user_id, Set.gym_machine_id == gym_machine_id)
+        .order_by(Set.logged_at.desc())
+    ).first()
+    if not last:
+        return None
+    same_day = session.exec(
+        select(Set).where(
+            Set.user_id == user_id,
+            Set.gym_machine_id == gym_machine_id,
+            Set.logged_at >= last.logged_at.replace(hour=0, minute=0, second=0, microsecond=0),
+        )
+    ).all()
+    return {
+        "weight_kg": float(last.weight_kg),
+        "reps": last.reps,
+        "sets": len(same_day),
+        "logged_at": last.logged_at.isoformat(),
+    }
+
+
+def _is_pr(session: Session, body: LogSetIn) -> bool:
+    """Beat the best previous weight (or weight-matched reps) on THIS machine only."""
+    if not body.gym_machine_id:
+        return False
+    best = session.exec(
+        select(Set)
+        .where(Set.user_id == body.user_id, Set.gym_machine_id == body.gym_machine_id)
+        .order_by(Set.weight_kg.desc(), Set.reps.desc())
+    ).first()
+    if not best:
+        return False
+    if body.weight_kg > best.weight_kg:
+        return True
+    return body.weight_kg == best.weight_kg and body.reps > best.reps

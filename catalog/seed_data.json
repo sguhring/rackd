@@ -1,0 +1,69 @@
+{
+  "brands": [
+    {"name": "Hammer Strength", "abbr": "HS", "color": "#B71C1C"},
+    {"name": "Technogym", "abbr": "TG", "color": "#2C2C2E"},
+    {"name": "Life Fitness", "abbr": "LF", "color": "#C4161C"},
+    {"name": "Cybex", "abbr": "CX", "color": "#0A6EBD"},
+    {"name": "Matrix", "abbr": "MX", "color": "#E8551F"},
+    {"name": "Precor", "abbr": "PR", "color": "#1A8E6E"}
+  ],
+  "exercises": [
+    {"slug": "chest-press", "name": "Chest Press", "muscle_group": "push", "equipment_category": "leverage machine"},
+    {"slug": "shoulder-press", "name": "Shoulder Press", "muscle_group": "push", "equipment_category": "leverage machine"},
+    {"slug": "seated-row", "name": "Seated Row", "muscle_group": "pull", "equipment_category": "leverage machine"},
+    {"slug": "lat-pulldown", "name": "Lat Pulldown", "muscle_group": "pull", "equipment_category": "cable"},
+    {"slug": "leg-press", "name": "Leg Press", "muscle_group": "legs", "equipment_category": "leverage machine"},
+    {"slug": "leg-extension", "name": "Leg Extension", "muscle_group": "legs", "equipment_category": "leverage machine"},
+    {"slug": "leg-curl", "name": "Leg Curl", "muscle_group": "legs", "equipment_category": "leverage machine"}
+  ],
+  "machines": [
+    {"brand": "Hammer Strength", "model": "Iso-Lateral Chest Press", "exercise": "chest-press", "muscle_label": "chest · front delts"},
+    {"brand": "Hammer Strength", "model": "Iso-Lateral Row", "exercise": "seated-row", "muscle_label": "lats · mid-back"},
+    {"brand": "Life Fitness", "model": "Insignia Lat Pulldown", "exercise": "lat-pulldown", "muscle_label": "lats · biceps"},
+    {"brand": "Life Fitness", "model": "Insignia Shoulder Press", "exercise": "shoulder-press", "muscle_label": "delts · triceps"},
+    {"brand": "Cybex", "model": "Eagle NX Leg Press", "exercise": "leg-press", "muscle_label": "quads · glutes"},
+    {"brand": "Cybex", "model": "Eagle NX Leg Extension", "exercise": "leg-extension", "muscle_label": "quads"},
+    {"brand": "Technogym", "model": "Selection Pro Chest Press", "exercise": "chest-press", "muscle_label": "chest"},
+    {"brand": "Technogym", "model": "Selection Pro Leg Press", "exercise": "leg-press", "muscle_label": "quads · glutes"},
+    {"brand": "Technogym", "model": "Pure Lat Machine", "exercise": "lat-pulldown", "muscle_label": "lats"},
+    {"brand": "Matrix", "model": "Ultra Seated Row", "exercise": "seated-row", "muscle_label": "mid-back"},
+    {"brand": "Matrix", "model": "Aura Chest Press", "exercise": "chest-press", "muscle_label": "chest"},
+    {"brand": "Matrix", "model": "Aura Leg Curl", "exercise": "leg-curl", "muscle_label": "hamstrings"},
+    {"brand": "Precor", "model": "Discovery Shoulder Press", "exercise": "shoulder-press", "muscle_label": "delts"},
+    {"brand": "Precor", "model": "Vitality Lat Pulldown", "exercise": "lat-pulldown", "muscle_label": "lats"}
+  ],
+  "gyms": [
+    {
+      "name": "Fitness Hub",
+      "area": "Benfica · Lisboa",
+      "machines": [
+        "Hammer Strength Iso-Lateral Chest Press",
+        "Hammer Strength Iso-Lateral Row",
+        "Life Fitness Insignia Lat Pulldown",
+        "Life Fitness Insignia Shoulder Press",
+        "Cybex Eagle NX Leg Press",
+        "Cybex Eagle NX Leg Extension"
+      ]
+    },
+    {
+      "name": "Phive Wellness Club",
+      "area": "Saldanha · Lisboa",
+      "machines": [
+        "Technogym Selection Pro Chest Press",
+        "Technogym Selection Pro Leg Press",
+        "Technogym Pure Lat Machine",
+        "Matrix Ultra Seated Row",
+        "Precor Discovery Shoulder Press"
+      ]
+    },
+    {
+      "name": "Fitness UP",
+      "area": "Alvalade · Lisboa",
+      "machines": [
+        "Matrix Aura Chest Press",
+        "Matrix Aura Leg Curl",
+        "Precor Vitality Lat Pulldown"
+      ]
+    }
+  ]
+}
