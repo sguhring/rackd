@@ -29,3 +29,4 @@ dist/
 # dev render artifacts
 web/pwa/_*.png
 web/pwa/_*.js
+web/pwa/img/
