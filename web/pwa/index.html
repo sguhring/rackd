@@ -228,6 +228,10 @@
   .draftrow .rm{margin-left:auto;width:28px;height:28px;border-radius:50%;background:var(--elev-2);border:0;color:#FF453A;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
   .draftrow .rm:active{background:#3A3A3C;}
   #startbtn:disabled{background:var(--elev);color:var(--label-3);cursor:default;}
+  #savebtn{background:var(--elev);color:var(--label);}
+  #savebtn:disabled{background:var(--elev);color:var(--label-3);cursor:default;}
+  .savebtn{margin-left:auto;flex:0 0 auto;background:var(--elev-2);color:var(--accent);border:0;border-radius:9px;padding:7px 13px;font-family:var(--sf);font-size:13px;font-weight:700;cursor:pointer;}
+  .savebtn:active{background:#3A3A3C;}
   .picker{margin:0;}
   .chev.plus{color:var(--accent);font-size:22px;font-weight:400;line-height:1;}
   .empty-draft{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
@@ -278,6 +282,8 @@
               <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
             </div>
           </div>
+          <div class="sechead" id="home-work-head" style="display:none;">your workouts</div>
+          <div id="home-worklist"></div>
         </div>
       </section>
 
@@ -442,7 +448,12 @@
           <div class="group" id="draftlist"></div>
           <div class="cta" style="padding-bottom:0;"><button class="addex" onclick="togglePicker()" id="addex-btn">+ add exercise</button></div>
           <div id="picker" class="picker" style="display:none;"></div>
-          <div class="cta"><button id="startbtn" onclick="startCustom()" disabled>start workout</button></div>
+          <div class="cta">
+            <div style="display:flex;gap:10px;">
+              <button id="savebtn" onclick="saveCustom()" disabled style="flex:0 0 auto;width:auto;">save</button>
+              <button id="startbtn" onclick="startCustom()" disabled style="flex:1;width:auto;">start workout</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -846,6 +857,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
         <button class="rm" onclick="removeEx(${i})">−</button>
       </div>`;}).join('');
     document.getElementById('startbtn').disabled=!draft.items.length;
+    document.getElementById('savebtn').disabled=!draft.items.length;
   }
   function togglePicker(){
     const p=document.getElementById('picker'), btn=document.getElementById('addex-btn');
@@ -924,17 +936,32 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function startCustom(){
     if(!draft.items.length)return;
     const nm=document.getElementById('wname').value.trim()||'workout';
-    const wid=saveWorkout(nm, draft.items.slice());   // persist so it shows on home
+    const wid=ensureSaved(nm);          // persist so it shows on home (reuses an earlier save)
     st.gym=null; st.catalog=false;
     st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid};
     loadLog(st.session.items[0]);
   }
-  // ---- saved custom workouts (on-device) ----
+  function saveCustom(){                  // save without starting now
+    if(!draft.items.length)return;
+    const nm=document.getElementById('wname').value.trim()||'workout';
+    ensureSaved(nm); renderHome();
+    toastMsg(false,'saved','“'+nm+'” saved to your workouts');
+    goWorkouts();
+  }
+  // ---- saved workouts (on-device) ----
   function saveWorkout(name,items){
     const id='w'+Date.now().toString(36);
     DB.workouts.push({id,name,items,created:Date.now()});
     saveDB();
     return id;
+  }
+  function ensureSaved(nm){               // create once per draft; update on re-save (no dups)
+    if(draft.savedId){
+      const w=DB.workouts.find(x=>x.id===draft.savedId);
+      if(w){ w.name=nm; w.items=draft.items.slice(); saveDB(); return w.id; }
+    }
+    draft.savedId=saveWorkout(nm, draft.items.slice());
+    return draft.savedId;
   }
   function startWorkout(wid){
     const w=DB.workouts.find(x=>x.id===wid); if(!w||!w.items.length)return;
@@ -944,22 +971,26 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function deleteWorkout(wid,ev){
     if(ev)ev.stopPropagation();
-    DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderWorkouts();
+    DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderHome();
+  }
+  function workoutRow(w){
+    const chips=[...new Set(w.items.map(it=>it.brand))].slice(0,3)
+      .map(b=>{const s=brandStyle(b);return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');
+    return `<div class="row" onclick="startWorkout('${w.id}')">
+      <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg></div>
+      <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}</div></div>
+      <span class="brandchips">${chips}</span>
+      <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
+    </div>`;
   }
   function renderWorkouts(){
-    const head=document.getElementById('work-head'), list=document.getElementById('worklist');
-    if(!head||!list)return;
-    if(!DB.workouts.length){ head.style.display='none'; list.innerHTML=''; return; }
-    head.style.display='';
-    list.innerHTML='<div class="group">'+DB.workouts.map(w=>{
-      const chips=[...new Set(w.items.map(it=>it.brand))].slice(0,3)
-        .map(b=>{const s=brandStyle(b);return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');
-      return `<div class="row" onclick="startWorkout('${w.id}')">
-        <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg></div>
-        <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}</div></div>
-        <span class="brandchips">${chips}</span>
-        <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
-      </div>`;}).join('')+'</div>';
+    const html=DB.workouts.length?('<div class="group">'+DB.workouts.map(workoutRow).join('')+'</div>'):'';
+    [['work-head','worklist'],['home-work-head','home-worklist']].forEach(([h,l])=>{
+      const head=document.getElementById(h), list=document.getElementById(l);
+      if(!head||!list)return;
+      head.style.display=DB.workouts.length?'':'none';
+      list.innerHTML=html;
+    });
   }
   // ---- preset routines (common splits, built from the default exercise library) ----
   const PRESETS=[
@@ -995,14 +1026,27 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       `<div class="sechead">${r.name} · ${r.desc}</div><div class="group">`+r.days.map((d,i)=>`
         <div class="row" onclick="startRoutineDay('${r.id}',${i})">
           <div class="mbadge" style="background:var(--accent);color:#00350F;font-weight:700;">${i+1}</div>
-          <div class="m-main"><div class="m-name">${d.name}</div><div class="m-muscle">${d.ex.length} exercises · from the library</div></div>
-          <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+          <div class="m-main"><div class="m-name">${d.name}</div><div class="m-muscle">${d.ex.length} exercises · tap to start</div></div>
+          <button class="savebtn" onclick="saveRoutineDay('${r.id}',${i},event)">save</button>
         </div>`).join('')+`</div>`).join('');
+  }
+  function saveRoutineDay(rid,di,ev){
+    if(ev)ev.stopPropagation();
+    const items=routineItems(rid,di);
+    if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
+    const r=PRESETS.find(x=>x.id===rid); const day=r.days[di];
+    saveWorkout(`${r.short} · ${day.name}`, items);
+    renderHome();
+    toastMsg(false,'saved',`“${r.short} · ${day.name}” saved to your workouts`);
+  }
+  function routineItems(rid,di){
+    const r=PRESETS.find(x=>x.id===rid); if(!r)return []; const day=r.days[di]; if(!day)return [];
+    return day.ex.map(e=>resolveLib(e.q,e.equip)).filter(Boolean)
+      .map(m=>({brand:m.brand,name:m.name,group:m.group,muscle:m.muscle,img:m.img,lastW:0,lastR:0,lastS:0,date:''}));
   }
   function startRoutineDay(rid,di){
     const r=PRESETS.find(x=>x.id===rid); if(!r)return; const day=r.days[di]; if(!day)return;
-    const items=day.ex.map(e=>resolveLib(e.q,e.equip)).filter(Boolean)
-      .map(m=>({brand:m.brand,name:m.name,group:m.group,muscle:m.muscle,img:m.img,lastW:0,lastR:0,lastS:0,date:''}));
+    const items=routineItems(rid,di);
     if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
     st.gym=null; st.catalog=false;
     st.session={name:`${r.short} · ${day.name}`, items, idx:0, wid:`r-${rid}-${di}`};  // stable key → tracks history per routine day
