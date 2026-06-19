@@ -102,8 +102,12 @@ class Category:
         return self.exercise_slug is not None
 
 
-def mechanism_for(product_type: str | None, tags: list[str] | None) -> str:
-    hay = " ".join(filter(None, [(product_type or "").lower(), *(tags or [])]))
+def mechanism_for(product_type: str | None, tags: list[str] | None,
+                  model: str | None = None) -> str:
+    # include the model name: reseller listings carry no tags but often say
+    # "Plate Loaded Lat Pulldown" / "Selectorized Biceps Curl" in the title itself.
+    hay = " ".join(filter(None, [(product_type or "").lower(), (model or "").lower(),
+                                 *(tags or [])]))
     for name, needles in MECHANISM_RULES:
         if any(n in hay for n in needles):
             return name
@@ -122,7 +126,7 @@ def categorize(model: str, product_type: str | None = None,
                tags: list[str] | None = None) -> Category:
     slug, muscles = movement_for(model)
     return Category(
-        mechanism=mechanism_for(product_type, tags),
+        mechanism=mechanism_for(product_type, tags, model),
         exercise_slug=slug,
         muscle_label=muscles,
     )

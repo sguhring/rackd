@@ -19,6 +19,7 @@ from pathlib import Path
 
 from categorize import categorize
 from scrapers.shopify import ShopifyScraper
+from scrapers.woocommerce import WooCommerceScraper
 
 OUT = Path(__file__).resolve().parent / "scraped_machines.json"
 
@@ -29,11 +30,17 @@ OUT = Path(__file__).resolve().parent / "scraped_machines.json"
 # Cybex, Body-Solid, … Add a brand by appending one line.
 FS = "https://www.fitnesssuperstore.com"
 SOURCES = [
+    # Shopify — the brand's own shop (cleanest) + the Fitness Superstore reseller.
     ShopifyScraper("shop-lifefitness", "https://shop.lifefitness.com"),
     ShopifyScraper("fs-technogym", FS, collections=["technogym"], brands=["Technogym"]),
     ShopifyScraper("fs-matrix",    FS, collections=["matrix"],    brands=["Matrix"]),
     ShopifyScraper("fs-precor",    FS, collections=["precor-strength-equipment"], brands=["Precor"]),
     ShopifyScraper("fs-cybex",     FS, collections=["cybex-strength-equipment"],  brands=["Cybex"]),
+    # WooCommerce used/remanufactured marketplaces — ~30 brands each, the richest source.
+    # Empire has a clean 'Strength Machines' category; Primo's brand lives in categories.
+    WooCommerceScraper("empire", "https://www.fitnessequipmentempire.com",
+                       categories=["Strength Machines"]),
+    WooCommerceScraper("primo", "https://www.primofitnessusa.com"),
 ]
 
 

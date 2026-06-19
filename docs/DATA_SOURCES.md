@@ -48,12 +48,30 @@ Each product gives `vendor` (brand), `title` (brand + model), `product_type` + `
 (mechanism + body region), and image URLs. `shop.lifefitness.com`'s robots.txt disallows
 `/cart`, `/checkout` and sorted/filtered collection URLs but **not** `/collections/` or `*.json`.
 
-Implemented in `catalog/scrapers/shopify.py`; run via `catalog/build_catalog.py`. Two stores —
-the brand's own `shop.lifefitness.com` and the multi-brand reseller `fitnesssuperstore.com` —
-yield **366 machines across 6 brands** (Cybex, Hammer Strength, Life Fitness, Technogym, Precor,
-Matrix), 84% auto-categorized. Reseller listings carry cardio + `(Remanufactured)` noise, handled
-by `machines_only` (substring strength/cardio signals) and `clean_model()`. Add a brand by
-appending one `ShopifyScraper(...)` line to `SOURCES`.
+## Chosen method (implemented) — WooCommerce Store API
+
+The used/remanufactured marketplaces — the richest source (~30 brands each) — run on
+**WooCommerce**, which exposes a public Store API:
+
+```
+https://<store>/wp-json/wc/store/v1/products?per_page=100&page=N
+https://<store>/wp-json/wc/store/v1/products/categories
+```
+
+Each product gives `name` (brand + model), `categories` and `images`. There's no clean vendor
+field, so the brand is recovered by `brands.extract_brand()` (a known-brand alias map; rows with
+no known brand are skipped rather than mislabelled), and `brands.clean_model()` strips the heavy
+marketing/condition noise. Implemented in `catalog/scrapers/woocommerce.py`. Note: some sites
+(`progymsupply.com`) sit behind Cloudflare and return 403.
+
+## Combined result (implemented)
+
+Run via `catalog/build_catalog.py` across four stores — Shopify (`shop.lifefitness.com`,
+`fitnesssuperstore.com`) + WooCommerce (`fitnessequipmentempire.com`, `primofitnessusa.com`) —
+yielding **~1,100 machines across ~33 brands** (Cybex, Life Fitness, Hammer Strength, Precor,
+Nautilus, Technogym, Hoist, Matrix, Star Trac, Muscle D, Atlantis, FreeMotion, Keiser, MedX, …),
+89% auto-categorized. Add a source by appending one `ShopifyScraper(...)` / `WooCommerceScraper(...)`
+line to `SOURCES`.
 
 ## Practical first step (done)
 

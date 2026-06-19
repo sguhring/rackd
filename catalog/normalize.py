@@ -12,21 +12,9 @@ from __future__ import annotations
 
 from sqlmodel import Session, select
 
+from brands import canon_brand  # noqa: F401  (re-exported for callers)
 from categorize import categorize
 from scrapers.base import RawMachine  # noqa: E402
-
-BRAND_CANON = {
-    "hammer strength": "Hammer Strength",
-    "life fitness": "Life Fitness",
-    "technogym": "Technogym",
-    "cybex": "Cybex",
-    "matrix": "Matrix",
-    "precor": "Precor",
-}
-
-
-def canon_brand(raw: str) -> str:
-    return BRAND_CANON.get(raw.strip().lower(), raw.strip())
 
 
 def upsert(session: Session, records: list[RawMachine]) -> int:
