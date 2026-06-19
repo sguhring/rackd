@@ -501,7 +501,10 @@
           </div>
 
           <div class="cta" id="next-cta" style="display:none;padding-top:0;">
-            <button class="next-btn" id="next-btn" onclick="nextExercise()">next exercise →</button>
+            <div style="display:flex;gap:10px;">
+              <button class="next-btn" id="prev-btn" onclick="prevExercise()" style="flex:0 0 auto;width:auto;background:#2C2C2E;color:#fff;display:none;">← prev</button>
+              <button class="next-btn" id="next-btn" onclick="nextExercise()" style="flex:1;width:auto;">next exercise →</button>
+            </div>
           </div>
         </div>
       </section>
@@ -1020,6 +1023,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       document.getElementById('sb-name').textContent=st.session.name;
       document.getElementById('sb-prog').textContent=(st.session.idx+1)+' / '+st.session.items.length;
       document.getElementById('next-btn').textContent= st.session.idx<st.session.items.length-1 ? 'next exercise →' : 'finish workout';
+      const pb=document.getElementById('prev-btn'); if(pb) pb.style.display = st.session.idx>0 ? '' : 'none';
       document.getElementById('back-gym').textContent=st.session.name;
     } else { bar.style.display='none'; nc.style.display='none'; }
   }
@@ -1027,6 +1031,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(!st.session)return;
     if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
     else { const n=st.session.name; st.session=null; renderWorkouts(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged'); }
+  }
+  function prevExercise(){
+    if(!st.session||st.session.idx<=0)return;
+    st.session.idx--; loadLog(st.session.items[st.session.idx]);
   }
   function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
   function bumpR(d){st.r=Math.max(1,Math.min(30,st.r+d));renderR();}
