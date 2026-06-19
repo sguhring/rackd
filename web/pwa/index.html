@@ -308,9 +308,9 @@
       <!-- ===== catalog browse: movement → brand → model ===== -->
       <section class="screen" id="s-cat-move">
         <div class="navbar">
-          <button class="navback" onclick="goGym()">
+          <button class="navback" onclick="catHome()">
             <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
-            home
+            <span id="cat-back-label">home</span>
           </button>
         </div>
         <div class="largetitle">
@@ -589,7 +589,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
   function chev(){return '<span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>';}
 
-  async function openCatalog(){
+  async function openCatalog(add){
+    cat.add=!!add;   // add-mode: tapping a model adds it to the custom workout draft
+    document.getElementById('cat-back-label').textContent=cat.add?'workout':'home';
     document.getElementById('catmove').innerHTML='<div class="empty">loading…</div>';
     show('s-cat-move');
     let list=[];
@@ -643,11 +645,19 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function catPickModel(i){
     const m=cat.models[i]; if(!m)return;
-    st.gym=null; st.session=null; st.catalog=true;
-    loadLog({brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
-             group:cat.group, muscle:m.muscle_label||'', img:m.image_url||'',
-             lastW:0,lastR:0,lastS:0,date:''});
+    const item={brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
+                group:cat.group, muscle:m.muscle_label||'', img:m.image_url||'',
+                lastW:0,lastR:0,lastS:0,date:''};
+    if(cat.add){                                   // adding to a custom workout
+      if(!draft.items.some(d=>d.name===item.name&&d.brand===item.brand)) draft.items.push(item);
+      show('s-custom'); renderDraft();
+      if(document.getElementById('picker').style.display!=='none') renderPicker();
+      return;
+    }
+    st.gym=null; st.session=null; st.catalog=true; // browsing → log directly
+    loadLog(item);
   }
+  function catHome(){ if(cat.add) show('s-custom'); else goGym(); }
 
   function buildSegment(){
     const seg=document.getElementById('segment');
@@ -752,17 +762,23 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function renderPicker(){
     const avail=pool().filter(m=>!draft.items.some(d=>d.name===m.name));
-    let html='';
+    // browse the whole catalog (movement \u2192 brand \u2192 model) from inside the builder
+    let html='<div class="sechead">from the catalog</div><div class="group">'
+      +`<div class="row" onclick="openCatalog(true)">
+          <div class="mbadge" style="background:#2C2C2E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+          <div class="m-main"><div class="m-name">browse the full catalog</div><div class="m-muscle">any movement \u00b7 brand \u00b7 model</div></div>
+          <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+        </div></div>`;
     ['push','pull','legs'].forEach(gr=>{
       const items=avail.filter(m=>m.group===gr); if(!items.length)return;
-      html+=`<div class="sechead">${gr}</div><div class="group">`+items.map(m=>{const b=brandStyle(m.brand);return `
-        <div class="row" onclick="addEx('${m.name}')">
+      html+=`<div class="sechead">${gr} \u00b7 quick add</div><div class="group">`+items.map(m=>{const b=brandStyle(m.brand);return `
+        <div class="row" onclick="addEx('${esc(m.name)}')">
           <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
           <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
           <span class="chev plus">+</span>
         </div>`;}).join('')+`</div>`;
     });
-    document.getElementById('picker').innerHTML=html||'<div class="empty-draft">everything\u2019s added.</div>';
+    document.getElementById('picker').innerHTML=html;
   }
   function addEx(name){ const m=pool().find(x=>x.name===name); if(m){draft.items.push(m); renderDraft(); renderPicker();} }
   function removeEx(i){ draft.items.splice(i,1); renderDraft(); if(document.getElementById('picker').style.display!=='none')renderPicker(); }
