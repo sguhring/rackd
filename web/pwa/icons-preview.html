@@ -34,7 +34,7 @@
 
   <script src="icons.js"></script>
   <script>
-    function svg(inner,size){return `<svg width="${size}" height="${size}" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;}
+    function svg(inner,size){return `<svg width="${size}" height="${size}" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="${window.ICON_STROKE||3}" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;}
     function render(){
       document.getElementById('grid').innerHTML=Object.keys(ICONS).map(k=>`
         <div class="card">

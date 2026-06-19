@@ -1,148 +1,158 @@
 /* rackd machine icons — our own line illustrations (no logos, no brand likeness).
-   Side-view gym-machine silhouettes. viewBox 0 0 64 64, stroke = currentColor.
-   Pads / seats / weight-stacks use a light currentColor fill for richer reading.
-   Iterate freely: edit a path here and it updates everywhere + in icons-preview.html. */
+   Style: a simple person doing the movement + the machine's signature element
+   (the way the instruction placard on the machine shows it) so a user can match the
+   icon to the machine in front of them. viewBox 0 0 64 64, stroke = currentColor.
+   Heads are filled; seats/pads/weight-stacks use a light currentColor fill.
+   Iterate: edit a path → updates the app + icons-preview.html. */
 window.ICON_VIEWBOX = '0 0 64 64';
+window.ICON_STROKE = 3;
+
+const HEAD = (x, y) => `<circle cx="${x}" cy="${y}" r="4.2" fill="currentColor" stroke="none"/>`;
+const PAD  = (x, y, w, h, r=2) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="currentColor" opacity=".25" stroke="none"/>`;
+const STACK = (x, y) => `${PAD(x,y,10,20,1.5)}<path d="M${x} ${y+5}h10M${x} ${y+10}h10M${x} ${y+15}h10" opacity=".55"/>`;
+
 window.ICONS = {
 
-  // seated chest press — seat + backrest, forward press arm + handle, rear weight stack
+  // chest press — upright seated figure pressing a handle forward; rear stack
   press: `
-    <path d="M6 55h52"/>
-    <path d="M50 55V14"/>
-    <rect x="43" y="17" width="11" height="24" rx="1.5" fill="currentColor" opacity=".22"/>
-    <path d="M43 23h11M43 29h11M43 35h11"/>
-    <path d="M21 55V41"/>
-    <rect x="14" y="37" width="14" height="6" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M28 43V21"/>
-    <rect x="28" y="21" width="6" height="20" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M34 31h11"/>
-    <circle cx="35" cy="31" r="2.8"/>
+    <path d="M5 55h54"/>
+    <path d="M20 51V30" opacity=".45"/>
+    ${PAD(14,41,14,4)}
+    ${HEAD(24,20)}
+    <path d="M24 24v15"/>
+    <path d="M24 28h15"/>
+    <path d="M24 39l10 2v8"/>
+    <path d="M41 22v18"/>
+    ${STACK(47,24)}
   `,
 
-  // shoulder press — near-vertical backrest, arms pressing up, rear stack
+  // shoulder press — seated figure pressing handles overhead
   shoulder: `
-    <path d="M6 55h52"/>
-    <path d="M50 55V14"/>
-    <rect x="43" y="17" width="11" height="24" rx="1.5" fill="currentColor" opacity=".22"/>
-    <path d="M43 23h11M43 29h11M43 35h11"/>
-    <path d="M20 55V43"/>
-    <rect x="14" y="39" width="13" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M29 43V19"/>
-    <rect x="29" y="19" width="6" height="24" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M35 25l9-8M35 31l9-8"/>
-    <circle cx="44" cy="16" r="2.8"/>
-  `,
-
-  // lat pulldown — tall frame, top pulley + bar on a cable, seat + thigh pad, stack
-  pulldown: `
-    <path d="M6 55h52"/>
-    <path d="M16 55V11h32"/>
-    <circle cx="44" cy="13" r="2.6"/>
-    <path d="M44 16v9"/>
-    <path d="M35 25h18"/>
-    <path d="M40 25v4M48 25v4"/>
-    <rect x="12" y="16" width="9" height="22" rx="1.5" fill="currentColor" opacity=".22"/>
-    <path d="M12 22h9M12 28h9M12 34h9"/>
-    <path d="M26 55V45"/>
-    <rect x="22" y="41" width="15" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <rect x="25" y="33" width="11" height="4" rx="2" fill="currentColor" opacity=".22"/>
-  `,
-
-  // seated cable row — chest pad, handle pulled back, cable to front stack, footplate
-  row: `
-    <path d="M6 55h52"/>
-    <path d="M42 55V45"/>
-    <rect x="36" y="41" width="14" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M40 41V26"/>
-    <rect x="37" y="24" width="5" height="16" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M37 31H18"/>
-    <circle cx="17" cy="31" r="2.8"/>
-    <path d="M17 31h-5"/>
-    <rect x="7" y="28" width="7" height="20" rx="1.5" fill="currentColor" opacity=".22"/>
-    <path d="M7 34h7M7 40h7"/>
-  `,
-
-  // 45° leg press — reclined seat lower-left, angled sled rail, footplate + plate upper-right
-  legpress: `
-    <path d="M6 56h40"/>
-    <path d="M13 56V44"/>
-    <rect x="8" y="46" width="15" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M21 50l5-6"/>
-    <rect x="21" y="36" width="6" height="12" rx="2.5" transform="rotate(38 24 42)" fill="currentColor" opacity=".22"/>
-    <path d="M24 44l24-18"/>
-    <rect x="42" y="16" width="13" height="10" rx="1.5" fill="currentColor" opacity=".22"/>
-    <path d="M48 26V40"/>
-  `,
-
-  // leg extension / curl — seat + backrest, pivoting lever with ankle pad
-  leg: `
-    <path d="M6 55h52"/>
-    <path d="M20 55V41"/>
-    <rect x="13" y="37" width="16" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M29 41V22"/>
-    <rect x="29" y="22" width="6" height="16" rx="2.5" fill="currentColor" opacity=".22"/>
-    <circle cx="24" cy="41" r="2.4"/>
-    <path d="M24 41l14 8"/>
-    <rect x="36" y="46" width="10" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-  `,
-
-  // preacher / arm curl — angled arm pad over a seat, weighted bar at the bottom
-  curl: `
-    <path d="M6 55h52"/>
-    <path d="M22 55V44"/>
-    <rect x="15" y="40" width="14" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M28 42l14-12"/>
-    <rect x="30" y="28" width="14" height="6" rx="3" transform="rotate(-40 37 31)" fill="currentColor" opacity=".22"/>
-    <path d="M30 50h16"/>
-    <circle cx="30" cy="50" r="3.2" fill="currentColor" opacity=".22"/>
-    <circle cx="46" cy="50" r="3.2" fill="currentColor" opacity=".22"/>
-  `,
-
-  // pec deck fly — central backrest, two arms swinging forward to handles
-  fly: `
-    <path d="M6 55h52"/>
-    <path d="M32 55V42"/>
-    <rect x="25" y="38" width="14" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M32 38V20"/>
-    <rect x="29" y="18" width="6" height="20" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M32 24L20 31M32 24l12 7"/>
-    <circle cx="19" cy="31" r="2.8"/>
-    <circle cx="45" cy="31" r="2.8"/>
-  `,
-
-  // ab crunch machine — seat + back, chest pad and top handles
-  ab: `
-    <path d="M6 55h52"/>
-    <path d="M22 55V42"/>
-    <rect x="15" y="38" width="15" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M30 42V16"/>
+    <path d="M5 55h54"/>
+    <path d="M22 51V30" opacity=".45"/>
+    ${PAD(16,41,13,4)}
+    ${HEAD(26,28)}
+    <path d="M26 32v8"/>
+    <path d="M26 33l10-9"/>
+    <path d="M26 40l9 3"/>
+    <path d="M36 22v-6"/>
     <path d="M30 18h12"/>
-    <circle cx="43" cy="18" r="2.6"/>
-    <rect x="30" y="28" width="6" height="12" rx="2.5" fill="currentColor" opacity=".22"/>
+    ${STACK(47,24)}
   `,
 
-  // standing calf raise — uprights with shoulder pads, raised foot platform
+  // lat pulldown — tall frame, bar on a cable up top, seated figure reaching up
+  pulldown: `
+    <path d="M5 55h54"/>
+    <path d="M14 55V11h34"/>
+    <path d="M40 11v6"/>
+    <path d="M31 17h18"/>
+    ${PAD(12,18,9,18,1.5)}
+    <path d="M12 24h9M12 30h9" opacity=".55"/>
+    ${PAD(24,42,15,4)}
+    <path d="M33 42V32" opacity=".45"/>
+    ${HEAD(33,28)}
+    <path d="M33 32l7-13"/>
+    <path d="M33 32l-1 9"/>
+  `,
+
+  // seated cable row — figure pulling a handle back; cable to a front stack
+  row: `
+    <path d="M5 55h54"/>
+    ${PAD(34,42,15,4)}
+    <path d="M43 42V31" opacity=".45"/>
+    ${HEAD(43,27)}
+    <path d="M43 31v8"/>
+    <path d="M43 33L22 31"/>
+    <path d="M43 39l-6 2"/>
+    <path d="M22 31h-7"/>
+    ${STACK(7,28)}
+  `,
+
+  // 45° leg press — reclined figure at lower-left pressing legs up the sled
+  legpress: `
+    <path d="M5 56h36"/>
+    ${PAD(8,44,14,4)}
+    ${HEAD(15,38)}
+    <path d="M19 41l5 1"/>
+    <path d="M24 42l9-7"/>
+    <path d="M33 35l8-6"/>
+    <path d="M30 48l22-17"/>
+    ${PAD(44,18,12,9,1.5)}
+  `,
+
+  // leg extension — seated figure kicking lower legs up over the pad
+  leg: `
+    <path d="M5 55h54"/>
+    <path d="M22 51V31" opacity=".45"/>
+    ${PAD(16,41,13,4)}
+    ${HEAD(26,21)}
+    <path d="M26 25v14"/>
+    <path d="M26 39l10-2"/>
+    <path d="M36 37l6-9"/>
+    ${PAD(40,24,7,5,2.5)}
+    <path d="M26 28l9 2"/>
+  `,
+
+  // seated arm curl — upper arm down, forearm curling a weight up
+  curl: `
+    <path d="M5 55h54"/>
+    <path d="M22 51V31" opacity=".45"/>
+    ${PAD(16,41,13,4)}
+    ${HEAD(25,20)}
+    <path d="M25 24v15"/>
+    <path d="M25 28l6 8"/>
+    <path d="M31 36l7-10"/>
+    <circle cx="39" cy="24" r="3.2" fill="currentColor" opacity=".4" stroke="none"/>
+    <path d="M25 39l9 2v8"/>
+  `,
+
+  // pec deck fly — seated figure, two big arms swinging in to the front
+  fly: `
+    <path d="M5 55h54"/>
+    ${PAD(26,42,12,4)}
+    <path d="M32 42V24" opacity=".45"/>
+    ${HEAD(32,20)}
+    <path d="M32 26l-12 4"/>
+    <path d="M32 26l12 4"/>
+    <path d="M18 30V44"/>
+    <path d="M46 30V44"/>
+    ${PAD(15,28,4,16,2)}
+    ${PAD(45,28,4,16,2)}
+  `,
+
+  // ab crunch — seated figure curling forward against a chest pad
+  ab: `
+    <path d="M5 55h54"/>
+    ${PAD(18,42,14,4)}
+    ${HEAD(24,22)}
+    <path d="M24 26c2 6 5 9 12 10"/>
+    <path d="M24 38l10 3"/>
+    <path d="M38 18v18"/>
+    ${PAD(34,20,4,14,2)}
+  `,
+
+  // standing calf raise — figure under shoulder pads, on a raised platform
   calf: `
-    <path d="M8 55h48"/>
-    <path d="M22 55V20M34 55V20"/>
-    <rect x="17" y="16" width="22" height="6" rx="3" fill="currentColor" opacity=".22"/>
-    <rect x="20" y="46" width="16" height="5" rx="2" fill="currentColor" opacity=".22"/>
-    <path d="M44 55V18"/>
-    <rect x="40" y="22" width="9" height="20" rx="1.5" fill="currentColor" opacity=".22"/>
-    <path d="M40 28h9M40 34h9"/>
+    <path d="M5 55h54"/>
+    ${PAD(20,46,20,4)}
+    ${HEAD(30,16)}
+    <path d="M30 20v18"/>
+    <path d="M30 38l-4 8"/>
+    <path d="M30 38l4 8"/>
+    ${PAD(20,12,20,5,2.5)}
+    <path d="M24 17v8M36 17v8" opacity=".5"/>
   `,
 
-  // generic selectorized machine — frame, seat, cable, weight stack
+  // generic selectorized machine — seated figure, handle, weight stack
   machine: `
-    <path d="M6 55h52"/>
-    <path d="M48 55V14"/>
-    <rect x="41" y="17" width="11" height="24" rx="1.5" fill="currentColor" opacity=".22"/>
-    <path d="M41 23h11M41 29h11M41 35h11"/>
-    <path d="M46 17v-4"/>
-    <path d="M20 55V42"/>
-    <rect x="13" y="38" width="14" height="5" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M27 42V20"/>
-    <rect x="27" y="20" width="6" height="20" rx="2.5" fill="currentColor" opacity=".22"/>
-    <path d="M33 28h8"/>
+    <path d="M5 55h54"/>
+    <path d="M21 51V31" opacity=".45"/>
+    ${PAD(15,41,13,4)}
+    ${HEAD(25,21)}
+    <path d="M25 25v14"/>
+    <path d="M25 30l13 1"/>
+    <path d="M25 39l10 3"/>
+    <path d="M40 22v20"/>
+    ${STACK(46,22)}
   `,
 };

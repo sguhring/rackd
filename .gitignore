@@ -25,3 +25,7 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# dev render artifacts
+web/pwa/_*.png
+web/pwa/_*.js

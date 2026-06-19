@@ -599,7 +599,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       return `<img class="mthumb" src="${image_url}" loading="lazy" onerror="this.style.display='none'">`;
     if(IMAGES_MODE!=='badge'){
       const key=iconKeyFor(name,group);
-      if(ICONS[key]) return `<div class="micon"><svg width="30" height="30" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg></div>`;
+      if(ICONS[key]) return `<div class="micon"><svg width="30" height="30" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="${window.ICON_STROKE||3}" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg></div>`;
     }
     return badgeHTML(brand);
   }
