@@ -10,6 +10,7 @@ from decimal import Decimal
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sqlalchemy import or_
 from sqlmodel import Session, select
 
 from database import get_session, init_db
@@ -82,6 +83,16 @@ class CatalogMachineOut(BaseModel):
     image_url: str | None
 
 
+class CatalogSearchOut(BaseModel):
+    machine_id: int
+    brand: str
+    model: str
+    machine_type: str | None
+    muscle_label: str | None
+    muscle_group: str | None
+    image_url: str | None
+
+
 # ── endpoints ─────────────────────────────────────────────────────────────────
 
 @app.get("/catalog/exercises", response_model=list[CatalogExerciseOut])
@@ -135,6 +146,27 @@ def catalog_machines(exercise: str, brand: str | None = None,
             machine_type=m.machine_type, muscle_label=m.muscle_label,
             image_url=m.image_url))
     return out
+
+
+@app.get("/catalog/search", response_model=list[CatalogSearchOut])
+def catalog_search(q: str, limit: int = 30, session: Session = Depends(get_session)):
+    """Free-text search across the whole catalog by model, brand or movement name."""
+    q = q.strip()
+    if len(q) < 2:
+        return []
+    query = (select(Machine, Brand, Exercise)
+             .where(Brand.id == Machine.brand_id)
+             .join(Exercise, isouter=True))
+    # every word must match somewhere (model / brand / movement) — so "nautilus row" works
+    for word in q.split():
+        like = f"%{word}%"
+        query = query.where(or_(Machine.model.ilike(like), Brand.name.ilike(like),
+                                Exercise.name.ilike(like)))
+    rows = session.exec(query.order_by(Brand.name, Machine.model).limit(limit)).all()
+    return [CatalogSearchOut(
+        machine_id=m.id, brand=b.name, model=m.model, machine_type=m.machine_type,
+        muscle_label=m.muscle_label, muscle_group=ex.muscle_group if ex else None,
+        image_url=m.image_url) for m, b, ex in rows]
 
 
 @app.get("/gyms", response_model=list[GymOut])

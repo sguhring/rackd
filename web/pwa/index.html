@@ -278,6 +278,8 @@
               <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
             </div>
           </div>
+          <div class="sechead" id="work-head" style="display:none;">your workouts</div>
+          <div id="worklist"></div>
           <div class="sechead">your gyms</div>
           <div id="gymlist"></div>
         </div>
@@ -506,11 +508,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // ===== on-device persistence (localStorage) =====
   const LS='rackd.v1';
-  function loadDB(){try{return JSON.parse(localStorage.getItem(LS))||{sets:[]};}catch(e){return{sets:[]};}}
+  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];return d;}catch(e){return{sets:[],workouts:[]};}}
   function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  function keyFor(m){const scope=st.catalog?'cat':(st.session?'custom':(st.gym?('g'+st.gym.id):'custom'));return scope+'|'+m.brand+'|'+m.name;}
+  function keyFor(m){const scope=st.catalog?'cat':(st.session?(st.session.wid?('w'+st.session.wid):'custom'):(st.gym?('g'+st.gym.id):'custom'));return scope+'|'+m.brand+'|'+m.name;}
   function setsFor(k){return DB.sets.filter(s=>s.key===k);}
   function lastSession(k,m){
     const all=setsFor(k);
@@ -737,7 +739,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     return out;
   }
   function openCustom(){
-    st.catalog=false;
+    st.catalog=false; catQuery=''; catResults=[];
     draft={name:'push day',items:[]};
     document.getElementById('wname').value='push day';
     document.getElementById('picker').style.display='none';
@@ -761,10 +763,46 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(p.style.display==='none'){ renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
     else { p.style.display='none'; btn.textContent='+ add exercise'; }
   }
+  // ---- catalog search (inside the builder) ----
+  let catQuery='', catResults=[], catSearchT=null;
+  function onCatSearch(q){
+    catQuery=q; clearTimeout(catSearchT);
+    if(q.trim().length<2){ catResults=[]; renderCatResults(); return; }
+    catSearchT=setTimeout(async()=>{
+      let list=[];
+      try{const r=await fetch(`${API}/catalog/search?q=${encodeURIComponent(q.trim())}`); if(r.ok) list=await r.json();}catch(e){}
+      catResults=list; renderCatResults();
+    },220);
+  }
+  function renderCatResults(){
+    const el=document.getElementById('cat-results'); if(!el)return;
+    if(catQuery.trim().length<2){ el.innerHTML=''; return; }
+    if(!catResults.length){ el.innerHTML='<div class="empty-draft">no matches.</div>'; return; }
+    el.innerHTML='<div class="group">'+catResults.map((m,i)=>{
+      const s=brandStyle((m.brand||'').toLowerCase());
+      const added=draft.items.some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
+      return `<div class="row" onclick="addCatalogResult(${i})">
+        ${m.image_url?`<img class="mthumb" src="${m.image_url}" loading="lazy" onerror="this.outerHTML='<div class=\\'mbadge\\' style=\\'background:${s.color}\\'>${s.abbr}</div>'">`:`<div class="mbadge" style="background:${s.color}">${s.abbr}</div>`}
+        <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
+        <span class="chev plus">${added?'\u2713':'+'}</span>
+      </div>`;}).join('')+'</div>';
+  }
+  function addCatalogResult(i){
+    const m=catResults[i]; if(!m)return;
+    const item={brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
+                group:m.muscle_group||'core', muscle:m.muscle_label||'', img:m.image_url||'',
+                lastW:0,lastR:0,lastS:0,date:''};
+    if(!draft.items.some(d=>d.name===item.name&&d.brand===item.brand)) draft.items.push(item);
+    renderDraft(); renderCatResults();   // not renderPicker \u2192 keeps the search box focused
+  }
+
   function renderPicker(){
     const avail=pool().filter(m=>!draft.items.some(d=>d.name===m.name));
-    // browse the whole catalog (movement \u2192 brand \u2192 model) from inside the builder
-    let html='<div class="sechead">from the catalog</div><div class="group">'
+    let html='<div class="sechead">search</div><div class="group" style="padding:7px 12px;">'
+      +`<input id="cat-search" class="wname-input" placeholder="search machine, brand or movement\u2026" value="${(catQuery||'').replace(/"/g,'&quot;')}" oninput="onCatSearch(this.value)" autocomplete="off">`
+      +`</div><div id="cat-results"></div>`;
+    // browse the whole catalog (movement \u2192 brand \u2192 model)
+    html+='<div class="sechead">from the catalog</div><div class="group">'
       +`<div class="row" onclick="openCatalog(true)">
           <div class="mbadge" style="background:#2C2C2E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
           <div class="m-main"><div class="m-name">browse the full catalog</div><div class="m-muscle">any movement \u00b7 brand \u00b7 model</div></div>
@@ -780,15 +818,52 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
         </div>`;}).join('')+`</div>`;
     });
     document.getElementById('picker').innerHTML=html;
+    renderCatResults();
+    if(catQuery){const inp=document.getElementById('cat-search'); if(inp){inp.focus(); inp.setSelectionRange(inp.value.length,inp.value.length);}}
   }
   function addEx(name){ const m=pool().find(x=>x.name===name); if(m){draft.items.push(m); renderDraft(); renderPicker();} }
   function removeEx(i){ draft.items.splice(i,1); renderDraft(); if(document.getElementById('picker').style.display!=='none')renderPicker(); }
   function startCustom(){
     if(!draft.items.length)return;
     const nm=document.getElementById('wname').value.trim()||'workout';
-    st.session={name:nm,items:draft.items.slice(),idx:0};
+    const wid=saveWorkout(nm, draft.items.slice());   // persist so it shows on home
+    st.gym=null; st.catalog=false;
+    st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid};
     loadLog(st.session.items[0]);
   }
+  // ---- saved custom workouts (on-device) ----
+  function saveWorkout(name,items){
+    const id='w'+Date.now().toString(36);
+    DB.workouts.push({id,name,items,created:Date.now()});
+    saveDB();
+    return id;
+  }
+  function startWorkout(wid){
+    const w=DB.workouts.find(x=>x.id===wid); if(!w||!w.items.length)return;
+    st.gym=null; st.catalog=false;
+    st.session={name:w.name,items:w.items.slice(),idx:0,wid:w.id};
+    loadLog(st.session.items[0]);
+  }
+  function deleteWorkout(wid,ev){
+    if(ev)ev.stopPropagation();
+    DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderWorkouts();
+  }
+  function renderWorkouts(){
+    const head=document.getElementById('work-head'), list=document.getElementById('worklist');
+    if(!head||!list)return;
+    if(!DB.workouts.length){ head.style.display='none'; list.innerHTML=''; return; }
+    head.style.display='';
+    list.innerHTML='<div class="group">'+DB.workouts.map(w=>{
+      const chips=[...new Set(w.items.map(it=>it.brand))].slice(0,3)
+        .map(b=>{const s=brandStyle(b);return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');
+      return `<div class="row" onclick="startWorkout('${w.id}')">
+        <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg></div>
+        <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}</div></div>
+        <span class="brandchips">${chips}</span>
+        <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
+      </div>`;}).join('')+'</div>';
+  }
+  function renderHome(){ renderGyms(); renderWorkouts(); }
   function updateSessionBar(){
     const bar=document.getElementById('sessbar'), nc=document.getElementById('next-cta');
     if(st.session){
@@ -802,7 +877,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function nextExercise(){
     if(!st.session)return;
     if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
-    else { const n=st.session.name; st.session=null; renderGyms(); show('s-gym'); toastMsg(false,'workout saved','“'+n+'” logged'); }
+    else { const n=st.session.name; st.session=null; renderHome(); show('s-gym'); toastMsg(false,'workout saved','“'+n+'” logged'); }
   }
   function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
   function bumpR(d){st.r=Math.max(1,Math.min(30,st.r+d));renderR();}
@@ -875,7 +950,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       }
     }catch(e){ /* offline: keep the bundled sample gyms */ }
   }
-  renderGyms();
+  renderHome();
   loadGymsFromAPI();
 </script>
 
