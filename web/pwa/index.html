@@ -570,7 +570,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // 'icon' = our own stylized line icons (own IP, no logos — safe to commercialize);
   // 'photo' = the scraped product photos (copyright risk — dev only);
   // 'badge' = brand initials only.
-  const IMAGES_MODE='icon';    // 'icon' = our own line icons | 'photo' = edited cutouts | 'badge'
+  const IMAGES_MODE='original'; // 'original' = real product photos as found | 'photo' = cutouts | 'icon' | 'badge'
   // ICONS + ICON_VIEWBOX are defined in icons.js (loaded before this script).
   const GROUP_ICON={push:'press', pull:'pulldown', legs:'legpress', core:'ab'};
   // model-name keyword -> icon key (most specific first)
@@ -604,8 +604,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const key=iconKeyFor(name,group);
     const icon=ICONS[key]?`<svg width="30" height="30" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="${window.ICON_STROKE||3}" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg>`:'';
     let over='';
-    if(IMAGES_MODE==='photo' && image_url){
-      const src=image_url.indexOf('img/')===0?image_url:`img/${imgHash(image_url)}.png`;
+    if(image_url && (IMAGES_MODE==='photo' || IMAGES_MODE==='original')){
+      // 'original' = the real product photo as found; 'photo' = our local cutout
+      const src = IMAGES_MODE==='original'
+        ? image_url
+        : (image_url.indexOf('img/')===0 ? image_url : `img/${imgHash(image_url)}.png`);
       over=`<img class="mthumb-over" src="${src}" loading="lazy" onerror="this.remove()">`;
     }
     return `<div class="micon">${icon}${over||(icon?'':badgeHTML(brand))}</div>`;
