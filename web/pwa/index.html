@@ -321,6 +321,14 @@
               </div>
               <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
             </div>
+            <div class="row" onclick="goRoutines()">
+              <div class="mbadge" style="background:#7B5EA7"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 5v14h16V5M9 5v14M15 5v14"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">preset routines</div>
+                <div class="m-muscle">ppl · upper/lower · full body · bro split</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
             <div class="row" onclick="openCatalog()">
               <div class="mbadge" style="background:#2C2C2E"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
               <div class="m-main">
@@ -333,6 +341,21 @@
           <div class="sechead" id="work-head" style="display:none;">your workouts</div>
           <div id="worklist"></div>
         </div>
+      </section>
+
+      <!-- ===== screen: preset routines ===== -->
+      <section class="screen" id="s-routines">
+        <div class="navbar">
+          <button class="navback" onclick="goWorkouts()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            workouts
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>routines</h1>
+          <div class="sub">common training splits, built from the default exercise library. tap a day to start.</div>
+        </div>
+        <div class="scroll"><div id="routinelist"></div></div>
       </section>
 
       <!-- ===== screen 2: machines ===== -->
@@ -935,6 +958,54 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
         <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
       </div>`;}).join('')+'</div>';
   }
+  // ---- preset routines (common splits, built from the default exercise library) ----
+  const PRESETS=[
+    {id:'ppl', name:'push / pull / legs', short:'ppl', desc:'3-day · the most popular split', days:[
+      {name:'push', ex:[{q:'bench press',equip:'barbell'},{q:'incline press'},{q:'shoulder press',equip:'dumbbell'},{q:'lateral raise'},{q:'triceps pushdown'}]},
+      {name:'pull', ex:[{q:'barbell row'},{q:'lat pulldown'},{q:'seated cable row'},{q:'face pull'},{q:'bicep curl'}]},
+      {name:'legs', ex:[{q:'squat',equip:'barbell'},{q:'leg press'},{q:'leg curl'},{q:'leg extension'},{q:'calf raise'}]},
+    ]},
+    {id:'ul', name:'upper / lower', short:'u/l', desc:'4-day · strength + size', days:[
+      {name:'upper', ex:[{q:'bench press',equip:'barbell'},{q:'barbell row'},{q:'shoulder press'},{q:'lat pulldown'},{q:'bicep curl'},{q:'triceps pushdown'}]},
+      {name:'lower', ex:[{q:'squat',equip:'barbell'},{q:'romanian deadlift'},{q:'leg press'},{q:'leg curl'},{q:'calf raise'}]},
+    ]},
+    {id:'fb', name:'full body', short:'full body', desc:'3-day · time-efficient', days:[
+      {name:'full body', ex:[{q:'squat',equip:'barbell'},{q:'bench press',equip:'barbell'},{q:'barbell row'},{q:'shoulder press'},{q:'calf raise'}]},
+    ]},
+    {id:'bro', name:'bro split', short:'bro', desc:'5-day · one muscle group a day', days:[
+      {name:'chest', ex:[{q:'bench press',equip:'barbell'},{q:'incline press'},{q:'fly'},{q:'triceps pushdown'}]},
+      {name:'back', ex:[{q:'deadlift',equip:'barbell'},{q:'lat pulldown'},{q:'barbell row'},{q:'seated cable row'}]},
+      {name:'shoulders', ex:[{q:'shoulder press'},{q:'lateral raise'},{q:'reverse fly'},{q:'shrug'}]},
+      {name:'arms', ex:[{q:'barbell curl'},{q:'triceps pushdown'},{q:'hammer curl'},{q:'preacher curl'}]},
+      {name:'legs', ex:[{q:'squat',equip:'barbell'},{q:'leg press'},{q:'leg curl'},{q:'leg extension'},{q:'calf raise'}]},
+    ]},
+  ];
+  function resolveLib(q,equip){
+    const words=q.toLowerCase().split(/\s+/);
+    let cands=pool().filter(m=>{const n=(m.name||'').toLowerCase(); return words.every(w=>n.includes(w));});
+    if(equip){const e=cands.filter(m=>m.brand===equip); if(e.length)cands=e;}
+    return cands[0]||null;
+  }
+  function goRoutines(){ renderRoutines(); show('s-routines'); }
+  function renderRoutines(){
+    document.getElementById('routinelist').innerHTML=PRESETS.map(r=>
+      `<div class="sechead">${r.name} · ${r.desc}</div><div class="group">`+r.days.map((d,i)=>`
+        <div class="row" onclick="startRoutineDay('${r.id}',${i})">
+          <div class="mbadge" style="background:var(--accent);color:#00350F;font-weight:700;">${i+1}</div>
+          <div class="m-main"><div class="m-name">${d.name}</div><div class="m-muscle">${d.ex.length} exercises · from the library</div></div>
+          <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+        </div>`).join('')+`</div>`).join('');
+  }
+  function startRoutineDay(rid,di){
+    const r=PRESETS.find(x=>x.id===rid); if(!r)return; const day=r.days[di]; if(!day)return;
+    const items=day.ex.map(e=>resolveLib(e.q,e.equip)).filter(Boolean)
+      .map(m=>({brand:m.brand,name:m.name,group:m.group,muscle:m.muscle,img:m.img,lastW:0,lastR:0,lastS:0,date:''}));
+    if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
+    st.gym=null; st.catalog=false;
+    st.session={name:`${r.short} · ${day.name}`, items, idx:0, wid:`r-${rid}-${di}`};  // stable key → tracks history per routine day
+    loadLog(items[0]);
+  }
+
   function renderHome(){
     renderGyms(); renderWorkouts();
     const gs=document.getElementById('home-gym-sub');
