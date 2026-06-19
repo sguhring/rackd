@@ -115,6 +115,7 @@
     width:38px;height:38px;border-radius:9px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
     color:#fff;font-size:14px;font-weight:700;letter-spacing:.02em;
   }
+  .mthumb{width:38px;height:38px;border-radius:9px;flex:0 0 auto;object-fit:cover;background:#1c1c1e;}
   .m-main{flex:1;min-width:0;}
   .m-brand{font-size:11px;color:var(--label-3);font-weight:500;letter-spacing:.02em;}
   .m-name{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-top:1px;}
@@ -268,6 +269,14 @@
               </div>
               <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
             </div>
+            <div class="row" onclick="openCatalog()">
+              <div class="mbadge" style="background:#2C2C2E"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">browse the full catalog</div>
+                <div class="m-muscle">by movement → brand → model</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
           </div>
           <div class="sechead">your gyms</div>
           <div id="gymlist"></div>
@@ -294,6 +303,49 @@
         <div class="scroll">
           <div id="mlist"></div>
         </div>
+      </section>
+
+      <!-- ===== catalog browse: movement → brand → model ===== -->
+      <section class="screen" id="s-cat-move">
+        <div class="navbar">
+          <button class="navback" onclick="goGym()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>what movement?</h1>
+          <div class="sub">pick the exercise, then the brand, then the exact machine.</div>
+        </div>
+        <div class="scroll"><div id="catmove"></div></div>
+      </section>
+
+      <section class="screen" id="s-cat-brand">
+        <div class="navbar">
+          <button class="navback" onclick="show('s-cat-move')">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            movements
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="catb-title">brand</h1>
+          <div class="sub">who makes the one in front of you?</div>
+        </div>
+        <div class="scroll"><div id="catbrand"></div></div>
+      </section>
+
+      <section class="screen" id="s-cat-model">
+        <div class="navbar">
+          <button class="navback" onclick="show('s-cat-brand')">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            brands
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="catm-title">model</h1>
+          <div class="sub" id="catm-sub">pick the exact model.</div>
+        </div>
+        <div class="scroll"><div id="catmodel"></div></div>
       </section>
 
       <!-- ===== screen: custom workout builder ===== -->
@@ -458,7 +510,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  function keyFor(m){const scope=st.session?'custom':(st.gym?('g'+st.gym.id):'custom');return scope+'|'+m.brand+'|'+m.name;}
+  function keyFor(m){const scope=st.catalog?'cat':(st.session?'custom':(st.gym?('g'+st.gym.id):'custom'));return scope+'|'+m.brand+'|'+m.name;}
   function setsFor(k){return DB.sets.filter(s=>s.key===k);}
   function lastSession(k,m){
     const all=setsFor(k);
@@ -511,7 +563,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // ---- screen 2 ----
   async function openGym(id){
-    st.gym=GYMS.find(g=>g.id===id); st.filter='all';
+    st.gym=GYMS.find(g=>g.id===id); st.filter='all'; st.catalog=false;
     document.getElementById('m-title').textContent=st.gym.name;
     document.getElementById('m-sub').textContent='tap the exact machine in front of you.';
     document.getElementById('back-gym').textContent=st.gym.name.split(' ')[0];
@@ -532,6 +584,71 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
         lastS:m.last?m.last.sets:0, date:''}));
     }catch(e){ return []; }
   }
+  // ===== catalog browse: movement → brand → model (uses the live API) =====
+  let cat={move:null,moveName:null,group:null,brand:null,models:[]};
+  function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+  function chev(){return '<span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>';}
+
+  async function openCatalog(){
+    document.getElementById('catmove').innerHTML='<div class="empty">loading…</div>';
+    show('s-cat-move');
+    let list=[];
+    try{const r=await fetch(`${API}/catalog/exercises`); if(r.ok) list=await r.json();}catch(e){}
+    if(!list.length){document.getElementById('catmove').innerHTML='<div class="empty">catalog unavailable — start the API (uvicorn main:app).</div>';return;}
+    let html='';
+    ['push','pull','legs','core'].forEach(g=>{
+      const items=list.filter(e=>(e.muscle_group||'core')===g);
+      if(!items.length)return;
+      html+=`<div class="sechead">${g}</div><div class="group">`;
+      items.forEach(e=>{html+=`<div class="row" onclick="catPickMove('${esc(e.slug)}','${esc(e.name)}','${e.muscle_group||'core'}')">
+        <div class="m-main"><div class="m-name">${e.name.toLowerCase()}</div>
+          <div class="m-muscle">${e.machine_count} model${e.machine_count!==1?'s':''}</div></div>${chev()}</div>`;});
+      html+='</div>';
+    });
+    document.getElementById('catmove').innerHTML=html;
+  }
+  async function catPickMove(slug,name,group){
+    cat.move=slug; cat.moveName=name; cat.group=group;
+    document.getElementById('catb-title').textContent=name.toLowerCase();
+    document.getElementById('catbrand').innerHTML='<div class="empty">loading…</div>';
+    show('s-cat-brand');
+    let list=[];
+    try{const r=await fetch(`${API}/catalog/brands?exercise=${encodeURIComponent(slug)}`); if(r.ok) list=await r.json();}catch(e){}
+    let html='<div class="group">';
+    list.forEach(b=>{const s=brandStyle(b.brand.toLowerCase());
+      html+=`<div class="row" onclick="catPickBrand('${esc(b.brand)}')">
+        <div class="mbadge" style="background:${s.color}">${s.abbr}</div>
+        <div class="m-main"><div class="m-name">${b.brand.toLowerCase()}</div>
+          <div class="m-muscle">${b.count} model${b.count!==1?'s':''}</div></div>${chev()}</div>`;});
+    html+='</div>';
+    document.getElementById('catbrand').innerHTML=list.length?html:'<div class="empty">no brands.</div>';
+  }
+  async function catPickBrand(brand){
+    cat.brand=brand;
+    document.getElementById('catm-title').textContent=brand.toLowerCase();
+    document.getElementById('catm-sub').textContent=cat.moveName.toLowerCase()+' · pick the exact model.';
+    document.getElementById('catmodel').innerHTML='<div class="empty">loading…</div>';
+    show('s-cat-model');
+    let list=[];
+    try{const r=await fetch(`${API}/catalog/machines?exercise=${encodeURIComponent(cat.move)}&brand=${encodeURIComponent(brand)}`); if(r.ok) list=await r.json();}catch(e){}
+    cat.models=list;
+    const s=brandStyle(brand.toLowerCase());
+    let html='<div class="group">';
+    list.forEach((m,i)=>{html+=`<div class="row" onclick="catPickModel(${i})">
+      ${m.image_url?`<img class="mthumb" src="${m.image_url}" loading="lazy" onerror="this.outerHTML='<div class=\\'mbadge\\' style=\\'background:${s.color}\\'>${s.abbr}</div>'">`:`<div class="mbadge" style="background:${s.color}">${s.abbr}</div>`}
+      <div class="m-main"><div class="m-name">${m.model.toLowerCase()}</div>
+        <div class="m-muscle">${m.machine_type||''}${m.muscle_label?(' · '+m.muscle_label):''}</div></div>${chev()}</div>`;});
+    html+='</div>';
+    document.getElementById('catmodel').innerHTML=list.length?html:'<div class="empty">no models.</div>';
+  }
+  function catPickModel(i){
+    const m=cat.models[i]; if(!m)return;
+    st.gym=null; st.session=null; st.catalog=true;
+    loadLog({brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
+             group:cat.group, muscle:m.muscle_label||'', img:m.image_url||'',
+             lastW:0,lastR:0,lastS:0,date:''});
+  }
+
   function buildSegment(){
     const seg=document.getElementById('segment');
     seg.querySelectorAll('.seg').forEach(e=>e.remove());
@@ -577,12 +694,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // ---- screen 3 ----
   function openMachine(gid,name){
     st.gym=GYMS.find(x=>x.id===gid);
-    st.session=null;
+    st.session=null; st.catalog=false;
     loadLog(st.gym.machines.find(m=>m.name===name));
   }
   function loadLog(m){
     st.m=m; st.machineKey=keyFor(m); const ls=lastSession(st.machineKey,m); st.w=ls?ls.w:(m.lastW||60); st.r=ls?ls.r:(m.lastR||10);
-    const b=BRANDS[m.brand];
+    const b=brandStyle(m.brand);
     const badge=document.getElementById('log-badge'); badge.style.background=b.color; badge.textContent=b.abbr;
     document.getElementById('log-brand').textContent=m.brand;
     document.getElementById('log-name').textContent=m.name;
@@ -599,7 +716,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     renderW(); renderR(); renderSets();
     show('s-log');
   }
-  function backFromLog(){ if(st.session) show('s-custom'); else goMachines(); }
+  function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-custom'); else goMachines(); }
 
   // ---- custom workout builder ----
   function pool(){
@@ -609,6 +726,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     return out;
   }
   function openCustom(){
+    st.catalog=false;
     draft={name:'push day',items:[]};
     document.getElementById('wname').value='push day';
     document.getElementById('picker').style.display='none';
@@ -619,7 +737,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const dl=document.getElementById('draftlist');
     document.getElementById('ex-count').textContent=draft.items.length?('· '+draft.items.length):'';
     if(!draft.items.length){ dl.innerHTML='<div class="empty-draft">no exercises yet — add some below.</div>'; }
-    else dl.innerHTML=draft.items.map((m,i)=>{const b=BRANDS[m.brand];return `
+    else dl.innerHTML=draft.items.map((m,i)=>{const b=brandStyle(m.brand);return `
       <div class="row draftrow">
         <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
         <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
@@ -637,7 +755,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     let html='';
     ['push','pull','legs'].forEach(gr=>{
       const items=avail.filter(m=>m.group===gr); if(!items.length)return;
-      html+=`<div class="sechead">${gr}</div><div class="group">`+items.map(m=>{const b=BRANDS[m.brand];return `
+      html+=`<div class="sechead">${gr}</div><div class="group">`+items.map(m=>{const b=brandStyle(m.brand);return `
         <div class="row" onclick="addEx('${m.name}')">
           <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
           <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>

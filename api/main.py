@@ -61,7 +61,81 @@ class LogSetIn(BaseModel):
     reps: int
 
 
+class CatalogExerciseOut(BaseModel):
+    slug: str
+    name: str
+    muscle_group: str | None
+    machine_count: int
+
+
+class CatalogBrandOut(BaseModel):
+    brand: str
+    count: int
+
+
+class CatalogMachineOut(BaseModel):
+    machine_id: int
+    brand: str
+    model: str
+    machine_type: str | None
+    muscle_label: str | None
+    image_url: str | None
+
+
 # ── endpoints ─────────────────────────────────────────────────────────────────
+
+@app.get("/catalog/exercises", response_model=list[CatalogExerciseOut])
+def catalog_exercises(session: Session = Depends(get_session)):
+    """Every movement that has at least one machine, with how many models exist."""
+    out = []
+    for ex in session.exec(select(Exercise).order_by(Exercise.name)).all():
+        count = len(session.exec(
+            select(Machine).where(Machine.exercise_id == ex.id)
+        ).all())
+        if count:
+            out.append(CatalogExerciseOut(slug=ex.slug, name=ex.name,
+                                          muscle_group=ex.muscle_group, machine_count=count))
+    return out
+
+
+@app.get("/catalog/brands", response_model=list[CatalogBrandOut])
+def catalog_brands(exercise: str, session: Session = Depends(get_session)):
+    """The brands (publishers) that make a machine for this movement, most models first."""
+    ex = session.exec(select(Exercise).where(Exercise.slug == exercise)).first()
+    if not ex:
+        raise HTTPException(404, "exercise not found")
+    counts: dict[str, int] = {}
+    rows = session.exec(
+        select(Brand.name)
+        .where(Machine.exercise_id == ex.id)
+        .where(Brand.id == Machine.brand_id)
+    ).all()
+    for name in rows:
+        counts[name] = counts.get(name, 0) + 1
+    return [CatalogBrandOut(brand=b, count=c)
+            for b, c in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))]
+
+
+@app.get("/catalog/machines", response_model=list[CatalogMachineOut])
+def catalog_machines(exercise: str, brand: str | None = None,
+                     session: Session = Depends(get_session)):
+    """The specific models for a movement (optionally filtered to one brand)."""
+    ex = session.exec(select(Exercise).where(Exercise.slug == exercise)).first()
+    if not ex:
+        raise HTTPException(404, "exercise not found")
+    q = (select(Machine, Brand)
+         .where(Machine.exercise_id == ex.id)
+         .where(Brand.id == Machine.brand_id))
+    if brand:
+        q = q.where(Brand.name == brand)
+    out = []
+    for m, b in session.exec(q.order_by(Machine.model)).all():
+        out.append(CatalogMachineOut(
+            machine_id=m.id, brand=b.name, model=m.model,
+            machine_type=m.machine_type, muscle_label=m.muscle_label,
+            image_url=m.image_url))
+    return out
+
 
 @app.get("/gyms", response_model=list[GymOut])
 def list_gyms(session: Session = Depends(get_session)):
