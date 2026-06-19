@@ -15,7 +15,7 @@ SEED = Path(__file__).resolve().parent.parent / "catalog" / "seed_data.json"
 
 def run() -> None:
     init_db()
-    data = json.loads(SEED.read_text())
+    data = json.loads(SEED.read_text(encoding="utf-8"))
 
     with Session(engine) as s:
         if s.exec(select(Brand)).first():
