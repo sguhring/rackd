@@ -450,7 +450,7 @@
           <div id="picker" class="picker" style="display:none;"></div>
           <div class="cta">
             <div style="display:flex;gap:10px;">
-              <button id="savebtn" onclick="saveCustom()" disabled style="flex:0 0 auto;width:auto;">save</button>
+              <button id="savebtn" onclick="saveCustom()" disabled style="flex:0 0 auto;width:auto;">+ add to home</button>
               <button id="startbtn" onclick="startCustom()" disabled style="flex:1;width:auto;">start workout</button>
             </div>
           </div>
@@ -941,12 +941,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid};
     loadLog(st.session.items[0]);
   }
-  function saveCustom(){                  // save without starting now
+  function saveCustom(){                  // add to the home screen without starting now
     if(!draft.items.length)return;
     const nm=document.getElementById('wname').value.trim()||'workout';
     ensureSaved(nm); renderHome();
-    toastMsg(false,'saved','“'+nm+'” saved to your workouts');
-    goWorkouts();
+    toastMsg(false,'added to home','“'+nm+'” is now on your home screen');
+    goHome();
   }
   // ---- saved workouts (on-device) ----
   function saveWorkout(name,items){
