@@ -399,6 +399,20 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     'dumbbell':{abbr:'DB',color:'#48484A'},
   };
 
+  // the live catalog API (api/  →  uvicorn main:app). If unreachable, the app falls
+  // back to the bundled sample data below, so it still works fully offline.
+  const API='http://127.0.0.1:8000';
+  const USER='me';   // single local user for now (on-device, no accounts)
+  const PALETTE=['#B71C1C','#0A6EBD','#1A8E6E','#E8551F','#7B5EA7','#C4161C','#2C7A4B',
+                 '#B58100','#0F6E6E','#9A3B8C','#3A5BBF','#A04515'];
+  // style for ANY brand: known ones keep their colour; unknown ones get a stable badge.
+  function brandStyle(b){
+    if(BRANDS[b]) return BRANDS[b];
+    let h=7; for(const c of (b||'?')) h=(h*33+c.charCodeAt(0))>>>0;
+    const letters=(b||'?').replace(/[^a-z]/gi,'');
+    return {abbr:(letters.slice(0,2)||'?').toUpperCase(), color:PALETTE[h%PALETTE.length]};
+  }
+
   // generic free-weight moves available in any gym (custom workouts)
   const GENERIC=[
     {brand:'barbell',name:'barbell bench press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
@@ -410,7 +424,8 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   ];
 
   // each gym is a SUBSET of the global catalog — the core idea, preserved.
-  const GYMS=[
+  // (this is fallback data; loadGymsFromAPI() replaces it with the live catalog)
+  let GYMS=[
     {id:'benfica',name:'fitness hub',area:'benfica · lisboa',dist:'400 m',here:true,machines:[
       {brand:'hammer strength',name:'iso-lateral chest press',group:'push',muscle:'chest · front delts',lastW:68,lastR:10,lastS:3,date:'4 jun'},
       {brand:'hammer strength',name:'iso-lateral row',group:'pull',muscle:'lats · mid-back',lastW:61,lastR:12,lastS:3,date:'4 jun'},
@@ -474,30 +489,48 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function goMachines(){show('s-machines');}
 
   // ---- screen 1 ----
-  function brandChips(ms){const seen=[];ms.forEach(m=>{if(!seen.includes(m.brand))seen.push(m.brand);});
-    return seen.slice(0,3).map(b=>`<span class="chip" style="background:${BRANDS[b].color}">${BRANDS[b].abbr}</span>`).join('');}
+  function chipsFor(g){
+    // prefer the brand names the API gives per gym; else derive from loaded machines.
+    const names=g.brands||(g.machines?[...new Set(g.machines.map(m=>m.brand))]:[]);
+    return names.slice(0,3).map(b=>{const s=brandStyle(b);
+      return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');}
   function renderGyms(){
     document.getElementById('gymlist').innerHTML='<div class="group">'+GYMS.map(g=>`
       <div class="row" onclick="openGym('${g.id}')">
         <div class="gym-main">
           <div class="gym-name">${g.name}${g.here?'<span class="here-pill">you\u2019re here</span>':''}</div>
-          <div class="gym-sub">${g.area} · ${g.machines.length} machines</div>
+          <div class="gym-sub">${g.area} · ${g.count!=null?g.count:(g.machines?g.machines.length:0)} machines</div>
         </div>
         <div class="gym-right">
-          <span class="gym-dist">${g.dist}</span>
-          <span class="brandchips">${brandChips(g.machines)}</span>
+          <span class="gym-dist">${g.dist||''}</span>
+          <span class="brandchips">${chipsFor(g)}</span>
         </div>
         <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
       </div>`).join('')+'</div>';
   }
 
   // ---- screen 2 ----
-  function openGym(id){
+  async function openGym(id){
     st.gym=GYMS.find(g=>g.id===id); st.filter='all';
     document.getElementById('m-title').textContent=st.gym.name;
     document.getElementById('m-sub').textContent='tap the exact machine in front of you.';
     document.getElementById('back-gym').textContent=st.gym.name.split(' ')[0];
+    if(!st.gym.machines){                       // lazy-load this gym's floor from the API
+      document.getElementById('mlist').innerHTML='<div class="empty">loading…</div>';
+      st.gym.machines=await fetchMachines(st.gym.id);
+    }
     buildSegment(); renderMachines(); show('s-machines');
+  }
+  async function fetchMachines(gymId){
+    try{
+      const r=await fetch(`${API}/gyms/${gymId}/machines?user_id=${encodeURIComponent(USER)}`);
+      if(!r.ok) throw 0;
+      return (await r.json()).map(m=>({
+        brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
+        group:m.muscle_group||'core', muscle:m.muscle_label||'', img:m.image_url||'',
+        lastW:m.last?m.last.weight_kg:0, lastR:m.last?m.last.reps:0,
+        lastS:m.last?m.last.sets:0, date:''}));
+    }catch(e){ return []; }
   }
   function buildSegment(){
     const seg=document.getElementById('segment');
@@ -526,7 +559,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     ordered.forEach(m=>{
       if(st.filter==='all'&&m.group!==last){ if(html)html+='</div>'; html+=`<div class="sechead">${m.group}</div><div class="group">`; last=m.group; }
       else if(!html){ html+='<div class="group">'; }
-      const b=BRANDS[m.brand];
+      const b=brandStyle(m.brand);
       html+=`<div class="row" onclick="openMachine('${st.gym.id}','${m.name}')">
         <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
         <div class="m-main">
@@ -690,7 +723,25 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
 
   window.addEventListener('resize',()=>{if(st.gym)moveThumb();});
+
+  // load the live catalog; keep bundled fallback data if the API isn't running.
+  async function loadGymsFromAPI(){
+    try{
+      const r=await fetch(`${API}/gyms`);
+      if(!r.ok) throw 0;
+      const gyms=await r.json();
+      if(Array.isArray(gyms)&&gyms.length){
+        GYMS=gyms.map((g,i)=>({
+          id:String(g.id), name:(g.name||'').toLowerCase(),
+          area:(g.area||'').toLowerCase(), count:g.machine_count,
+          brands:(g.brands||[]).map(b=>b.toLowerCase()), here:i===0,
+          dist:'', machines:null}));
+        renderGyms();
+      }
+    }catch(e){ /* offline: keep the bundled sample gyms */ }
+  }
   renderGyms();
+  loadGymsFromAPI();
 </script>
 
 </body>

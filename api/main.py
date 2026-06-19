@@ -8,6 +8,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlmodel import Session, select
 
@@ -15,6 +16,14 @@ from database import get_session, init_db
 from models import Brand, Exercise, Gym, GymMachine, Machine, Set, Workout
 
 app = FastAPI(title="rackd", version="0.1.0")
+
+# Dev: the static PWA is served from a different origin/port, so allow cross-origin.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -29,14 +38,17 @@ class GymOut(BaseModel):
     name: str
     area: str | None
     machine_count: int
+    brands: list[str]  # a few distinct brands on this floor, for badges
 
 
 class MachineOut(BaseModel):
     gym_machine_id: int
     brand: str
     model: str
+    machine_type: str | None
     muscle_label: str | None
     muscle_group: str | None
+    image_url: str | None
     last: dict | None  # {"weight_kg", "reps", "sets", "logged_at"} or None
 
 
@@ -58,7 +70,15 @@ def list_gyms(session: Session = Depends(get_session)):
         count = len(session.exec(
             select(GymMachine).where(GymMachine.gym_id == gym.id)
         ).all())
-        out.append(GymOut(id=gym.id, name=gym.name, area=gym.area, machine_count=count))
+        brands = session.exec(
+            select(Brand.name)
+            .where(GymMachine.gym_id == gym.id)
+            .where(Machine.id == GymMachine.machine_id)
+            .where(Brand.id == Machine.brand_id)
+            .distinct()
+        ).all()
+        out.append(GymOut(id=gym.id, name=gym.name, area=gym.area,
+                          machine_count=count, brands=list(brands)[:3]))
     return out
 
 
@@ -83,8 +103,10 @@ def gym_machines(gym_id: int, user_id: str | None = None,
             gym_machine_id=gm.id,
             brand=brand.name,
             model=machine.model,
+            machine_type=machine.machine_type,
             muscle_label=machine.muscle_label,
             muscle_group=exercise.muscle_group if exercise else None,
+            image_url=machine.image_url,
             last=_last_on_machine(session, user_id, gm.id) if user_id else None,
         ))
     return out
