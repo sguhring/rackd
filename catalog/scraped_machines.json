@@ -1,0 +1,1522 @@
+[
+  {
+    "brand": "Hammer Strength",
+    "model": "Assisted Nordic Ham",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/Strength-PlateLoaded-AssistedNordicHam-black-black-1000x1000.jpg?v=1748945099",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Dual Pulldown/Row",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/Render-StandAloneDualPulldownRow-Iso.jpg?v=1748945192",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Fixed Pad Glute/Ham",
+    "machine_type": "plate-loaded",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Bench",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/glute-ham-bodyweight-charcoal-black-1000x1000.jpg?v=1748945080",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Glute Ham Reverse Hyper Combo",
+    "machine_type": "plate-loaded",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/CrunchHammerStrengthGluteHamReverseHyperCombocharcoal-black-1000x1000.jpg?v=1748945141",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Ground Base Jammer",
+    "machine_type": "plate-loaded",
+    "exercise": "jammer-press",
+    "muscle_label": "chest · shoulders",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-ground-base-jammer-charcoal-1000x1000.jpg?v=1748945097",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Ground Base Multi-Squat",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-ground-base-multi-squat-1000x1000.jpg?v=1748945137",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Ground Base® Squat / High Pull",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadedsquat-high-pullbase-charcoal-1000x1000.jpg?v=1748945082",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Iso-Lateral High Row",
+    "machine_type": "plate-loaded",
+    "exercise": "seated-row",
+    "muscle_label": "upper-back · lats",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadediso-lateral-high-row-1000x1000.jpg?v=1748945111",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Biceps Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-biceps-curl-charcoal-black.jpg?v=1758651813",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-chest-press-charcoal-black-1000x1000.jpg?v=1754588952",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Chest Press - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-chest-press-charcoal-black-1000x1000.jpg?v=1754588952",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Decline Press",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-mts-decline-press-black-black-1000x1000.jpg?v=1700084060",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Decline Press - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-mts-decline-press-black-black-1000x1000.jpg?v=1700084060",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Front Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/HS-MTS-Iso-Lateral-Front-Pulldown-charcoal-black-1000x1000.jpg?v=1754596855",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Front Pulldown - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/HS-MTS-Iso-Lateral-Front-Pulldown-charcoal-black-1000x1000.jpg?v=1754596855",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral High Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "upper-back · lats",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-mts-high-row-platinum-royalblue-1000x1000_044132d3-deec-4ec0-be4d-5ce40e7f7521.jpg?v=1754597627",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral High Row - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "upper-back · lats",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-mts-high-row-platinum-royalblue-1000x1000_044132d3-deec-4ec0-be4d-5ce40e7f7521.jpg?v=1754597627",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Incline Press",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-mts-incline-press-black-black-1000x1000.jpg?v=1700084962",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "lats · mid-back",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-rowbase-charcoal-black.jpg?v=1774898265",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Row - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "lats · mid-back",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-rowbase-charcoal-black.jpg?v=1774898265",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-mts-shoulder-press-charcoal-black-1000x1000.jpg?v=1758657260",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Shoulder Press - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-mts-shoulder-press-titanium-black-1000x1000.jpg?v=1754585126",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Triceps Extension",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-triceps-extensionbase_e6b17486-7e9b-4bd4-986b-1c4e1af0df3a.jpg?v=1758657795",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "MTS Iso-Lateral Triceps Extension - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-triceps-extensionbase_e6b17486-7e9b-4bd4-986b-1c4e1af0df3a.jpg?v=1758657795",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate Loaded Pendulum-X Squat",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/Hammer_Strength_-_Plate_Loaded_-_Pendulum-X_Squat_PL-XSQ_-_Render.jpg?v=1748945058",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate Loaded Seated Dip",
+    "machine_type": "plate-loaded",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadedseated-dip-charcoal-black-1000x1000.jpg?v=1748945085",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded 4 Way Neck",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded4-way-charcoal-black.jpg?v=1748945104",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Abdominal Oblique Crunch",
+    "machine_type": "plate-loaded",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadedabdominal-oblique-crunch-charcoal-black-1000x1000.jpg?v=1748945121",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Belt Squat",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-belt-squat-midnightmetallic-1000x1000.jpg?v=1748945150",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Combo Twist",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-combo-twist-charcoal-1000x1000.jpg?v=1748945145",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Glute Drive",
+    "machine_type": "plate-loaded",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/HS_GLUTE_360_0057_charcoalframe_blackuph_1000x1000_965d0bdc-12be-4762-a055-821aa5673f25.jpg?v=1748945148",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Gripper",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadedgripperbase-charcoal-black-1000x1000.jpg?v=1748945171",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Hack Squat",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/plate-loaded-hammer-strength-hack-squat-black.jpg?v=1748945156",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Bench Press",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/Hammer_Strength_-_Plate_Loaded_-_Iso-Lateral_Bench_Press_IL-BP_-_Render_1.jpg?v=1765472427",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Chest/Back",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadediso-lateral-chest-backbase_charcoalframe_blackuph_1000x1000_97c9a42a-b377-4631-9a5c-fa1c64579d76.jpg?v=1748945169",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral D.Y. Row",
+    "machine_type": "plate-loaded",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-plate-loaded-iso-lateral-low-row-charcoal-black-1000x1000.jpg?v=1748945109",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Decline Chest Press",
+    "machine_type": "plate-loaded",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-decline-bench-charcoal-black-1000x1000.jpg?v=1748945093",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Front Lat Pulldown",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-iso-lateral-front-lat-pulldown-charcoal-black-1000x1000.jpg?v=1748945158",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Horizontal Bench Press",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/horizontal-bench-charcoal-black-1000x1000.jpg?v=1748945123",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Incline Press",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-incline-press-charcoal-black-1000x1000.jpg?v=1748945164",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Kneeling Leg Curl",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/products/hammer-strength-plate-loaded-iso-lateral-kneeling-leg-curl-charcoal-black-1000x1000.jpg?v=1748945082",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Leg Curl",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-plate-loaded-iso-lateral-leg-curl-midnightmetallic-black-1000x1000.jpg?v=1748945127",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Leg Extension",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-iso-lateral-leg-extension-charcoal-black-1000x1000.jpg?v=1748945129",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Low Row",
+    "machine_type": "plate-loaded",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadediso-lateral-low-rowbase_charcoalframe_blackupholstery_1000x1000_e9b98d8f-ee20-42dc-8804-2e663223b79d.jpg?v=1748945107",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Row",
+    "machine_type": "plate-loaded",
+    "exercise": "seated-row",
+    "muscle_label": "lats · mid-back",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/products/hammer-strength-plate-loaded-iso-later-rowing-machine-charcoal-charcoal-front-1000x1000.jpg?v=1748945275",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Shoulder Press",
+    "machine_type": "plate-loaded",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-iso-lateral-shoulder-press-charcoal-black-1000x1000.jpg?v=1748945153",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Super Incline Press",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadediso-lateral-super-incline-pressbase-charcoal-black.jpg?v=1748945091",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Wide Chest",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-iso-lateral-wide-chest-charcoal-black-1000x1000.jpg?v=1748945089",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Iso-Lateral Wide Pulldown",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/Plate-Loaded-Isolateral-WidePullDown_charcoal-black-1000x1000.jpg?v=1748945087",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Lateral Raise",
+    "machine_type": "plate-loaded",
+    "exercise": "lateral-raise",
+    "muscle_label": "side delts",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-plate-loaded-lateral-raise-midnightmetallic-black-1000x1000.jpg?v=1748945085",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Linear Leg Press",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/plate-loaded-linear-leg-press-charcoalframe-blackuph_1000x1000_5c4d5373-804c-4c7c-9f66-9abcfbde43b8.jpg?v=1748945307",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Pullover",
+    "machine_type": "plate-loaded",
+    "exercise": "pullover",
+    "muscle_label": "lats",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadedpullover-charcoal-1000x1000.jpg?v=1748945095",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Seated Biceps",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/plate-loaded-biceps-charcoal-black-1000x1000.jpg?v=1748945168",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Seated Calf Raise",
+    "machine_type": "plate-loaded",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-seated-calf-charcoal-black-1000x1000.jpg?v=1748945117",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Seated/Standing Shrug",
+    "machine_type": "plate-loaded",
+    "exercise": "shrug",
+    "muscle_label": "traps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-seated-shrug-charcoal-black-1000x1000.jpg?v=1748945084",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Super Fly",
+    "machine_type": "plate-loaded",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-super-fly-charcoal-black1-1000x1000.jpg?v=1748945061",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Super Fly - Outlet",
+    "machine_type": "plate-loaded",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-super-fly-charcoal-black1-1000x1000.jpg?v=1748945061",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Super Squat Press",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/HammerStrength-PlateLoaded-SuperSquatPress_PL-SSP_-Render01.jpg?v=1752091934",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded T-Bar Row",
+    "machine_type": "plate-loaded",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/t-bar-row-charcoal-1000x1000.jpg?v=1748945102",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded Tibia Dorsi Flexion",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/HS-Plate-Loaded-Tibia-Dorsi-Flexion-L-charcoal-black-1000x1000.jpg?v=1748945143",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate-Loaded V-Squat",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-v-squat-charcoal-black-1000x1000.jpg?v=1748945083",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Abdominal Crunch",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selectabdominal-crunch-charcoal-black-1000x1000.jpg?v=1748945075",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Assist Dip Chin",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-select-dip-chin-machine-charcoal-black-1000x1000.jpg?v=1748945293",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-selectback-extension-charcoal-black-1000x1000.jpg?v=1748945071",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Biceps Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selectbiceps-curl-charcoal-black-1000x1000.jpg?v=1748945074",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selectchest-press-charcoal-black-1000x1000.jpg?v=1748945070",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Fixed Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-fixed-pulldown-charcoal-black-1000x1000.jpg?v=1748945069",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Fixed Pulldown - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-fixed-pulldown-titanium-black-1000x1000.jpg?v=1774881350",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Hip Abduction",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-hip-abduction-charcoal-black-1000x01000.jpg?v=1748945068",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Hip Adduction",
+    "machine_type": "selectorized",
+    "exercise": "hip-adduction",
+    "muscle_label": "adductors",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-hip-adduction-charcoal-black-1000x01000.jpg?v=1748945067",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Hip Adduction - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "hip-adduction",
+    "muscle_label": "adductors",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-hip-adduction-titanium-black-1000x01000.jpg?v=1774883609",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Hip and Glute",
+    "machine_type": "selectorized",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selecthip-and-glutebase-charcoal-black-1000x1000.jpg?v=1748945072",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Horizontal Calf",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selecthorizontal-calfbase-charcoal-black-1000x1000.jpg?v=1748945073",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Lat Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-lat-pulldown-charcoal-black-1000x1000.jpg?v=1748945131",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Lat Pulldown - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-lat-pulldown-titanium-black-1000x1000.jpg?v=1774887647",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Lateral Raise",
+    "machine_type": "selectorized",
+    "exercise": "lateral-raise",
+    "muscle_label": "side delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selectlateral-raisebase_charcoalframe_blackuph_1000x1000_392bf7fc-4400-4c3d-b056-b9847b89dacf.jpg?v=1748945066",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-leg-curl-charcoal-black-1000x1000.jpg?v=1746125128",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-select-leg-extension-charcoal-black-1000x1000.jpg?v=1748945140",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Pectoral Fly",
+    "machine_type": "selectorized",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selectpectoral-flybase_charcoalframe_blackuph_1000x1000_f03bfdfd-af28-4b12-b79f-cb9089223fd7.jpg?v=1748945077",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Pectoral Fly / Rear Deltoid",
+    "machine_type": "selectorized",
+    "exercise": "rear-delt",
+    "muscle_label": "rear delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-select-pectoral-fly-rear-deltoid-charcoal-black-1000x1000.jpg?v=1748945069",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Seated Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selectseated-leg-curlbase_charcoalframe_blackuph_1000x1000_142fbee1-487a-4f8d-b616-4b5f53d23d8b.jpg?v=1748945139",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Seated Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-selectseated-leg-pressbase-black-black-1000x1000.jpg?v=1748945064",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Seated Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-seated-row-charcoal-black-1000x1000.jpg?v=1746126337",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-shoulder-press-charcoal-black-1000x1000.jpg?v=1748945064",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Shoulder Press - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-shoulder-press-charcoal-black-1000x1000_42906fad-d921-458f-ad61-564725d77fe4.jpg?v=1774892515",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Standing Calf",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-standing-calf-charcoal-black-1000x1000.jpg?v=1748945065",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Select Triceps Extension",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-charcoal-black-1000x1000.jpg?v=1748945063",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Adjustable Cable Crossover",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/life-fitness-cable-crossover-1000x1000.jpg?v=1748945057",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Dual Adjustable Pulley",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-dual-adjustable-pulley-platinum-1000x1000_1.jpg?v=1748945285",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Abdominal",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-abdominal1000x1000.jpg?v=1767807612",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Abdominal / Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-abdominal-back-extension-charcoal-black-1000x1000.jpg?v=1748945229",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Biceps Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-biceps-curl1000x1000-charcoal-black.jpg?v=1767809132",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Biceps Curl / Triceps Extension",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-biceps-triceps-charcoal-black-1000x1000.jpg?v=1748945230",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-chest-press1000x1000-charcoal.jpg?v=1767810869",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Hip Abductor / Adductor",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "abductors · adductors",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-abductor-adductor-charcoal-black-1000x1000.jpg?v=1748945228",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Lat Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-lat-pulldown1000x1000-charcoal-black.jpg?v=1767821219",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-leg-curl1000x1000-charcoal.jpg?v=1767814890",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Leg Curl / Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-leg-curl-charcoal-black_1000x1000_a2eabf9b-7f98-45e3-81f5-d65a9974d475.jpg?v=1748945224",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-leg-extension1000x1000-charcoal-Copy.jpg?v=1767815532",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-leg-press-charcoal-black-1000x1000.jpg?v=1748945177",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Multi-Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/CI-MP_Cybex_Ion_Multi-Press-charcoal-black-1000x1000.jpg?v=1748945222",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Pectoral Fly / Rear Deltoid",
+    "machine_type": "selectorized",
+    "exercise": "rear-delt",
+    "muscle_label": "rear delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-pectoralfly-reardealt-charcoal-black-1000x1000.jpg?v=1748945227",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Pulldown / Row",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-latpulldown-lowrow-charcoal-black-1000x1000.jpg?v=1748945225",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Pulldown / Row - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-latpulldown-lowrow-yellow-chestnut-1000x1000.jpg?v=1761244705",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Seated Leg Curl / Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-leg-curl-extension-charcoal-black-1000x1000.jpg?v=1748945223",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Seated Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-seated-row1000x1000-charcoal.jpg?v=1767883986",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-shoulder-press1000x1000-charcoal.jpg?v=1767894364",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Smith Rack",
+    "machine_type": "plate-loaded",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Plate-Loaded",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-smith-charcoal-noweights2-1000x1000.jpg?v=1748945214",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Axiom Series Triceps Extension",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-series-triceps-extension1000x1000-charcoal.jpg?v=1767895085",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Back Extension",
+    "machine_type": "machine",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Bench",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/life-fitness-back-extension-charcoal-black-1000x1000.jpg?v=1748945381",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "G2 Home Gym",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/products/G2-HomeGym-L.jpg?v=1748945356",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "G4 Home Gym",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/products/G4HomeGym1000x1000.jpg?v=1748945377",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Hammer Strength MTS Abdominal Crunch",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizedabdominal-crunch-charcoal-black-1000x1000.jpg?v=1754588519",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Hammer Strength MTS Kneeling Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/MTSkneeling-leg-curl-charcoal-black-1000x1000.jpg?v=1754587301",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Hammer Strength MTS Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/MTSiso-lateral-leg-extensionbase.jpg?v=1770230566",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Abdominal",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-Abdominal-charcoal-black.jpg?v=1759779328",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Abdominal Advanced",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-AbdominalAdvanced-charcoal-black.jpg?v=1759870106",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Arc Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/insignia-series-leg-press-charcoal-black.jpg?v=1758728429",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Assist Dip Chin",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-AssistDipChin-charcoal-black.jpg?v=1759781537",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-BackExtension-charcoal-black.jpg?v=1759933988",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Back Extension - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-BackExtension-platinum-wheat.jpg?v=1761254591",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Biceps Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-BicepsCurl-charcoal-black.jpg?v=1759782628",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Biceps Curl - Dependent",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-BicepsCurl-Dep-charcoal-black.jpg?v=1759783263",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Calf Extension",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-CalfExtension-charcoal-black_ba8afe48-a3b4-4ab7-b8fc-18a03934ba70.jpg?v=1759934761",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-ChestPress-charcoal-black.jpg?v=1759784082",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Chest Press - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-ChestPress-platinum-wheat.jpg?v=1761255363",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Dual Axis Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-DualAxisChestPress-charcoal-black.jpg?v=1759780873",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Glute",
+    "machine_type": "selectorized",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-Glute-charcoal-black.jpg?v=1759935423",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Glute Bridge",
+    "machine_type": "selectorized",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-GluteBridge-charcoal-black.jpg?v=1759937195",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Hip Abduction / Adduction",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/insignia-abbductor-adductor-charcoal-black.jpg?v=1759170849",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Hip Adduction",
+    "machine_type": "selectorized",
+    "exercise": "hip-adduction",
+    "muscle_label": "adductors",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/insignia-abbductor-adductor-charcoal-black.jpg?v=1759170849",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Lateral Raise",
+    "machine_type": "selectorized",
+    "exercise": "lateral-raise",
+    "muscle_label": "side delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-LateralRaise-charcoal-black_d2dca85e-b472-432e-9b63-af14900b6599.jpg?v=1759852677",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/insignia-series-leg-curl-charcoal-black.jpg?v=1758729407",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/Insignia-Series-leg-extension-charcoal-black_77ff568d-7817-49fb-b0f6-eca097b2c89a.jpg?v=1758725194",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Pectoral Fly/Rear Deltoid",
+    "machine_type": "selectorized",
+    "exercise": "rear-delt",
+    "muscle_label": "rear delts",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-DualFly-charcoal-black.jpg?v=1759853180",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-PullDown-charcoal-black.jpg?v=1759853704",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-Row-charcoal-black.jpg?v=1759863395",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Row - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-Row-white-black_4242723a-257a-4472-9958-0a6fa2d0d63b.jpg?v=1761331414",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Seated Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/insignia-series-seated-leg-curl-charcoal-black.jpg?v=1758734443",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-ShoulderPress-charcoal-black.jpg?v=1759863820",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Shoulder Press - Outlet",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-ShoulderPress-platinum-black.jpg?v=1761332381",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Sit / Stand Hip Abductor",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "abductors",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-SitStandAbduction-charcoal-black.jpg?v=1759938561",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Torso Rotation",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/413-701-torso-rotation-charcoal-black_69a46445-d9c9-4da2-89f3-10a591200b1c.jpg?v=1759779947",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Triceps Extension",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-TricepsExtension-charcoal-black.jpg?v=1759866056",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Insignia Series Triceps Press",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Selectorized",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-TricepsPress-charcoal-black_d43cee3e-9fb7-45ac-99c6-3f8ad8fe903e.jpg?v=1759866637",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Power Play - 3 Stations",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/mj3-charcoal-1000x1000.jpg?v=1748945054",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Power Play - 4 Stations",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/power-play-6-stations-charcoa.jpg?v=1748945056",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Power Play - 5 Stations",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/PWR-Play-Cable-Crossover-charcoal-black.jpg?v=1748945248",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Power Play - Core +4",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/Untitled-1.jpg?v=1748945205",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Signature Series Dual Adjustable Pulley",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/products/life-fitness-dual-adjustable-pulley-charcoal-1000x1000.jpg?v=1760455162",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Signature Series Multi-Jungle MJ4 (KG) - Outlet",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/mj4-titanium-black-outlet_e2f9d73f-c804-4830-9027-99ccde8da307.jpg?v=1748945160",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Universal Cable",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/EN_LF_PA_UniversalCable_Render_black_1.jpg?v=1762968336",
+    "source": "shop-lifefitness"
+  }
+]

@@ -34,8 +34,26 @@ prefer official feeds where offered.
 - **Image-recognition datasets** (Kaggle, Roboflow, GitHub CNNs) — classify ~20–25 generic
   equipment *types*, not models. Possible future "point camera to identify machine" feature only.
 
-## Practical first step
+## Chosen method (implemented) — Shopify `/products.json`
 
-Pick **one** marketplace, confirm its ToS allows it, scrape 8–10 dominant brands (the ones that
-fill real gyms), normalize to the `machines` schema. That covers the vast majority of machines a
-user will stand in front of. Everything else is crowdsourced per gym.
+The commercial-equipment shops (`shop.lifefitness.com`, Fitness Superstore, Gym Pros, …) run on
+**Shopify**, which exposes an official, structured product feed — no HTML scraping required:
+
+```
+https://<store>/products.json?limit=250&page=N           # whole store
+https://<store>/collections/<handle>/products.json        # one collection
+```
+
+Each product gives `vendor` (brand), `title` (brand + model), `product_type` + `tags`
+(mechanism + body region), and image URLs. `shop.lifefitness.com`'s robots.txt disallows
+`/cart`, `/checkout` and sorted/filtered collection URLs but **not** `/collections/` or `*.json`.
+
+Implemented in `catalog/scrapers/shopify.py`; run via `catalog/build_catalog.py`. One store
+(`shop.lifefitness.com`) yields **152 machines** across Life Fitness + Hammer Strength, 91%
+auto-categorized. Add more stores by appending to `SOURCES`.
+
+## Practical first step (done)
+
+Pick **one** source, confirm its ToS allows it, pull the dominant brands, normalize to the
+`machines` schema. That covers the vast majority of machines a user will stand in front of.
+Everything else is crowdsourced per gym.

@@ -31,6 +31,7 @@ class Machine(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     brand_id: int = Field(foreign_key="brand.id", index=True)
     model: str
+    machine_type: str | None = None  # mechanism: plate-loaded / selectorized / cable / ...
     exercise_id: int | None = Field(default=None, foreign_key="exercise.id")
     muscle_label: str | None = None
     image_url: str | None = None

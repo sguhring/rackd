@@ -3,7 +3,7 @@
 Responsibilities:
   - canonicalise brand names (e.g. 'hammer strength' -> 'Hammer Strength')
   - dedupe (brand, model) against what's already in the catalog
-  - best-effort map each machine to an exercise slug by keyword
+  - categorize each machine (mechanism + movement + muscles) via categorize.py
   - upsert Brand + Machine rows
 
 This is intentionally small; the hard part is the scrapers, not the mapping.
@@ -12,18 +12,8 @@ from __future__ import annotations
 
 from sqlmodel import Session, select
 
+from categorize import categorize
 from scrapers.base import RawMachine  # noqa: E402
-
-# keyword -> exercise slug (extend as the catalog grows)
-EXERCISE_KEYWORDS = {
-    "chest press": "chest-press",
-    "shoulder press": "shoulder-press",
-    "lat pulldown": "lat-pulldown",
-    "row": "seated-row",
-    "leg press": "leg-press",
-    "leg extension": "leg-extension",
-    "leg curl": "leg-curl",
-}
 
 BRAND_CANON = {
     "hammer strength": "Hammer Strength",
@@ -37,14 +27,6 @@ BRAND_CANON = {
 
 def canon_brand(raw: str) -> str:
     return BRAND_CANON.get(raw.strip().lower(), raw.strip())
-
-
-def guess_exercise_slug(model: str) -> str | None:
-    m = model.lower()
-    for kw, slug in EXERCISE_KEYWORDS.items():
-        if kw in m:
-            return slug
-    return None
 
 
 def upsert(session: Session, records: list[RawMachine]) -> int:
@@ -67,11 +49,14 @@ def upsert(session: Session, records: list[RawMachine]) -> int:
         if exists:
             continue
 
-        slug = guess_exercise_slug(r.model)
-        ex = session.exec(select(Exercise).where(Exercise.slug == slug)).first() if slug else None
+        cat = categorize(r.model, r.category, r.extra.get("tags"))
+        ex = (session.exec(select(Exercise).where(Exercise.slug == cat.exercise_slug)).first()
+              if cat.exercise_slug else None)
         session.add(Machine(
             brand_id=brand.id, model=r.model,
+            machine_type=cat.mechanism,
             exercise_id=ex.id if ex else None,
+            muscle_label=cat.muscle_label,
             image_url=r.image_url, source=r.source,
         ))
         added += 1

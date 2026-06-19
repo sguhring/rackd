@@ -26,6 +26,7 @@ CREATE TABLE machines (
     id          SERIAL PRIMARY KEY,
     brand_id    INTEGER NOT NULL REFERENCES brands(id),
     model       TEXT NOT NULL,                 -- 'Iso-Lateral Chest Press'
+    machine_type TEXT,                         -- mechanism: 'plate-loaded' | 'selectorized' | 'cable' | ...
     exercise_id INTEGER REFERENCES exercises(id),
     muscle_label TEXT,                         -- 'chest · front delts' (display)
     image_url   TEXT,
