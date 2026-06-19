@@ -24,6 +24,9 @@ prefer official feeds where offered.
 - **ExerciseDB API** — open-source, 5,000–11,000+ exercises, self-hostable (Vercel/Supabase),
   `equipments` field, images/GIFs/instructions.
 - **yuhonas/free-exercise-db** — 800+ public-domain exercises, clean JSON, `equipment` field.
+  **Implemented**: `api/load_library.py` loads it into the `LibraryExercise` table (675 gym-
+  relevant movements, grouped push/pull/legs/core, with images); served at `GET /library` and
+  used as the default exercise options + search in the custom-workout builder.
 - **wger** — open-source tracker (AGPL) with a REST API and equipment-tagged exercise wiki; good
   architectural precedent. Equipment is generic categories, not models.
 

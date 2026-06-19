@@ -14,7 +14,8 @@ from sqlalchemy import or_
 from sqlmodel import Session, select
 
 from database import get_session, init_db
-from models import Brand, Exercise, Gym, GymMachine, Machine, Set, Workout
+from models import (Brand, Exercise, Gym, GymMachine, LibraryExercise, Machine,
+                    Set, Workout)
 
 app = FastAPI(title="rackd", version="0.1.0")
 
@@ -146,6 +147,22 @@ def catalog_machines(exercise: str, brand: str | None = None,
             machine_type=m.machine_type, muscle_label=m.muscle_label,
             image_url=m.image_url))
     return out
+
+
+class LibraryOut(BaseModel):
+    name: str
+    equipment: str | None
+    muscle_group: str | None
+    muscle_label: str | None
+    image_url: str | None
+
+
+@app.get("/library", response_model=list[LibraryOut])
+def library(session: Session = Depends(get_session)):
+    """The generic exercise library (free-exercise-db) — default builder options."""
+    rows = session.exec(select(LibraryExercise).order_by(LibraryExercise.name)).all()
+    return [LibraryOut(name=e.name, equipment=e.equipment, muscle_group=e.muscle_group,
+                       muscle_label=e.muscle_label, image_url=e.image_url) for e in rows]
 
 
 @app.get("/catalog/search", response_model=list[CatalogSearchOut])

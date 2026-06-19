@@ -38,6 +38,18 @@ class Machine(SQLModel, table=True):
     source: str | None = None
 
 
+class LibraryExercise(SQLModel, table=True):
+    """A generic, brand-agnostic movement from the open exercise dataset
+    (free-exercise-db / ExerciseDB) — the default options for custom workouts."""
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    equipment: str | None = None          # barbell / dumbbell / cable / bodyweight / ...
+    muscle_group: str | None = None       # push / pull / legs / core
+    muscle_label: str | None = None       # 'chest · triceps'
+    category: str | None = None           # strength / powerlifting / ...
+    image_url: str | None = None
+
+
 class Gym(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str

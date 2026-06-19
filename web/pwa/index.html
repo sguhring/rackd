@@ -451,6 +451,15 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     'precor':{abbr:'PR',color:'#1A8E6E'},
     'barbell':{abbr:'BB',color:'#48484A'},
     'dumbbell':{abbr:'DB',color:'#48484A'},
+    'cable':{abbr:'CA',color:'#5A5A5C'},
+    'bodyweight':{abbr:'BW',color:'#3A6B4F'},
+    'kettlebells':{abbr:'KB',color:'#6B5A3A'},
+    'bands':{abbr:'BD',color:'#5A5A5C'},
+    'machine':{abbr:'MA',color:'#48484A'},
+    'e-z curl bar':{abbr:'EZ',color:'#48484A'},
+    'medicine ball':{abbr:'MB',color:'#6B5A3A'},
+    'exercise ball':{abbr:'EB',color:'#6B5A3A'},
+    'other':{abbr:'EX',color:'#48484A'},
   };
 
   // the live catalog API (api/  →  uvicorn main:app). If unreachable, the app falls
@@ -735,7 +744,8 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const seen={}, out=[];
     // gym.machines is null until that gym is opened (lazy-loaded from the API), so guard it
     GYMS.forEach(g=>(g.machines||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}}));
-    GENERIC.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});
+    const base=LIBRARY.length?LIBRARY:GENERIC;   // ExerciseDB defaults (offline fallback: GENERIC)
+    base.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});
     return out;
   }
   function openCustom(){
@@ -769,9 +779,16 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     catQuery=q; clearTimeout(catSearchT);
     if(q.trim().length<2){ catResults=[]; renderCatResults(); return; }
     catSearchT=setTimeout(async()=>{
-      let list=[];
-      try{const r=await fetch(`${API}/catalog/search?q=${encodeURIComponent(q.trim())}`); if(r.ok) list=await r.json();}catch(e){}
-      catResults=list; renderCatResults();
+      const words=q.trim().toLowerCase().split(/\s+/);
+      // generic exercise library + any loaded gym machines (client-side)
+      const local=pool().filter(m=>{const hay=(m.brand+' '+m.name+' '+(m.muscle||'')).toLowerCase();
+        return words.every(w=>hay.includes(w));})
+        .map(m=>({brand:m.brand,model:m.name,muscle_group:m.group,muscle_label:m.muscle,image_url:m.img}));
+      // branded machines (API)
+      let api=[];
+      try{const r=await fetch(`${API}/catalog/search?q=${encodeURIComponent(q.trim())}`); if(r.ok) api=await r.json();}catch(e){}
+      catResults=[...local, ...api].slice(0,60);
+      renderCatResults();
     },220);
   }
   function renderCatResults(){
@@ -808,9 +825,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
           <div class="m-main"><div class="m-name">browse the full catalog</div><div class="m-muscle">any movement \u00b7 brand \u00b7 model</div></div>
           <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
         </div></div>`;
-    ['push','pull','legs'].forEach(gr=>{
-      const items=avail.filter(m=>m.group===gr); if(!items.length)return;
-      html+=`<div class="sechead">${gr} \u00b7 quick add</div><div class="group">`+items.map(m=>{const b=brandStyle(m.brand);return `
+    ['push','pull','legs','core'].forEach(gr=>{
+      const all=avail.filter(m=>m.group===gr); if(!all.length)return;
+      const items=all.slice(0,40);   // cap; the search box covers the rest of the library
+      const more=all.length-items.length;
+      html+=`<div class="sechead">${gr} \u00b7 quick add${more>0?` \u00b7 +${more} more, use search`:''}</div><div class="group">`+items.map(m=>{const b=brandStyle(m.brand);return `
         <div class="row" onclick="addEx('${esc(m.name)}')">
           <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
           <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
@@ -934,6 +953,18 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   window.addEventListener('resize',()=>{if(st.gym)moveThumb();});
 
+  // the generic exercise library (free-exercise-db / ExerciseDB) — default options
+  let LIBRARY=[];
+  async function loadLibrary(){
+    try{
+      const r=await fetch(`${API}/library`); if(!r.ok)return;
+      LIBRARY=(await r.json()).map(e=>({
+        brand:(e.equipment||'other'), name:(e.name||'').toLowerCase(),
+        group:e.muscle_group||'core', muscle:e.muscle_label||'', img:e.image_url||'',
+        lastW:0,lastR:0,lastS:0,date:''}));
+    }catch(e){ /* offline: pool() falls back to the small GENERIC list */ }
+  }
+
   // load the live catalog; keep bundled fallback data if the API isn't running.
   async function loadGymsFromAPI(){
     try{
@@ -952,6 +983,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   renderHome();
   loadGymsFromAPI();
+  loadLibrary();
 </script>
 
 </body>
