@@ -48,9 +48,12 @@ Each product gives `vendor` (brand), `title` (brand + model), `product_type` + `
 (mechanism + body region), and image URLs. `shop.lifefitness.com`'s robots.txt disallows
 `/cart`, `/checkout` and sorted/filtered collection URLs but **not** `/collections/` or `*.json`.
 
-Implemented in `catalog/scrapers/shopify.py`; run via `catalog/build_catalog.py`. One store
-(`shop.lifefitness.com`) yields **152 machines** across Life Fitness + Hammer Strength, 91%
-auto-categorized. Add more stores by appending to `SOURCES`.
+Implemented in `catalog/scrapers/shopify.py`; run via `catalog/build_catalog.py`. Two stores —
+the brand's own `shop.lifefitness.com` and the multi-brand reseller `fitnesssuperstore.com` —
+yield **366 machines across 6 brands** (Cybex, Hammer Strength, Life Fitness, Technogym, Precor,
+Matrix), 84% auto-categorized. Reseller listings carry cardio + `(Remanufactured)` noise, handled
+by `machines_only` (substring strength/cardio signals) and `clean_model()`. Add a brand by
+appending one `ShopifyScraper(...)` line to `SOURCES`.
 
 ## Practical first step (done)
 

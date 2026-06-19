@@ -21,15 +21,34 @@ from typing import Iterator
 
 import httpx
 
+import re
+
 from .base import RawMachine, Scraper
 
 USER_AGENT = "rackd-catalog/0.1 (+https://github.com/sguhring/rackd; gym machine catalog)"
 
-# Tags / product_types that mark a product as a trackable strength machine.
-# Cardio, benches, racks-only, accessories and parts are skipped by default.
-MACHINE_TAGS = {"machine", "strength machine", "plate loaded", "selectorized"}
-MACHINE_TYPES = {"plate-loaded", "selectorized", "strength", "strength machine",
-                 "leverage", "cable", "functional trainer"}
+# Substring signals (matched across product_type + tags, lowercased) that mark a
+# product as a trackable strength machine. Stores vary wildly in tag vocabulary, so
+# we match substrings, not exact tags. A strength signal keeps it; a cardio signal
+# alone drops it (treadmills, bikes, ellipticals are not per-machine load tracking).
+STRENGTH_SIGNALS = ("strength training", "strength machine", "selectorized", "pin loaded",
+                    "plate loaded", "plate-loaded", "leverage", "gym system", "multi stack",
+                    "machine")
+CARDIO_SIGNALS = ("cardio", "treadmill", "elliptical", "exercise bike", "recumbent",
+                  "upright bike", "rower", "rowing", "stair", "climbmill", "ascent trainer")
+
+# Title noise to strip when deriving a clean model name (reseller listings).
+_CONSOLE = re.compile(r"\s*w/.*?console", re.I)
+_PARENS = re.compile(r"\s*\((remanufactured|refurbished|newer style|new|used|outlet|kg|"
+                     r"floor model|open box)\)", re.I)
+_OUTLET = re.compile(r"\s*-\s*outlet\b", re.I)
+
+
+def clean_model(s: str) -> str:
+    s = _CONSOLE.sub("", s)
+    s = _PARENS.sub("", s)
+    s = _OUTLET.sub("", s)
+    return re.sub(r"\s{2,}", " ", s).strip(" -–—")
 
 
 class ShopifyScraper(Scraper):
@@ -114,7 +133,7 @@ class ShopifyScraper(Scraper):
 
         return self.make(
             vendor,
-            _strip_brand(title, vendor),
+            clean_model(_strip_brand(title, vendor)),
             category=ptype or None,
             image_url=image_url,
             extra={"tags": tags, "handle": p.get("handle"), "title": title},
@@ -122,9 +141,10 @@ class ShopifyScraper(Scraper):
 
     @staticmethod
     def _is_machine(tags: list[str], ptype: str) -> bool:
-        if ptype.lower() in MACHINE_TYPES:
-            return True
-        return any(t in MACHINE_TAGS for t in tags)
+        hay = " ".join([ptype.lower(), *tags])
+        if any(c in hay for c in CARDIO_SIGNALS):
+            return False  # treadmills, bikes, rowers — not per-machine load tracking
+        return any(s in hay for s in STRENGTH_SIGNALS)
 
 
 def _as_list(tags) -> list[str]:

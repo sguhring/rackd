@@ -1,5 +1,1095 @@
 [
   {
+    "brand": "Cybex",
+    "model": "5 Stack 17001 Multi Jungle Gym",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEX5STACK-main.webp?v=1754942302",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "7 Stack Multi Jungle Gym",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex7stack-2.jpg?v=1736867755",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "8 Stack Jungle Gym",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex8stack-main.webp?v=1761687618",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Bravo Pro Functional Trainer",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexBP-main.webp?v=1761760411",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic 4100 Horizontal Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex4100Hlegpr-main.webp?v=1761760679",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Abdominal Machine",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexCAM-main.webp?v=1755025658",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexCBE-main.webp?v=1755025960",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Bicep Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/classicbicep-main.webp?v=1755026505",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/classicchest-main.webp?v=1755026923",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Fly Press",
+    "machine_type": "selectorized",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CLASSICFLY-main.webp?v=1755027230",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Hip Abduction / Outer Thigh",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CLASSICABDUCTION-main.webp?v=1755027576",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Hip Adduction / Inner Thigh",
+    "machine_type": "selectorized",
+    "exercise": "hip-adduction",
+    "muscle_label": "adductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/ClassicAdduction-main.webp?v=1755027811",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexclassleg-main.webp?v=1755028018",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Multi Hip",
+    "machine_type": "selectorized",
+    "exercise": "multi-hip",
+    "muscle_label": "glutes · hip flexors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexCMH-main.webp?v=1755028377",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Classic Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/classicshoulder-main.webp?v=1761761091",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Ab Abdominal Crunch 11090",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex11090-main.webp?v=1761761708",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Arm / Bicep Curl 11070",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXACURL11070-main.webp?v=1755029443",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Arm Tricep Extension 11080",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex11080-main.webp?v=1755029672",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Back Extension 11101",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXBACKEXT11101-main.webp?v=1755029829",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Calf Raise 11120",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexcalf11120-main.webp?v=1761761917",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Chest Press 11000",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex11000-main.webp?v=1761762106",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Glute 11170",
+    "machine_type": "selectorized",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexglute11170-main.webp?v=1755030170",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Hip Abduction/Adduction 11181",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXHIP11181-main.webp?v=1755030494",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Incline Pull 11020",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "upper-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex11020-main.webp?v=1755030740",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Lat Pulldown 11130",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXLATPULL11130-main.webp?v=1755030917",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Lateral Raise 11160",
+    "machine_type": "selectorized",
+    "exercise": "lateral-raise",
+    "muscle_label": "side delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex11160-main.webp?v=1755031141",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Leg Extension 11050 w/ROM",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXLEGEXT11051-main.webp?v=1762276455",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Leg Press 11040",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexleg11040-main.webp?v=1762279968",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle NX Abdominal 20090",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex20090-main.webp?v=1755031516",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle NX Arm Extension 20080",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEX-NXAE-20080-main.webp?v=1762280204",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle NX Leg Extension 20050/51",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex20050-51-main.webp?v=1762280488",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle NX Leg Press 20040",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXLEG20040-main.webp?v=1762280992",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle NX Row 20030",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXROW20030-main.webp?v=1762281475",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Overhead Press 11010",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXOPRESS11010-main.webp?v=1762281820",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Pec Fly/Rear Delt",
+    "machine_type": "selectorized",
+    "exercise": "rear-delt",
+    "muscle_label": "rear delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexflyreardelt-main.webp?v=1762282133",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Prone Leg Curl 11141 w/RLD",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexlpcurl11141-main.webp?v=1755031846",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Row 11030",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXROW11030-main.webp?v=1755032071",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Seated Leg Curl 11061",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXLSCURL11061-main.webp?v=1762283031",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Eagle Torso Rotation 11190",
+    "machine_type": "selectorized",
+    "exercise": "torso-rotation",
+    "muscle_label": "obliques · core",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXTORSOROT11190-main.webp?v=1762283234",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "FT-360 Functional Trainer",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexFT360-main.webp?v=1762283978",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "FT-450 Bravo Advanced Tall 8810-90 Functional Trainer",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexFT450-main.webp?v=1762284368",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Free Standing Dip / Chin Assist",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexfsdca-main.webp?v=1762283408",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Galileo Hip Abduction/Adduction",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXGHAA-main.webp?v=1762284738",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Leverage Squat Press Plate Loaded",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexplspnewer-main.webp?v=1762285542",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "MG-500 3 Stack Multi Station Gym",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexmg500-main.webp?v=1762285908",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Modular 5345-91 Assisted Chin-Up Dip Assist",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBModcud-main.webp?v=1762286334",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Plate Loaded 45 Degree Leg Press",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexpl45dlp-main.webp?v=1755032447",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Plate Loaded Smith Press",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexplsmithpress-main.webp?v=1755033148",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Plate Loaded Smith Press Machine 5341",
+    "machine_type": "plate-loaded",
+    "exercise": "chin-up",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex5341-main.webp?v=1755033403",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Plate Loaded Squat Press",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexplsp-main.webp?v=1755033704",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige 45 Degree Back Hyperextension",
+    "machine_type": "machine",
+    "exercise": "back-extension",
+    "muscle_label": "lower back · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex45dbh-main.webp?v=1762286764",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige Series Leg Raise Chair 16180",
+    "machine_type": "machine",
+    "exercise": "leg-raise",
+    "muscle_label": "abs · hip flexors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex16180-main.webp?v=1762287233",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige Strength VRS Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvrs-main.webp?v=1762287623",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige Strength VRS Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEX-PCP-21000-main.webp?v=1762363797",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige Strength VRS Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexVRS21040-main.webp?v=1762364591",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige Strength VRS Overhead Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEX-POP-21010-main.webp?v=1762367162",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige Strength VRS Standing Calf Raise 21110",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex21110-main.webp?v=1762367673",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Prestige Total Access Seated Leg Curl 21461",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex21461-main.webp?v=1762367898",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "Standing Chin Dip Assist Modular (On Extended Frame)",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXACDM-main.webp?v=1762368468",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VKR Leg Raise Chair / Dip",
+    "machine_type": "machine",
+    "exercise": "leg-raise",
+    "muscle_label": "abs · hip flexors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexlrd-main.webp?v=1762368958",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR Lat Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEX-VRLP-main.webp?v=1762369231",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR Standing Calf",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvrcalf-main.webp?v=1762369505",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR VR2 Multi Hip",
+    "machine_type": "selectorized",
+    "exercise": "multi-hip",
+    "muscle_label": "glutes · hip flexors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2mulhp-main.webp?v=1762369786",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR1 Dual Abdominal/Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr1-main.webp?v=1755090538",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR1 Dual Purpose Lat/Row 13250",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexVR1LatRow-main.webp?v=1762370047",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR1 Dual Purpose Leg Ext/Seated Leg Curl 13260",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexVR1LESLC-main.webp?v=1762370442",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR1 Dual Purpose Multi-Press 13240",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CybexVR1MultiPress-main.webp?v=1762370616",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR1 Seated Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexVR1slegpr-main.webp?v=1762370769",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Ab Crunch",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2abc-main.webp?v=1762371037",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2bacex-main.webp?v=1762371326",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Bicep Arm Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2armc-main.webp?v=1762371683",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2chpr-main.webp?v=1762371898",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Hip Abduction / Outer Thigh",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2hipab-main.webp?v=1762372442",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Hip Adduction / Inner Thigh 4640",
+    "machine_type": "selectorized",
+    "exercise": "hip-adduction",
+    "muscle_label": "adductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2hipad-main.webp?v=1762372619",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Lat Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2latpu-main.webp?v=1762373031",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Lateral Raise 4530",
+    "machine_type": "selectorized",
+    "exercise": "lateral-raise",
+    "muscle_label": "side delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/CYBEXVR2RAISE4530-main.webp?v=1762372868",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2legex-main.webp?v=1762373352",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2legpr-main.webp?v=1755091006",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Low Row / Rear Delt",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2lowr-main.webp?v=1762373723",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Pec Fly Machine 4545",
+    "machine_type": "selectorized",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2FLY4545-main.webp?v=1762374111",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Prone Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2Plegcu-main.webp?v=1762374398",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Rotary Calf",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2rotac-main.webp?v=1762374817",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Seated Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2legcu-main.webp?v=1755091264",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2shopr-main.webp?v=1762375043",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Torso Rotation",
+    "machine_type": "selectorized",
+    "exercise": "torso-rotation",
+    "muscle_label": "obliques · core",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2torsr-main.webp?v=1762375793",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR2 Tricep Arm Extension",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybexvr2arme-main.webp?v=1762376161",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Abdominal",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Abdominal12090-main.webp?v=1762538448",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Arm Tricep Extension 12080",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3ArmExtend12080-main.webp?v=1762538666",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3backext12100-main.webp?v=1762538870",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Bicep / Arm Curl 12070",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/cybex12070_fixed_bd8b20fb-3ccc-4c49-ab4a-b5370c1af7ab.webp?v=1753902812",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Cable Column",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3CColumn12220-main.webp?v=1762539133",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Chest12001-main.webp?v=1762539544",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Dip/Chin Assist",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3dipchin12230-main.webp?v=1762539773",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Glute",
+    "machine_type": "selectorized",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Glute12170-main.webp?v=1762540116",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Hip Abduction / Outer Thigh",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Abduction12200-main.webp?v=1762540383",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Hip Adduction / Inner Thigh",
+    "machine_type": "selectorized",
+    "exercise": "hip-adduction",
+    "muscle_label": "adductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Adduction12210-main.webp?v=1762540607",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Lat Pull",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Lat12130-main.webp?v=1762540833",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Lateral Raise",
+    "machine_type": "selectorized",
+    "exercise": "lateral-raise",
+    "muscle_label": "side delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3LatRaise12160-main.webp?v=1762541142",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Extend12050-main.webp?v=1762541720",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Leg12040-main.webp?v=1762542058",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Overhead Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3overhead12010-main.webp?v=1762542342",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Pec Fly/Rear Delt",
+    "machine_type": "selectorized",
+    "exercise": "rear-delt",
+    "muscle_label": "rear delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3FlyRearDelt12110-main.webp?v=1762542522",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Prone Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3pronecurl12140-main.webp?v=1762542682",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3pulldown12020-main.webp?v=1762542904",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Row12030-main.webp?v=1762543283",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Seated Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3SLegCurl12060-main.webp?v=1762544042",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Standing Calf",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3Calf12120-main.webp?v=1762544396",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Torso Rotation",
+    "machine_type": "selectorized",
+    "exercise": "torso-rotation",
+    "muscle_label": "obliques · core",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3TorsoRot12190-main.webp?v=1762544584",
+    "source": "fs-cybex"
+  },
+  {
+    "brand": "Cybex",
+    "model": "VR3 Tricep Press Seated Dip",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/VR3triceppress12180-main.webp?v=1762544726",
+    "source": "fs-cybex"
+  },
+  {
     "brand": "Hammer Strength",
     "model": "Assisted Nordic Ham",
     "machine_type": "plate-loaded",
@@ -101,27 +1191,7 @@
   },
   {
     "brand": "Hammer Strength",
-    "model": "MTS Iso-Lateral Chest Press - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "chest-press",
-    "muscle_label": "chest · front delts",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-chest-press-charcoal-black-1000x1000.jpg?v=1754588952",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
     "model": "MTS Iso-Lateral Decline Press",
-    "machine_type": "selectorized",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-mts-decline-press-black-black-1000x1000.jpg?v=1700084060",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "MTS Iso-Lateral Decline Press - Outlet",
     "machine_type": "selectorized",
     "exercise": "lat-pulldown",
     "muscle_label": "lats · biceps",
@@ -141,27 +1211,7 @@
   },
   {
     "brand": "Hammer Strength",
-    "model": "MTS Iso-Lateral Front Pulldown - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/HS-MTS-Iso-Lateral-Front-Pulldown-charcoal-black-1000x1000.jpg?v=1754596855",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
     "model": "MTS Iso-Lateral High Row",
-    "machine_type": "selectorized",
-    "exercise": "seated-row",
-    "muscle_label": "upper-back · lats",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-mts-high-row-platinum-royalblue-1000x1000_044132d3-deec-4ec0-be4d-5ce40e7f7521.jpg?v=1754597627",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "MTS Iso-Lateral High Row - Outlet",
     "machine_type": "selectorized",
     "exercise": "seated-row",
     "muscle_label": "upper-back · lats",
@@ -191,16 +1241,6 @@
   },
   {
     "brand": "Hammer Strength",
-    "model": "MTS Iso-Lateral Row - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "seated-row",
-    "muscle_label": "lats · mid-back",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-rowbase-charcoal-black.jpg?v=1774898265",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
     "model": "MTS Iso-Lateral Shoulder Press",
     "machine_type": "selectorized",
     "exercise": "shoulder-press",
@@ -211,27 +1251,7 @@
   },
   {
     "brand": "Hammer Strength",
-    "model": "MTS Iso-Lateral Shoulder Press - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "shoulder-press",
-    "muscle_label": "delts · triceps",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-mts-shoulder-press-titanium-black-1000x1000.jpg?v=1754585126",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
     "model": "MTS Iso-Lateral Triceps Extension",
-    "machine_type": "selectorized",
-    "exercise": "triceps-extension",
-    "muscle_label": "triceps",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-motion-technology-selectorizediso-lateral-triceps-extensionbase_e6b17486-7e9b-4bd4-986b-1c4e1af0df3a.jpg?v=1758657795",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "MTS Iso-Lateral Triceps Extension - Outlet",
     "machine_type": "selectorized",
     "exercise": "triceps-extension",
     "muscle_label": "triceps",
@@ -257,6 +1277,16 @@
     "muscle_label": "triceps · chest",
     "product_type": "Plate-Loaded",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loadedseated-dip-charcoal-black-1000x1000.jpg?v=1748945085",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Plate Loaded Vertical Smith Machine",
+    "machine_type": "smith/rack",
+    "exercise": "chin-up",
+    "muscle_label": "lats · biceps",
+    "product_type": "Rack",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-vertical-smith-machine-charcoal-1000x1000_81d642c2-60f4-48e8-bbce-e1dfb0af30f7.jpg?v=1748945162",
     "source": "shop-lifefitness"
   },
   {
@@ -523,8 +1553,8 @@
     "brand": "Hammer Strength",
     "model": "Plate-Loaded Seated Biceps",
     "machine_type": "plate-loaded",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
     "product_type": "Plate-Loaded",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/plate-loaded-biceps-charcoal-black-1000x1000.jpg?v=1748945168",
     "source": "shop-lifefitness"
@@ -552,16 +1582,6 @@
   {
     "brand": "Hammer Strength",
     "model": "Plate-Loaded Super Fly",
-    "machine_type": "plate-loaded",
-    "exercise": "pec-fly",
-    "muscle_label": "chest",
-    "product_type": "Plate-Loaded",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-plate-loaded-super-fly-charcoal-black1-1000x1000.jpg?v=1748945061",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "Plate-Loaded Super Fly - Outlet",
     "machine_type": "plate-loaded",
     "exercise": "pec-fly",
     "muscle_label": "chest",
@@ -666,16 +1686,6 @@
     "exercise": "lat-pulldown",
     "muscle_label": "lats · biceps",
     "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-fixed-pulldown-charcoal-black-1000x1000.jpg?v=1748945069",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "Select Fixed Pulldown - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Selectorized",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-fixed-pulldown-titanium-black-1000x1000.jpg?v=1774881350",
     "source": "shop-lifefitness"
   },
@@ -692,16 +1702,6 @@
   {
     "brand": "Hammer Strength",
     "model": "Select Hip Adduction",
-    "machine_type": "selectorized",
-    "exercise": "hip-adduction",
-    "muscle_label": "adductors",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-hip-adduction-charcoal-black-1000x01000.jpg?v=1748945067",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "Select Hip Adduction - Outlet",
     "machine_type": "selectorized",
     "exercise": "hip-adduction",
     "muscle_label": "adductors",
@@ -732,16 +1732,6 @@
   {
     "brand": "Hammer Strength",
     "model": "Select Lat Pulldown",
-    "machine_type": "selectorized",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-lat-pulldown-charcoal-black-1000x1000.jpg?v=1748945131",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "Select Lat Pulldown - Outlet",
     "machine_type": "selectorized",
     "exercise": "lat-pulldown",
     "muscle_label": "lats · biceps",
@@ -836,16 +1826,6 @@
     "exercise": "shoulder-press",
     "muscle_label": "delts · triceps",
     "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-shoulder-press-charcoal-black-1000x1000.jpg?v=1748945064",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Hammer Strength",
-    "model": "Select Shoulder Press - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "shoulder-press",
-    "muscle_label": "delts · triceps",
-    "product_type": "Selectorized",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-shoulder-press-charcoal-black-1000x1000_42906fad-d921-458f-ad61-564725d77fe4.jpg?v=1774892515",
     "source": "shop-lifefitness"
   },
@@ -867,6 +1847,16 @@
     "muscle_label": "triceps",
     "product_type": "Selectorized",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-hammer-strength-select-charcoal-black-1000x1000.jpg?v=1748945063",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Hammer Strength",
+    "model": "Smith Machine",
+    "machine_type": "smith/rack",
+    "exercise": "chin-up",
+    "muscle_label": "lats · biceps",
+    "product_type": "Rack",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/hammer-strength-benches-and-rackssmith-machine-charcoal1000x1000.jpg?v=1748945163",
     "source": "shop-lifefitness"
   },
   {
@@ -1026,16 +2016,6 @@
     "exercise": "lat-pulldown",
     "muscle_label": "lats · biceps",
     "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-latpulldown-lowrow-charcoal-black-1000x1000.jpg?v=1748945225",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Life Fitness",
-    "model": "Axiom Series Pulldown / Row - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Selectorized",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/axiom-life-fitness-latpulldown-lowrow-yellow-chestnut-1000x1000.jpg?v=1761244705",
     "source": "shop-lifefitness"
   },
@@ -1101,6 +2081,16 @@
   },
   {
     "brand": "Life Fitness",
+    "model": "Cable Attachments",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Cable Attachment",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/cable-attachment-pressdown-rope-500x500.jpg?v=1748945209",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
     "model": "G2 Home Gym",
     "machine_type": "machine",
     "exercise": null,
@@ -1117,6 +2107,16 @@
     "muscle_label": null,
     "product_type": "Home Gym",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/products/G4HomeGym1000x1000.jpg?v=1748945377",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "G7 Home Gym",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Home Gym",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/products/life-fitness-g7-home-gym-adjustable-bench-1000x1000.jpg?v=1748945422",
     "source": "shop-lifefitness"
   },
   {
@@ -1196,16 +2196,6 @@
     "exercise": "back-extension",
     "muscle_label": "lower back",
     "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-BackExtension-charcoal-black.jpg?v=1759933988",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Life Fitness",
-    "model": "Insignia Series Back Extension - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "back-extension",
-    "muscle_label": "lower back",
-    "product_type": "Selectorized",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-BackExtension-platinum-wheat.jpg?v=1761254591",
     "source": "shop-lifefitness"
   },
@@ -1242,16 +2232,6 @@
   {
     "brand": "Life Fitness",
     "model": "Insignia Series Chest Press",
-    "machine_type": "selectorized",
-    "exercise": "chest-press",
-    "muscle_label": "chest · front delts",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-ChestPress-charcoal-black.jpg?v=1759784082",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Life Fitness",
-    "model": "Insignia Series Chest Press - Outlet",
     "machine_type": "selectorized",
     "exercise": "chest-press",
     "muscle_label": "chest · front delts",
@@ -1366,16 +2346,6 @@
     "exercise": "seated-row",
     "muscle_label": "mid-back · lats",
     "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-Row-charcoal-black.jpg?v=1759863395",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Life Fitness",
-    "model": "Insignia Series Row - Outlet",
-    "machine_type": "selectorized",
-    "exercise": "seated-row",
-    "muscle_label": "mid-back · lats",
-    "product_type": "Selectorized",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-Row-white-black_4242723a-257a-4472-9958-0a6fa2d0d63b.jpg?v=1761331414",
     "source": "shop-lifefitness"
   },
@@ -1392,16 +2362,6 @@
   {
     "brand": "Life Fitness",
     "model": "Insignia Series Shoulder Press",
-    "machine_type": "selectorized",
-    "exercise": "shoulder-press",
-    "muscle_label": "delts · triceps",
-    "product_type": "Selectorized",
-    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/LFInsignia-ShoulderPress-charcoal-black.jpg?v=1759863820",
-    "source": "shop-lifefitness"
-  },
-  {
-    "brand": "Life Fitness",
-    "model": "Insignia Series Shoulder Press - Outlet",
     "machine_type": "selectorized",
     "exercise": "shoulder-press",
     "muscle_label": "delts · triceps",
@@ -1423,8 +2383,8 @@
     "brand": "Life Fitness",
     "model": "Insignia Series Torso Rotation",
     "machine_type": "selectorized",
-    "exercise": null,
-    "muscle_label": null,
+    "exercise": "torso-rotation",
+    "muscle_label": "obliques · core",
     "product_type": "Selectorized",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/413-701-torso-rotation-charcoal-black_69a46445-d9c9-4da2-89f3-10a591200b1c.jpg?v=1759779947",
     "source": "shop-lifefitness"
@@ -1501,12 +2461,22 @@
   },
   {
     "brand": "Life Fitness",
-    "model": "Signature Series Multi-Jungle MJ4 (KG) - Outlet",
+    "model": "Signature Series Multi-Jungle MJ4",
     "machine_type": "selectorized",
     "exercise": null,
     "muscle_label": null,
     "product_type": "Home Gym",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/mj4-titanium-black-outlet_e2f9d73f-c804-4830-9027-99ccde8da307.jpg?v=1748945160",
+    "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Life Fitness",
+    "model": "Smith Machine",
+    "machine_type": "smith/rack",
+    "exercise": "chin-up",
+    "muscle_label": "lats · biceps",
+    "product_type": "Rack",
+    "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/outlet-signature-series-smith-charcoal-1000x1000.jpg?v=1748945161",
     "source": "shop-lifefitness"
   },
   {
@@ -1518,5 +2488,1175 @@
     "product_type": "Home Gym",
     "image_url": "https://cdn.shopify.com/s/files/1/0538/8307/6805/files/EN_LF_PA_UniversalCable_Render_black_1.jpg?v=1762968336",
     "source": "shop-lifefitness"
+  },
+  {
+    "brand": "Matrix",
+    "model": "Abdominal Crunch",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MABC-main.webp?v=1758468844",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "Connexus Compact",
+    "machine_type": "cable",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MATRIXCONNEXUS-main.webp?v=1758445329",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "Functional Trainer G3-MSFT300/400",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/matrixg3-main.webp?v=1757130125",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "G3 Aura G3-S22 Rear Delt / Pec Fly",
+    "machine_type": "selectorized",
+    "exercise": "rear-delt",
+    "muscle_label": "rear delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MATRIXG3-S22-main.webp?v=1757129964",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "G3 Aura G3-S60 Dip / Chin Assist",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MATRIXG3-S60-main.webp?v=1757129937",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "G3-S70 Aura Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/matrixg3s70-main.webp?v=1757129911",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "G3-S76 Aura Rotary Hip",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/Matrix-G3-S76-main.webp?v=1758446816",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "G7-S51 Abdominal Crunch",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/Matrix-G7-S51-main.webp?v=1758446739",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "G7-S55B Ultra Base Rotary Torso",
+    "machine_type": "selectorized",
+    "exercise": "torso-rotation",
+    "muscle_label": "obliques · core",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/matrixg7-s55b-main.webp?v=1757129868",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "Magnum MG-A85 Multi Adjustable Bench",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/Matrix-MG-A85-main.webp?v=1758446629",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "Ultra G7-S70 Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MATRIXG7-S70-main.webp?v=1757129800",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Matrix",
+    "model": "Versa VS-S70 Leg Press / Calf Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MLPCP-main.webp?v=1757127899",
+    "source": "fs-matrix"
+  },
+  {
+    "brand": "Precor",
+    "model": "820 Multi-Gym 8-stack 10-station",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precor8stack-main.webp?v=1756151721",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "AB102 Ab Bench",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorAB102-main.webp?v=1756154780",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Ab100p Abench Pro",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorAb100p-main.webp?v=1756154620",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "C010ES Vitality Leg Press / Calf Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorC010ES-main.webp?v=1756229174",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "C240i Stretch Trainer",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-C240i-main.webp?v=1757122588",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DBR0611 Discovery Series Half Rack",
+    "machine_type": "smith/rack",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DBR0611-main.webp?v=1757122585",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DPL0305 Discovery Series Plate Loaded Lat Pulldown",
+    "machine_type": "plate-loaded",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DPLLP-main.webp?v=1757122581",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DPL0540 Discovery Plate Loaded Chest Press",
+    "machine_type": "plate-loaded",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/dpl0540-main.webp?v=1756237165",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0204 Discovery Series Selectorized Biceps Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0204-main.webp?v=1756237874",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0208 Discovery Series Selectorized Triceps Extension",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0208-main.webp?v=1756238100",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0313 Discovery Series Selectorized Back Extension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0313-main.webp?v=1756238303",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0314 Discovery Series Selectorized Diverging Lat Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0314-main.webp?v=1756238510",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0414 Discovery Series Selectorized Converging Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0414-main.webp?v=1756238669",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0515 Discovery Series Selectorized Converging Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0515-main.webp?v=1763664244",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0606 Discovery Series Selectorized Prone Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0606-main.webp?v=1756238878",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "DSL0619 Discovery Series Selectorized Seated Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0619-main.webp?v=1756239309",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Discovery Adjustable Decline Ab Bench",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorADJAb-main.webp?v=1756236165",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Discovery Pec Fly / Rear Delt DSL0505",
+    "machine_type": "selectorized",
+    "exercise": "rear-delt",
+    "muscle_label": "rear delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/DSL0505-main.webp?v=1756236594",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Discovery Series Selectorized Glute Extension",
+    "machine_type": "selectorized",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-DSL0618-main.webp?v=1756236752",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Discovery Squat Machine DPL0624 Plate Loaded",
+    "machine_type": "plate-loaded",
+    "exercise": "chin-up",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precorDPL0624-main.webp?v=1771844414",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Experience C Line Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorLP-main.webp?v=1756320407",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian 45 Degree Back Extension",
+    "machine_type": "machine",
+    "exercise": "back-extension",
+    "muscle_label": "lower back",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precoribe-main.webp?v=1756321002",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian 5 Stack CW2200 Multi Station Gym",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precorcw2200-main.webp?v=1756321257",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian 6-Stack Multi-Station Gym CW2222",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-CW2222a1.webp?v=1774086683",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Adjustable Cable Crossover",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorIACC-main.webp?v=1756321419",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Angled 45 Degree Plate Loaded Leg Press",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorLP601-main.webp?v=1756321621",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian CW-408 Flat Olympic Bench",
+    "machine_type": "machine",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorCW-408-main.webp?v=1763665000",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian CW-702 VKR Vertical Knee Raise",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precorCW-702-main.webp?v=1763665124",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Chin Dip Assist",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PRECOR-ICDA-main.webp?v=1756321899",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Lateral Raise",
+    "machine_type": "selectorized",
+    "exercise": "lateral-raise",
+    "muscle_label": "side delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precorilr-main.webp?v=1756322148",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Leg Sled Seated 602 Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorLP602-main.webp?v=1763665449",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Seated Calf Raise",
+    "machine_type": "plate-loaded",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorISCR-main.webp?v=1756322473",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Seated Preacher Curl",
+    "machine_type": "machine",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precorispr-main.webp?v=1763665968",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Smith Machine",
+    "machine_type": "plate-loaded",
+    "exercise": "chin-up",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PISmith-main.webp?v=1756322664",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Super Squat 624",
+    "machine_type": "plate-loaded",
+    "exercise": "hack-squat",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/precor624-main.webp?v=1756322834",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Icarian Vertical Pec Deck 405",
+    "machine_type": "selectorized",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/Precor_Icarian_Vertical_Pec_Deck_405_Remanufactured_-_A.webp?v=1762285109",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "S3.23 Functional Trainer",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/s323-main.webp?v=1763666670",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "S3.45 Multi-Station Strength System",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/s345-main.webp?v=1763667293",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Vitality C027ES Leg Extension / Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorC027ES-main.webp?v=1763670094",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Vitality S Line Dual Pulldown / Seated Row",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/Precor_Vitality_S_Line_Dual_Pulldown_Seated_Row_Remanufactured_-_2.webp?v=1762841796",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Vitality Series Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorC001ES-main.webp?v=1763670219",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Vitality Series Lat Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorC002ES-main.webp?v=1763670351",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Vitality Series Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorC005ES-main.webp?v=1763670622",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Vitality Series Seated Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorC007ES-main.webp?v=1763670893",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "Vitality Series Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/PrecorC012ES-main.webp?v=1763671345",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Precor",
+    "model": "s3.55 Multi Gym Strength System",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/s355-main.webp?v=1756324401",
+    "source": "fs-precor"
+  },
+  {
+    "brand": "Technogym",
+    "model": "4-Stack Cable Jungle Gym",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/T4StackCJ-main.webp?v=1764624539",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Artis Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNOGYM-ALE-main.webp?v=1764624700",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Artis Shoulder Press MK69",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TG-ASP-MK69-main.webp?v=1764696315",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Artis Total Abdominal",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/techmk83.webp?v=1758717363",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Abdominal Crunch",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/techelementab-main.webp?v=1764697120",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Arm Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGArmCurl-main.webp?v=1764697278",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGChestPress-main_7ccba490-2224-42e4-860f-237212bc5d32.webp?v=1764697496",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGLegex-main.webp?v=1764697624",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGLegpr-main.webp?v=1764697738",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Low Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGElemLowRow-main.webp?v=1764697891",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Lower Back",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGElemLowBack-main.webp?v=1764698388",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Pectoral Machine",
+    "machine_type": "selectorized",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGElemPec-main.webp?v=1764698581",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGElemSP-main.webp?v=1764698754",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Element Vertical Traction",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGElemVertTrac-main.webp?v=1764698866",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Flexability Anterior",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGAnterior-main.webp?v=1764702453",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Flexability Posterior",
+    "machine_type": "machine",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGPosterior-main.webp?v=1764702726",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "K1 Kinesis One",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNOKINONE-main.webp?v=1764703008",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Kinesis Class Functional Trainer Wall",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNOKINCLA.webp?v=1772810280",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Kinesis Personal Vision",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNOKINPH-main.webp?v=1764703529",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Kinesis Press Station",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNOKINPS-main.webp?v=1757115793",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Plurima Core / Leg Curl - Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MF65-main.webp?v=1764703769",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Plurima Multistation - Twin",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MFMULTITWIN-main.webp?v=1764703994",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Plurima Multistation Tower",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MF25-main.webp?v=1764704446",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Plurima Multistation Wall",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MF30-main.webp?v=1757128287",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Plurima Multistation-Solo Leg Press / Calf",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/MF20-main.webp?v=1764705087",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Pure Strength 45 Degree Back Hyperextension Bench",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECH-45DBHB-main.webp?v=1764705402",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Pure Strength Linear Leg Press Plate Loaded",
+    "machine_type": "plate-loaded",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/technogymllp-main.webp?v=1758476838",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Pure Strength Plate Loaded Calf Press",
+    "machine_type": "plate-loaded",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/tgpscalf-main.webp?v=1758473684",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Pure Strength Plate Loaded Chest Press",
+    "machine_type": "plate-loaded",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/tgpschest-main.webp?v=1758473609",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Pure Strength Plate Loaded Row",
+    "machine_type": "plate-loaded",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/tgpsrow-main.webp?v=1758473581",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Pure Strength Plate Loaded Shoulder Press",
+    "machine_type": "plate-loaded",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/tgpsshoulder-main.webp?v=1758473546",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Abdominal / Decline Bench",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNOSelectADB-main.webp?v=1764706531",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Abdominal Crunch",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGAbdominal-main.webp?v=1764706694",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Arm Curl",
+    "machine_type": "selectorized",
+    "exercise": "biceps-curl",
+    "muscle_label": "biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELArmCurl-main.webp?v=1764706815",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Arm Tricep Extension",
+    "machine_type": "selectorized",
+    "exercise": "triceps-extension",
+    "muscle_label": "triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELArmExt-main.webp?v=1764706962",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Chest Incline",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGCI-main.webp?v=1764707226",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Chest Press",
+    "machine_type": "selectorized",
+    "exercise": "chest-press",
+    "muscle_label": "chest · front delts",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGChest-main.webp?v=1764707341",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Chin / Dip Assist",
+    "machine_type": "selectorized",
+    "exercise": "triceps-dip",
+    "muscle_label": "triceps · chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELCDA-main.webp?v=1764707496",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Delts Machine",
+    "machine_type": "selectorized",
+    "exercise": "chin-up",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELDelt-main.webp?v=1764707692",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Glute",
+    "machine_type": "selectorized",
+    "exercise": "glute",
+    "muscle_label": "glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELGLUTE-main.webp?v=1764707896",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Hip Abduction / Outer Thigh",
+    "machine_type": "selectorized",
+    "exercise": "hip-abduction",
+    "muscle_label": "glutes · abductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGAbductor-main.webp?v=1764708040",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Hip Adduction / Inner Thigh",
+    "machine_type": "selectorized",
+    "exercise": "hip-adduction",
+    "muscle_label": "adductors",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGAdductor-main.webp?v=1764708192",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Lat Pulldown",
+    "machine_type": "selectorized",
+    "exercise": "lat-pulldown",
+    "muscle_label": "lats · biceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELLatpd-main.webp?v=1764708391",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Leg Extension",
+    "machine_type": "selectorized",
+    "exercise": "leg-extension",
+    "muscle_label": "quads",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELLegex-main.webp?v=1764708512",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Leg Press",
+    "machine_type": "selectorized",
+    "exercise": "leg-press",
+    "muscle_label": "quads · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSslp-main.webp?v=1764708771",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Low Row",
+    "machine_type": "selectorized",
+    "exercise": "seated-row",
+    "muscle_label": "mid-back · lats",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGLowRow-main.webp?v=1764708986",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Lower Back",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELLowBack-main.webp?v=1764709147",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection MED 45 Degree Back Hyperextension",
+    "machine_type": "selectorized",
+    "exercise": "back-extension",
+    "muscle_label": "lower back · glutes",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/tgmed45dbh-main.webp?v=1764709283",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Multi Adjustable Bench",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNOSelectMAB-main.webp?v=1764709413",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Pectoral Pec Fly Machine",
+    "machine_type": "selectorized",
+    "exercise": "pec-fly",
+    "muscle_label": "chest",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSelPM-main.webp?v=1764709626",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Pulley",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGPulley-main.webp?v=1764709829",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Radiant Functional Trainer",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TECHNORADINC-main.webp?v=1764710005",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Rotary Calf",
+    "machine_type": "selectorized",
+    "exercise": "calf-raise",
+    "muscle_label": "calves",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELROTC-main.webp?v=1764710144",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Rotary Torso Rotation",
+    "machine_type": "selectorized",
+    "exercise": "torso-rotation",
+    "muscle_label": "obliques · core",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/tgselrotr-main.webp?v=1764710258",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Seated Leg Curl",
+    "machine_type": "selectorized",
+    "exercise": "leg-curl",
+    "muscle_label": "hamstrings",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGSELLegCurl-main.webp?v=1758473245",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Shoulder Press",
+    "machine_type": "selectorized",
+    "exercise": "shoulder-press",
+    "muscle_label": "delts · triceps",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGShoulder-main.webp?v=1764710406",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Total Abdominal",
+    "machine_type": "selectorized",
+    "exercise": "ab-crunch",
+    "muscle_label": "abs",
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGTotalAbdominal-main.webp?v=1764710524",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Upper Back",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGUpper-main.webp?v=1764772176",
+    "source": "fs-technogym"
+  },
+  {
+    "brand": "Technogym",
+    "model": "Selection Vertical Traction",
+    "machine_type": "selectorized",
+    "exercise": null,
+    "muscle_label": null,
+    "product_type": "Product Index",
+    "image_url": "https://cdn.shopify.com/s/files/1/0884/2012/2940/files/TGVertical-main.webp?v=1764772303",
+    "source": "fs-technogym"
   }
 ]

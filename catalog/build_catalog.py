@@ -22,17 +22,30 @@ from scrapers.shopify import ShopifyScraper
 
 OUT = Path(__file__).resolve().parent / "scraped_machines.json"
 
-# Each store is one Shopify storefront. shop.lifefitness.com carries Life Fitness,
-# Hammer Strength and Cybex (one company) — a large share of real gym floors.
+# Each entry is one Shopify storefront feed. shop.lifefitness.com is the brand's own
+# shop (clean model names, real product_type). Fitness Superstore is a multi-brand
+# reseller — we target each brand via its collection and let machines_only + clean_model
+# handle the cardio/remanufactured noise. Brands sold there: Technogym, Matrix, Precor,
+# Cybex, Body-Solid, … Add a brand by appending one line.
+FS = "https://www.fitnesssuperstore.com"
 SOURCES = [
     ShopifyScraper("shop-lifefitness", "https://shop.lifefitness.com"),
+    ShopifyScraper("fs-technogym", FS, collections=["technogym"], brands=["Technogym"]),
+    ShopifyScraper("fs-matrix",    FS, collections=["matrix"],    brands=["Matrix"]),
+    ShopifyScraper("fs-precor",    FS, collections=["precor-strength-equipment"], brands=["Precor"]),
+    ShopifyScraper("fs-cybex",     FS, collections=["cybex-strength-equipment"],  brands=["Cybex"]),
 ]
 
 
 def build(write: bool = True) -> list[dict]:
     rows: list[dict] = []
+    seen: set[tuple[str, str]] = set()  # dedupe (brand, model) across stores
     for scraper in SOURCES:
         for r in scraper.fetch():
+            key = (r.brand.lower(), r.model.lower())
+            if key in seen:
+                continue
+            seen.add(key)
             cat = categorize(r.model, r.category, r.extra.get("tags"))
             rows.append({
                 "brand": r.brand,

@@ -26,14 +26,17 @@ pip install -r requirements.txt
 python build_catalog.py          # live pull + categorize + write scraped_machines.json
 ```
 
-Current result: **152 machines** from `shop.lifefitness.com`, **91% auto-mapped** to a
-movement, classified by mechanism. The unmapped tail is multi-station home gyms / cable
-crossovers that genuinely aren't a single movement.
+Current result: **366 machines across 6 brands** — Cybex, Hammer Strength, Life Fitness,
+Technogym, Precor, Matrix — from two Shopify stores (`shop.lifefitness.com` + the multi-brand
+reseller `fitnesssuperstore.com`). **84% auto-mapped** to a movement; the unmapped tail is
+multi-station jungle gyms, functional trainers and cable crossovers that genuinely aren't a
+single movement.
 
 ## next
 
-1. Add more Shopify stores to `SOURCES` in `build_catalog.py` for Technogym / Matrix / Precor
-   coverage (or scrape Technogym's structured product JSON — see `../docs/DATA_SOURCES.md`).
+1. Add more brands by appending one `ShopifyScraper(...)` line to `SOURCES` in
+   `build_catalog.py` (point it at a store's brand collection; `machines_only` + `clean_model`
+   handle cardio/remanufactured noise).
 2. Pipe `RawMachine` records through `normalize.upsert()` (with `../api` on `sys.path`) to load
    the DB, then verify `/gyms/{id}/machines`.
 3. Seed the movement layer (`exercises`) from the public-domain free-exercise-db.
