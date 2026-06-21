@@ -454,6 +454,16 @@
       group:m.muscle_group||'other', muscle:fixText(m.muscle_label||''), image:m.image_url||'',
       lastW:L?L.weight_kg:0, lastR:L?L.reps:0, lastS:L?L.sets:0, date:L?fmtDate(L.logged_at):'' };
   }
+  // brand-agnostic default exercises from the open library (free-exercise-db).
+  // no gym_machine instance (gmid null) — picked freely in the custom builder.
+  function normLib(e){
+    return { gmid:null, brand:'', name:cleanModel(e.name),
+      group:e.muscle_group||'core', muscle:fixText(e.muscle_label||e.equipment||''),
+      image:e.image_url||'', lastW:0,lastR:0,lastS:0,date:'' };
+  }
+  async function loadLibrary(){
+    return (await (await fetch(`${API}/library`)).json()).map(normLib);
+  }
   async function loadGyms(){
     const data=await (await fetch(`${API}/gyms`)).json();
     GYMS=data.map(g=>({id:g.id,name:fixText(g.name).toLowerCase(),area:fixText(g.area).toLowerCase(),
@@ -466,7 +476,10 @@
   async function loadPool(){
     if(MACHINE_POOL.length) return MACHINE_POOL;
     const seen={};
+    // branded machines from the user's gyms first (they win name collisions)…
     for(const g of GYMS){ (await loadGymMachines(g)).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }
+    // …then the brand-agnostic default exercise library on top.
+    try{ (await loadLibrary()).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }catch(e){}
     return MACHINE_POOL;
   }
 

@@ -81,3 +81,12 @@ line to `SOURCES`.
 Pick **one** source, confirm its ToS allows it, pull the dominant brands, normalize to the
 `machines` schema. That covers the vast majority of machines a user will stand in front of.
 Everything else is crowdsourced per gym.
+
+## Exercise illustrations (the library layer)
+
+**Everkinetic** line-art exercise drawings, via
+[chaosbastler/opentraining-exercises](https://github.com/chaosbastler/opentraining-exercises)
+— **CC BY-SA 3.0**, credit "Everkinetic". ~170 movements (start/end poses, svg + png).
+`api/everkinetic_images.py` token-matches these onto the free-exercise-db library exercises
+(~97 matched); unmatched exercises keep their free-exercise-db photo. Attribution must be
+shown in-app wherever these illustrations appear (BY-SA also makes derivatives share-alike).
