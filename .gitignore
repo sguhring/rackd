@@ -30,3 +30,7 @@ dist/
 web/pwa/_*.png
 web/pwa/_*.js
 web/pwa/img/
+
+# scraping / image-generation working assets (brochure PDFs, vendored TripoSR,
+# extracted renders, source photos) — large & reproducible, kept local only
+tools/
