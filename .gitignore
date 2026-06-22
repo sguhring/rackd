@@ -34,3 +34,4 @@ web/pwa/img/
 # scraping / image-generation working assets (brochure PDFs, vendored TripoSR,
 # extracted renders, source photos) — large & reproducible, kept local only
 tools/
+docs/*.pdf

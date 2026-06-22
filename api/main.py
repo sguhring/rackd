@@ -4,11 +4,14 @@ Run:  uvicorn main:app --reload   →   http://127.0.0.1:8000/docs
 """
 from __future__ import annotations
 
+import base64
+from contextlib import asynccontextmanager
 from datetime import datetime
 from decimal import Decimal
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy import or_
 from sqlmodel import Session, select
@@ -17,7 +20,14 @@ from database import get_session, init_db
 from models import (Brand, Exercise, Gym, GymMachine, LibraryExercise, Machine,
                     Set, Workout)
 
-app = FastAPI(title="rackd", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+
+app = FastAPI(title="rackd", version="0.1.0", lifespan=lifespan)
 
 # Dev: the static PWA is served from a different origin/port, so allow cross-origin.
 app.add_middleware(
@@ -26,11 +36,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.on_event("startup")
-def _startup() -> None:
-    init_db()
 
 
 # ── response shapes ───────────────────────────────────────────────────────────
@@ -184,6 +189,65 @@ def catalog_search(q: str, limit: int = 30, session: Session = Depends(get_sessi
         machine_id=m.id, brand=b.name, model=m.model, machine_type=m.machine_type,
         muscle_label=m.muscle_label, muscle_group=ex.muscle_group if ex else None,
         image_url=m.image_url) for m, b, ex in rows]
+
+
+class CatalogRowOut(BaseModel):
+    machine_id: int
+    brand: str
+    model: str
+    machine_type: str | None
+    muscle_label: str | None
+    muscle_group: str | None   # push / pull / legs / core (the "body part" facet)
+    exercise: str | None       # the movement this model maps to, if any
+    source: str | None
+    gyms: list[str]            # which gym floors carry this model
+    has_image: bool
+
+
+@app.get("/catalog/all", response_model=list[CatalogRowOut])
+def catalog_all(session: Session = Depends(get_session)):
+    """The whole machine catalog as one flat table — the data-explorer dashboard feed.
+
+    Image bytes are NOT inlined (the catalog is ~9 MB of them); each row carries
+    `has_image` and the client lazy-loads thumbnails from /catalog/machines/{id}/image.
+    """
+    gyms_by_machine: dict[int, list[str]] = {}
+    for mid, gname in session.exec(
+        select(GymMachine.machine_id, Gym.name).where(Gym.id == GymMachine.gym_id)
+    ).all():
+        gyms_by_machine.setdefault(mid, []).append(gname)
+
+    rows = session.exec(
+        select(Machine, Brand, Exercise)
+        .where(Brand.id == Machine.brand_id)
+        .join(Exercise, isouter=True)
+        .order_by(Brand.name, Machine.model)
+    ).all()
+    return [CatalogRowOut(
+        machine_id=m.id, brand=b.name, model=m.model,
+        machine_type=m.machine_type, muscle_label=m.muscle_label,
+        muscle_group=ex.muscle_group if ex else None,
+        exercise=ex.name if ex else None, source=m.source,
+        gyms=sorted(set(gyms_by_machine.get(m.id, []))),
+        has_image=bool(m.image_url),
+    ) for m, b, ex in rows]
+
+
+@app.get("/catalog/machines/{machine_id}/image")
+def machine_image(machine_id: int, session: Session = Depends(get_session)):
+    """Serve one machine's render. Stored renders are base64 data URIs (decoded to
+    bytes here so the browser can cache them); a few seeded rows hold an external
+    URL, which we redirect to."""
+    m = session.get(Machine, machine_id)
+    if not m or not m.image_url:
+        raise HTTPException(404, "no image")
+    uri = m.image_url
+    if uri.startswith("data:"):
+        header, _, b64 = uri.partition(",")
+        media = header[5:].split(";")[0] or "image/jpeg"
+        return Response(content=base64.b64decode(b64), media_type=media,
+                        headers={"Cache-Control": "public, max-age=86400"})
+    return RedirectResponse(uri)
 
 
 @app.get("/gyms", response_model=list[GymOut])

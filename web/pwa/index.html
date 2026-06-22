@@ -140,7 +140,8 @@
 
   /* ---- log screen ---- */
   .log-id{padding:6px 22px 2px;display:flex;align-items:center;gap:12px;}
-  .log-id .mbadge{width:44px;height:44px;border-radius:11px;font-size:16px;}
+  .log-id .mbadge,.log-id .micon,.log-id .mthumb{width:56px;height:56px;border-radius:13px;font-size:18px;}
+  .log-id .micon svg{width:34px;height:34px;}
   .log-id .txt{min-width:0;}
   .log-id .b{font-size:12px;color:var(--label-3);font-weight:500;}
   .log-id .n{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:1px;}
@@ -186,7 +187,11 @@
   .sets{padding:10px 16px 26px;}
   .sets .hd{display:flex;justify-content:space-between;align-items:baseline;padding:8px 6px 4px;}
   .sets .hd .t{font-size:13px;color:var(--label-2);}
+  .sets .hd .t b{color:var(--label);font-weight:600;}
   .sets .hd .v{font-size:13px;color:var(--label-3);font-variant-numeric:tabular-nums;}
+  .setnote{display:flex;gap:8px;align-items:flex-start;margin:2px 6px 8px;padding:9px 12px;background:rgba(48,209,88,.09);border:.5px solid rgba(48,209,88,.18);border-radius:11px;cursor:pointer;}
+  .setnote svg{width:15px;height:15px;flex:0 0 auto;margin-top:1px;color:var(--accent);}
+  .setnote span{font-size:13px;line-height:1.4;color:var(--label);letter-spacing:-.01em;white-space:pre-wrap;}
   .setlist{background:var(--elev);border-radius:14px;overflow:hidden;}
   .setrow{
     display:flex;align-items:center;gap:13px;padding:13px 16px;position:relative;
@@ -221,6 +226,25 @@
   .toast .tt{font-size:15px;font-weight:600;letter-spacing:-.01em;}
   .toast .ts{font-size:13px;color:var(--label-2);margin-top:1px;}
 
+  /* ---- per-exercise note: button + bottom sheet ---- */
+  .note-btn{margin-left:auto;flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:var(--elev);border:0;color:var(--label-2);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .12s ease,color .12s ease;}
+  .note-btn:active{background:var(--elev-2);}
+  .note-btn svg{width:19px;height:19px;}
+  .note-btn.has{color:var(--accent);}
+  .note-btn.has::after{content:"";position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--elev);}
+  .sheet-back{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .26s ease;z-index:40;}
+  .sheet-back.show{opacity:1;pointer-events:auto;}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--elev);border-radius:20px 20px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s cubic-bezier(.32,.72,0,1);z-index:41;}
+  .sheet.show{transform:none;}
+  .sheet-grip{width:36px;height:5px;border-radius:3px;background:var(--elev-2);margin:6px auto 12px;}
+  .sheet-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;}
+  .sheet-hd .t{font-size:16px;font-weight:700;letter-spacing:-.01em;}
+  .sheet-hd .t span{display:block;font-size:12px;font-weight:500;color:var(--label-3);margin-top:1px;}
+  .sheet-hd .done{background:transparent;border:0;color:var(--accent);font-family:var(--sf);font-size:16px;font-weight:700;cursor:pointer;padding:0;}
+  .note-area{width:100%;min-height:120px;resize:none;background:var(--bg);border:.5px solid rgba(255,255,255,.08);border-radius:13px;color:var(--label);font-family:var(--sf);font-size:15px;line-height:1.45;padding:13px 14px;letter-spacing:-.01em;box-sizing:border-box;}
+  .note-area:focus{outline:none;border-color:rgba(255,255,255,.18);}
+  .note-area::placeholder{color:var(--label-3);}
+
   /* ---- custom workout builder ---- */
   .wname-input{width:100%;background:transparent;border:0;color:var(--label);font-family:var(--sf);font-size:17px;font-weight:600;padding:14px 16px;letter-spacing:-.01em;}
   .wname-input:focus{outline:none;}
@@ -254,6 +278,20 @@
   .scroll{padding-bottom:calc(env(safe-area-inset-bottom) + 12px);}
   .toast{bottom:calc(24px + env(safe-area-inset-bottom));}
   .navbar{padding-top:2px;}
+
+  /* desktop preview: dock the full-screen app inside a centred phone frame.
+     real phones (narrow viewport) keep the native edge-to-edge layout. */
+  @media (min-width:600px){
+    html,body{background:#0a0a0a;}
+    body{display:flex;align-items:center;justify-content:center;}
+    .app{
+      position:relative;inset:auto;
+      width:390px;height:min(844px,96vh);
+      border-radius:46px;overflow:hidden;
+      box-shadow:0 0 0 11px #000,0 0 0 12px rgba(255,255,255,.08),
+                 0 40px 90px -24px rgba(0,0,0,.9);
+    }
+  }
 </style>
 </head>
 <body>
@@ -468,11 +506,14 @@
           </button>
         </div>
         <div class="log-id">
-          <div class="mbadge" id="log-badge">HS</div>
+          <div id="log-thumb"></div>
           <div class="txt">
             <div class="b" id="log-brand">hammer strength</div>
             <div class="n" id="log-name">iso-lateral chest press</div>
           </div>
+          <button class="note-btn" id="note-btn" onclick="openNotes()" aria-label="exercise note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/><path d="M8 9h8M8 13h5"/></svg>
+          </button>
         </div>
 
         <div class="scroll">
@@ -509,7 +550,11 @@
           <div class="cta"><button onclick="logSet()">log set</button></div>
 
           <div class="sets">
-            <div class="hd"><span class="t">today · this machine</span><span class="v" id="vol">—</span></div>
+            <div class="hd"><span class="t">today · <b id="sets-machine">this machine</b></span><span class="v" id="vol">—</span></div>
+            <div class="setnote" id="setnote" style="display:none;" onclick="openNotes()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/></svg>
+              <span id="setnote-txt"></span>
+            </div>
             <div class="setlist" id="setlist"><div class="empty">no sets yet. log your first.</div></div>
           </div>
 
@@ -525,6 +570,16 @@
       <div class="toast" id="toast">
         <div class="ic ok" id="toast-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div><div class="tt" id="toast-t">set logged</div><div class="ts" id="toast-s">3×10 @ 68kg</div></div>
+      </div>
+
+      <div class="sheet-back" id="note-back" onclick="closeNotes()"></div>
+      <div class="sheet" id="note-sheet">
+        <div class="sheet-grip"></div>
+        <div class="sheet-hd">
+          <div class="t">note<span id="note-sub">this exercise</span></div>
+          <button class="done" onclick="closeNotes()">done</button>
+        </div>
+        <textarea class="note-area" id="note-area" placeholder="e.g. seat height 4 · last pin · grip just outside shoulders…"></textarea>
       </div>
 </div>
 <script>
@@ -655,7 +710,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // ===== on-device persistence (localStorage) =====
   const LS='rackd.v1';
-  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];return d;}catch(e){return{sets:[],workouts:[]};}}
+  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{}};}}
   function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
@@ -860,10 +915,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function loadLog(m){
     st.m=m; st.machineKey=keyFor(m); const ls=lastSession(st.machineKey,m); st.w=ls?ls.w:(m.lastW||60); st.r=ls?ls.r:(m.lastR||10);
-    const b=brandStyle(m.brand);
-    const badge=document.getElementById('log-badge'); badge.style.background=b.color; badge.textContent=b.abbr;
+    document.getElementById('log-thumb').innerHTML=thumbHTML(m.brand,m.name,m.group,m.img);
     document.getElementById('log-brand').textContent=m.brand;
     document.getElementById('log-name').textContent=m.name;
+    document.getElementById('sets-machine').textContent=m.name;
     const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
     if(ls){
       lastL.innerHTML=`last time · <b>${ls.s}×${ls.r} @ ${ls.w}kg</b>`;
@@ -875,6 +930,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(!st.session) document.getElementById('back-gym').textContent = st.gym ? st.gym.name.split(' ')[0] : 'back';
     updateSessionBar();
     renderW(); renderR(); renderSets();
+    document.getElementById('note-back').classList.remove('show');
+    document.getElementById('note-sheet').classList.remove('show');
+    refreshNoteBtn();
     show('s-log');
   }
   function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-workouts'); else goMachines(); }
@@ -1022,12 +1080,35 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(ev)ev.stopPropagation();
     DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderHome();
   }
+  // finishing a workout: snapshot the sets logged today for each exercise so the
+  // workout AND its individual results are saved together as one dated session.
+  // (the per-set history in DB.sets — which powers "last time on this machine" —
+  // is already written by logSet; this adds the redoable completed-workout record.)
+  function saveSession(){
+    if(!st.session) return;
+    const t=new Date().toDateString();
+    const items=st.session.items.map(m=>({
+      brand:m.brand, name:m.name,
+      sets:setsFor(keyFor(m)).filter(s=>new Date(s.ts).toDateString()===t).map(s=>({w:s.w,r:s.r,pr:!!s.pr})),
+    })).filter(it=>it.sets.length);
+    if(!items.length) return;                 // nothing logged — don't save an empty session
+    DB.sessions.push({id:'s'+Date.now().toString(36), wid:st.session.wid||null,
+                      name:st.session.name, ts:Date.now(), items});
+    saveDB();
+  }
+  function lastDone(wid){                      // most recent date this workout was completed
+    const ts=DB.sessions.filter(s=>s.wid===wid).map(s=>s.ts);
+    if(!ts.length) return '';
+    const d=new Date(Math.max.apply(null,ts));
+    return d.getDate()+' '+MON[d.getMonth()];
+  }
   function workoutRow(w){
     const chips=[...new Set(w.items.map(it=>it.brand))].slice(0,3)
       .map(b=>{const s=brandStyle(b);return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');
+    const ld=lastDone(w.id);
     return `<div class="row" onclick="startWorkout('${w.id}')">
       <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg></div>
-      <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}</div></div>
+      <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}${ld?` · last done ${ld}`:''}</div></div>
       <span class="brandchips">${chips}</span>
       <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
     </div>`;
@@ -1123,7 +1204,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function nextExercise(){
     if(!st.session)return;
     if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
-    else { const n=st.session.name; st.session=null; renderWorkouts(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged'); }
+    else { const n=st.session.name; saveSession(); st.session=null; renderWorkouts(); renderHome(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged'); }
   }
   function prevExercise(){
     if(!st.session||st.session.idx<=0)return;
@@ -1142,6 +1223,34 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     } else {dl.className='delta';dl.textContent='baseline';}
   }
   function renderR(){document.getElementById('rp').textContent=st.r;}
+
+  // ---- per-exercise notes (on-device, keyed per machine like the set history) ----
+  function refreshNoteBtn(){
+    const note=(st.machineKey && (DB.notes[st.machineKey]||'').trim())||'';
+    const btn=document.getElementById('note-btn'); if(btn) btn.classList.toggle('has',!!note);
+    const line=document.getElementById('setnote'), txt=document.getElementById('setnote-txt');
+    if(line&&txt){ txt.textContent=note; line.style.display=note?'flex':'none'; }
+  }
+  function openNotes(){
+    if(!st.machineKey)return;
+    document.getElementById('note-sub').textContent=st.m?st.m.name:'this exercise';
+    const ta=document.getElementById('note-area');
+    ta.value=DB.notes[st.machineKey]||'';
+    document.getElementById('note-back').classList.add('show');
+    document.getElementById('note-sheet').classList.add('show');
+    setTimeout(()=>ta.focus(),120);
+  }
+  function saveNote(){
+    if(!st.machineKey)return;
+    const v=document.getElementById('note-area').value;
+    if(v.trim()) DB.notes[st.machineKey]=v.trim(); else delete DB.notes[st.machineKey];
+    saveDB(); refreshNoteBtn();
+  }
+  function closeNotes(){
+    saveNote();
+    document.getElementById('note-back').classList.remove('show');
+    document.getElementById('note-sheet').classList.remove('show');
+  }
 
   function logSet(){
     const best=bestWeight(st.machineKey,st.m);

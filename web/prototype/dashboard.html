@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rackd · catalog</title>
+<!--
+  catalog — a Notion-style database view over the whole machine DB.
+  group by a category (body part / brand / mechanism / …) so rows sit under
+  collapsible category headers; filter by brand · body part · machine type.
+  feed: GET /catalog/all  ·  thumbnails lazy from /catalog/machines/{id}/image
+-->
+<style>
+  :root{
+    --bg:#ffffff; --text:#37352f; --text2:#787774; --text3:#9b9a97;
+    --border:#e9e9e7; --border-2:#edece9; --hover:#f7f6f3; --head:#fbfbfa;
+    --blue:#2383e2;
+    --sf:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--text);font-family:var(--sf);
+            font-size:14px;-webkit-font-smoothing:antialiased;}
+  body{padding:30px 34px 80px;}
+  a{color:inherit;text-decoration:none;}
+
+  .title-h{font-size:30px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;}
+  .title-h .ico{width:30px;height:30px;border-radius:7px;background:#37352f;color:#fff;
+                display:inline-flex;align-items:center;justify-content:center;font-size:17px;}
+  .crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px;display:flex;gap:8px;align-items:center;}
+  .crumbs a:hover{color:var(--text);}
+
+  /* toolbar (Notion view bar) */
+  .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+           border-bottom:1px solid var(--border);padding-bottom:9px;margin-bottom:2px;}
+  .ctl{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 9px;border-radius:6px;
+       font-size:13.5px;color:var(--text2);cursor:pointer;background:none;border:0;font-family:var(--sf);
+       white-space:nowrap;}
+  .ctl:hover{background:var(--hover);}
+  .ctl.on{color:var(--text);}
+  .ctl .k{color:var(--text3);}
+  .ctl select{appearance:none;border:0;background:none;font-family:var(--sf);font-size:13.5px;
+              color:var(--text);cursor:pointer;outline:none;padding-right:14px;
+              background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='6'><path d='M1 1l3.5 3.5L8 1' stroke='%239b9a97' fill='none' stroke-width='1.3'/></svg>");
+              background-repeat:no-repeat;background-position:right center;}
+  .sep{width:1px;height:18px;background:var(--border);margin:0 2px;}
+  .search{flex:1;min-width:160px;display:flex;justify-content:flex-end;}
+  .search input{border:0;outline:none;font-family:var(--sf);font-size:13.5px;color:var(--text);
+                background:none;text-align:right;width:230px;padding:6px 4px;}
+  .search input::placeholder{color:var(--text3);}
+  .count{font-size:12.5px;color:var(--text3);padding:8px 2px 0;}
+  .count b{color:var(--text2);font-weight:600;}
+
+  /* table */
+  table{width:100%;border-collapse:collapse;}
+  thead th{position:sticky;top:0;z-index:3;background:var(--bg);text-align:left;
+           padding:7px 10px;font-size:12px;font-weight:500;color:var(--text3);
+           border-bottom:1px solid var(--border);cursor:pointer;white-space:nowrap;user-select:none;}
+  thead th:hover{color:var(--text2);}
+  thead th .s{color:var(--blue);font-size:9px;}
+  tbody td{padding:0 10px;height:37px;border-bottom:1px solid var(--border-2);
+           color:var(--text);vertical-align:middle;font-size:13.5px;}
+  tbody tr:hover td{background:var(--hover);}
+
+  /* group header row (the "category" mid-rows) */
+  tr.grp td{background:var(--head);padding:6px 10px;height:auto;cursor:pointer;
+            border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+            position:sticky;top:30px;z-index:2;}
+  tr.grp:first-child td{border-top:0;}
+  .ghead{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px;}
+  .tri{width:12px;height:12px;color:var(--text3);transition:transform .12s ease;flex:0 0 auto;}
+  tr.grp.collapsed .tri{transform:rotate(-90deg);}
+  .gcount{color:var(--text3);font-weight:400;font-size:12.5px;}
+
+  /* title cell (Notion page-title look) */
+  td.title{font-weight:500;}
+  td.title .tw{display:inline-flex;align-items:center;gap:9px;min-width:0;}
+  td.title img{width:24px;height:24px;object-fit:contain;background:#fff;border:1px solid var(--border);
+               border-radius:4px;flex:0 0 auto;}
+  td.title .ph{width:24px;height:24px;border-radius:4px;background:var(--head);border:1px solid var(--border);
+               display:inline-flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;flex:0 0 auto;}
+  td.title .tt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+  /* select-property tags (Notion palette) */
+  .tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-size:12px;
+       line-height:1.45;white-space:nowrap;background:#e3e2e0;color:#37352f;text-transform:lowercase;}
+  .tag.orange{background:#fadec9;} .tag.blue{background:#d3e5ef;} .tag.purple{background:#e8deee;}
+  .tag.yellow{background:#fdecc8;} .tag.green{background:#dbeddb;} .tag.pink{background:#f5e0e9;}
+  .tag.brown{background:#eee0da;} .tag.gray{background:#e3e2e0;color:#787774;}
+  .brand{color:var(--text);} .muscle{color:var(--text2);} .gymc{color:var(--text2);font-size:12.5px;}
+  .src{color:var(--text3);font-size:12px;} .dash{color:var(--text3);}
+
+  .msg{padding:46px;text-align:center;color:var(--text2);line-height:1.7;}
+  .msg code{background:var(--head);color:#37352f;border:1px solid var(--border);
+            padding:1px 6px;border-radius:5px;font-size:12.5px;}
+</style>
+
+<div class="title-h"><span class="ico">🏋</span> catalog</div>
+<div class="crumbs"><a href="index.html">phone app</a> › <span>database table — every machine</span></div>
+
+<div class="toolbar">
+  <button class="ctl on" id="t-group"><span class="k">group:</span>
+    <select id="groupby">
+      <option value="muscle_group">body part</option>
+      <option value="brand">brand</option>
+      <option value="machine_type">machine type</option>
+      <option value="exercise">exercise</option>
+      <option value="gyms">gym floor</option>
+      <option value="none">none</option>
+    </select>
+  </button>
+  <span class="sep"></span>
+  <button class="ctl"><span class="k">brand:</span><select id="f-brand"></select></button>
+  <button class="ctl"><span class="k">body part:</span><select id="f-bp"></select></button>
+  <button class="ctl"><span class="k">type:</span><select id="f-type"></select></button>
+  <span class="sep"></span>
+  <button class="ctl" id="reset">reset</button>
+  <div class="search"><input type="search" id="f-q" placeholder="🔍  search model, brand, movement…"></div>
+</div>
+<div class="count" id="count"></div>
+
+<table>
+  <thead><tr id="head"></tr></thead>
+  <tbody id="body"></tbody>
+</table>
+
+<script>
+const API='http://127.0.0.1:8000';
+let ROWS=[];
+const F={brand:'',bp:'',type:'',q:''};
+let groupBy='muscle_group', sortKey='model', sortDir=1;
+const collapsed=new Set();
+
+// cascading filter facets (the three the user filters by)
+const FACETS=[
+  {id:'f-brand',key:'brand',field:'brand',        blank:'—',        all:'all'},
+  {id:'f-bp',   key:'bp',   field:'muscle_group', blank:'unmapped', all:'all'},
+  {id:'f-type', key:'type', field:'machine_type', blank:'—',        all:'all'},
+];
+
+const BP_COLOR={legs:'orange',push:'blue',pull:'purple',core:'yellow'};
+const TYPE_COLOR={'plate-loaded':'brown',selectorized:'green',cable:'blue',
+                  functional:'pink',rack:'gray',bench:'gray',storage:'gray',smith:'gray'};
+
+const COLS=[
+  {key:'model',        label:'machine',     title:true},
+  {key:'brand',        label:'brand',       cell:r=>`<span class="brand">${esc(r.brand)}</span>`},
+  {key:'machine_type', label:'mechanism',   cell:r=>typeTag(r.machine_type)},
+  {key:'exercise',     label:'exercise',    cell:r=>r.exercise?esc(r.exercise):dash()},
+  {key:'muscle_group', label:'body part',   cell:r=>bpTag(r.muscle_group)},
+  {key:'muscle_label', label:'muscle',      cell:r=>r.muscle_label?`<span class="muscle">${esc(r.muscle_label)}</span>`:dash()},
+  {key:'gyms',         label:'gym floor',   cell:r=>(r.gyms||[]).length?`<span class="gymc">${r.gyms.map(esc).join(', ')}</span>`:dash()},
+  {key:'source',       label:'source',      cell:r=>r.source?`<span class="src">${esc(r.source)}</span>`:dash()},
+];
+
+const dash=()=>'<span class="dash">—</span>';
+const bpTag=g=>g?`<span class="tag ${BP_COLOR[g]||'gray'}">${esc(g)}</span>`:`<span class="tag gray">unmapped</span>`;
+const typeTag=t=>t?`<span class="tag ${TYPE_COLOR[t]||'gray'}">${esc(t)}</span>`:dash();
+function tagFor(field,v){ return field==='muscle_group'?bpTag(v==='unmapped'?'':v)
+                              : field==='machine_type'?typeTag(v==='—'?'':v)
+                              : `<span class="tag gray">${esc(v)}</span>`; }
+
+function passes(r, ignore){
+  for(const f of FACETS){
+    if(f.key===ignore) continue;
+    const sel=F[f.key]; if(!sel) continue;
+    if((r[f.field]||f.blank)!==sel) return false;
+  }
+  if(F.q){
+    const hay=[r.brand,r.model,r.exercise,r.muscle_label,r.machine_type,r.source,(r.gyms||[]).join(' ')]
+      .join(' ').toLowerCase();
+    if(!hay.includes(F.q.toLowerCase())) return false;
+  }
+  return true;
+}
+
+function renderFacets(){
+  for(const f of FACETS){
+    const counts=new Map();
+    for(const r of ROWS){ if(!passes(r,f.key)) continue;
+      const v=r[f.field]||f.blank; counts.set(v,(counts.get(v)||0)+1); }
+    const opts=[...counts.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+    const cur=F[f.key]; let curOk=false;
+    let html=`<option value="">${f.all}</option>`;
+    for(const [v,n] of opts){ if(v===cur)curOk=true;
+      html+=`<option value="${esc(v)}"${v===cur?' selected':''}>${esc(v)} · ${n}</option>`; }
+    const sel=document.getElementById(f.id); sel.innerHTML=html;
+    if(cur && !curOk){ F[f.key]=''; sel.value=''; }
+  }
+}
+
+function groupVal(r){
+  if(groupBy==='none') return '';
+  if(groupBy==='gyms') return (r.gyms||[]).length?r.gyms.join(', '):'(none)';
+  return r[groupBy] || (groupBy==='muscle_group'?'unmapped':'—');
+}
+const isPlaceholder=v=>v==='unmapped'||v==='—'||v==='(none)'||v==='';
+
+function sortRows(rows){
+  return rows.sort((a,b)=>{
+    let x=sortKey==='gyms'?(a.gyms||[]).join(', '):a[sortKey];
+    let y=sortKey==='gyms'?(b.gyms||[]).join(', '):b[sortKey];
+    x=(x==null?'':x).toString().toLowerCase(); y=(y==null?'':y).toString().toLowerCase();
+    return x<y?-sortDir : x>y?sortDir : 0;
+  });
+}
+
+function render(){
+  renderFacets();
+  const shown=sortRows(ROWS.filter(r=>passes(r,null)));
+  document.getElementById('count').innerHTML =
+    `<b>${shown.length}</b> machines${shown.length!==ROWS.length?` (of ${ROWS.length})`:''}`;
+
+  // header
+  document.getElementById('head').innerHTML = COLS.map(c=>{
+    const s=c.key===sortKey?`<span class="s">${sortDir>0?'↑':'↓'}</span>`:'';
+    return `<th data-k="${c.key}">${c.label} ${s}</th>`;
+  }).join('');
+  document.querySelectorAll('th[data-k]').forEach(th=>{
+    th.onclick=()=>{ const k=th.dataset.k; if(sortKey===k)sortDir*=-1; else{sortKey=k;sortDir=1;} render(); };
+  });
+
+  const rowHTML=r=>`<tr>${COLS.map(c=>{
+      if(c.title) return `<td class="title"><span class="tw">${
+        r.has_image?`<img loading="lazy" src="${API}/catalog/machines/${r.machine_id}/image" alt="">`
+                   :`<span class="ph">–</span>`}<span class="tt">${esc(r.model)}</span></span></td>`;
+      return `<td>${c.cell(r)}</td>`;
+    }).join('')}</tr>`;
+
+  const body=document.getElementById('body');
+  if(!shown.length){ body.innerHTML=`<tr><td class="msg" colspan="${COLS.length}">no machines match these filters.</td></tr>`; return; }
+
+  if(groupBy==='none'){ body.innerHTML=shown.map(rowHTML).join(''); return; }
+
+  // group → category "mid rows"
+  const groups=new Map();
+  for(const r of shown){ const k=groupVal(r); if(!groups.has(k))groups.set(k,[]); groups.get(k).push(r); }
+  const bpOrder=['legs','push','pull','core'];
+  const keys=[...groups.keys()].sort((a,b)=>{
+    const pa=isPlaceholder(a),pb=isPlaceholder(b); if(pa!==pb) return pa?1:-1;
+    if(groupBy==='muscle_group'){ const ia=bpOrder.indexOf(a),ib=bpOrder.indexOf(b);
+      return (ia<0?9:ia)-(ib<0?9:ib); }
+    return groups.get(b).length-groups.get(a).length || a.localeCompare(b);
+  });
+
+  let html='';
+  for(const k of keys){
+    const isCol=collapsed.has(k);
+    const label = (groupBy==='muscle_group'||groupBy==='machine_type')
+      ? tagFor(groupBy,k) : `<span>${esc(k)}</span>`;
+    html+=`<tr class="grp${isCol?' collapsed':''}" data-g="${esc(k)}"><td colspan="${COLS.length}">
+      <span class="ghead">
+        <svg class="tri" viewBox="0 0 12 12"><path d="M3 4l3 4 3-4" fill="currentColor"/></svg>
+        ${label}<span class="gcount">${groups.get(k).length}</span>
+      </span></td></tr>`;
+    if(!isCol) html+=groups.get(k).map(rowHTML).join('');
+  }
+  body.innerHTML=html;
+  body.querySelectorAll('tr.grp').forEach(tr=>{
+    tr.onclick=()=>{ const g=tr.dataset.g; collapsed.has(g)?collapsed.delete(g):collapsed.add(g); render(); };
+  });
+}
+
+function esc(s){return (s==null?'':s).toString().replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+// wire
+document.getElementById('groupby').addEventListener('change',e=>{ groupBy=e.target.value; collapsed.clear(); render(); });
+for(const f of FACETS) document.getElementById(f.id).addEventListener('change',e=>{ F[f.key]=e.target.value; render(); });
+let qt; document.getElementById('f-q').addEventListener('input',e=>{
+  clearTimeout(qt); qt=setTimeout(()=>{ F.q=e.target.value.trim(); render(); },140); });
+document.getElementById('reset').onclick=()=>{
+  for(const k in F)F[k]=''; document.getElementById('f-q').value=''; collapsed.clear(); render(); };
+
+function fail(msg){ document.getElementById('body').innerHTML=`<tr><td class="msg" colspan="${COLS.length}">${msg}</td></tr>`; }
+(async function(){
+  document.getElementById('body').innerHTML=`<tr><td class="msg" colspan="${COLS.length}">loading…</td></tr>`;
+  let res;
+  try{ res=await fetch(`${API}/catalog/all`); }
+  catch(e){ return fail(`can’t reach the api at ${API}. &nbsp;<code>uvicorn main:app --reload</code>`); }
+  if(res.status===404) return fail(`the api is running but missing the <code>/catalog/all</code> route — restart it: &nbsp;<code>uvicorn main:app --reload</code>`);
+  if(!res.ok) return fail(`the api returned ${res.status}. check the uvicorn console.`);
+  const data=await res.json();
+  if(!Array.isArray(data)) return fail('unexpected response from /catalog/all.');
+  ROWS=data; render();
+})();
+</script>
+</html>

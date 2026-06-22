@@ -190,11 +190,11 @@ def data_uri(doc: fitz.Document, xref: int) -> str:
     pix = fitz.Pixmap(doc, xref)
     if pix.colorspace and pix.colorspace.n == 4:        # CMYK -> RGB
         pix = fitz.Pixmap(fitz.csRGB, pix)
-    if pix.width > 300:                                  # ~500px renders -> ~250px tiles
+    while pix.width > 1200:                              # keep near-native res (tiles are ~500px)
         pix.shrink(1)
     if pix.alpha:                                        # flatten any alpha (jpg has none)
         pix = fitz.Pixmap(pix, 0)
-    jpg = pix.tobytes("jpg", jpg_quality=80)
+    jpg = pix.tobytes("jpg", jpg_quality=88)
     return "data:image/jpeg;base64," + base64.b64encode(jpg).decode("ascii")
 
 
