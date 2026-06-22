@@ -35,3 +35,7 @@ web/pwa/img/
 # extracted renders, source photos) — large & reproducible, kept local only
 tools/
 docs/*.pdf
+
+# build artifacts + local cloud config
+*.apk
+api/.azure/

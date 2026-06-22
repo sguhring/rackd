@@ -1,5 +1,6 @@
 fastapi>=0.111
 uvicorn[standard]>=0.30
+gunicorn>=21.2          # production ASGI server (uvicorn worker) for cloud hosting
 sqlmodel>=0.0.21
 pydantic>=2.7
 # psycopg[binary]>=3.1   # uncomment for Postgres (set DATABASE_URL)

@@ -205,6 +205,20 @@
   .setrow .pr svg{width:13px;height:13px;}
   .setrow .done{margin-left:auto;color:var(--accent);}
   .setrow .done svg{width:18px;height:18px;display:block;}
+  /* edit a logged set */
+  .setrow .se-edit{width:30px;height:30px;border-radius:8px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:background .12s ease,color .12s ease;}
+  .setrow .se-edit:active{background:var(--elev-2);color:var(--label);}
+  .setrow .se-edit svg{width:16px;height:16px;}
+  .setrow.editing{gap:8px;}
+  .setrow.editing .x{margin:0 2px;}
+  .setrow .se-in{width:56px;background:var(--bg);border:.5px solid rgba(255,255,255,.14);border-radius:8px;color:var(--label);font-family:var(--sf);font-size:16px;font-weight:600;text-align:center;padding:7px 4px;-moz-appearance:textfield;}
+  .setrow .se-in:focus{outline:none;border-color:var(--accent);}
+  .setrow .se-in::-webkit-outer-spin-button,.setrow .se-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .setrow .se-u{color:var(--label-3);font-size:13px;}
+  .setrow .se-btn{width:34px;height:34px;border-radius:9px;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .setrow .se-btn svg{width:17px;height:17px;}
+  .setrow .se-btn.del{background:var(--elev-2);color:#FF453A;margin-left:auto;}
+  .setrow .se-btn.save{background:var(--accent);color:#00350F;}
   .empty{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
 
   @keyframes pop{from{opacity:0;transform:translateY(-7px);}to{opacity:1;transform:none;}}
@@ -245,6 +259,21 @@
   .note-area:focus{outline:none;border-color:rgba(255,255,255,.18);}
   .note-area::placeholder{color:var(--label-3);}
 
+  /* ---- confirm dialog ---- */
+  .confirm-back{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:50;}
+  .confirm-back.show{opacity:1;pointer-events:auto;}
+  .confirm{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;width:min(300px,82%);background:var(--elev);border-radius:18px;padding:20px 20px 16px;z-index:51;text-align:center;transition:opacity .2s ease,transform .2s cubic-bezier(.32,.72,0,1);}
+  .confirm.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+  .confirm-t{font-size:17px;font-weight:700;letter-spacing:-.01em;}
+  .confirm-m{font-size:14px;color:var(--label-2);margin-top:7px;line-height:1.4;}
+  .confirm-m:empty{display:none;}
+  .confirm-row{display:flex;gap:10px;margin-top:18px;}
+  .confirm-btn{flex:1;border:0;border-radius:11px;padding:12px;font-family:var(--sf);font-size:15px;font-weight:700;cursor:pointer;}
+  .confirm-btn.cancel{background:var(--elev-2);color:var(--label);}
+  .confirm-btn.cancel:active{background:#3A3A3C;}
+  .confirm-btn.danger{background:#FF453A;color:#fff;}
+  .confirm-btn.danger:active{background:#d63a30;}
+
   /* ---- custom workout builder ---- */
   .wname-input{width:100%;background:transparent;border:0;color:var(--label);font-family:var(--sf);font-size:17px;font-weight:600;padding:14px 16px;letter-spacing:-.01em;}
   .wname-input:focus{outline:none;}
@@ -252,6 +281,26 @@
   .addex{width:100%;background:var(--elev);color:var(--accent);border:0;border-radius:14px;padding:14px;font-family:var(--sf);font-size:16px;font-weight:600;cursor:pointer;transition:background .12s ease;}
   .addex:active{background:var(--elev-2);}
   .draftrow .rm{margin-left:auto;width:28px;height:28px;border-radius:50%;background:var(--elev-2);border:0;color:#FF453A;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .draftrow .dphoto{width:34px;height:34px;border-radius:9px;background:var(--elev-2);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .draftrow .dphoto:active{background:#3A3A3C;}
+  .draftrow .dphoto svg{width:16px;height:16px;}
+  .draftrow .drag{width:30px;height:34px;margin-left:-6px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:grab;flex:0 0 auto;touch-action:none;}
+  .draftrow .drag:active{cursor:grabbing;color:var(--label);}
+  .draftrow .drag svg{width:19px;height:19px;}
+  .draftrow.dragging{background:var(--elev-2);border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.45);position:relative;z-index:5;}
+  .draftrow.dragging::before{display:none;}
+  /* saved-workout row actions: start / edit / delete */
+  .wactions{display:flex;align-items:center;gap:8px;flex:0 0 auto;}
+  .wbtn{display:flex;align-items:center;gap:5px;border:0;border-radius:9px;font-family:var(--sf);font-weight:700;cursor:pointer;flex:0 0 auto;transition:background .12s ease,color .12s ease;}
+  .wbtn svg{display:block;}
+  .wbtn.start{background:var(--accent);color:#00350F;font-size:13px;padding:8px 13px 8px 11px;letter-spacing:-.01em;}
+  .wbtn.start svg{width:13px;height:13px;}
+  .wbtn.start:active{background:#28b14e;}
+  .wbtn.edit{width:34px;height:34px;justify-content:center;background:var(--elev-2);color:var(--label-2);}
+  .wbtn.edit svg{width:16px;height:16px;}
+  .wbtn.edit:active{background:#3A3A3C;color:var(--label);}
+  .row .rm{width:34px;height:34px;border-radius:50%;background:var(--elev-2);border:0;color:#FF453A;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .12s ease;}
+  .row .rm:active{background:#3A3A3C;}
   .draftrow .rm:active{background:#3A3A3C;}
   #startbtn:disabled{background:var(--elev);color:var(--label-3);cursor:default;}
   #savebtn{background:var(--elev);color:var(--label);}
@@ -259,13 +308,53 @@
   .savebtn{margin-left:auto;flex:0 0 auto;background:var(--elev-2);color:var(--accent);border:0;border-radius:9px;padding:7px 13px;font-family:var(--sf);font-size:13px;font-weight:700;cursor:pointer;}
   .savebtn:active{background:#3A3A3C;}
   .picker{margin:0;}
+  /* keep the search box fixed and let the matches scroll on their own */
+  #cat-results{max-height:44vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
   .chev.plus{color:var(--accent);font-size:22px;font-weight:400;line-height:1;}
   .empty-draft{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
 
   /* ---- session bar + next ---- */
-  .sessbar{margin:0 16px 14px;display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:rgba(48,209,88,.12);border-radius:12px;}
+  .sessbar{margin:0 16px 14px;display:flex;justify-content:space-between;align-items:center;padding:9px 12px 9px 16px;background:rgba(48,209,88,.12);border-radius:12px;}
   .sb-name{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:-.01em;}
-  .sb-prog{font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;}
+  .sb-right{display:flex;align-items:center;gap:6px;flex:0 0 auto;}
+  .sb-prog{font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;min-width:34px;text-align:center;}
+  .sb-arw{width:28px;height:28px;border-radius:8px;background:rgba(48,209,88,.16);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:opacity .15s ease,background .12s ease;}
+  .sb-arw:active{background:rgba(48,209,88,.3);}
+  .sb-arw svg{width:14px;height:14px;display:block;}
+  .sb-arw:disabled{opacity:.25;cursor:default;background:rgba(48,209,88,.16);}
+
+  /* ---- routine overview ---- */
+  .viewbtn{margin-left:auto;width:36px;height:36px;border-radius:10px;background:var(--elev);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .viewbtn:active{background:var(--elev-2);}
+  .viewbtn svg{width:19px;height:19px;}
+  .ov-notes{display:block;width:calc(100% - 32px);margin:2px 16px 16px;min-height:46px;resize:none;background:var(--elev);border:0;border-radius:12px;color:var(--label);font-family:var(--sf);font-size:14px;line-height:1.4;padding:12px 14px;letter-spacing:-.01em;box-sizing:border-box;}
+  .ov-notes:focus{outline:none;}
+  .ov-notes::placeholder{color:var(--label-3);}
+  .ov-card{margin:0 16px 14px;background:var(--elev);border-radius:16px;overflow:hidden;}
+  .ov-head{display:flex;align-items:center;gap:11px;padding:13px 14px;cursor:pointer;}
+  .ov-head:active{background:var(--elev-2);}
+  .ov-head .micon,.ov-head .mbadge,.ov-head .mthumb{width:38px;height:38px;border-radius:10px;font-size:14px;}
+  .ov-head .ov-tt{flex:1;min-width:0;}
+  .ov-head .ov-b{font-size:11px;color:var(--label-3);font-weight:500;}
+  .ov-head .ov-n{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+  .ov-head .ov-go{color:var(--label-3);flex:0 0 auto;}
+  .ov-head .ov-go svg{width:8px;height:13px;display:block;}
+  .ov-tblh,.ov-row{display:grid;grid-template-columns:34px 1fr 1fr 1fr 30px;align-items:center;gap:8px;padding:6px 14px;}
+  .ov-tblh{padding-top:2px;padding-bottom:2px;}
+  .ov-tblh span{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--label-3);text-align:center;}
+  .ov-tblh span:first-child{text-align:left;}
+  .ov-row + .ov-row{margin-top:-2px;}
+  .ov-set{width:24px;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+  .ov-prev{font-size:13px;color:var(--label-3);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ov-in{width:100%;background:var(--bg);border:.5px solid rgba(255,255,255,.12);border-radius:8px;color:var(--label);font-family:var(--sf);font-size:15px;font-weight:600;text-align:center;padding:7px 2px;box-sizing:border-box;-moz-appearance:textfield;}
+  .ov-in:focus{outline:none;border-color:var(--accent);}
+  .ov-in::-webkit-outer-spin-button,.ov-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .ov-del{width:28px;height:28px;border-radius:7px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .ov-del:active{background:var(--elev-2);color:#FF453A;}
+  .ov-del svg{width:15px;height:15px;}
+  .ov-empty{padding:8px 14px 4px;font-size:13px;color:var(--label-3);}
+  .ov-add{width:calc(100% - 20px);margin:6px 10px 10px;background:var(--elev-2);color:var(--accent);border:0;border-radius:10px;padding:11px;font-family:var(--sf);font-size:14px;font-weight:600;cursor:pointer;}
+  .ov-add:active{background:#3A3A3C;}
   .next-btn{width:100%;background:var(--elev);color:var(--label);border:0;border-radius:14px;padding:16px;font-family:var(--sf);font-size:17px;font-weight:600;cursor:pointer;transition:background .12s ease;}
   .next-btn:active{background:var(--elev-2);}
 
@@ -504,6 +593,9 @@
             <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
             <span id="back-gym">machines</span>
           </button>
+          <button class="viewbtn" id="log-viewbtn" onclick="openOverview()" style="display:none;" aria-label="overview" title="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </button>
         </div>
         <div class="log-id">
           <div id="log-thumb"></div>
@@ -519,7 +611,11 @@
         <div class="scroll">
           <div class="sessbar" id="sessbar" style="display:none;">
             <span class="sb-name" id="sb-name">push day</span>
-            <span class="sb-prog" id="sb-prog">1 / 4</span>
+            <span class="sb-right">
+              <button class="sb-arw" id="sb-prev" onclick="prevExercise()" aria-label="previous exercise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <span class="sb-prog" id="sb-prog">1 / 4</span>
+              <button class="sb-arw" id="sb-next" onclick="gotoNext()" aria-label="next exercise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </span>
           </div>
           <div class="lastcard">
             <div class="l" id="last-l">last time · <b>3×10 @ 68kg</b></div>
@@ -567,6 +663,28 @@
         </div>
       </section>
 
+      <!-- ===== screen: routine overview (all exercises at a glance) ===== -->
+      <section class="screen" id="s-overview">
+        <div class="navbar">
+          <button class="navback" onclick="backFromLog()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            <span id="ov-back">workouts</span>
+          </button>
+          <button class="viewbtn" onclick="openFocus()" aria-label="focus view" title="focus view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/></svg>
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="ov-title">push day</h1>
+          <div class="sub" id="ov-sub">tap an exercise to focus it.</div>
+        </div>
+        <div class="scroll">
+          <textarea class="ov-notes" id="ov-notes" placeholder="workout notes…" onchange="saveSessNote()"></textarea>
+          <div id="ov-list"></div>
+          <div class="cta"><button class="next-btn" style="background:var(--accent);color:#00350F;" onclick="finishFromOverview()">finish workout</button></div>
+        </div>
+      </section>
+
       <div class="toast" id="toast">
         <div class="ic ok" id="toast-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div><div class="tt" id="toast-t">set logged</div><div class="ts" id="toast-s">3×10 @ 68kg</div></div>
@@ -580,6 +698,18 @@
           <button class="done" onclick="closeNotes()">done</button>
         </div>
         <textarea class="note-area" id="note-area" placeholder="e.g. seat height 4 · last pin · grip just outside shoulders…"></textarea>
+      </div>
+
+      <input type="file" id="custphoto" accept="image/*" style="display:none" onchange="onCustPhoto(this)">
+
+      <div class="confirm-back" id="confirm-back" onclick="closeConfirm()"></div>
+      <div class="confirm" id="confirm" role="alertdialog">
+        <div class="confirm-t" id="confirm-t">remove this routine?</div>
+        <div class="confirm-m" id="confirm-m"></div>
+        <div class="confirm-row">
+          <button class="confirm-btn cancel" onclick="closeConfirm()">cancel</button>
+          <button class="confirm-btn danger" id="confirm-ok" onclick="doConfirm()">remove</button>
+        </div>
       </div>
 </div>
 <script>
@@ -679,6 +809,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     {brand:'dumbbell',name:'dumbbell curl',group:'pull',muscle:'biceps',lastW:0,lastR:0,lastS:0,date:''},
   ];
 
+  // hand-added exercises that ship with the app (always available in the picker).
+  const BUILTIN_EXTRAS=[
+    {brand:'cable',name:'seated pullover',group:'pull',muscle:'lats · chest',img:'',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'cable',name:'seated overhead triceps extension',group:'push',muscle:'triceps',img:'',lastW:0,lastR:0,lastS:0,date:''},
+  ];
+
   // each gym is a SUBSET of the global catalog — the core idea, preserved.
   // (this is fallback data; loadGymsFromAPI() replaces it with the live catalog)
   let GYMS=[
@@ -710,7 +846,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // ===== on-device persistence (localStorage) =====
   const LS='rackd.v1';
-  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{}};}}
+  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[]};}}
   function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
@@ -929,6 +1065,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     }
     if(!st.session) document.getElementById('back-gym').textContent = st.gym ? st.gym.name.split(' ')[0] : 'back';
     updateSessionBar();
+    editIdx=-1;
     renderW(); renderR(); renderSets();
     document.getElementById('note-back').classList.remove('show');
     document.getElementById('note-sheet').classList.remove('show');
@@ -940,11 +1077,64 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // ---- custom workout builder ----
   function pool(){
     const seen={}, out=[];
+    (DB.custom||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});   // your own exercises first
+    BUILTIN_EXTRAS.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});     // app-shipped extras
     // gym.machines is null until that gym is opened (lazy-loaded from the API), so guard it
     GYMS.forEach(g=>(g.machines||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}}));
     const base=LIBRARY.length?LIBRARY:GENERIC;   // ExerciseDB defaults (offline fallback: GENERIC)
     base.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});
     return out;
+  }
+  function guessGroup(n){
+    n=(n||'').toLowerCase();
+    if(/squat|leg|lunge|calf|glute|hip|hamstring|quad/.test(n)) return 'legs';
+    if(/row|pull|curl|lat|chin|deadlift|shrug|rear|back/.test(n)) return 'pull';
+    if(/press|push|dip|fly|chest|shoulder|tricep|delt|raise/.test(n)) return 'push';
+    return 'core';
+  }
+  // create a custom exercise from the search box text; persists in DB.custom so it's
+  // reusable, and adds it to the workout being built.
+  function addCustomEx(){
+    const name=(catQuery||'').trim().toLowerCase(); if(name.length<2) return;
+    let ex=(DB.custom||[]).find(m=>m.name===name);
+    if(!ex){
+      ex={brand:'custom', name, group:guessGroup(name), muscle:'', img:'', lastW:0,lastR:0,lastS:0,date:''};
+      DB.custom.push(ex); saveDB();
+    }
+    if(!draft.items.some(d=>d.name===name)) draft.items.push({...ex});
+    renderDraft(); renderCatResults();
+    pickCustomPhoto(name);                 // immediately offer to attach a photo
+  }
+  // attach a photo (from the device) to a custom exercise — downscaled to a data URI
+  let _photoTarget=null;
+  function pickCustomPhoto(name){ _photoTarget=name; const inp=document.getElementById('custphoto'); if(inp){ inp.value=''; inp.click(); } }
+  function onCustPhoto(inp){
+    const f=inp.files&&inp.files[0]; if(!f||!_photoTarget) return;
+    const name=_photoTarget, rd=new FileReader();
+    rd.onload=()=>{
+      const im=new Image();
+      im.onload=()=>{
+        const max=720, sc=Math.min(1,max/Math.max(im.width,im.height));
+        const cw=Math.round(im.width*sc), ch=Math.round(im.height*sc);
+        const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+        const cx=cv.getContext('2d'); cx.fillStyle='#e9e9ee'; cx.fillRect(0,0,cw,ch); cx.drawImage(im,0,0,cw,ch);
+        try{ applyCustomPhoto(name, cv.toDataURL('image/jpeg',0.85)); }
+        catch(e){ applyCustomPhoto(name, rd.result); }
+      };
+      im.onerror=()=>applyCustomPhoto(name, rd.result);
+      im.src=rd.result;
+    };
+    rd.readAsDataURL(f);
+  }
+  function applyCustomPhoto(name,uri){
+    const ex=(DB.custom||[]).find(m=>m.name===name); if(ex) ex.img=uri;
+    draft.items.forEach(d=>{if(d.name===name) d.img=uri;});
+    if(st.session) st.session.items.forEach(d=>{if(d.name===name) d.img=uri;});
+    if(st.m&&st.m.name===name){ st.m.img=uri; const lt=document.getElementById('log-thumb'); if(lt) lt.innerHTML=thumbHTML(st.m.brand,st.m.name,st.m.group,uri); }
+    saveDB();
+    renderDraft();
+    if(document.getElementById('cat-results')) renderCatResults();
+    toastMsg(false,'photo added','attached to “'+name+'”');
   }
   function openCustom(){
     st.catalog=false; catQuery=''; catResults=[];
@@ -954,19 +1144,63 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     document.getElementById('addex-btn').textContent='+ add exercise';
     renderDraft(); show('s-custom');
   }
+  function editWorkout(wid,ev){              // open a saved workout in the builder to modify it
+    if(ev)ev.stopPropagation();
+    const w=DB.workouts.find(x=>x.id===wid); if(!w)return;
+    st.catalog=false; catQuery=''; catResults=[];
+    draft={name:w.name, items:w.items.slice(), savedId:w.id};   // savedId → re-save updates in place
+    document.getElementById('wname').value=w.name;
+    document.getElementById('picker').style.display='none';
+    document.getElementById('addex-btn').textContent='+ add exercise';
+    renderDraft(); show('s-custom');
+  }
   function renderDraft(){
     const dl=document.getElementById('draftlist');
     document.getElementById('ex-count').textContent=draft.items.length?('· '+draft.items.length):'';
     if(!draft.items.length){ dl.innerHTML='<div class="empty-draft">no exercises yet — add some below.</div>'; }
-    else dl.innerHTML=draft.items.map((m,i)=>{const b=brandStyle(m.brand);return `
-      <div class="row draftrow">
-        <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
+    else dl.innerHTML=draft.items.map((m,i)=>`
+      <div class="row draftrow" data-i="${i}">
+        <button class="drag" onpointerdown="dragStart(event)" aria-label="reorder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14M5 15h14"/></svg></button>
+        ${thumbHTML(m.brand,m.name,m.group,m.img)}
         <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
+        ${m.brand==='custom'?`<button class="dphoto" onclick="pickCustomPhoto('${esc(m.name)}')" aria-label="add photo" title="add photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.2-1.8A1 1 0 0 1 9 4.7h6a1 1 0 0 1 .8.5L17 7h2.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>`:''}
         <button class="rm" onclick="removeEx(${i})">−</button>
-      </div>`;}).join('');
+      </div>`).join('');
     document.getElementById('startbtn').disabled=!draft.items.length;
     document.getElementById('savebtn').disabled=!draft.items.length;
   }
+  // drag-and-drop reorder of the draft exercises (pointer events → works on touch + mouse)
+  let _drag=null;
+  function dragStart(e){
+    e.preventDefault();
+    const row=e.target.closest('.draftrow'), list=document.getElementById('draftlist');
+    if(!row||!list)return;
+    _drag={row,list};
+    row.classList.add('dragging');
+    window.addEventListener('pointermove',dragMove);
+    window.addEventListener('pointerup',dragEnd,{once:true});
+  }
+  function dragMove(e){
+    if(!_drag)return;
+    const {row,list}=_drag, y=e.clientY;
+    let after=null;
+    for(const r of list.querySelectorAll('.draftrow:not(.dragging)')){
+      const b=r.getBoundingClientRect();
+      if(y < b.top + b.height/2){ after=r; break; }
+    }
+    if(after) list.insertBefore(row,after); else list.appendChild(row);
+  }
+  function dragEnd(){
+    if(!_drag)return;
+    const {row,list}=_drag;
+    row.classList.remove('dragging');
+    window.removeEventListener('pointermove',dragMove);
+    const order=[...list.querySelectorAll('.draftrow')].map(r=>+r.dataset.i);
+    draft.items=order.map(i=>draft.items[i]);
+    _drag=null;
+    renderDraft();
+  }
+
   function togglePicker(){
     const p=document.getElementById('picker'), btn=document.getElementById('addex-btn');
     if(p.style.display==='none'){ renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
@@ -992,15 +1226,29 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function renderCatResults(){
     const el=document.getElementById('cat-results'); if(!el)return;
-    if(catQuery.trim().length<2){ el.innerHTML=''; return; }
-    if(!catResults.length){ el.innerHTML='<div class="empty-draft">no matches.</div>'; return; }
-    el.innerHTML='<div class="group">'+catResults.map((m,i)=>{
-      const added=draft.items.some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
-      return `<div class="row" onclick="addCatalogResult(${i})">
-        ${thumbHTML(m.brand, m.model, m.muscle_group, m.image_url)}
-        <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
-        <span class="chev plus">${added?'\u2713':'+'}</span>
-      </div>`;}).join('')+'</div>';
+    const q=catQuery.trim();
+    if(q.length<2){ el.innerHTML=''; return; }
+    let html='';
+    if(catResults.length){
+      html+='<div class="group">'+catResults.map((m,i)=>{
+        const added=draft.items.some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
+        return `<div class="row" onclick="addCatalogResult(${i})">
+          ${thumbHTML(m.brand, m.model, m.muscle_group, m.image_url)}
+          <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
+          <span class="chev plus">${added?'\u2713':'+'}</span>
+        </div>`;}).join('')+'</div>';
+    } else {
+      html+='<div class="empty-draft">no catalog matches.</div>';
+    }
+    // always let you add the typed text as your own exercise (with a photo)
+    const added=draft.items.some(d=>d.name===q.toLowerCase());
+    html+='<div class="sechead">your own</div><div class="group">'
+      +`<div class="row" onclick="addCustomEx()">
+          <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div class="m-main"><div class="m-brand">custom exercise \u00b7 add a photo</div><div class="m-name">${q.toLowerCase()}</div></div>
+          <span class="chev plus">${added?'\u2713':'+'}</span>
+        </div></div>`;
+    el.innerHTML=html;
   }
   function addCatalogResult(i){
     const m=catResults[i]; if(!m)return;
@@ -1076,9 +1324,30 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     st.session={name:w.name,items:w.items.slice(),idx:0,wid:w.id};
     loadLog(st.session.items[0]);
   }
+  // ---- confirm dialog (app-styled, not a native popup) ----
+  let confirmCb=null;
+  function askConfirm(title,msg,okLabel,onOk){
+    document.getElementById('confirm-t').textContent=title;
+    document.getElementById('confirm-m').textContent=msg||'';
+    document.getElementById('confirm-ok').textContent=okLabel||'remove';
+    confirmCb=onOk;
+    document.getElementById('confirm-back').classList.add('show');
+    document.getElementById('confirm').classList.add('show');
+  }
+  function closeConfirm(){
+    confirmCb=null;
+    document.getElementById('confirm-back').classList.remove('show');
+    document.getElementById('confirm').classList.remove('show');
+  }
+  function doConfirm(){ const cb=confirmCb; closeConfirm(); if(cb)cb(); }
+
   function deleteWorkout(wid,ev){
     if(ev)ev.stopPropagation();
-    DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderHome();
+    const w=DB.workouts.find(x=>x.id===wid);
+    askConfirm('remove this routine?',
+      `“${w?w.name:'this workout'}” will be deleted. this can’t be undone.`,
+      'remove',
+      ()=>{ DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderHome(); renderWorkouts(); });
   }
   // finishing a workout: snapshot the sets logged today for each exercise so the
   // workout AND its individual results are saved together as one dated session.
@@ -1103,14 +1372,15 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     return d.getDate()+' '+MON[d.getMonth()];
   }
   function workoutRow(w){
-    const chips=[...new Set(w.items.map(it=>it.brand))].slice(0,3)
-      .map(b=>{const s=brandStyle(b);return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');
     const ld=lastDone(w.id);
     return `<div class="row" onclick="startWorkout('${w.id}')">
-      <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg></div>
-      <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}${ld?` · last done ${ld}`:''}</div></div>
-      <span class="brandchips">${chips}</span>
-      <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
+      <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7v10M17.5 7v10M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></div>
+      <div class="m-main"><div class="m-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}${ld?` · last done ${ld}`:''}</div></div>
+      <div class="wactions">
+        <button class="wbtn start" onclick="event.stopPropagation();startWorkout('${w.id}')" aria-label="start workout"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg> start</button>
+        <button class="wbtn edit" onclick="editWorkout('${w.id}',event)" aria-label="edit workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+        <button class="rm" onclick="deleteWorkout('${w.id}',event)" aria-label="delete workout">−</button>
+      </div>
     </div>`;
   }
   function renderWorkouts(){
@@ -1196,20 +1466,94 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       bar.style.display='flex'; nc.style.display='block';
       document.getElementById('sb-name').textContent=st.session.name;
       document.getElementById('sb-prog').textContent=(st.session.idx+1)+' / '+st.session.items.length;
+      const sp=document.getElementById('sb-prev'), sn=document.getElementById('sb-next');
+      if(sp) sp.disabled = st.session.idx<=0;
+      if(sn) sn.disabled = st.session.idx>=st.session.items.length-1;
+      const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='flex';
       document.getElementById('next-btn').textContent= st.session.idx<st.session.items.length-1 ? 'next exercise →' : 'finish workout';
       const pb=document.getElementById('prev-btn'); if(pb) pb.style.display = st.session.idx>0 ? '' : 'none';
       document.getElementById('back-gym').textContent=st.session.name;
-    } else { bar.style.display='none'; nc.style.display='none'; }
+    } else { bar.style.display='none'; nc.style.display='none'; const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='none'; }
   }
   function nextExercise(){
     if(!st.session)return;
     if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
-    else { const n=st.session.name; saveSession(); st.session=null; renderWorkouts(); renderHome(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged'); }
+    else finishSession();
   }
   function prevExercise(){
     if(!st.session||st.session.idx<=0)return;
     st.session.idx--; loadLog(st.session.items[st.session.idx]);
   }
+  // step to the next exercise from the session bar (without finishing the workout —
+  // that's the bottom button's job; the bar arrow just navigates and stops at the end).
+  function gotoNext(){
+    if(!st.session)return;
+    if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
+  }
+
+  // ---- routine overview: all exercises + their sets on one screen ----
+  function sessNoteKey(){ return st.session ? ('sess:'+(st.session.wid||st.session.name)) : null; }
+  function saveSessNote(){
+    const k=sessNoteKey(); if(!k)return;
+    const v=document.getElementById('ov-notes').value;
+    if(v.trim()) DB.notes[k]=v.trim(); else delete DB.notes[k];
+    saveDB();
+  }
+  function openOverview(){ if(!st.session)return; renderOverview(); show('s-overview'); }
+  function openFocus(){ if(!st.session)return; loadLog(st.session.items[st.session.idx]); }   // overview → focused log
+  function ovFocus(ei){ if(!st.session)return; st.session.idx=ei; loadLog(st.session.items[ei]); }
+  function renderOverview(){
+    if(!st.session)return;
+    document.getElementById('ov-title').textContent=st.session.name;
+    document.getElementById('ov-back').textContent=st.session.name;
+    document.getElementById('ov-notes').value=DB.notes[sessNoteKey()]||'';
+    document.getElementById('ov-list').innerHTML=st.session.items.map((m,ei)=>{
+      const key=keyFor(m), sets=todays(key), ls=lastSession(key,m);
+      const prev= ls?`${ls.r}×${ls.w%1===0?ls.w:ls.w.toFixed(1)}`:'—';
+      const rows= sets.length ? sets.map((s,i)=>`
+        <div class="ov-row">
+          <span class="ov-set">${i+1}</span>
+          <span class="ov-prev">${i===0?prev:'—'}</span>
+          <input class="ov-in" type="number" inputmode="decimal" step="0.5" min="0" value="${s.w}" onchange="ovEdit(${ei},${i},'w',this.value)">
+          <input class="ov-in" type="number" inputmode="numeric" min="1" value="${s.r}" onchange="ovEdit(${ei},${i},'r',this.value)">
+          <button class="ov-del" onclick="ovDel(${ei},${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+        </div>`).join('') : '<div class="ov-empty">no sets yet — add one.</div>';
+      return `<div class="ov-card">
+        <div class="ov-head" onclick="ovFocus(${ei})">
+          ${thumbHTML(m.brand,m.name,m.group,m.img)}
+          <div class="ov-tt"><div class="ov-b">${m.brand}</div><div class="ov-n">${m.name}</div></div>
+          <span class="ov-go"><svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></span>
+        </div>
+        <div class="ov-tblh"><span>set</span><span>prev</span><span>kg</span><span>reps</span><span></span></div>
+        ${rows}
+        <button class="ov-add" onclick="ovAdd(${ei})">+ add set</button>
+      </div>`;
+    }).join('');
+  }
+  function ovEdit(ei,i,field,val){
+    const m=st.session.items[ei]; const s=todays(keyFor(m))[i]; if(!s)return;
+    if(field==='w'){ const w=parseFloat((val||'').replace(',','.')); if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10); }
+    else { const r=parseInt(val,10); if(!isNaN(r)) s.r=Math.max(1,Math.min(99,r)); }
+    s.pr=false; saveDB();
+  }
+  function ovAdd(ei){
+    const m=st.session.items[ei], key=keyFor(m), sets=todays(key), last=sets[sets.length-1], ls=lastSession(key,m);
+    const w=last?last.w:(ls?ls.w:(m.lastW||60)), r=last?last.r:(ls?ls.r:(m.lastR||10));
+    const best=bestWeight(key,m);
+    DB.sets.push({key,brand:m.brand,name:m.name,w,r,pr:best>0&&w>best,ts:Date.now()});
+    saveDB(); renderOverview();
+  }
+  function ovDel(ei,i){
+    const m=st.session.items[ei], s=todays(keyFor(m))[i];
+    if(s){ const idx=DB.sets.indexOf(s); if(idx>-1) DB.sets.splice(idx,1); saveDB(); }
+    renderOverview();
+  }
+  function finishSession(){
+    if(!st.session)return;
+    const n=st.session.name; saveSession(); st.session=null;
+    renderWorkouts(); renderHome(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged');
+  }
+  function finishFromOverview(){ finishSession(); }
   function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
   function bumpR(d){st.r=Math.max(1,Math.min(30,st.r+d));renderR();}
   function renderW(){
@@ -1257,23 +1601,51 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const isPR=best>0 && st.w>best;
     DB.sets.push({key:st.machineKey,brand:st.m.brand,name:st.m.name,w:st.w,r:st.r,pr:isPR,ts:Date.now()});
     saveDB();
-    renderSets();
+    editIdx=-1; renderSets();
     toast(isPR,st.r,st.w);
   }
+  let editIdx=-1;                            // index of the logged set currently being edited
   function renderSets(){
     const wrap=document.getElementById('setlist');
     const sets=st.machineKey?todays(st.machineKey):[];
-    if(!sets.length){wrap.innerHTML='<div class="empty">no sets yet. log your first.</div>';document.getElementById('vol').textContent='—';return;}
-    wrap.innerHTML=sets.map((s,i)=>`
+    if(!sets.length){wrap.innerHTML='<div class="empty">no sets yet. log your first.</div>';document.getElementById('vol').textContent='—';editIdx=-1;return;}
+    wrap.innerHTML=sets.map((s,i)=> i===editIdx ? `
+      <div class="setrow editing">
+        <span class="sn">${i+1}</span>
+        <input class="se-in" id="se-r" type="number" inputmode="numeric" value="${s.r}" min="1" max="99">
+        <span class="x">×</span>
+        <input class="se-in" id="se-w" type="number" inputmode="decimal" value="${s.w}" step="0.5" min="0"><span class="se-u">kg</span>
+        <button class="se-btn del" onclick="delSet(${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+        <button class="se-btn save" onclick="saveEdit(${i})" aria-label="save set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></button>
+      </div>` : `
       <div class="setrow">
         <span class="sn">${i+1}</span>
         <span class="sv">${s.r}<span class="x">×</span>${s.w%1===0?s.w:s.w.toFixed(1)} kg</span>
         ${s.pr
           ? '<span class="pr"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/></svg>PR</span>'
           : '<span class="done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>'}
+        <button class="se-edit" onclick="editSet(${i})" aria-label="edit set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
       </div>`).join('');
     const vol=sets.reduce((t,s)=>t+s.w*s.r,0);
     document.getElementById('vol').textContent=vol.toLocaleString()+' kg';
+  }
+  function editSet(i){ editIdx=i; renderSets(); const w=document.getElementById('se-w'); if(w){w.focus();if(w.select)w.select();} }
+  function saveEdit(i){
+    const s=todays(st.machineKey)[i];          // a live reference into DB.sets
+    if(s){
+      const r=parseInt(document.getElementById('se-r').value,10);
+      const w=parseFloat((document.getElementById('se-w').value||'').replace(',','.'));
+      if(!isNaN(r)) s.r=Math.max(1,Math.min(99,r));
+      if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10);
+      s.pr=false;                              // hand-edited — drop a possibly-stale PR flag
+      saveDB();
+    }
+    editIdx=-1; renderSets();
+  }
+  function delSet(i){
+    const s=todays(st.machineKey)[i];
+    if(s){ const idx=DB.sets.indexOf(s); if(idx>-1) DB.sets.splice(idx,1); saveDB(); }
+    editIdx=-1; renderSets();
   }
 
   let tT;
