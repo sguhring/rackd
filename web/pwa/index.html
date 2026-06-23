@@ -381,6 +381,17 @@
                  0 40px 90px -24px rgba(0,0,0,.9);
     }
   }
+  /* ===== history / progress charts ===== */
+  .histcard{margin:0 16px 12px;background:var(--elev);border-radius:14px;padding:14px 16px 12px;}
+  .histhd{display:flex;align-items:center;gap:8px;}
+  .histdot{width:10px;height:10px;border-radius:3px;flex:0 0 auto;}
+  .histname{font-size:15px;font-weight:600;color:var(--label);letter-spacing:-.01em;}
+  .histtrend{margin-left:auto;font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;}
+  .histtrend.up{color:var(--accent);}
+  .histtrend.down{color:#FF6B6B;}
+  .histchart{display:block;width:100%;height:auto;margin:10px 0 8px;overflow:visible;}
+  .histaxis{display:flex;justify-content:space-between;font-size:11px;color:var(--label-3);font-variant-numeric:tabular-nums;margin-top:-2px;}
+  .histmeta{font-size:12px;color:var(--label-3);margin-top:7px;}
 </style>
 </head>
 <body>
@@ -411,8 +422,36 @@
               <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
             </div>
           </div>
+          <div class="sechead">progress</div>
+          <div class="group">
+            <div class="row" onclick="goHistory()">
+              <div class="mbadge" style="background:#E8551F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M7.5 15l3.5-4 3 2.5 5-7"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">history</div>
+                <div class="m-muscle">improvements per muscle group</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
           <div class="sechead" id="home-work-head" style="display:none;">your workouts</div>
           <div id="home-worklist"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: history ===== -->
+      <section class="screen" id="s-history">
+        <div class="navbar">
+          <button class="navback" onclick="goHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>history</h1>
+          <div class="sub">your improvements, per muscle group.</div>
+        </div>
+        <div class="scroll">
+          <div id="histbody"></div>
         </div>
       </section>
 
@@ -739,7 +778,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // the live catalog API (api/  →  uvicorn main:app). If unreachable, the app falls
   // back to the bundled sample data below, so it still works fully offline.
-  const API='http://127.0.0.1:8000';
+  // localhost while developing on the PC; the deployed Azure backend everywhere else
+  // (phone / hosted PWA) — so a redeploy never silently points the app at a dead localhost.
+  const API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')
+    ? 'http://127.0.0.1:8000'
+    : 'https://rackd-api-sguhring.azurewebsites.net';
   const USER='me';   // single local user for now (on-device, no accounts)
   const PALETTE=['#B71C1C','#0A6EBD','#1A8E6E','#E8551F','#7B5EA7','#C4161C','#2C7A4B',
                  '#B58100','#0F6E6E','#9A3B8C','#3A5BBF','#A04515'];
@@ -755,7 +798,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // 'icon' = our own stylized line icons (own IP, no logos — safe to commercialize);
   // 'photo' = the scraped product photos (copyright risk — dev only);
   // 'badge' = brand initials only.
-  const IMAGES_MODE='original'; // 'original' = real product photos as found | 'photo' = cutouts | 'icon' | 'badge'
+  const IMAGES_MODE='photo'; // 'photo' = local cutouts in img/ (work offline) | 'original' = remote product photos (need internet) | 'icon' | 'badge'
   // ICONS + ICON_VIEWBOX are defined in icons.js (loaded before this script).
   const GROUP_ICON={push:'press', pull:'pulldown', legs:'legpress', core:'ab'};
   // model-name keyword -> icon key (most specific first)
@@ -790,10 +833,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const icon=ICONS[key]?`<svg width="30" height="30" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="${window.ICON_STROKE||3}" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg>`:'';
     let over='';
     if(image_url && (IMAGES_MODE==='photo' || IMAGES_MODE==='original')){
-      // 'original' = the real product photo as found; 'photo' = our local cutout
+      // 'original' = the real product photo as found; 'photo' = our local cutout.
+      // already-embedded images (data: URIs) or img/ paths are used as-is (offline-safe);
+      // remote URLs map to a pre-rendered local cutout so they work offline too.
       const src = IMAGES_MODE==='original'
         ? image_url
-        : (image_url.indexOf('img/')===0 ? image_url : `img/${imgHash(image_url)}.png`);
+        : (/^(data:|img\/)/.test(image_url) ? image_url : `img/${imgHash(image_url)}.png`);
       over=`<img class="mthumb-over" src="${src}" loading="lazy" onerror="this.remove()">`;
     }
     return `<div class="micon">${icon}${over||(icon?'':badgeHTML(brand))}</div>`;
@@ -882,6 +927,77 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function goWorkouts(){ renderWorkouts(); show('s-workouts'); }
   function goGym(){show('s-gym');}       // back-target from the machines screen (gyms list)
   function goMachines(){show('s-machines');}
+  function goHistory(){ renderHistory(); show('s-history'); }
+
+  // ===== history: per-muscle-group improvement charts =====
+  // weight isn't comparable across machines, so we don't compare single loads. Instead we
+  // trend *training volume* (Σ reps×kg) per muscle group per day — a fair aggregate of effort.
+  const GROUP_META={
+    push:{label:'push', color:'#E8551F'},
+    pull:{label:'pull', color:'#0A6EBD'},
+    legs:{label:'legs', color:'#7B5EA7'},
+    core:{label:'core', color:'#1A8E6E'},
+  };
+  function histDay(ts){const d=new Date(ts);return d.getDate()+' '+MON[d.getMonth()];}
+  // a line chart from [{ts,vol}] points, scaled to fill the card; no libraries (offline-safe)
+  function histChart(pts,color){
+    const W=320,H=92,pad=10;
+    if(pts.length<2){
+      return `<svg class="histchart" viewBox="0 0 ${W} ${H}"><circle cx="${W/2}" cy="${H/2}" r="3.6" fill="${color}"/></svg>`;
+    }
+    const xs=pts.map(p=>p.ts), vs=pts.map(p=>p.vol);
+    const minX=Math.min(...xs), maxX=Math.max(...xs), minV=Math.min(...vs), maxV=Math.max(...vs);
+    const sx=(maxX-minX)||1, sv=(maxV-minV)||1;
+    const X=t=>pad+(t-minX)/sx*(W-2*pad);
+    const Y=v=>(H-pad)-(v-minV)/sv*(H-2*pad);
+    const line=pts.map(p=>X(p.ts).toFixed(1)+','+Y(p.vol).toFixed(1)).join(' ');
+    const area=`${pad.toFixed(1)},${(H-pad).toFixed(1)} ${line} ${(W-pad).toFixed(1)},${(H-pad).toFixed(1)}`;
+    const dots=pts.map(p=>`<circle cx="${X(p.ts).toFixed(1)}" cy="${Y(p.vol).toFixed(1)}" r="2.6" fill="${color}"/>`).join('');
+    return `<svg class="histchart" viewBox="0 0 ${W} ${H}">`
+      +`<polygon points="${area}" fill="${color}" fill-opacity="0.12"/>`
+      +`<polyline points="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`
+      +dots+`</svg>`;
+  }
+  function renderHistory(){
+    const wrap=document.getElementById('histbody');
+    const sets=(DB.sets||[]).filter(s=>s&&s.ts);
+    if(!sets.length){wrap.innerHTML='<div class="empty">no history yet — log some sets and your progress shows up here.</div>';return;}
+    // map an exercise name → its muscle group (known machines first, else a keyword guess)
+    const gmap={};
+    try{pool().forEach(x=>{if(x&&x.name&&x.group)gmap[x.name]=x.group;});}catch(e){}
+    const groupOf=n=>gmap[n]||guessGroup(n);
+    // bucket sets by group, then by calendar day, summing volume
+    const byGroup={};
+    sets.forEach(s=>{
+      const g=groupOf(s.name);
+      const d=new Date(s.ts); d.setHours(0,0,0,0); const dk=d.getTime();
+      const G=byGroup[g]||(byGroup[g]={days:{},sets:0,prs:0});
+      G.sets++; if(s.pr)G.prs++;
+      (G.days[dk]||(G.days[dk]={ts:dk,vol:0})).vol+=(s.w||0)*(s.r||0);
+    });
+    let html='';
+    ['push','pull','legs','core'].forEach(g=>{
+      const G=byGroup[g]; if(!G)return;
+      const meta=GROUP_META[g]||{label:g,color:'var(--accent)'};
+      const pts=Object.values(G.days).sort((a,b)=>a.ts-b.ts);
+      const first=pts[0].vol, last=pts[pts.length-1].vol;
+      let trend, cls='';
+      if(pts.length<2){ trend='log again to see a trend'; }
+      else if(first>0){ const pct=Math.round((last-first)/first*100); cls=pct>=0?'up':'down'; trend=(pct>=0?'+':'')+pct+'% since '+histDay(pts[0].ts); }
+      else { trend='since '+histDay(pts[0].ts); }
+      html+=`<div class="histcard">
+        <div class="histhd">
+          <span class="histdot" style="background:${meta.color}"></span>
+          <span class="histname">${meta.label}</span>
+          <span class="histtrend ${cls}">${trend}</span>
+        </div>
+        ${histChart(pts,meta.color)}
+        ${pts.length>1?`<div class="histaxis"><span>${histDay(pts[0].ts)}</span><span>${histDay(pts[pts.length-1].ts)}</span></div>`:''}
+        <div class="histmeta">${pts.length} session${pts.length!==1?'s':''} · ${G.sets} set${G.sets!==1?'s':''} · ${G.prs} pr${G.prs!==1?'s':''} · volume in kg</div>
+      </div>`;
+    });
+    wrap.innerHTML=html;
+  }
 
   // ---- screen 1 ----
   function chipsFor(g){

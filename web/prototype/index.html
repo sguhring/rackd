@@ -401,7 +401,10 @@
 
 <script>
   // ── api config ──────────────────────────────────────────────────────────────
-  const API='http://127.0.0.1:8000';
+  // localhost while developing on the PC; the deployed Azure backend everywhere else.
+  const API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')
+    ? 'http://127.0.0.1:8000'
+    : 'https://rackd-api-sguhring.azurewebsites.net';
   const USER='local';            // single on-device user for now
 
   // brand badge styling (presentation only). unknown brands get a derived badge.
