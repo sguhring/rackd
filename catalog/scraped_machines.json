@@ -3023,7 +3023,7 @@
     "brand": "Gymleco",
     "model": "010 Seated Row",
     "machine_type": "plate-loaded",
-    "exercise": "seated-row",
+    "exercise": "mid row",
     "muscle_label": "mid-back · lats",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/seated-row-010-gymleco-free-weight-gym-machine-sittande-rodd-friviktsmaskin_98967992-5f61-4d7f-85c1-a2f333255b9d.jpg?v=1736415249",
@@ -3043,7 +3043,7 @@
     "brand": "Gymleco",
     "model": "012 Iso Lateral Low Row",
     "machine_type": "plate-loaded",
-    "exercise": "seated-row",
+    "exercise": "low row",
     "muscle_label": "mid-back · lats",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-012-2.jpg?v=1733846786",
@@ -3053,7 +3053,7 @@
     "brand": "Gymleco",
     "model": "013 Iso Lateral High Row",
     "machine_type": "plate-loaded",
-    "exercise": "seated-row",
+    "exercise": "high row",
     "muscle_label": "upper-back · lats",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-013.jpg?v=1733848433",
@@ -3063,7 +3063,7 @@
     "brand": "Gymleco",
     "model": "017 D.Y. Row",
     "machine_type": "plate-loaded",
-    "exercise": "seated-row",
+    "exercise": "overhead row",
     "muscle_label": "mid-back · lats",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gymleco_017-D.Y.-Row_award.webp?v=1776772935",
@@ -3093,7 +3093,7 @@
     "brand": "Gymleco",
     "model": "022 ISO Lateral Bench Press, Horizontal",
     "machine_type": "plate-loaded",
-    "exercise": "chest-press",
+    "exercise": "chest-press laying",
     "muscle_label": "chest · front delts",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-022-1.jpg?v=1733921099",
@@ -3123,7 +3123,7 @@
     "brand": "Gymleco",
     "model": "028 Standing Chest Press",
     "machine_type": "plate-loaded",
-    "exercise": "chest-press",
+    "exercise": "chest press standing",
     "muscle_label": "chest · front delts",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/028028StandingChestPress.png?v=1767005427",
@@ -3153,7 +3153,7 @@
     "brand": "Gymleco",
     "model": "031 Shoulder Rotation",
     "machine_type": "plate-loaded",
-    "exercise": null,
+    "exercise": "lateral-raise",
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/031_Shoulder_Rotation.png?v=1768221020",
@@ -3163,7 +3163,7 @@
     "brand": "Gymleco",
     "model": "032 Upright Row",
     "machine_type": "plate-loaded",
-    "exercise": "seated-row",
+    "exercise": "upright row",
     "muscle_label": "mid-back · lats",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/032-Upright-Row-Vertikal-Rodd-Friviktsmaskin-Plate-Loaded-gymleco-machine.jpg?v=1733996919",
@@ -3172,8 +3172,8 @@
   {
     "brand": "Gymleco",
     "model": "038 Viking Press",
-    "machine_type": "plate-loaded",
-    "exercise": "shoulder-press",
+    "machine_type": "machine",
+    "exercise": "shoulder press standing",
     "muscle_label": "delts · triceps",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-038.jpg?v=1733998205",
@@ -3201,9 +3201,9 @@
   },
   {
     "brand": "Gymleco",
-    "model": "042 Standing Leg Curl",
+    "model": "042 Kneeling Leg Curl",
     "machine_type": "plate-loaded",
-    "exercise": "leg-curl",
+    "exercise": "Leg curl kneeling",
     "muscle_label": "hamstrings",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-042-2.jpg?v=1733997652",
@@ -3213,8 +3213,8 @@
     "brand": "Gymleco",
     "model": "043 Hip Press",
     "machine_type": "plate-loaded",
-    "exercise": "hip-thrust",
-    "muscle_label": "glutes",
+    "exercise": "leg-press",
+    "muscle_label": "glutes quads",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/043-leg-press-1.jpg?v=1734000777",
     "source": "gymleco"
@@ -3243,7 +3243,7 @@
     "brand": "Gymleco",
     "model": "046 Donkey Raise",
     "machine_type": "plate-loaded",
-    "exercise": null,
+    "exercise": "calf rais",
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/046-donkey-raise-gymleco-plate-loaded-machine-friviktsmaskin-vadpress.jpg?v=1734005991",
@@ -3253,7 +3253,7 @@
     "brand": "Gymleco",
     "model": "047 Tibia Dorsi Flexion",
     "machine_type": "plate-loaded",
-    "exercise": null,
+    "exercise": "tibia flexion",
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/047-Tibia-Dorsi-Flexion-plate-loaded-gym-machine-friviktsmaskin-gymleco.jpg?v=1734006293",
@@ -3272,7 +3272,7 @@
   {
     "brand": "Gymleco",
     "model": "051 Iso Lateral Triceps",
-    "machine_type": "plate-loaded",
+    "machine_type": "machine",
     "exercise": "triceps-extension",
     "muscle_label": "triceps",
     "product_type": "Plate loaded machines",
@@ -3282,7 +3282,7 @@
   {
     "brand": "Gymleco",
     "model": "055 Dip Press",
-    "machine_type": "plate-loaded",
+    "machine_type": "machine",
     "exercise": "triceps-dip",
     "muscle_label": "triceps · chest",
     "product_type": "Plate loaded machines",
@@ -3353,8 +3353,8 @@
     "brand": "Gymleco",
     "model": "070 Seated Abs Machine",
     "machine_type": "plate-loaded",
-    "exercise": "chin-up",
-    "muscle_label": "lats · biceps",
+    "exercise": "Ab Crunch",
+    "muscle_label": "abs",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-070.-1.jpg?v=1734093239",
     "source": "gymleco"
@@ -3363,8 +3363,8 @@
     "brand": "Gymleco",
     "model": "072 Ab Roll Up",
     "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
+    "exercise": "Leg raises",
+    "muscle_label": "abs",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-072.jpg?v=1734093983",
     "source": "gymleco"
@@ -3374,7 +3374,7 @@
     "model": "082 Belt Squat Machine",
     "machine_type": "plate-loaded",
     "exercise": "chin-up",
-    "muscle_label": "lats · biceps",
+    "muscle_label": "Glutes",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-082.jpg?v=1734094550",
     "source": "gymleco"
@@ -4391,62 +4391,12 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Bend Rotating Biceps / Triceps Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "biceps-curl",
-    "muscle_label": "biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R117-Gymleco-Handle-biceps-triceps-bend-78-cm.jpg?v=1736772677",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Biceps / Triceps Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "biceps-curl",
-    "muscle_label": "biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R123-Gymleco-Biceps-Triceps-Handle-53-cm-02.jpg?v=1736774119",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Bowl for Magnesium/Chalk",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/692-magnesium-bowl.jpg?v=1736848741",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Brutal Bench",
     "machine_type": "plate-loaded",
     "exercise": null,
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-174-2.jpg?v=1734450935",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Bumper Plate, Slam Ball Rack",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/896_rack.jpg?v=1736849672",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Bänk -och knäböjsställning hemmagym",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Bankpress-och-knabojsstallning-bygg-hemmagym.webp?v=1753336758",
     "source": "gymleco"
   },
   {
@@ -4461,32 +4411,12 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Carriage for Handles",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/495-carriage-for-handles-handtagsvagn-med-hjul-gymleco.jpg?v=1736846976",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Competition Combo Rack",
     "machine_type": "plate-loaded",
     "exercise": null,
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/842-whole_1.jpg?v=1756120242",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Complete Crossbox Station Rig",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/610-crossbox-station.gymleco.jpg?v=1738915487",
     "source": "gymleco"
   },
   {
@@ -4507,196 +4437,6 @@
     "muscle_label": "mid-back · lats",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/concept-rodd.jpg?v=1737035824",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Concept 2 SkiErg Floor",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/concept-stak.jpg?v=1737038815",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Curl Bar Rack",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-150.jpg?v=1737390058",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Curved Pulldown Handle for Dual Pulley",
-    "machine_type": "plate-loaded",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/226c-Curled-Pulldown-Handle-for-Dual-Pulley-Bojt-Draghandtag-for-Parallelldrag.jpg?v=1736774470",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Dip Press Stand",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-dip",
-    "muscle_label": "triceps · chest",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-155-2.jpg?v=1736851530",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Dip Rack for Brutal Bench",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-dip",
-    "muscle_label": "triceps · chest",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-174-1.jpg?v=1737124897",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Dumbbell Rack, 10 Pairs, 2.3 m",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/840-dumbbell-rack-hantelstall-gymleco.jpg?v=1736849142",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Dumbbell Rack, 10 Pairs, 2.4 m",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/440F-2400-dumbbell-rack-hantellstall.jpg?v=1736784223",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Dumbbell Rack, 10 pairs, 2.2m",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-440-1.jpg?v=1736783619",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Dumbbell Rack, 5 Pairs, 1.15 m",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/840-5-dumbbell-rack-5-pairs.jpg?v=1736849441",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Dumbbell Rack, 5 pairs, 1.2 m",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-R440F-1200.jpg?v=1736783850",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "EVA Foam Puzzle Mat",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/pusselmatta_puzzle_mat_gymleco_detail.jpg?v=1737391067",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Ergonomic Single Triceps Handles",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-extension",
-    "muscle_label": "triceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R851-Gymleco-Ergonomic-Single-Triceps-Handles-enhandshandtag.jpg?v=1736756475",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Farmers Walk",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/666-farmers-walk-pair-par-gymleco.jpg?v=1736865199",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Fitness Yoke",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/664-fitness-yoke-gymleco.jpg?v=1736856980",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Fixed Bench 70°",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-153-2.jpg?v=1734432888",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Fixed Decline Bench",
-    "machine_type": "plate-loaded",
-    "exercise": "chest-press",
-    "muscle_label": "lower chest",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-194.jpg?v=1734442886",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Fixed Dumbbell Exercise Bench",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/191vFixedDumbbellExerciseBench.png?v=1767006696",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Fixed Flat Bench",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-191-1.jpg?v=1734433152",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Fixed Row Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "seated-row",
-    "muscle_label": "mid-back · lats",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R108-Gymleco-Row-Handle-1.jpg?v=1736771225",
     "source": "gymleco"
   },
   {
@@ -4731,82 +4471,12 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Half Rack",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/848HalfRack.png?v=1768383620",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Half Rack, Double Sided",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/848DHalfRack_DoubleSided.png?v=1768383654",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Hantelpaket med hantelställ, andrahandssortering",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Namnlos-design-34.png?v=1753963389",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Hantelpaket, 4 par, 2.5 - 10 kg, andrahandssortering",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Namnlos-design-29.png?v=1753963389",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Hantelpaket, 5 par, 40 - 50 kg, andrahandssortering",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Namnlos-design-34.png?v=1753963389",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Hip Thrust Bench",
     "machine_type": "plate-loaded",
     "exercise": "hip-thrust",
     "muscle_label": "glutes",
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/166-hip-thrust-bench-hoftlyft-bank-gymleco.jpg?v=1734449366",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Hip Thrust Soft Bench",
-    "machine_type": "plate-loaded",
-    "exercise": "hip-thrust",
-    "muscle_label": "glutes",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/hip_thrust_box_1.jpg?v=1772100687",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Hip Thrust Soft Cushion",
-    "machine_type": "plate-loaded",
-    "exercise": "hip-thrust",
-    "muscle_label": "glutes",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/hip-thrust-soft-plyo-dyna_1.jpg?v=1772100657",
     "source": "gymleco"
   },
   {
@@ -4821,72 +4491,12 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Kabelmaskin draghandtagsset",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Cable-machine-attachment-set-kabelmaskin-draghandtagset-all.png?v=1737976151",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Kettlebell Rack",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/443-kettlebell-rack.jpg?v=1736784672",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Knee Standing Back Raise",
     "machine_type": "plate-loaded",
     "exercise": null,
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/163.jpg?v=1736929978",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Lateral Pull Fixed Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R122-Gymleco-Lateral-Pull-Handle-Bend.jpg?v=1736773714",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Lateral Pull Rotating Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R120-Gymleco-Lateral-Pull-handle-Rotating-120-cm-1.jpg?v=1736773537",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Lateral Pull Straight Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R122R-Gymleco-Lateral-Pull-Handle-Bend-120-cm.jpg?v=1736773914",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Leather Ankle Straps",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/ankle-strap-leather.jpg?v=1736775957",
     "source": "gymleco"
   },
   {
@@ -4911,156 +4521,6 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Lifting Rack for Decline Bench",
-    "machine_type": "plate-loaded",
-    "exercise": "chest-press",
-    "muscle_label": "lower chest",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/154-stangupplagg-barbell-rack-decline-bench.jpg?v=1737388770",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Light set - Rubber Dumbbells 2,5-25kg",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/431-gymleco-rubber-dumbbells-02.jpg?v=1734622142",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Mat Storage, Single Hook",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/gym-mat-storage-461-gymleco-hangare-for-traningsmattor.jpg?v=1736845578",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Mat Suspension",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/460-mat-suspension-mattupphangning-gymleco.jpg?v=1736845416",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Medicine Ball Rack, 10 pcs",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/N88-641-Slamball-Medicine-ball-Rack-double.jpg?v=1736781921",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Medicine Ball Rack, 4pcs",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/N88-648-rack-for-balls-stall-for-bollar_gymleco.png?v=1736780549",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Medicine Ball Rack, 5 pcs",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/N88-640-Slamball-Medicine-ball-Rack-Single.jpg?v=1736782163",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Monkey Bar Rig",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/614-Monkey-Bar-Rig-Gymleco.jpg?v=1757942004",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Multi Hook Handle Bar (41 cm and 85 cm)",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/r100-multi-hook-handle-bar-draghandtag-gymleco-41cm-85cm_jpg.png?v=1763991027",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Nylon Ankle Straps",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R849NylonAnkleStraps.png?v=1768383891",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Parallel Angled Rotating Handle",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R118-Gymleco-handle-paralled-angled-78-cm.jpg?v=1736772907",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Podium Set for Atlas Stones",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/atlas_podium1.jpg?v=1736866812",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Power Rack",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/149.jpg?v=1737041030",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Power Rack/Cage",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/649_Power_RackCage.png?v=1774606147",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Prowler Sled",
-    "machine_type": "plate-loaded",
-    "exercise": "seated-row",
-    "muscle_label": "mid-back · lats",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-685.jpg?v=1736865943",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Pullover - Below Retail - No Lead Times",
     "machine_type": "machine",
     "exercise": "pullover",
@@ -5071,132 +4531,12 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Push-Up Bars",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/621.jpg?v=1737129452",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rack for Pump Set",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/480.jpg?v=1736846296",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rack for Wall Balls and Medicine Balls, 10 pieces",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/470.webp?v=1736781203",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Recumbent Bike, Commercial with Big LED Display",
     "machine_type": "plate-loaded",
     "exercise": null,
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/7239L-training-exercise-recumbent-bike-gymleco-traningscykel-cardio-konditionstraning.jpg?v=1737024420",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Regupol Everroll Gym Flooring",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/A7S02475-1-scaled_7f5bf28b-8d29-4f87-a6fd-4c5c83f6afce.jpg?v=1737393191",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rig with 6 lifting places",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/602.jpg?v=1738915077",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rotating Multi Pull Handle",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R106-Gymleco-Multi-pull-Handle-30-cm-1.jpg?v=1736765915",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rotating Parallel Handle (60 cm)",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/r103-Gymleco-Parallel-Handle-Straight-60-cm-1_1_677944da-7c4c-48ff-a85a-ddb6046be41b.jpg?v=1736765676",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rotating Parallel Handle (75 cm)",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R102-Gymleco-Parelell-Handle-Straight-75-cm-1.jpg?v=1736765283",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rotating Row Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "seated-row",
-    "muscle_label": "mid-back · lats",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R108R-Gymleco-Row-Handle-Rotating.jpg?v=1736771489",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rotating Triceps Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-extension",
-    "muscle_label": "triceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R115-Gymleco-Triceps-Handle-rotating-30-cm.jpg?v=1736772174",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rubber Tiles 1000x1000mm",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/gymgolv-olika-storlekar-1.webp?v=1737391812",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Rubber Tiles 500x500mm",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/gymgolv-all-stacked-1.webp?v=1737392822",
     "source": "gymleco"
   },
   {
@@ -5211,86 +4551,6 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Set - Chrome Dumbbells 1-10 kg",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/430-gymleco-chrome-dumbbells-ALL-scaled-1.jpg?v=1736953097",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Short Straight Rotating Handle",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/r101-Gymleco-Straight-Handle-rotating-1.jpg?v=1736764184",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Single Grip Foam Handles",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/handtag3_vinkel2_36e1c33f-f596-4b19-94e8-bd47ae63bf32.jpg?v=1736776340",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Single Grip Handles",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/r107-Gymleco-One-handed-Handle.jpg?v=1736770886",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Single Grip Nylon Handles",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/handtag1_vinkel2_2c256768-0e88-4d1c-bb1d-28e7cbc94ee6.jpg?v=1736776602",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Single Grip Rubber Handles",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/single-grip-rubber-handles-R847R-gymleco_4f5af5a6-0540-4cbb-8f9e-74e60c7097f0.jpg?v=1736777036",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Single Grip Triceps Rope",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-extension",
-    "muscle_label": "triceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R845-Gymleco-Single-Grip-Triceps-Rope.jpg?v=1736776187",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Single Jaw Pull Handles, Orange/Black",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R811O-Single-Jaw-Pull-Handles-Orange-enhandshantag-gymleco1.jpg?v=1736761731",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Sissy Squat",
     "machine_type": "plate-loaded",
     "exercise": "hack-squat",
@@ -5301,262 +4561,12 @@
   },
   {
     "brand": "Gymleco",
-    "model": "Squat Rack",
-    "machine_type": "plate-loaded",
-    "exercise": "hack-squat",
-    "muscle_label": "quads · glutes",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/148-rack-squat-bench-press-gymleco.jpg?v=1737040729",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Squat Rack (Home Gym)",
-    "machine_type": "plate-loaded",
-    "exercise": "hack-squat",
-    "muscle_label": "quads · glutes",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/749-rack-stall.webp?v=1736778636",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Squat Rack Hemmagym",
-    "machine_type": "plate-loaded",
-    "exercise": "hack-squat",
-    "muscle_label": "quads · glutes",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/squat-stallning-bygg-hemmagym.webp?v=1742371800",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Squat Rack with Pull Up Bar",
-    "machine_type": "plate-loaded",
-    "exercise": "hack-squat",
-    "muscle_label": "quads · glutes",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/749XL_Gymleco_Squat_Rack_Hemmagym_Home_gym.jpg?v=1736778374",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Standing Chins Rack",
-    "machine_type": "plate-loaded",
-    "exercise": "chin-up",
-    "muscle_label": "lats · biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/111.jpg?v=1737107689",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Standing Dumbbell Rack, 10 Pairs",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/441.jpg?v=1736784478",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
     "model": "Standing Scott Curl Bench",
     "machine_type": "plate-loaded",
     "exercise": null,
     "muscle_label": null,
     "product_type": "Plate loaded machines",
     "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/152-scottcurlbank.jpg?v=1734452018",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Straight Pulldown Handle for Dual Pulley",
-    "machine_type": "plate-loaded",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R226.jpg?v=1736774848",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Supra Lateral Pulldown / Row Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "lat-pulldown",
-    "muscle_label": "lats · biceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R117Q.jpg?v=1736763738",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Supra Row / Biceps / Triceps Handle",
-    "machine_type": "plate-loaded",
-    "exercise": "seated-row",
-    "muscle_label": "mid-back · lats",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R108Q-gymleco-supra-row-triceps-biceps-handle.jpg?v=1736762922",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Tricep Rope (110 cm)",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-extension",
-    "muscle_label": "triceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R112L-Gymleco-Triceps-Rope-Handle-115-cm.jpg?v=1736771926",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Tricep Rope (68 cm)",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-extension",
-    "muscle_label": "triceps",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/R112-Gymleco-Triceps-Rope-Handle-70-cm.jpg?v=1736771708",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Tyre Flip",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/59987-Tyre-Flip-1.jpg?v=1736851504",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wall Mounted Barbell Rack",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/gun-rack-vagghangt-skivstangsstall-gymleco.jpg?v=1736785198",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wall Mounted Dip Handles",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-dip",
-    "muscle_label": "triceps · chest",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-755S.jpg?v=1737131741",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wall Mounted Dip Handles (Angled)",
-    "machine_type": "plate-loaded",
-    "exercise": "triceps-dip",
-    "muscle_label": "triceps · chest",
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/755D_a8752f43-425a-4123-a4df-b200feeb8b93.jpg?v=1737131609",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wall Mounted Handles and Accessories Board, 14 Placements",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/495-1-wall-mounted-handles-and-accessories-board-vaggfast-handtags-och-tillbehorstavla-gymleco.jpg?v=1736847424",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wall Mounted Rack For Gymballs",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/465-Gymleco-Rack-for-Gym-balls-wall-mounted.jpg?v=1736782347",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wall Mounted Weight Rack",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/197WallMountedWeightRack.png?v=1768383372",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wallmounted Rig",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/601_Gymleco_Rig_Wallmounted_1.jpg?v=1738914388",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Weight Rack with 2 Barbell Holders",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/895_Weight_Rack_with_2_Barbell_Holders.png?v=1774606385",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Weight Rack, 6 Placements",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/195-weight-rack-viktstall.webp?v=1736782529",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Weight Rack, 8 Placements",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/196-weight-rack-viktstall.webp?v=1736782908",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Weightlifting Platform 2x3m",
-    "machine_type": "machine",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": null,
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/lyftarpodium-891.jpg?v=1780927807",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Weightlifting Podium",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/890-Gymleco-Weightlifting-Podium.jpg?v=1771498705",
-    "source": "gymleco"
-  },
-  {
-    "brand": "Gymleco",
-    "model": "Wooden Wall Bar",
-    "machine_type": "plate-loaded",
-    "exercise": null,
-    "muscle_label": null,
-    "product_type": "Plate loaded machines",
-    "image_url": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Ribbstol_gymleco.jpg?v=1736848535",
     "source": "gymleco"
   },
   {
