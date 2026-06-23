@@ -814,7 +814,13 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // back to the bundled sample data below, so it still works fully offline.
   // localhost while developing on the PC; the deployed Azure backend everywhere else
   // (phone / hosted PWA) — so a redeploy never silently points the app at a dead localhost.
-  const API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')
+  // localhost:<port> on the PC dev server → the local API. But the Capacitor app
+  // is ALSO served from https://localhost (no port) — that's NOT the dev PC, it must
+  // use the deployed backend. So only treat it as dev when there's an explicit port
+  // and we're not running natively.
+  const NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
+  const PC_DEV=!NATIVE&&(location.hostname==='localhost'||location.hostname==='127.0.0.1')&&location.port!=='';
+  const API=PC_DEV
     ? 'http://127.0.0.1:8000'
     : 'https://rackd-api-sguhring.azurewebsites.net';
   const USER='me';   // single local user for now (on-device, no accounts)
@@ -870,10 +876,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       // 'original' = the real product photo as found; 'photo' = our local cutout.
       // already-embedded images (data: URIs) or img/ paths are used as-is (offline-safe);
       // remote URLs map to a pre-rendered local cutout so they work offline too.
-      const src = IMAGES_MODE==='original'
-        ? image_url
-        : (/^(data:|img\/)/.test(image_url) ? image_url : `img/${imgHash(image_url)}.png`);
-      over=`<img class="mthumb-over" src="${src}" loading="lazy" onerror="this.remove()">`;
+      const cutout = /^(data:|img\/)/.test(image_url) ? image_url : `img/${imgHash(image_url)}.png`;
+      const src = IMAGES_MODE==='original' ? image_url : cutout;
+      // if the local cutout is missing, fall back to the real remote image, then the icon
+      const orig = (src!==image_url) ? image_url.replace(/"/g,'&quot;') : '';
+      over=`<img class="mthumb-over" src="${src}"${orig?` data-orig="${orig}"`:''} loading="lazy" onerror="if(!this._f&&this.dataset.orig){this._f=1;this.src=this.dataset.orig;}else{this.remove();}">`;
     }
     return `<div class="micon">${icon}${over||(icon?'':badgeHTML(brand))}</div>`;
   }
@@ -1665,7 +1672,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
           <span class="ov-set">${i+1}</span>
           <span class="ov-prev">${i===0?prev:'—'}</span>
           <input class="ov-in" type="number" inputmode="decimal" step="0.5" min="0" value="${s.w}" onchange="ovEdit(${ei},${i},'w',this.value)">
-          <input class="ov-in" type="number" inputmode="numeric" min="1" value="${s.r}" onchange="ovEdit(${ei},${i},'r',this.value)">
+          <input class="ov-in" type="number" inputmode="numeric" min="0" value="${s.r}" onchange="ovEdit(${ei},${i},'r',this.value)">
           <button class="ov-del" onclick="ovDel(${ei},${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
         </div>`).join('') : '<div class="ov-empty">no sets yet — add one.</div>';
       return `<div class="ov-card">
@@ -1683,7 +1690,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function ovEdit(ei,i,field,val){
     const m=st.session.items[ei]; const s=todays(keyFor(m))[i]; if(!s)return;
     if(field==='w'){ const w=parseFloat((val||'').replace(',','.')); if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10); }
-    else { const r=parseInt(val,10); if(!isNaN(r)) s.r=Math.max(1,Math.min(99,r)); }
+    else { const r=parseInt(val,10); if(!isNaN(r)) s.r=Math.max(0,Math.min(99,r)); }
     s.pr=false; saveDB();
   }
   function ovAdd(ei){
@@ -1705,7 +1712,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function finishFromOverview(){ finishSession(); }
   function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
-  function bumpR(d){st.r=Math.max(1,Math.min(30,st.r+d));renderR();}
+  function bumpR(d){st.r=Math.max(0,Math.min(99,st.r+d));renderR();}
   function renderW(){
     document.getElementById('wt').textContent=st.w%1===0?st.w:st.w.toFixed(1);
     const dl=document.getElementById('wt-delta');
@@ -1762,7 +1769,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     wrap.innerHTML=sets.map((s,i)=> i===editIdx ? `
       <div class="setrow editing">
         <span class="sn">${i+1}</span>
-        <input class="se-in" id="se-r" type="number" inputmode="numeric" value="${s.r}" min="1" max="99">
+        <input class="se-in" id="se-r" type="number" inputmode="numeric" value="${s.r}" min="0" max="99">
         <span class="x">×</span>
         <input class="se-in" id="se-w" type="number" inputmode="decimal" value="${s.w}" step="0.5" min="0"><span class="se-u">kg</span>
         <button class="se-btn del" onclick="delSet(${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
@@ -1785,7 +1792,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(s){
       const r=parseInt(document.getElementById('se-r').value,10);
       const w=parseFloat((document.getElementById('se-w').value||'').replace(',','.'));
-      if(!isNaN(r)) s.r=Math.max(1,Math.min(99,r));
+      if(!isNaN(r)) s.r=Math.max(0,Math.min(99,r));
       if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10);
       s.pr=false;                              // hand-edited — drop a possibly-stale PR flag
       saveDB();
