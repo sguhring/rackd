@@ -1,0 +1,810 @@
+{
+  "version": 2,
+  "regions": [
+    {
+      "slug": "chest",
+      "label": "chest",
+      "machines": 116,
+      "muscles": [
+        {
+          "slug": "upper-chest",
+          "label": "upper chest",
+          "machines": 25,
+          "movements": [
+            {
+              "slug": "chest-press",
+              "label": "chest press",
+              "machines": 25,
+              "facets": {
+                "implement": {
+                  "machine": 10,
+                  "plate-loaded": 14,
+                  "selectorized": 1
+                },
+                "angle": {
+                  "incline": 25
+                },
+                "laterality": {
+                  "iso-lateral": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "mid-chest",
+          "label": "mid chest",
+          "machines": 88,
+          "movements": [
+            {
+              "slug": "chest-press",
+              "label": "chest press",
+              "machines": 68,
+              "facets": {
+                "implement": {
+                  "smith": 1,
+                  "machine": 27,
+                  "plate-loaded": 26,
+                  "selectorized": 14
+                },
+                "angle": {
+                  "decline": 4,
+                  "incline": 1
+                },
+                "laterality": {
+                  "iso-lateral": 23,
+                  "converging": 1
+                },
+                "position": {
+                  "standing": 2,
+                  "seated": 3
+                }
+              }
+            },
+            {
+              "slug": "chest-fly",
+              "label": "chest fly",
+              "machines": 18,
+              "facets": {
+                "implement": {
+                  "selectorized": 6,
+                  "machine": 7,
+                  "plate-loaded": 5
+                },
+                "angle": {
+                  "incline": 1
+                },
+                "position": {
+                  "seated": 2,
+                  "standing": 1
+                },
+                "laterality": {
+                  "iso-lateral": 1,
+                  "converging": 1
+                }
+              }
+            },
+            {
+              "slug": "jammer---push-press",
+              "label": "jammer / push press",
+              "machines": 2,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 1,
+                  "machine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "lower-chest",
+          "label": "lower chest",
+          "machines": 3,
+          "movements": [
+            {
+              "slug": "chest-press",
+              "label": "chest press",
+              "machines": 3,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 2,
+                  "selectorized": 1
+                },
+                "angle": {
+                  "decline": 3
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "back",
+      "label": "back",
+      "machines": 254,
+      "muscles": [
+        {
+          "slug": "lats",
+          "label": "lats",
+          "machines": 135,
+          "movements": [
+            {
+              "slug": "pulldown",
+              "label": "pulldown",
+              "machines": 67,
+              "facets": {
+                "implement": {
+                  "machine": 37,
+                  "selectorized": 15,
+                  "plate-loaded": 12,
+                  "cable": 3
+                },
+                "laterality": {
+                  "iso-lateral": 18
+                },
+                "position": {
+                  "seated": 2
+                }
+              }
+            },
+            {
+              "slug": "pull-up---chin",
+              "label": "pull-up / chin",
+              "machines": 52,
+              "facets": {
+                "implement": {
+                  "smith": 26,
+                  "plate-loaded": 10,
+                  "cable": 5,
+                  "machine": 9,
+                  "selectorized": 2
+                },
+                "position": {
+                  "seated": 1,
+                  "standing": 1
+                },
+                "laterality": {
+                  "iso-lateral": 2
+                },
+                "angle": {
+                  "incline": 1
+                }
+              }
+            },
+            {
+              "slug": "pullover",
+              "label": "pullover",
+              "machines": 14,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 4,
+                  "machine": 10
+                }
+              }
+            },
+            {
+              "slug": "row",
+              "label": "row",
+              "machines": 2,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 2
+                },
+                "laterality": {
+                  "iso-lateral": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "upper-back",
+          "label": "upper-back",
+          "machines": 8,
+          "movements": [
+            {
+              "slug": "row",
+              "label": "row",
+              "machines": 8,
+              "facets": {
+                "implement": {
+                  "machine": 2,
+                  "selectorized": 1,
+                  "plate-loaded": 5
+                },
+                "angle": {
+                  "incline": 2
+                },
+                "laterality": {
+                  "iso-lateral": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "mid-back",
+          "label": "mid-back",
+          "machines": 85,
+          "movements": [
+            {
+              "slug": "row",
+              "label": "row",
+              "machines": 84,
+              "facets": {
+                "implement": {
+                  "machine": 41,
+                  "plate-loaded": 26,
+                  "cable": 5,
+                  "selectorized": 12
+                },
+                "laterality": {
+                  "iso-lateral": 21
+                },
+                "position": {
+                  "seated": 18,
+                  "kneeling": 1,
+                  "standing": 2
+                },
+                "angle": {
+                  "incline": 1
+                }
+              }
+            },
+            {
+              "slug": "upright-row",
+              "label": "upright row",
+              "machines": 1,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "lower-back",
+          "label": "lower back",
+          "machines": 22,
+          "movements": [
+            {
+              "slug": "back-extension",
+              "label": "back extension",
+              "machines": 22,
+              "facets": {
+                "implement": {
+                  "selectorized": 10,
+                  "machine": 8,
+                  "plate-loaded": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "traps",
+          "label": "traps",
+          "machines": 4,
+          "movements": [
+            {
+              "slug": "shrug",
+              "label": "shrug",
+              "machines": 4,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 1,
+                  "machine": 3
+                },
+                "position": {
+                  "seated": 4
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shoulders",
+      "label": "shoulders",
+      "machines": 103,
+      "muscles": [
+        {
+          "slug": "front-delts",
+          "label": "front delts",
+          "machines": 0,
+          "movements": []
+        },
+        {
+          "slug": "side-delts",
+          "label": "side delts",
+          "machines": 23,
+          "movements": [
+            {
+              "slug": "lateral-raise",
+              "label": "lateral raise",
+              "machines": 23,
+              "facets": {
+                "implement": {
+                  "machine": 14,
+                  "selectorized": 6,
+                  "plate-loaded": 3
+                },
+                "position": {
+                  "seated": 2,
+                  "standing": 3
+                },
+                "laterality": {
+                  "iso-lateral": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "rear-delts",
+          "label": "rear delts",
+          "machines": 26,
+          "movements": [
+            {
+              "slug": "rear-delt-fly",
+              "label": "rear-delt fly",
+              "machines": 26,
+              "facets": {
+                "implement": {
+                  "machine": 15,
+                  "selectorized": 10,
+                  "plate-loaded": 1
+                },
+                "laterality": {
+                  "iso-lateral": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "delts",
+          "label": "delts",
+          "machines": 54,
+          "movements": [
+            {
+              "slug": "shoulder-press",
+              "label": "shoulder press",
+              "machines": 54,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 17,
+                  "machine": 20,
+                  "selectorized": 17
+                },
+                "laterality": {
+                  "iso-lateral": 16,
+                  "converging": 2
+                },
+                "position": {
+                  "standing": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "arms",
+      "label": "arms",
+      "machines": 139,
+      "muscles": [
+        {
+          "slug": "biceps",
+          "label": "biceps",
+          "machines": 60,
+          "movements": [
+            {
+              "slug": "biceps-curl",
+              "label": "biceps curl",
+              "machines": 60,
+              "facets": {
+                "implement": {
+                  "machine": 32,
+                  "selectorized": 17,
+                  "plate-loaded": 10,
+                  "cable": 1
+                },
+                "laterality": {
+                  "iso-lateral": 4
+                },
+                "position": {
+                  "seated": 4,
+                  "standing": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "triceps",
+          "label": "triceps",
+          "machines": 79,
+          "movements": [
+            {
+              "slug": "triceps-extension",
+              "label": "triceps extension",
+              "machines": 41,
+              "facets": {
+                "implement": {
+                  "machine": 25,
+                  "selectorized": 11,
+                  "cable": 1,
+                  "plate-loaded": 4
+                },
+                "position": {
+                  "seated": 4
+                },
+                "laterality": {
+                  "iso-lateral": 4
+                }
+              }
+            },
+            {
+              "slug": "dip",
+              "label": "dip",
+              "machines": 38,
+              "facets": {
+                "implement": {
+                  "machine": 19,
+                  "selectorized": 12,
+                  "plate-loaded": 6,
+                  "cable": 1
+                },
+                "position": {
+                  "seated": 8,
+                  "standing": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "forearms",
+          "label": "forearms",
+          "machines": 0,
+          "movements": []
+        }
+      ]
+    },
+    {
+      "slug": "legs",
+      "label": "legs",
+      "machines": 338,
+      "muscles": [
+        {
+          "slug": "quads",
+          "label": "quads",
+          "machines": 204,
+          "movements": [
+            {
+              "slug": "leg-extension",
+              "label": "leg extension",
+              "machines": 81,
+              "facets": {
+                "implement": {
+                  "machine": 57,
+                  "selectorized": 19,
+                  "plate-loaded": 5
+                },
+                "position": {
+                  "seated": 7,
+                  "lying": 4
+                },
+                "laterality": {
+                  "iso-lateral": 4
+                }
+              }
+            },
+            {
+              "slug": "leg-press",
+              "label": "leg press",
+              "machines": 79,
+              "facets": {
+                "implement": {
+                  "machine": 37,
+                  "plate-loaded": 20,
+                  "selectorized": 22
+                },
+                "position": {
+                  "seated": 26,
+                  "lying": 2
+                },
+                "laterality": {
+                  "iso-lateral": 2
+                }
+              }
+            },
+            {
+              "slug": "hack---v-squat",
+              "label": "hack / v-squat",
+              "machines": 44,
+              "facets": {
+                "implement": {
+                  "machine": 20,
+                  "plate-loaded": 24
+                },
+                "position": {
+                  "seated": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "hamstrings",
+          "label": "hamstrings",
+          "machines": 57,
+          "movements": [
+            {
+              "slug": "leg-curl",
+              "label": "leg curl",
+              "machines": 57,
+              "facets": {
+                "implement": {
+                  "machine": 20,
+                  "selectorized": 25,
+                  "plate-loaded": 12
+                },
+                "position": {
+                  "lying": 17,
+                  "standing": 3,
+                  "seated": 24,
+                  "kneeling": 6
+                },
+                "laterality": {
+                  "iso-lateral": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "calves",
+          "label": "calves",
+          "machines": 47,
+          "movements": [
+            {
+              "slug": "calf-raise",
+              "label": "calf raise",
+              "machines": 47,
+              "facets": {
+                "implement": {
+                  "machine": 21,
+                  "plate-loaded": 16,
+                  "selectorized": 10
+                },
+                "position": {
+                  "standing": 16,
+                  "seated": 13
+                },
+                "angle": {
+                  "incline": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "adductors",
+          "label": "adductors",
+          "machines": 6,
+          "movements": [
+            {
+              "slug": "hip-adduction",
+              "label": "hip adduction",
+              "machines": 6,
+              "facets": {
+                "implement": {
+                  "selectorized": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "abductors",
+          "label": "abductors",
+          "machines": 24,
+          "movements": [
+            {
+              "slug": "hip-abduction",
+              "label": "hip abduction",
+              "machines": 24,
+              "facets": {
+                "implement": {
+                  "machine": 19,
+                  "plate-loaded": 2,
+                  "selectorized": 3
+                },
+                "position": {
+                  "standing": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "hip-flexors",
+          "label": "hip flexors",
+          "machines": 0,
+          "movements": []
+        },
+        {
+          "slug": "shins",
+          "label": "shins",
+          "machines": 0,
+          "movements": []
+        }
+      ]
+    },
+    {
+      "slug": "glutes",
+      "label": "glutes",
+      "machines": 50,
+      "muscles": [
+        {
+          "slug": "glutes",
+          "label": "glutes",
+          "machines": 50,
+          "movements": [
+            {
+              "slug": "glute-kickback-bridge",
+              "label": "glute (kickback/bridge)",
+              "machines": 36,
+              "facets": {
+                "implement": {
+                  "machine": 20,
+                  "selectorized": 9,
+                  "plate-loaded": 7
+                },
+                "position": {
+                  "standing": 2
+                }
+              }
+            },
+            {
+              "slug": "hip-abduction",
+              "label": "hip abduction",
+              "machines": 8,
+              "facets": {
+                "implement": {
+                  "selectorized": 8
+                }
+              }
+            },
+            {
+              "slug": "hip-thrust",
+              "label": "hip thrust",
+              "machines": 3,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 3
+                }
+              }
+            },
+            {
+              "slug": "multi-hip",
+              "label": "multi-hip",
+              "machines": 2,
+              "facets": {
+                "implement": {
+                  "selectorized": 2
+                }
+              }
+            },
+            {
+              "slug": "pull-up---chin",
+              "label": "pull-up / chin",
+              "machines": 1,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "abs",
+      "label": "abs",
+      "machines": 66,
+      "muscles": [
+        {
+          "slug": "abs",
+          "label": "abs",
+          "machines": 53,
+          "movements": [
+            {
+              "slug": "ab-crunch",
+              "label": "ab crunch",
+              "machines": 44,
+              "facets": {
+                "implement": {
+                  "selectorized": 22,
+                  "machine": 14,
+                  "plate-loaded": 8
+                },
+                "position": {
+                  "seated": 1,
+                  "standing": 1
+                },
+                "laterality": {
+                  "converging": 1
+                }
+              }
+            },
+            {
+              "slug": "leg-raise",
+              "label": "leg raise",
+              "machines": 9,
+              "facets": {
+                "implement": {
+                  "machine": 8,
+                  "plate-loaded": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "obliques",
+          "label": "obliques",
+          "machines": 13,
+          "movements": [
+            {
+              "slug": "torso-rotation",
+              "label": "torso rotation",
+              "machines": 13,
+              "facets": {
+                "implement": {
+                  "machine": 6,
+                  "selectorized": 6,
+                  "plate-loaded": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "core",
+          "label": "core",
+          "machines": 0,
+          "movements": []
+        }
+      ]
+    },
+    {
+      "slug": "neck",
+      "label": "neck",
+      "machines": 0,
+      "muscles": [
+        {
+          "slug": "neck",
+          "label": "neck",
+          "machines": 0,
+          "movements": []
+        }
+      ]
+    },
+    {
+      "slug": "functional-other",
+      "label": "functional / other",
+      "machines": 185,
+      "muscles": [],
+      "note": "no single target muscle; ~60 are unlabeled and will move into the tree later"
+    }
+  ]
+}
