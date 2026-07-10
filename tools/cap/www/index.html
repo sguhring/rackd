@@ -392,6 +392,39 @@
   .histchart{display:block;width:100%;height:auto;margin:10px 0 8px;overflow:visible;}
   .histaxis{display:flex;justify-content:space-between;font-size:11px;color:var(--label-3);font-variant-numeric:tabular-nums;margin-top:-2px;}
   .histmeta{font-size:12px;color:var(--label-3);margin-top:7px;}
+  /* previous-workout session detail */
+  .ps-ex{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);}
+  .ps-ex:first-of-type{margin-top:8px;}
+  .ps-exn{font-size:13px;color:var(--label);}
+  .ps-b{color:var(--accent);font-size:11px;text-transform:lowercase;}
+  .ps-sets{font-size:12.5px;color:var(--label-2);text-align:right;font-variant-numeric:tabular-nums;white-space:normal;}
+  .ps-pr{color:var(--accent);font-size:10px;font-weight:700;margin-left:4px;}
+  /* editable previous-workout rows */
+  .ps-ex2{padding:8px 0;border-top:1px solid rgba(255,255,255,.08);}
+  .ps-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
+  .ps-i{width:16px;color:var(--label-3);font-size:12px;flex:0 0 auto;}
+  .ps-in{width:56px;background:var(--elev-2);border:1px solid rgba(255,255,255,.10);border-radius:8px;color:var(--label);padding:6px;font-size:13px;text-align:center;font-variant-numeric:tabular-nums;}
+  .ps-x{font-size:11px;color:var(--label-3);}
+  .ps-del{margin-left:auto;background:none;border:none;color:var(--label-3);font-size:13px;cursor:pointer;padding:4px;}
+  .ps-delw{margin-left:8px;background:none;border:none;color:var(--label-3);font-size:14px;cursor:pointer;}
+  /* previous-workout editor screen */
+  .tapcard{cursor:pointer;}
+  .sd-card{margin:0 16px 12px;background:var(--elev);border-radius:14px;padding:14px 16px;}
+  .sd-exh{font-size:15px;font-weight:600;color:var(--label);margin-bottom:8px;}
+  .sd-note{margin:-2px 0 10px;padding:8px 11px;background:rgba(48,209,88,.09);border:.5px solid rgba(48,209,88,.18);border-radius:10px;font-size:13px;line-height:1.4;color:var(--label);white-space:pre-wrap;letter-spacing:-.01em;}
+  .sd-snote{margin:0 16px 12px;}
+  .sd-tblh{display:grid;grid-template-columns:34px 1fr 1fr 36px;gap:8px;font-size:11px;color:var(--label-3);text-transform:uppercase;letter-spacing:.4px;padding:0 0 4px;}
+  .sd-row{display:grid;grid-template-columns:34px 1fr 1fr 36px;gap:8px;align-items:center;padding:4px 0;}
+  .sd-row .ps-in{width:100%;}
+  .sd-i{color:var(--label-3);font-size:13px;}
+  /* tap-to-enlarge lightbox */
+  #log-thumb .mthumb-over{cursor:zoom-in;}
+  .imgview{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;}
+  .imgview.show{display:flex;}
+  .imgview img{max-width:100%;max-height:100%;object-fit:contain;border-radius:14px;background:#e9e9ee;}
+  .imgview-x{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;width:40px;height:40px;border-radius:50%;
+    background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .imgview-x svg{width:20px;height:20px;}
 </style>
 </head>
 <body>
@@ -403,6 +436,7 @@
           <div class="sub">track the exact machine in front of you.</div>
         </div>
         <div class="scroll">
+          <div id="home-active"></div>
           <div class="sechead">start</div>
           <div class="group">
             <div class="row" onclick="goGyms()">
@@ -470,7 +504,48 @@
           <div class="sub">your improvements, per muscle group.</div>
         </div>
         <div class="scroll">
+          <div class="group" style="margin-bottom:14px;">
+            <div class="row" onclick="goSessions()">
+              <div class="mbadge" style="background:#2C2C2E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l3 2"/></svg></div>
+              <div class="m-main"><div class="m-name">previous workouts</div><div class="m-muscle">every completed session, set by set</div></div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
           <div id="histbody"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: previous workouts (completed sessions) ===== -->
+      <section class="screen" id="s-sessions">
+        <div class="navbar">
+          <button class="navback" onclick="goHistory()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            history
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>previous workouts</h1>
+          <div class="sub">every workout you've finished.</div>
+        </div>
+        <div class="scroll">
+          <div id="sessbody"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: previous-workout editor ===== -->
+      <section class="screen" id="s-session-detail">
+        <div class="navbar">
+          <button class="navback" onclick="goSessions()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            previous workouts
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="sd-title">workout</h1>
+          <div class="sub" id="sd-sub"></div>
+        </div>
+        <div class="scroll">
+          <div id="sd-body"></div>
         </div>
       </section>
 
@@ -504,6 +579,7 @@
           <div class="sub">build a new one, or continue a saved workout.</div>
         </div>
         <div class="scroll">
+          <div id="work-active"></div>
           <div class="sechead">start</div>
           <div class="group">
             <div class="row" onclick="openCustom()">
@@ -656,7 +732,7 @@
           </button>
         </div>
         <div class="log-id">
-          <div id="log-thumb"></div>
+          <div id="log-thumb" onclick="enlargeThumb(this)"></div>
           <div class="txt">
             <div class="b" id="log-brand">hammer strength</div>
             <div class="n" id="log-name">iso-lateral chest press</div>
@@ -718,6 +794,10 @@
               <button class="next-btn" id="next-btn" onclick="nextExercise()" style="flex:1;width:auto;">next exercise →</button>
             </div>
           </div>
+          <div class="cta" id="log-add-cta" style="display:none;padding-top:0;">
+            <button class="addex" id="log-sess-addex-btn" onclick="toggleLogSessPicker()">+ add exercise</button>
+          </div>
+          <div id="log-sess-picker" class="picker" style="display:none;"></div>
         </div>
       </section>
 
@@ -739,6 +819,8 @@
         <div class="scroll">
           <textarea class="ov-notes" id="ov-notes" placeholder="workout notes…" onchange="saveSessNote()"></textarea>
           <div id="ov-list"></div>
+          <div class="cta" style="padding-bottom:0;"><button class="addex" id="sess-addex-btn" onclick="toggleSessPicker()">+ add exercise</button></div>
+          <div id="sess-picker" class="picker" style="display:none;"></div>
           <div class="cta"><button class="next-btn" style="background:var(--accent);color:#00350F;" onclick="finishFromOverview()">finish workout</button></div>
         </div>
       </section>
@@ -784,9 +866,22 @@
           <button class="confirm-btn danger" id="confirm-ok" onclick="doConfirm()">remove</button>
         </div>
       </div>
+
+      <!-- tap-to-enlarge machine photo -->
+      <div class="imgview" id="imgview" onclick="closeImgView()">
+        <button class="imgview-x" onclick="closeImgView()" aria-label="close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+        <img id="imgview-img" alt="machine">
+      </div>
 </div>
 <script>
-if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+// DEV: no service worker — always load fresh code. Unregister any previously
+// installed SW and wipe its caches so a stale index.html can't be served back.
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});
+}
+if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});}).catch(function(){});}
 </script>
 <script src="icons.js"></script>
 <script>
@@ -876,7 +971,8 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       // 'original' = the real product photo as found; 'photo' = our local cutout.
       // already-embedded images (data: URIs) or img/ paths are used as-is (offline-safe);
       // remote URLs map to a pre-rendered local cutout so they work offline too.
-      const cutout = /^(data:|img\/)/.test(image_url) ? image_url : `img/${imgHash(image_url)}.png`;
+      const isSvg = /\.svg(?:$|[?#])/i.test(image_url);
+      const cutout = /^(data:|img\/)/.test(image_url) || isSvg ? image_url : `img/${imgHash(image_url)}.png`;
       const src = IMAGES_MODE==='original' ? image_url : cutout;
       // if the local cutout is missing, fall back to the real remote image, then the icon
       const orig = (src!==image_url) ? image_url.replace(/"/g,'&quot;') : '';
@@ -929,11 +1025,30 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   let st={gym:null,m:null,w:0,r:10,filter:'all',sets:[],session:null};
   let draft={name:'push day',items:[]};
+  // the exercise picker is shared: 'draft' = building/editing a saved workout,
+  // 'session' = adding to the LIVE workout in progress (never touches the saved template).
+  let pickMode='draft';
+  function pickArr(){ return (pickMode==='session'&&st.session)?st.session.items:draft.items; }
+  function activeScreenId(){ const s=document.querySelector('.screen.active'); return s?s.id:''; }
+  function pickPanel(){ return pickMode==='session'?(activeScreenId()==='s-log'?'log-sess-picker':'sess-picker'):'picker'; }
+  function pickBtnId(panel){ return ({picker:'addex-btn','sess-picker':'sess-addex-btn','log-sess-picker':'log-sess-addex-btn'})[panel]; }
+  function pickRefresh(){
+    if(pickMode==='session'){
+      updateSessionBar();
+      if(activeScreenId()==='s-overview') renderOverview();
+      const p=document.getElementById(pickPanel()); if(p&&p.style.display!=='none') renderPicker();
+    }
+    else { renderDraft(); if(document.getElementById('picker').style.display!=='none') renderPicker(); }
+  }
 
   // ===== on-device persistence (localStorage) =====
   const LS='rackd.v1';
-  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[]};}}
+  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];d.active=d.active||null;return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[],active:null};}}
   function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
+  // the in-progress workout is a live DUPLICATE of the preset: its own idx + items,
+  // so edits/sets during the workout never touch the saved preset. Persisted so the
+  // "current workout" card survives an app restart until the user taps finish.
+  function persistActive(){ DB.active = st.session ? {name:st.session.name,items:st.session.items,idx:st.session.idx,wid:st.session.wid} : null; saveDB(); }
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   function keyFor(m){const scope=st.catalog?'cat':(st.session?(st.session.wid?('w'+st.session.wid):'custom'):(st.gym?('g'+st.gym.id):'custom'));return scope+'|'+m.brand+'|'+m.name;}
@@ -961,6 +1076,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const el=document.getElementById(id);
     setTimeout(()=>{document.querySelectorAll('.screen').forEach(s=>s.classList.remove('exit-left'));},0);
     el.classList.add('active');
+    if(id==='s-home'||id==='s-workouts') renderActive();   // keep the "current workout" card fresh on every visit
     const sc=el.querySelector('.scroll'); if(sc) sc.scrollTop=0;
   }
   function goHome(){ renderHome(); show('s-home'); }
@@ -1040,6 +1156,136 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     wrap.innerHTML=html;
   }
 
+  // ===== tap-to-enlarge machine photo =====
+  function openImgView(src){ if(!src)return; document.getElementById('imgview-img').src=src; document.getElementById('imgview').classList.add('show'); }
+  function closeImgView(){ const v=document.getElementById('imgview'); v.classList.remove('show'); document.getElementById('imgview-img').src=''; }
+  function enlargeThumb(el){ const img=el.querySelector('.mthumb-over'); if(img) openImgView(img.currentSrc||img.src); }
+  // any machine photo, anywhere → tap to enlarge. capture phase + stopPropagation so the
+  // tap doesn't also trigger the surrounding row's navigation.
+  document.addEventListener('click', function(e){
+    const t = e.target;
+    if (t && t.tagName === 'IMG' && t.classList.contains('mthumb-over')) {
+      e.stopPropagation(); e.preventDefault();
+      openImgView(t.currentSrc || t.src);
+    }
+  }, true);
+
+  // ===== previous workouts: list of completed sessions (editable) =====
+  function goSessions(){ renderSessions(); show('s-sessions'); }
+  function fmtW(w){ return w%1===0?w:(+w).toFixed(1); }
+  // archive today's logged sets into history (covers logging without a started workout)
+  function saveTodayAsSession(){
+    if(st.session){ finishSession(); renderSessions(); show('s-sessions'); return; }
+    const groups=todayCard(); if(!groups) return;
+    const items=groups.map(g=>({brand:g.brand,name:g.name,sets:g.sets.map(s=>({w:s.w,r:s.r,pr:!!s.pr}))}));
+    DB.sessions.push({id:'s'+Date.now().toString(36), wid:null, name:'workout', ts:Date.now(), items});
+    saveDB(); renderSessions();
+    toastMsg(false,'saved to history','today’s workout is now in previous workouts');
+  }
+  // today's logged sets that aren't yet saved as a finished session
+  function todayCard(){
+    const t=new Date().toDateString();
+    if((DB.sessions||[]).some(s=>s&&s.ts&&new Date(s.ts).toDateString()===t)) return null;
+    const todays=(DB.sets||[]).filter(s=>s&&s.ts&&new Date(s.ts).toDateString()===t);
+    if(!todays.length) return null;
+    const by={}, order=[];
+    todays.forEach(s=>{const k=(s.brand||'')+'|'+s.name; if(!by[k]){by[k]={brand:s.brand,name:s.name,sets:[]};order.push(k);} by[k].sets.push(s);});
+    return order.map(k=>by[k]);
+  }
+  function renderSessions(){
+    const wrap=document.getElementById('sessbody');
+    const ss=(DB.sessions||[]).filter(s=>s&&s.ts).slice().sort((a,b)=>b.ts-a.ts);
+    const today=todayCard();
+    let html='';
+    if(today){
+      const nsets=today.reduce((a,it)=>a+it.sets.length,0);
+      html+=`<div class="histcard">
+        <div class="histhd"><span class="histname">today</span><span class="histtrend">in progress</span></div>
+        <div class="histmeta">${today.length} exercise${today.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''}</div>
+        ${today.map(it=>`<div class="ps-ex"><div class="ps-exn">${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</div><div class="ps-sets">${it.sets.map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')}</div></div>`).join('')}
+        <button class="ov-add" style="margin-top:10px;" onclick="saveTodayAsSession()">finish &amp; save to history</button>
+      </div>`;
+    }
+    if(!ss.length && !today){ wrap.innerHTML='<div class="empty">no completed workouts yet — finish a workout and it shows up here.</div>'; return; }
+    // saved sessions: read-only summary cards, tap to open the editor screen
+    html+=ss.map(s=>{
+      const d=new Date(s.ts);
+      const date=d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
+      const items=s.items||[];
+      const nsets=items.reduce((a,it)=>a+(it.sets?it.sets.length:0),0);
+      const ex=items.map(it=>`
+        <div class="ps-ex">
+          <div class="ps-exn">${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</div>
+          <div class="ps-sets">${(it.sets||[]).map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')||'—'}</div>
+        </div>`).join('');
+      return `<div class="histcard tapcard" onclick="openSession('${s.id}')">
+        <div class="histhd"><span class="histname">${s.name||'workout'}</span><span class="histtrend">${date}</span>
+          <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span></div>
+        <div class="histmeta">${items.length} exercise${items.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''} · tap to edit</div>
+        ${ex}
+      </div>`;
+    }).join('');
+    wrap.innerHTML=html;
+  }
+
+  // ----- session editor (its own screen) -----
+  let curSess=null;
+  function openSession(sid){ curSess=sid; renderSessionDetail(); show('s-session-detail'); }
+  function renderSessionDetail(){
+    const s=(DB.sessions||[]).find(x=>x.id===curSess);
+    if(!s){ goSessions(); return; }
+    const d=new Date(s.ts);
+    document.getElementById('sd-title').textContent=s.name||'workout';
+    document.getElementById('sd-sub').textContent=d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
+    const items=s.items||[];
+    // notes: prefer the snapshot stored on the record; fall back to the live DB.notes
+    // entry (so sessions saved before notes were snapshotted still show them).
+    const scope=s.wid?('w'+s.wid):'custom';
+    const noteOf=it=>(it.note||'').trim()||(DB.notes[scope+'|'+it.brand+'|'+it.name]||'').trim();
+    const sNote=(s.note||'').trim()||(DB.notes['sess:'+(s.wid||s.name)]||'').trim();
+    const noteBox=(txt,extra)=>txt?`<div class="sd-note${extra||''}">${escHTML(txt)}</div>`:'';
+    const body=items.map((it,ei)=>`
+      <div class="sd-card">
+        <div class="sd-exh">${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</div>
+        ${noteBox(noteOf(it))}
+        <div class="sd-tblh"><span>set</span><span>kg</span><span>reps</span><span></span></div>
+        ${(it.sets||[]).map((x,xi)=>`<div class="sd-row">
+            <span class="sd-i">${xi+1}</span>
+            <input class="ps-in" type="number" inputmode="decimal" step="0.5" min="0" value="${x.w}" onchange="sessEdit('${s.id}',${ei},${xi},'w',this.value)">
+            <input class="ps-in" type="number" inputmode="numeric" min="0" value="${x.r}" onchange="sessEdit('${s.id}',${ei},${xi},'r',this.value)">
+            <button class="ps-del" onclick="sessDelSet('${s.id}',${ei},${xi})" aria-label="delete set">✕</button>
+          </div>`).join('')}
+        <button class="ov-add" onclick="sessAddSet('${s.id}',${ei})">+ add set</button>
+      </div>`).join('');
+    document.getElementById('sd-body').innerHTML=noteBox(sNote,' sd-snote')+body+
+      `<div class="cta"><button class="next-btn" style="background:#3a1416;color:#ff9aa2;" onclick="sessDel('${s.id}')">delete this workout</button></div>`;
+  }
+  function sessEdit(sid,ei,xi,field,val){
+    const s=(DB.sessions||[]).find(x=>x.id===sid); if(!s||!s.items[ei])return;
+    const set=s.items[ei].sets[xi]; if(!set)return;
+    if(field==='w'){ const w=parseFloat((val||'').replace(',','.')); if(!isNaN(w)) set.w=Math.max(0,Math.round(w*10)/10); }
+    else { const r=parseInt(val,10); if(!isNaN(r)) set.r=Math.max(0,Math.min(99,r)); }
+    set.pr=false; saveDB();
+  }
+  function sessAddSet(sid,ei){
+    const s=(DB.sessions||[]).find(x=>x.id===sid); if(!s||!s.items[ei])return;
+    const sets=s.items[ei].sets, last=sets[sets.length-1];
+    sets.push({w:last?last.w:0, r:last?last.r:10, pr:false});
+    saveDB(); renderSessionDetail();
+  }
+  function sessDelSet(sid,ei,xi){
+    const s=(DB.sessions||[]).find(x=>x.id===sid); if(!s||!s.items[ei])return;
+    s.items[ei].sets.splice(xi,1);
+    if(!s.items[ei].sets.length) s.items.splice(ei,1);
+    if(!s.items.length){ DB.sessions=DB.sessions.filter(x=>x.id!==sid); saveDB(); goSessions(); return; }
+    saveDB(); renderSessionDetail();
+  }
+  function sessDel(sid){
+    const s=(DB.sessions||[]).find(x=>x.id===sid);
+    askConfirm('delete this workout?',`“${s?s.name:'this workout'}” will be removed from your history. this can’t be undone.`,'delete',
+      ()=>{ DB.sessions=(DB.sessions||[]).filter(x=>x.id!==sid); saveDB(); goSessions(); });
+  }
+
   // ---- screen 1 ----
   function chipsFor(g){
     // prefer the brand names the API gives per gym; else derive from loaded machines.
@@ -1087,10 +1333,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // ===== catalog browse: movement → brand → model (uses the live API) =====
   let cat={move:null,moveName:null,group:null,brand:null,models:[]};
   function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+  function escHTML(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function chev(){return '<span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>';}
 
   async function openCatalog(add){
     cat.add=!!add;   // add-mode: tapping a model adds it to the custom workout draft
+    if(cat.add) cat.returnScreen=activeScreenId();
     document.getElementById('cat-back-label').textContent=cat.add?'workout':'workouts';
     document.getElementById('catmove').innerHTML='<div class="empty">loading…</div>';
     show('s-cat-move');
@@ -1148,16 +1396,17 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const item={brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
                 group:cat.group, muscle:m.muscle_label||'', img:m.image_url||'',
                 lastW:0,lastR:0,lastS:0,date:''};
-    if(cat.add){                                   // adding to a custom workout
-      if(!draft.items.some(d=>d.name===item.name&&d.brand===item.brand)) draft.items.push(item);
-      show('s-custom'); renderDraft();
-      if(document.getElementById('picker').style.display!=='none') renderPicker();
+    if(cat.add){                                   // adding to a workout (builder or live session)
+      if(!pickArr().some(d=>d.name===item.name&&d.brand===item.brand)) pickArr().push(item);
+      if(pickMode==='session'&&cat.returnScreen==='s-log'){ show('s-log'); updateSessionBar(); }
+      else if(pickMode==='session'){ show('s-overview'); renderOverview(); }
+      else { show('s-custom'); renderDraft(); if(document.getElementById('picker').style.display!=='none') renderPicker(); }
       return;
     }
     st.gym=null; st.session=null; st.catalog=true; // browsing → log directly
     loadLog(item);
   }
-  function catHome(){ if(cat.add) show('s-custom'); else show('s-workouts'); }
+  function catHome(){ if(cat.add) show(pickMode==='session'?(cat.returnScreen||'s-overview'):'s-custom'); else show('s-workouts'); }
 
   function buildSegment(){
     const seg=document.getElementById('segment');
@@ -1227,6 +1476,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     document.getElementById('note-back').classList.remove('show');
     document.getElementById('note-sheet').classList.remove('show');
     refreshNoteBtn();
+    if(st.session) persistActive();   // remember where we are in the in-progress workout
     show('s-log');
   }
   function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-workouts'); else goMachines(); }
@@ -1258,8 +1508,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       ex={brand:'custom', name, group:guessGroup(name), muscle:'', img:'', lastW:0,lastR:0,lastS:0,date:''};
       DB.custom.push(ex); saveDB();
     }
-    if(!draft.items.some(d=>d.name===name)) draft.items.push({...ex});
-    renderDraft(); renderCatResults();
+    if(!pickArr().some(d=>d.name===name)) pickArr().push({...ex});
+    if(pickMode==='session') renderOverview(); else renderDraft();
+    renderCatResults();
     pickCustomPhoto(name);                 // immediately offer to attach a photo
   }
   // attach a photo (from the device) to a custom exercise — downscaled to a data URI
@@ -1359,25 +1610,75 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
 
   function togglePicker(){
+    pickMode='draft';
     const p=document.getElementById('picker'), btn=document.getElementById('addex-btn');
     if(p.style.display==='none'){ renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
     else { p.style.display='none'; btn.textContent='+ add exercise'; }
   }
   // ---- catalog search (inside the builder) ----
   let catQuery='', catResults=[], catSearchT=null;
+  function normSearch(s){
+    return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  }
+  function editDist(a,b,max=2){
+    if(a===b)return 0;
+    if(Math.abs(a.length-b.length)>max)return max+1;
+    let prev=Array.from({length:b.length+1},(_,i)=>i);
+    for(let i=1;i<=a.length;i++){
+      let cur=[i], best=cur[0];
+      for(let j=1;j<=b.length;j++){
+        const cost=a[i-1]===b[j-1]?0:1;
+        const v=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+cost);
+        cur[j]=v; if(v<best)best=v;
+      }
+      if(best>max)return max+1;
+      prev=cur;
+    }
+    return prev[b.length];
+  }
+  function fuzzyScore(query, fields){
+    const q=normSearch(query); if(q.length<2)return 0;
+    const hay=normSearch(fields.join(' ')); if(!hay)return 0;
+    const qWords=q.split(/\s+/).filter(Boolean);
+    const hWords=hay.split(/\s+/).filter(Boolean);
+    let total=0;
+    for(const qw of qWords){
+      let best=0;
+      for(const hw of hWords){
+        if(hw===qw) best=Math.max(best,110);
+        else if((qw.length>=2&&hw.startsWith(qw))||(hw.length>=3&&qw.startsWith(hw))) best=Math.max(best,88);
+        else if((qw.length>=3&&hw.includes(qw))||(hw.length>=4&&qw.includes(hw))) best=Math.max(best,72);
+        else if(qw.length>=4){
+          const max=qw.length<=4?1:2;
+          const d=editDist(qw,hw,max);
+          if(d<=max) best=Math.max(best, qw.length<=4?58:66);
+        }
+      }
+      if(!best)return 0;
+      total+=best;
+    }
+    if(hay.includes(q)) total+=45;
+    if(hay.startsWith(q)) total+=35;
+    return total/qWords.length;
+  }
   function onCatSearch(q){
     catQuery=q; clearTimeout(catSearchT);
     if(q.trim().length<2){ catResults=[]; renderCatResults(); return; }
     catSearchT=setTimeout(async()=>{
-      const words=q.trim().toLowerCase().split(/\s+/);
       // generic exercise library + any loaded gym machines (client-side)
-      const local=pool().filter(m=>{const hay=(m.brand+' '+m.name+' '+(m.muscle||'')).toLowerCase();
-        return words.every(w=>hay.includes(w));})
-        .map(m=>({brand:m.brand,model:m.name,muscle_group:m.group,muscle_label:m.muscle,image_url:m.img}));
+      const local=pool().map(m=>({m,score:fuzzyScore(q,[m.brand,m.name,m.muscle,m.group])}))
+        .filter(x=>x.score>0)
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,40)
+        .map(x=>({brand:x.m.brand,model:x.m.name,muscle_group:x.m.group,muscle_label:x.m.muscle,image_url:x.m.img,_score:x.score}));
       // branded machines (API)
       let api=[];
       try{const r=await fetch(`${API}/catalog/search?q=${encodeURIComponent(q.trim())}`); if(r.ok) api=await r.json();}catch(e){}
-      catResults=[...local, ...api].slice(0,60);
+      const seen=new Set();
+      catResults=[...local, ...api].filter(m=>{
+        const key=(m.brand||'').toLowerCase()+'|'+(m.model||'').toLowerCase();
+        if(seen.has(key))return false; seen.add(key); return true;
+      }).slice(0,60);
       renderCatResults();
     },220);
   }
@@ -1388,7 +1689,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     let html='';
     if(catResults.length){
       html+='<div class="group">'+catResults.map((m,i)=>{
-        const added=draft.items.some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
+        const added=pickArr().some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
         return `<div class="row" onclick="addCatalogResult(${i})">
           ${thumbHTML(m.brand, m.model, m.muscle_group, m.image_url)}
           <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
@@ -1412,12 +1713,13 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const item={brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
                 group:m.muscle_group||'core', muscle:m.muscle_label||'', img:m.image_url||'',
                 lastW:0,lastR:0,lastS:0,date:''};
-    if(!draft.items.some(d=>d.name===item.name&&d.brand===item.brand)) draft.items.push(item);
-    renderDraft(); renderCatResults();   // not renderPicker \u2192 keeps the search box focused
+    if(!pickArr().some(d=>d.name===item.name&&d.brand===item.brand)) pickArr().push(item);
+    if(pickMode==='session') renderOverview(); else renderDraft();
+    renderCatResults();   // not renderPicker \u2192 keeps the search box focused
   }
 
   function renderPicker(){
-    const avail=pool().filter(m=>!draft.items.some(d=>d.name===m.name));
+    const avail=pool().filter(m=>!pickArr().some(d=>d.name===m.name));
     let html='<div class="sechead">search</div><div class="group" style="padding:7px 12px;">'
       +`<input id="cat-search" class="wname-input" placeholder="search machine, brand or movement\u2026" value="${(catQuery||'').replace(/"/g,'&quot;')}" oninput="onCatSearch(this.value)" autocomplete="off">`
       +`</div><div id="cat-results"></div>`;
@@ -1439,11 +1741,18 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
           <span class="chev plus">+</span>
         </div>`;}).join('')+`</div>`;
     });
-    document.getElementById('picker').innerHTML=html;
+    // only one picker may hold the cat-search/cat-results IDs at a time.
+    const panel=pickPanel();
+    ['picker','sess-picker','log-sess-picker'].forEach(id=>{
+      if(id===panel)return;
+      const el=document.getElementById(id); if(el){ el.innerHTML=''; el.style.display='none'; }
+      const btn=document.getElementById(pickBtnId(id)); if(btn) btn.textContent='+ add exercise';
+    });
+    document.getElementById(panel).innerHTML=html;
     renderCatResults();
     if(catQuery){const inp=document.getElementById('cat-search'); if(inp){inp.focus(); inp.setSelectionRange(inp.value.length,inp.value.length);}}
   }
-  function addEx(name){ const m=pool().find(x=>x.name===name); if(m){draft.items.push(m); renderDraft(); renderPicker();} }
+  function addEx(name){ const m=pool().find(x=>x.name===name); if(m){ pickArr().push({...m}); pickRefresh(); } }
   function removeEx(i){ draft.items.splice(i,1); renderDraft(); if(document.getElementById('picker').style.display!=='none')renderPicker(); }
   function startCustom(){
     if(!draft.items.length)return;
@@ -1466,6 +1775,24 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     DB.workouts.push({id,name,items,created:Date.now()});
     saveDB();
     return id;
+  }
+  // ---- starter routines (the user's real gym splits) — seeded per device ----
+  // items are REAL catalog machines (brand/model/muscle + bundled image), loaded from
+  // starter_machines.json. versioned so an updated mapping upgrades existing devices.
+  async function seedStarterWorkouts(){
+    try{
+      const r=await fetch('starter_machines.json',{cache:'no-store'});
+      if(!r.ok) return;
+      const data=await r.json();
+      if((DB.starterSeedV||0) >= data.version) return;            // already up to date
+      data.workouts.forEach((w,i)=>{
+        const ex=DB.workouts.find(x=>x.name===w.name);
+        if(ex){ ex.items=w.items; }                                // upgrade existing WA to matched machines
+        else { DB.workouts.push({id:'w'+Date.now().toString(36)+i, name:w.name, items:w.items, created:Date.now()}); }
+      });
+      DB.starterSeedV=data.version; DB.starterSeeded=true; saveDB();
+      renderWorkouts(); renderHome();
+    }catch(e){ /* offline / missing file: keep whatever workouts already exist */ }
   }
   function ensureSaved(nm){               // create once per draft; update on re-save (no dups)
     if(draft.savedId){
@@ -1513,13 +1840,20 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function saveSession(){
     if(!st.session) return;
     const t=new Date().toDateString();
-    const items=st.session.items.map(m=>({
-      brand:m.brand, name:m.name,
-      sets:setsFor(keyFor(m)).filter(s=>new Date(s.ts).toDateString()===t).map(s=>({w:s.w,r:s.r,pr:!!s.pr})),
-    })).filter(it=>it.sets.length);
+    const scope=st.session.wid?('w'+st.session.wid):'custom';   // same scope keyFor() uses
+    const items=st.session.items.map(m=>{
+      const it={brand:m.brand, name:m.name,
+        sets:setsFor(keyFor(m)).filter(s=>new Date(s.ts).toDateString()===t).map(s=>({w:s.w,r:s.r,pr:!!s.pr}))};
+      const note=(DB.notes[scope+'|'+m.brand+'|'+m.name]||'').trim();  // snapshot the per-machine note
+      if(note) it.note=note;
+      return it;
+    }).filter(it=>it.sets.length);
     if(!items.length) return;                 // nothing logged — don't save an empty session
-    DB.sessions.push({id:'s'+Date.now().toString(36), wid:st.session.wid||null,
-                      name:st.session.name, ts:Date.now(), items});
+    const rec={id:'s'+Date.now().toString(36), wid:st.session.wid||null,
+               name:st.session.name, ts:Date.now(), items};
+    const snote=(DB.notes[sessNoteKey()]||'').trim();   // snapshot the workout-level note
+    if(snote) rec.note=snote;
+    DB.sessions.push(rec);
     saveDB();
   }
   function lastDone(wid){                      // most recent date this workout was completed
@@ -1610,8 +1944,42 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     loadLog(items[0]);
   }
 
+  // the "current workout" card — a live in-progress session, shown on the home screen
+  // until finished. tapping it resumes exactly where you left off.
+  function renderActive(){
+    const els=[document.getElementById('home-active'),document.getElementById('work-active')].filter(Boolean);
+    if(!els.length) return;
+    if(!st.session){ els.forEach(e=>e.innerHTML=''); return; }
+    const s=st.session, n=s.items.length;
+    const at=Math.min((s.idx||0),n-1)+1;
+    const done=s.items.filter(m=>todays(keyFor(m)).length).length;
+    const html=`<div class="sechead">in progress</div>
+      <div class="group">
+        <div class="row" onclick="resumeSession()">
+          <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg></div>
+          <div class="m-main">
+            <div class="m-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">current workout</div>
+            <div class="m-muscle">${s.name} · exercise ${at}/${n}${done?` · ${done} logged`:''}</div>
+          </div>
+          <div class="wactions">
+            <button class="wbtn start" onclick="event.stopPropagation();resumeSession()" aria-label="resume workout"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg> resume</button>
+            <button class="wbtn edit" onclick="event.stopPropagation();finishSession()" aria-label="finish workout">finish</button>
+            <button class="rm" onclick="event.stopPropagation();discardSession()" aria-label="discard workout">−</button>
+          </div>
+        </div>
+      </div>`;
+    els.forEach(e=>e.innerHTML=html);
+  }
+  function resumeSession(){
+    if(!st.session) return;
+    st.gym=null; st.catalog=false;
+    st.session.idx=Math.min(st.session.idx||0, st.session.items.length-1);
+    // open the full duplicated day (every exercise + the sets logged so far) so the
+    // temporary session and its individual changes are all visible at a glance.
+    openOverview();
+  }
   function renderHome(){
-    renderGyms(); renderWorkouts();
+    renderGyms(); renderWorkouts(); renderActive();
     const gs=document.getElementById('home-gym-sub');
     if(gs) gs.textContent=(GYMS.length||0)+" gyms · log against their machines";
     const ws=document.getElementById('home-work-sub');
@@ -1619,8 +1987,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function updateSessionBar(){
     const bar=document.getElementById('sessbar'), nc=document.getElementById('next-cta');
+    const lac=document.getElementById('log-add-cta');
     if(st.session){
       bar.style.display='flex'; nc.style.display='block';
+      if(lac) lac.style.display='block';
       document.getElementById('sb-name').textContent=st.session.name;
       document.getElementById('sb-prog').textContent=(st.session.idx+1)+' / '+st.session.items.length;
       const sp=document.getElementById('sb-prev'), sn=document.getElementById('sb-next');
@@ -1630,7 +2000,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       document.getElementById('next-btn').textContent= st.session.idx<st.session.items.length-1 ? 'next exercise →' : 'finish workout';
       const pb=document.getElementById('prev-btn'); if(pb) pb.style.display = st.session.idx>0 ? '' : 'none';
       document.getElementById('back-gym').textContent=st.session.name;
-    } else { bar.style.display='none'; nc.style.display='none'; const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='none'; }
+    } else {
+      bar.style.display='none'; nc.style.display='none'; if(lac) lac.style.display='none';
+      const lp=document.getElementById('log-sess-picker'); if(lp){ lp.style.display='none'; lp.innerHTML=''; }
+      const lb=document.getElementById('log-sess-addex-btn'); if(lb) lb.textContent='+ add exercise';
+      const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='none';
+    }
   }
   function nextExercise(){
     if(!st.session)return;
@@ -1656,7 +2031,28 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(v.trim()) DB.notes[k]=v.trim(); else delete DB.notes[k];
     saveDB();
   }
-  function openOverview(){ if(!st.session)return; renderOverview(); show('s-overview'); }
+  function openOverview(){
+    if(!st.session)return;
+    const p=document.getElementById('sess-picker'); if(p){ p.style.display='none'; p.innerHTML=''; }
+    const lp=document.getElementById('log-sess-picker'); if(lp){ lp.style.display='none'; lp.innerHTML=''; }
+    const b=document.getElementById('sess-addex-btn'); if(b) b.textContent='+ add exercise';
+    const lb=document.getElementById('log-sess-addex-btn'); if(lb) lb.textContent='+ add exercise';
+    pickMode='draft';
+    renderOverview(); show('s-overview');
+  }
+  // add an exercise to the LIVE workout (does NOT modify the saved routine/template)
+  function toggleSessPicker(){
+    if(!st.session)return;
+    const p=document.getElementById('sess-picker'), btn=document.getElementById('sess-addex-btn');
+    if(p.style.display==='none'){ pickMode='session'; catQuery=''; catResults=[]; renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
+    else { p.style.display='none'; p.innerHTML=''; btn.textContent='+ add exercise'; pickMode='draft'; }
+  }
+  function toggleLogSessPicker(){
+    if(!st.session)return;
+    const p=document.getElementById('log-sess-picker'), btn=document.getElementById('log-sess-addex-btn');
+    if(p.style.display==='none'){ pickMode='session'; catQuery=''; catResults=[]; renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
+    else { p.style.display='none'; p.innerHTML=''; btn.textContent='+ add exercise'; pickMode='draft'; }
+  }
   function openFocus(){ if(!st.session)return; loadLog(st.session.items[st.session.idx]); }   // overview → focused log
   function ovFocus(ei){ if(!st.session)return; st.session.idx=ei; loadLog(st.session.items[ei]); }
   function renderOverview(){
@@ -1686,6 +2082,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
         <button class="ov-add" onclick="ovAdd(${ei})">+ add set</button>
       </div>`;
     }).join('');
+    persistActive();   // exercise list may have changed (added/removed) — keep the duplicate in sync
   }
   function ovEdit(ei,i,field,val){
     const m=st.session.items[ei]; const s=todays(keyFor(m))[i]; if(!s)return;
@@ -1707,10 +2104,19 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function finishSession(){
     if(!st.session)return;
-    const n=st.session.name; saveSession(); st.session=null;
+    const n=st.session.name; saveSession(); st.session=null; persistActive();
     renderWorkouts(); renderHome(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged');
   }
   function finishFromOverview(){ finishSession(); }
+  // discard the in-progress workout without logging it as a completed session.
+  // (sets already written to history stay; this only clears the "current workout".)
+  function discardSession(){
+    if(!st.session) return;
+    askConfirm('discard current workout?',
+      'the in-progress workout will be cleared. sets you already logged stay in your history.',
+      'discard',
+      ()=>{ st.session=null; persistActive(); renderWorkouts(); renderHome(); show('s-home'); });
+  }
   function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
   function bumpR(d){st.r=Math.max(0,Math.min(99,st.r+d));renderR();}
   function renderW(){
@@ -1907,6 +2313,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
         renderHome();
       }
     }catch(e){ /* offline: keep the bundled sample gyms */ }
+  }
+  seedStarterWorkouts();   // ensure WA1/WA2/WA3 exist (async; loads real machines + images)
+  // resume an in-progress workout across app restarts (the "current workout" card)
+  if(DB.active && Array.isArray(DB.active.items) && DB.active.items.length){
+    st.session=DB.active;
   }
   renderHome();
   loadGymsFromAPI();
