@@ -40,4 +40,5 @@ docs/*.pdf
 
 # build artifacts + local cloud config
 *.apk
+*-deploy.zip
 api/.azure/
