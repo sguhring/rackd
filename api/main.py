@@ -5,6 +5,7 @@ Run:  uvicorn main:app --reload   →   http://127.0.0.1:8000/docs
 from __future__ import annotations
 
 import base64
+import re
 from contextlib import asynccontextmanager
 from datetime import datetime
 from decimal import Decimal
@@ -170,21 +171,85 @@ def library(session: Session = Depends(get_session)):
                        muscle_label=e.muscle_label, image_url=e.image_url) for e in rows]
 
 
+def _search_words(text: str) -> list[str]:
+    return [w for w in re.sub(r"[^a-z0-9]+", " ", text.lower()).split() if w]
+
+
+def _edit_distance(a: str, b: str, max_dist: int = 2) -> int:
+    if a == b:
+        return 0
+    if abs(len(a) - len(b)) > max_dist:
+        return max_dist + 1
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        best = cur[0]
+        for j, cb in enumerate(b, 1):
+            cost = 0 if ca == cb else 1
+            val = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost)
+            cur.append(val)
+            best = min(best, val)
+        if best > max_dist:
+            return max_dist + 1
+        prev = cur
+    return prev[-1]
+
+
+def _fuzzy_score(query_words: list[str], fields: list[str | None]) -> float:
+    hay_words = _search_words(" ".join(f for f in fields if f))
+    if not query_words or not hay_words:
+        return 0
+    total = 0
+    for qw in query_words:
+        best = 0
+        for hw in hay_words:
+            if hw == qw:
+                best = max(best, 110)
+            elif (len(qw) >= 2 and hw.startswith(qw)) or (len(hw) >= 3 and qw.startswith(hw)):
+                best = max(best, 88)
+            elif (len(qw) >= 3 and qw in hw) or (len(hw) >= 4 and hw in qw):
+                best = max(best, 72)
+            elif len(qw) >= 4:
+                max_dist = 1 if len(qw) <= 4 else 2
+                if _edit_distance(qw, hw, max_dist) <= max_dist:
+                    best = max(best, 58 if len(qw) <= 4 else 66)
+        if not best:
+            return 0
+        total += best
+    return total / len(query_words)
+
+
 @app.get("/catalog/search", response_model=list[CatalogSearchOut])
 def catalog_search(q: str, limit: int = 30, session: Session = Depends(get_session)):
     """Free-text search across the whole catalog by model, brand or movement name."""
     q = q.strip()
     if len(q) < 2:
         return []
+    q_words = _search_words(q)
     query = (select(Machine, Brand, Exercise)
              .where(Brand.id == Machine.brand_id)
              .join(Exercise, isouter=True))
     # every word must match somewhere (model / brand / movement) — so "nautilus row" works
-    for word in q.split():
+    for word in q_words:
         like = f"%{word}%"
         query = query.where(or_(Machine.model.ilike(like), Brand.name.ilike(like),
                                 Exercise.name.ilike(like)))
     rows = session.exec(query.order_by(Brand.name, Machine.model).limit(limit)).all()
+    if len(rows) < limit:
+        wide = session.exec((select(Machine, Brand, Exercise)
+                             .where(Brand.id == Machine.brand_id)
+                             .join(Exercise, isouter=True))).all()
+        seen = {(m.id, b.id) for m, b, _ in rows}
+        scored = []
+        for m, b, ex in wide:
+            if (m.id, b.id) in seen:
+                continue
+            score = _fuzzy_score(q_words, [b.name, m.model, m.machine_type,
+                                           m.muscle_label, ex.name if ex else None])
+            if score:
+                scored.append((score, m, b, ex))
+        scored.sort(key=lambda x: (-x[0], x[2].name, x[1].model))
+        rows.extend((m, b, ex) for _, m, b, ex in scored[:max(0, limit - len(rows))])
     return [CatalogSearchOut(
         machine_id=m.id, brand=b.name, model=m.model, machine_type=m.machine_type,
         muscle_label=m.muscle_label, muscle_group=ex.muscle_group if ex else None,

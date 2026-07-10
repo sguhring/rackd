@@ -17,6 +17,7 @@ Writes:
 from __future__ import annotations
 
 import json
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -123,44 +124,59 @@ def facets(model: str, mtype: str) -> dict[str, str]:
     return f
 
 
-def main() -> None:
-    rows = json.loads(CATALOG.read_text(encoding="utf-8"))
-
+def resolve_from_rules(rows: list[dict]) -> list[dict]:
+    """Derive {region,muscle,movement,secondary,facets} per machine from the
+    scrape via the alias/movement/facet rules above."""
     resolved = []
-    mv_count: dict[tuple, Counter] = defaultdict(Counter)         # (region,muscle) -> movement counts
-    mv_facets: dict[tuple, dict] = defaultdict(lambda: defaultdict(Counter))  # (r,m,mv) -> axis -> vals
-    muscle_count: Counter = Counter()
-    unassigned = 0
-
-    for i, r in enumerate(rows):
+    for r in rows:
         toks = [ALIAS[t] for t in tokens(r.get("muscle_label", "")) if t in ALIAS]
         primary = toks[0] if toks else None
         secondary = list(dict.fromkeys(toks[1:]))            # dedupe, keep order
-        mv = canon_movement(r.get("exercise"))
-        fc = facets(r.get("model", ""), r.get("machine_type", ""))
         resolved.append({
             "model": r.get("model"), "brand": r.get("brand"),
             "region": MUSCLE_REGION.get(primary, "functional-other") if primary else "functional-other",
-            "muscle": primary, "movement": mv, "secondary": secondary, "facets": fc,
+            "muscle": primary, "movement": canon_movement(r.get("exercise")),
+            "secondary": secondary, "facets": facets(r.get("model", ""), r.get("machine_type", "")),
         })
-        if primary:
-            muscle_count[primary] += 1
-            region = MUSCLE_REGION[primary]
+    return resolved
+
+
+def build_tree(resolved: list[dict]) -> list[dict]:
+    """Assemble the region -> muscle -> movement tree (with machine counts and
+    facet vocab) from a resolved list — works whether that list came from the
+    rules or from a hand-curated machines_resolved.json. Curated categories not
+    in REGIONS are appended after the canonical ones so nothing is dropped."""
+    mv_count: dict[tuple, Counter] = defaultdict(Counter)         # (region,muscle) -> movement counts
+    mv_facets: dict[tuple, dict] = defaultdict(lambda: defaultdict(Counter))  # (r,m,mv) -> axis -> vals
+    muscle_count: Counter = Counter()                            # (region,muscle) -> n
+    unassigned = 0
+
+    for r in resolved:
+        region = r.get("region") or "functional-other"
+        primary, mv = r.get("muscle"), r.get("movement")
+        if primary and region != "functional-other":
+            muscle_count[(region, primary)] += 1
             if mv:
                 mv_count[(region, primary)][mv] += 1
-                for ax, val in fc.items():
+                for ax, val in (r.get("facets") or {}).items():
                     mv_facets[(region, primary, mv)][ax][val] += 1
         else:
             unassigned += 1
 
-    # ---- assemble tree ----
+    # canonical region order first, then any extra regions seen in the data.
+    seen_regions = {rg for rg, _ in muscle_count}
+    region_order = list(REGIONS) + [rg for rg in seen_regions
+                                    if rg not in REGIONS and rg != "functional-other"]
+
     tree = []
-    for region, muscles in REGIONS.items():
+    for region in region_order:
+        known = REGIONS.get(region, [])
+        extra = [mu for (rg, mu) in muscle_count if rg == region and mu not in known]
         rnode = {"slug": region, "label": region, "machines": 0, "muscles": []}
-        for m in muscles:
+        for m in known + extra:
             moves = mv_count.get((region, m), Counter())
-            mnode = {
-                "slug": slug(m), "label": m, "machines": muscle_count.get(m, 0),
+            rnode["muscles"].append({
+                "slug": slug(m), "label": m, "machines": muscle_count.get((region, m), 0),
                 "movements": [
                     {
                         "slug": slug(mv), "label": mv, "machines": n,
@@ -168,21 +184,36 @@ def main() -> None:
                     }
                     for mv, n in moves.most_common()
                 ],
-            }
-            rnode["muscles"].append(mnode)
+            })
         rnode["machines"] = sum(mm["machines"] for mm in rnode["muscles"])
         tree.append(rnode)
     tree.append({"slug": "functional-other", "label": "functional / other",
                  "machines": unassigned, "muscles": [],
                  "note": "no single target muscle; ~60 are unlabeled and will move into the tree later"})
+    return tree
+
+
+def main() -> None:
+    from_resolved = "--from-resolved" in sys.argv
+    if from_resolved:
+        resolved = json.loads(OUT_RES.read_text(encoding="utf-8"))
+    else:
+        resolved = resolve_from_rules(json.loads(CATALOG.read_text(encoding="utf-8")))
+
+    tree = build_tree(resolved)
 
     OUT_TAX.write_text(json.dumps({"version": 2, "regions": tree}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    OUT_RES.write_text(json.dumps(resolved, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if not from_resolved:
+        OUT_RES.write_text(json.dumps(resolved, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     # ---- report ----
-    print(f"wrote {OUT_TAX.name} + {OUT_RES.name}\n")
-    movements = {mv for c in mv_count.values() for mv in c}
-    print(f"regions {len(REGIONS)+1} · muscles attached {sum(1 for m in muscle_count if muscle_count[m])}"
+    src = OUT_RES.name if from_resolved else CATALOG.name
+    wrote = OUT_TAX.name if from_resolved else f"{OUT_TAX.name} + {OUT_RES.name}"
+    print(f"rebuilt from {src} -> wrote {wrote}\n")
+    muscles_attached = sum(1 for n in (m for r in tree for m in r["muscles"]) if n["machines"])
+    movements = {mv["label"] for r in tree for m in r["muscles"] for mv in m["movements"]}
+    unassigned = next(r["machines"] for r in tree if r["slug"] == "functional-other")
+    print(f"regions {len(tree)} · muscles attached {muscles_attached}"
           f" · distinct movements {len(movements)} · unassigned {unassigned}\n")
     for region in ("chest", "legs"):
         rnode = next(r for r in tree if r["slug"] == region)
