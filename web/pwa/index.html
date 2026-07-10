@@ -93,7 +93,13 @@
   }
   .row:active{background:var(--elev-2);}
   .row + .row::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep);}
-  .row .chev{margin-left:auto;color:var(--label-3);flex:0 0 auto;}
+  .row .chev{margin-left:auto;color:var(--label-3);flex:0 0 auto;transition:transform .18s ease;}
+  /* recent workouts (history) */
+  .rec-detail{padding:2px 16px 12px;}
+  .rec-ex{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-top:1px solid var(--hair,rgba(255,255,255,.07));}
+  .rec-ex:first-child{border-top:none;}
+  .rec-exn{font-size:13px;color:var(--label-2);}
+  .rec-exs{font-size:13px;color:var(--label);text-align:right;white-space:nowrap;}
   .row .chev svg{width:8px;height:13px;display:block;}
 
   /* gym row */
@@ -403,6 +409,7 @@
           <div class="sub">track the exact machine in front of you.</div>
         </div>
         <div class="scroll">
+          <div id="home-active"></div>
           <div class="sechead">start</div>
           <div class="group">
             <div class="row" onclick="goGyms()">
@@ -448,9 +455,10 @@
         </div>
         <div class="largetitle">
           <h1>history</h1>
-          <div class="sub">your improvements, per muscle group.</div>
+          <div class="sub">your recent workouts and improvements.</div>
         </div>
         <div class="scroll">
+          <div id="recentbody"></div>
           <div id="histbody"></div>
         </div>
       </section>
@@ -891,7 +899,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // ===== on-device persistence (localStorage) =====
   const LS='rackd.v1';
-  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[]};}}
+  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];d.active=d.active||null;return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[],active:null};}}
   function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
@@ -911,6 +919,32 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function bestWeight(k,m){let best=m.lastW||0;setsFor(k).forEach(s=>{if(s.w>best)best=s.w;});return best;}
   function todays(k){const t=new Date().toDateString();return DB.sets.filter(s=>s.key===k&&new Date(s.ts).toDateString()===t);}
+
+  // ===== active workout (persisted) =====
+  // the running workout is mirrored into DB.active so it survives navigating home and
+  // app/WebView reloads — that's what powers the "current workout" card on the home screen.
+  function sessScope(s){ s=s||st.session; return s ? (s.wid?('w'+s.wid):'custom') : null; }
+  // merge into st.session.items any exercise logged *today* under this session's scope that
+  // isn't already in the preset/template (e.g. machines added on the fly). Without this they'd
+  // stay logged in DB.sets but invisible, because the overview only renders st.session.items.
+  function reconcileSession(){
+    if(!st.session) return;
+    const have=new Set(st.session.items.map(m=>m.brand+'|'+m.name));
+    const pre=sessScope()+'|', t=new Date().toDateString();
+    DB.sets.forEach(s=>{
+      if(!s.key||s.key.indexOf(pre)!==0) return;
+      if(new Date(s.ts).toDateString()!==t) return;
+      const id=s.brand+'|'+s.name; if(have.has(id)) return;
+      have.add(id);
+      st.session.items.push({brand:s.brand,name:s.name,group:guessGroup(s.name),muscle:'',img:'',lastW:0,lastR:0,lastS:0,date:'',adhoc:true});
+    });
+  }
+  function setActive(){
+    if(!st.session){ return; }
+    DB.active={name:st.session.name, wid:st.session.wid||null, items:st.session.items.slice(), idx:st.session.idx||0, ts:Date.now()};
+    saveDB();
+  }
+  function clearActive(){ DB.active=null; saveDB(); }
 
   function show(id){
     document.querySelectorAll('.screen').forEach(s=>{
@@ -958,7 +992,46 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       +`<polyline points="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`
       +dots+`</svg>`;
   }
+  // ---- recent workouts: the last 10 completed sessions (from DB.sessions) ----
+  function recentSummary(s){
+    const exs=s.items||[];
+    const sets=exs.reduce((n,it)=>n+(it.sets?it.sets.length:0),0);
+    const vol=exs.reduce((n,it)=>n+(it.sets||[]).reduce((a,x)=>a+(x.w||0)*(x.r||0),0),0);
+    const prs=exs.reduce((n,it)=>n+(it.sets||[]).filter(x=>x.pr).length,0);
+    return {ex:exs.length, sets, vol:Math.round(vol), prs};
+  }
+  function renderRecent(){
+    const wrap=document.getElementById('recentbody'); if(!wrap) return;
+    const ss=(DB.sessions||[]).filter(s=>s&&s.ts).slice().sort((a,b)=>b.ts-a.ts).slice(0,10);
+    if(!ss.length){ wrap.innerHTML=''; return; }
+    let html=`<div class="sechead">last ${ss.length} workout${ss.length!==1?'s':''}</div>`;
+    ss.forEach((s,i)=>{
+      const d=new Date(s.ts), date=d.getDate()+' '+MON[d.getMonth()];
+      const sm=recentSummary(s);
+      const detail=(s.items||[]).map(it=>{
+        const sets=(it.sets||[]).map(x=>x.r+'×'+(x.w%1===0?x.w:x.w.toFixed(1))+(x.pr?' pr':'')).join(', ');
+        return `<div class="rec-ex"><span class="rec-exn">${it.name}</span><span class="rec-exs">${sets||'—'}</span></div>`;
+      }).join('');
+      html+=`<div class="group">
+        <div class="row" onclick="toggleRecent(${i})">
+          <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7v10M17.5 7v10M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></div>
+          <div class="m-main"><div class="m-name">${s.name}</div>
+            <div class="m-muscle">${date} · ${sm.ex} exercise${sm.ex!==1?'s':''} · ${sm.sets} set${sm.sets!==1?'s':''} · ${sm.vol.toLocaleString()} kg${sm.prs?` · ${sm.prs} pr`:''}</div></div>
+          <span class="chev" id="rec-chev-${i}"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+        </div>
+        <div class="rec-detail" id="rec-d-${i}" style="display:none;">${detail}</div>
+      </div>`;
+    });
+    wrap.innerHTML=html;
+  }
+  function toggleRecent(i){
+    const d=document.getElementById('rec-d-'+i), ch=document.getElementById('rec-chev-'+i);
+    if(!d)return; const open=d.style.display!=='none';
+    d.style.display=open?'none':'block';
+    if(ch) ch.style.transform=open?'':'rotate(90deg)';
+  }
   function renderHistory(){
+    renderRecent();
     const wrap=document.getElementById('histbody');
     const sets=(DB.sets||[]).filter(s=>s&&s.ts);
     if(!sets.length){wrap.innerHTML='<div class="empty">no history yet — log some sets and your progress shows up here.</div>';return;}
@@ -1410,6 +1483,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const wid=ensureSaved(nm);          // persist so it shows on home (reuses an earlier save)
     st.gym=null; st.catalog=false;
     st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid};
+    reconcileSession(); setActive();
     loadLog(st.session.items[0]);
   }
   function saveCustom(){                  // add to the home screen without starting now
@@ -1438,6 +1512,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const w=DB.workouts.find(x=>x.id===wid); if(!w||!w.items.length)return;
     st.gym=null; st.catalog=false;
     st.session={name:w.name,items:w.items.slice(),idx:0,wid:w.id};
+    reconcileSession(); setActive();
     loadLog(st.session.items[0]);
   }
   // ---- confirm dialog (app-styled, not a native popup) ----
@@ -1471,6 +1546,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // is already written by logSet; this adds the redoable completed-workout record.)
   function saveSession(){
     if(!st.session) return;
+    reconcileSession();                         // include on-the-fly exercises in the saved record
     const t=new Date().toDateString();
     const items=st.session.items.map(m=>({
       brand:m.brand, name:m.name,
@@ -1566,15 +1642,55 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
     st.gym=null; st.catalog=false;
     st.session={name:`${r.short} · ${day.name}`, items, idx:0, wid:`r-${rid}-${di}`};  // stable key → tracks history per routine day
+    reconcileSession(); setActive();
     loadLog(items[0]);
   }
 
   function renderHome(){
-    renderGyms(); renderWorkouts();
+    renderActiveCard(); renderGyms(); renderWorkouts();
     const gs=document.getElementById('home-gym-sub');
     if(gs) gs.textContent=(GYMS.length||0)+" gyms · log against their machines";
     const ws=document.getElementById('home-work-sub');
     if(ws) ws.textContent=DB.workouts.length?(DB.workouts.length+' saved · build a new one'):'build, save and track workouts';
+  }
+  // home-screen "current workout" card — shows the in-progress workout (preset + anything
+  // logged on the fly today) and lets you jump back into it. Survives reloads via DB.active.
+  function renderActiveCard(){
+    const wrap=document.getElementById('home-active'); if(!wrap) return;
+    const a=DB.active;
+    if(!a){ wrap.innerHTML=''; return; }
+    const pre=(a.wid?('w'+a.wid):'custom')+'|', t=new Date().toDateString();
+    const names=new Set((a.items||[]).map(m=>m.brand+'|'+m.name)); let logged=0;
+    DB.sets.forEach(s=>{ if(s.key&&s.key.indexOf(pre)===0&&new Date(s.ts).toDateString()===t){ names.add(s.brand+'|'+s.name); logged++; } });
+    const ex=names.size;
+    const kind=a.wid?'preset':'custom';
+    wrap.innerHTML=`<div class="sechead">current session (${kind})</div><div class="group">
+      <div class="row" onclick="resumeActive()">
+        <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg></div>
+        <div class="m-main"><div class="m-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.name}</div>
+          <div class="m-muscle">${ex} exercise${ex!==1?'s':''} · ${logged} set${logged!==1?'s':''} logged · tap to resume</div></div>
+        <div class="wactions">
+          <button class="wbtn start" onclick="event.stopPropagation();resumeActive()" aria-label="resume workout"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg> resume</button>
+          <button class="rm" onclick="endActive(event)" aria-label="finish workout">−</button>
+        </div>
+      </div></div>`;
+  }
+  function resumeActive(){
+    const a=DB.active; if(!a){ renderHome(); return; }
+    st.gym=null; st.catalog=false;
+    st.session={name:a.name, items:(a.items||[]).slice(), idx:a.idx||0, wid:a.wid};
+    reconcileSession(); setActive();
+    renderOverview(); show('s-overview');
+  }
+  function endActive(ev){
+    if(ev)ev.stopPropagation();
+    const a=DB.active; if(!a)return;
+    askConfirm('finish this workout?', `“${a.name}” will be saved and cleared from your home screen.`, 'finish', ()=>{
+      st.gym=null; st.catalog=false;
+      st.session={name:a.name, items:(a.items||[]).slice(), idx:a.idx||0, wid:a.wid};
+      reconcileSession(); saveSession(); st.session=null; clearActive();
+      renderHome(); toastMsg(false,'workout saved','“'+a.name+'” logged');
+    });
   }
   function updateSessionBar(){
     const bar=document.getElementById('sessbar'), nc=document.getElementById('next-cta');
@@ -1593,18 +1709,18 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function nextExercise(){
     if(!st.session)return;
-    if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
+    if(st.session.idx<st.session.items.length-1){ st.session.idx++; setActive(); loadLog(st.session.items[st.session.idx]); }
     else finishSession();
   }
   function prevExercise(){
     if(!st.session||st.session.idx<=0)return;
-    st.session.idx--; loadLog(st.session.items[st.session.idx]);
+    st.session.idx--; setActive(); loadLog(st.session.items[st.session.idx]);
   }
   // step to the next exercise from the session bar (without finishing the workout —
   // that's the bottom button's job; the bar arrow just navigates and stops at the end).
   function gotoNext(){
     if(!st.session)return;
-    if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
+    if(st.session.idx<st.session.items.length-1){ st.session.idx++; setActive(); loadLog(st.session.items[st.session.idx]); }
   }
 
   // ---- routine overview: all exercises + their sets on one screen ----
@@ -1617,9 +1733,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function openOverview(){ if(!st.session)return; renderOverview(); show('s-overview'); }
   function openFocus(){ if(!st.session)return; loadLog(st.session.items[st.session.idx]); }   // overview → focused log
-  function ovFocus(ei){ if(!st.session)return; st.session.idx=ei; loadLog(st.session.items[ei]); }
+  function ovFocus(ei){ if(!st.session)return; st.session.idx=ei; setActive(); loadLog(st.session.items[ei]); }
   function renderOverview(){
     if(!st.session)return;
+    reconcileSession(); setActive();
     document.getElementById('ov-title').textContent=st.session.name;
     document.getElementById('ov-back').textContent=st.session.name;
     document.getElementById('ov-notes').value=DB.notes[sessNoteKey()]||'';
@@ -1666,7 +1783,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function finishSession(){
     if(!st.session)return;
-    const n=st.session.name; saveSession(); st.session=null;
+    const n=st.session.name; saveSession(); st.session=null; clearActive();
     renderWorkouts(); renderHome(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged');
   }
   function finishFromOverview(){ finishSession(); }
