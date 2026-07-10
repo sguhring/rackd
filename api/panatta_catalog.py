@@ -37,19 +37,28 @@ from sqlmodel import Session, delete, select
 from database import engine
 from models import Brand, Exercise, Gym, GymMachine, Machine
 
-PDF = Path(__file__).resolve().parent.parent / "docs" / "panatta_general.pdf"
+PDF = Path(__file__).resolve().parent.parent / "docs" / "691002514-Panatta-General-Catalogue.pdf"
 SOURCE = "panatta-brochure"
 GYM_NAME = "Panatta Showroom"
 
-# line label -> (grid pages [0-based], mechanism). Intro/blank pages excluded.
+# line label -> (grid pages [0-based], mechanism). New general catalogue (2026):
+# the stack (selectorized) + plate-loaded machine spreads only. Benches, racks,
+# Smith/jungle/cable rigs that share these pages are dropped by FUNC below.
 LINES: dict[str, tuple[list[int], str]] = {
-    "XPLUX": ([18, 19, 20, 21], "selectorized"),
-    "FIT EVO": ([24, 25, 26, 27, 28, 29, 30], "selectorized"),
-    "SEC": ([33, 34, 35, 37], "selectorized"),
-    "FREEWEIGHT HP": ([42, 43, 44, 45, 46, 47], "plate-loaded"),
-    "OASIS": ([60, 61], "selectorized"),
-    "MULTIMEDIA": ([65, 66], "selectorized"),
+    "MONOLITH":   (list(range(33, 40)), "selectorized"),
+    "FIT EVO":    (list(range(45, 59)), "selectorized"),
+    "SEC":        (list(range(62, 71)), "selectorized"),   # incl. SEC Dual (1SCD)
+    "FREEWEIGHT": (list(range(75, 85)), "plate-loaded"),
+    "HP":         (list(range(89, 98)), "plate-loaded"),
 }
+
+# not stack/plate-loaded *machines* (benches, racks, Smith, jungle/cable rigs,
+# multi-stations) — excluded even though they sit on the same spreads.
+FUNC = re.compile(
+    r"bench|rack|smith|jungle|cable cross|crossover|multifunctional|multi press|"
+    r"tower|platform|board|chin and dip|hyperextension|combo|station|"
+    r"power runner|runner|holders|modular|module",
+    re.I)
 
 CODE = re.compile(r"^1[A-Za-z]{1,3}\d{2,4}[A-Za-z]?$")
 
@@ -129,6 +138,15 @@ SLUG_RULES: list[tuple[str, str]] = [
     ("dip", "triceps-dip"),
     ("chin", "chin-up"),
     ("jammer", "jammer-press"),
+    ("viking", "jammer-press"),
+    ("flight", "pec-fly"),
+    ("french press", "triceps-extension"),
+    ("hip thrust", "hip-thrust"),
+    ("shrug", "shrug"),
+    ("belt squat", "leg-press"),
+    ("squat", "hack-squat"),
+    ("power", "leg-press"),
+    ("t-bar", "seated-row"),
 ]
 
 MUSCLE: dict[str, str] = {
@@ -141,6 +159,7 @@ MUSCLE: dict[str, str] = {
     "biceps-curl": "biceps", "triceps-extension": "triceps", "triceps-dip": "triceps · chest",
     "chin-up": "back · biceps", "ab-crunch": "abs", "torso-rotation": "obliques",
     "back-extension": "lower back", "jammer-press": "chest · shoulders",
+    "hip-thrust": "glutes", "shrug": "traps",
 }
 
 # fallback muscle label from the body-part category when no slug matched.
@@ -235,6 +254,38 @@ def data_uri(doc: fitz.Document, xref: int) -> str:
     return "data:image/jpeg;base64," + base64.b64encode(jpg).decode("ascii")
 
 
+def render_for(renders, cx, ytop, ybot):
+    """The product render in the code's column. Panatta mixes layouts (render
+    below, or slightly above/overlapping the code), and renders are wide, so we
+    match by the code falling within the render's horizontal span and pick the
+    vertically nearest one (preferring the render just below the code)."""
+    cand = [im for im in renders
+            if im["bbox"][0] - 35 <= cx <= im["bbox"][2] + 35   # code sits within the render's column
+            and im["bbox"][3] > ytop - 60]                      # render is around/below the code
+    if cand:
+        def key(im):
+            below = im["bbox"][1] >= ybot - 8
+            return (0 if below else 1, abs(im["bbox"][1] - ybot))  # nearest render below first
+        return min(cand, key=key)
+    # fallback: nearest render in the column, any direction (large/last-in-row cells)
+    fb = [im for im in renders
+          if abs((im["bbox"][0] + im["bbox"][2]) / 2 - cx) < 170
+          and abs(im["bbox"][1] - ybot) < 300]
+    if fb:
+        return min(fb, key=lambda im: abs(im["bbox"][1] - ybot))
+    return None
+
+
+def name_above(names, cats, cx, ytop):
+    """Full model name = the 1-2 name lines just above the category, which sits
+    just above the code. (New catalogue stacks NAME / category / CODE / render.)"""
+    ct = nearest_above(cats, cx, ytop)
+    lo, hi = (ct[1] - 52, ct[1] + 1) if ct else (ytop - 72, ytop - 2)
+    segs = [s for s in names if lo < s[1] < hi and abs(s[0] - cx) < 100]
+    segs.sort(key=lambda s: s[1])
+    return " ".join(s[2] for s in segs).strip(), (ct[2].strip() if ct else "")
+
+
 def extract(doc: fitz.Document) -> list[dict]:
     out: list[dict] = []
     seen: set[str] = set()
@@ -242,25 +293,37 @@ def extract(doc: fitz.Document) -> list[dict]:
         for pno in pages:
             page = doc.load_page(pno)
             renders = [im for im in page.get_image_info(xrefs=True) if is_render(im)]
-            if len(renders) < 2:
-                continue
             names, cats = segments(page)
-            for im in renders:
-                b = im["bbox"]
-                cx = (b[0] + b[2]) / 2
-                code = code_under(page, b)
-                if not code or code in seen:
+            entries: list[dict] = []
+            used: set[int] = set()
+            for w in page.get_text("words"):
+                if not CODE.match(w[4]) or w[4] in seen:
                     continue
-                nm = nearest_above(names, cx, b[1])
-                ct = nearest_above(cats, cx, b[1])
-                if not nm:
-                    continue                       # no readable name -> skip
-                seen.add(code)
-                out.append({
-                    "line": label, "code": code, "name": nm[2].strip(),
-                    "cat": (ct[2].strip() if ct else ""), "mech": mech,
-                    "xref": im["xref"], "page": pno,
-                })
+                code = w[4]
+                x0, y0, x1, y1 = w[:4]
+                cx = (x0 + x1) / 2
+                name, cat = name_above(names, cats, cx, y0)
+                if not name or FUNC.search(name):
+                    continue                       # no name, or bench/rack/rig -> skip
+                im = render_for(renders, cx, y0, y1)
+                if im is not None:
+                    used.add(im["xref"])
+                entries.append({"line": label, "code": code, "name": name, "cat": cat,
+                                "mech": mech, "xref": (im["xref"] if im else None),
+                                "page": pno, "_yb": y1})
+            # leftover pass: bind still-unmatched codes (label far from its render) to
+            # the nearest UNUSED render in the same row on this page.
+            free = [im for im in renders if im["xref"] not in used]
+            for e in (x for x in entries if x["xref"] is None):
+                if not free:
+                    break
+                im = min(free, key=lambda im: abs(im["bbox"][1] - e["_yb"]))
+                if abs(im["bbox"][1] - e["_yb"]) < 170:
+                    e["xref"] = im["xref"]; free.remove(im); used.add(im["xref"])
+            for e in entries:
+                e.pop("_yb", None)
+                seen.add(e["code"])
+                out.append(e)
     return out
 
 
@@ -309,7 +372,7 @@ def run(dry: bool = False) -> None:
         cache: dict[int, str] = {}
         added: list[Machine] = []
         for d in machines:
-            if d["xref"] not in cache:
+            if d["xref"] and d["xref"] not in cache:
                 cache[d["xref"]] = data_uri(doc, d["xref"])
             slug = d["slug"]
             muscle = MUSCLE.get(slug) if slug else None
@@ -321,7 +384,7 @@ def run(dry: bool = False) -> None:
                 machine_type=d["mech"],
                 exercise_id=slug_to_id.get(slug) if slug else None,
                 muscle_label=muscle,
-                image_url=cache[d["xref"]],
+                image_url=cache.get(d["xref"]) if d["xref"] else None,
                 source=SOURCE,
             )
             s.add(m)
