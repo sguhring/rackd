@@ -42,3 +42,6 @@ docs/*.pdf
 *.apk
 *-deploy.zip
 api/.azure/
+
+# local db rollback snapshots
+*.bak
