@@ -1325,18 +1325,6 @@
     }
   },
   {
-    "mechanism": "Leg Extension",
-    "model": "Eagle Leg Extension w 305 Lb Stack",
-    "brand": "Cybex",
-    "region": "legs",
-    "muscle": "quads",
-    "movement": "leg extension",
-    "secondary": [],
-    "facets": {
-      "implement": "machine"
-    }
-  },
-  {
     "mechanism": "Leg Press",
     "model": "Eagle Leg Press 11040",
     "brand": "Cybex",
@@ -6386,21 +6374,6 @@
     }
   },
   {
-    "mechanism": "High Row",
-    "model": "ISO Lateral High Row",
-    "brand": "Hammer Strength",
-    "region": "back",
-    "muscle": "upper-back",
-    "movement": "row",
-    "secondary": [
-      "lats"
-    ],
-    "facets": {
-      "implement": "machine",
-      "laterality": "iso-lateral"
-    }
-  },
-  {
     "mechanism": "Incline Chest Press",
     "model": "ISO Lateral Incline Chest Press",
     "brand": "Hammer Strength",
@@ -6859,21 +6832,6 @@
     }
   },
   {
-    "mechanism": "Decline Chest Press",
-    "model": "MTS ISO Lateral Decline Press",
-    "brand": "Hammer Strength",
-    "region": "chest",
-    "muscle": "lower chest",
-    "movement": "chest press",
-    "secondary": [
-      "triceps"
-    ],
-    "facets": {
-      "implement": "selectorized",
-      "angle": "decline"
-    }
-  },
-  {
     "mechanism": "Incline Chest Press",
     "model": "MTS ISO Lateral Incline Chest Press",
     "brand": "Hammer Strength",
@@ -6919,21 +6877,6 @@
   {
     "mechanism": "Shoulder Press",
     "model": "MTS ISO Lateral Overhead Shoulder Press",
-    "brand": "Hammer Strength",
-    "region": "shoulders",
-    "muscle": "delts",
-    "movement": "shoulder press",
-    "secondary": [
-      "triceps"
-    ],
-    "facets": {
-      "implement": "selectorized",
-      "laterality": "iso-lateral"
-    }
-  },
-  {
-    "mechanism": "Shoulder Press",
-    "model": "MTS ISO Lateral Shoulder Press",
     "brand": "Hammer Strength",
     "region": "shoulders",
     "muscle": "delts",
@@ -7179,18 +7122,6 @@
     }
   },
   {
-    "mechanism": "Ab Crunch",
-    "model": "Plate Loaded Abdominal & Oblique Crunch",
-    "brand": "Hammer Strength",
-    "region": "abs",
-    "muscle": "abs",
-    "movement": "ab crunch",
-    "secondary": [],
-    "facets": {
-      "implement": "plate-loaded"
-    }
-  },
-  {
     "mechanism": "Dip",
     "model": "Plate Loaded Chest & Dip Combo 2 in 1",
     "brand": "Hammer Strength",
@@ -7200,18 +7131,6 @@
     "secondary": [
       "mid chest"
     ],
-    "facets": {
-      "implement": "plate-loaded"
-    }
-  },
-  {
-    "mechanism": "Gripper",
-    "model": "Plate Loaded Gripper",
-    "brand": "Hammer Strength",
-    "region": "arms",
-    "muscle": "forearms",
-    "movement": "grip",
-    "secondary": [],
     "facets": {
       "implement": "plate-loaded"
     }
@@ -7262,50 +7181,6 @@
     }
   },
   {
-    "mechanism": "Incline Chest Press",
-    "model": "Plate Loaded ISO Lateral Incline Press",
-    "brand": "Hammer Strength",
-    "region": "chest",
-    "muscle": "upper chest",
-    "movement": "chest press",
-    "secondary": [
-      "front delts"
-    ],
-    "facets": {
-      "implement": "plate-loaded",
-      "angle": "incline",
-      "laterality": "iso-lateral"
-    }
-  },
-  {
-    "mechanism": "Leg Extension",
-    "model": "Plate Loaded ISO Lateral Leg Extension",
-    "brand": "Hammer Strength",
-    "region": "legs",
-    "muscle": "quads",
-    "movement": "leg extension",
-    "secondary": [],
-    "facets": {
-      "implement": "plate-loaded",
-      "laterality": "iso-lateral"
-    }
-  },
-  {
-    "mechanism": "Low Row",
-    "model": "Plate Loaded ISO Lateral Low Row",
-    "brand": "Hammer Strength",
-    "region": "back",
-    "muscle": "mid-back",
-    "movement": "row",
-    "secondary": [
-      "lats"
-    ],
-    "facets": {
-      "implement": "plate-loaded",
-      "laterality": "iso-lateral"
-    }
-  },
-  {
     "mechanism": "Lateral Raise",
     "model": "Plate Loaded ISO Lateral Raise",
     "brand": "Hammer Strength",
@@ -7327,21 +7202,6 @@
     "movement": "row",
     "secondary": [
       "lats"
-    ],
-    "facets": {
-      "implement": "plate-loaded",
-      "laterality": "iso-lateral"
-    }
-  },
-  {
-    "mechanism": "Shoulder Press",
-    "model": "Plate Loaded ISO Lateral Shoulder Press",
-    "brand": "Hammer Strength",
-    "region": "shoulders",
-    "muscle": "delts",
-    "movement": "shoulder press",
-    "secondary": [
-      "triceps"
     ],
     "facets": {
       "implement": "plate-loaded",
@@ -7372,18 +7232,6 @@
     "secondary": [
       "glutes"
     ],
-    "facets": {
-      "implement": "plate-loaded"
-    }
-  },
-  {
-    "mechanism": "Pullover",
-    "model": "Plate Loaded Pullover",
-    "brand": "Hammer Strength",
-    "region": "back",
-    "muscle": "lats",
-    "movement": "pullover",
-    "secondary": [],
     "facets": {
       "implement": "plate-loaded"
     }
@@ -7452,20 +7300,6 @@
     "muscle": "triceps",
     "movement": "triceps extension",
     "secondary": [],
-    "facets": {
-      "implement": "plate-loaded"
-    }
-  },
-  {
-    "mechanism": "Hack/V-Squat",
-    "model": "Plate Loaded V Squat",
-    "brand": "Hammer Strength",
-    "region": "legs",
-    "muscle": "quads",
-    "movement": "hack / v-squat",
-    "secondary": [
-      "glutes"
-    ],
     "facets": {
       "implement": "plate-loaded"
     }
@@ -13354,20 +13188,6 @@
     }
   },
   {
-    "mechanism": "Lat Pulldown",
-    "model": "Nitro Lat Pulldown w/Swivel Handles",
-    "brand": "Nautilus",
-    "region": "back",
-    "muscle": "lats",
-    "movement": "pulldown",
-    "secondary": [
-      "biceps"
-    ],
-    "facets": {
-      "implement": "machine"
-    }
-  },
-  {
     "mechanism": "Leg Extension",
     "model": "Nitro Leg Extension w / 330 Lb Big Boy Stack",
     "brand": "Nautilus",
@@ -17099,6 +16919,314 @@
     "secondary": [
       "mid chest"
     ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Ab Crunch",
+    "model": "Smart Strength Abdominal Crunch S-109",
+    "brand": "Strive",
+    "region": "abs",
+    "muscle": "abs",
+    "movement": "ab crunch",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Biceps Curl",
+    "model": "Smart Strength Arm Curl S-101",
+    "brand": "Strive",
+    "region": "arms",
+    "muscle": "biceps",
+    "movement": "biceps curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Triceps Extension",
+    "model": "Smart Strength Arm Extension S-117",
+    "brand": "Strive",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "triceps extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Chest Press",
+    "model": "Smart Strength Chest Press S-102",
+    "brand": "Strive",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest press",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Assisted Pull-up",
+    "model": "Smart Strength Chin Up Dip Assist",
+    "brand": "Strive",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pull-up / chin",
+    "secondary": [
+      "triceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Lat Pulldown",
+    "model": "Smart Strength Diverging Lat Pull S-127",
+    "brand": "Strive",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pulldown",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Row",
+    "model": "Smart Strength Diverging Seated Row S-128",
+    "brand": "Strive",
+    "region": "back",
+    "muscle": "mid-back",
+    "movement": "row",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "model": "Smart Strength Functional Trainer NS-123",
+    "brand": "Strive",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "cable"
+    }
+  },
+  {
+    "mechanism": "Incline Chest Press",
+    "model": "Smart Strength Incline Press S-120",
+    "brand": "Strive",
+    "region": "chest",
+    "muscle": "upper chest",
+    "movement": "chest press",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Hip Abduction",
+    "model": "Smart Strength Inner Outer Thigh S-126",
+    "brand": "Strive",
+    "region": "legs",
+    "muscle": "abductors",
+    "movement": "hip abduction",
+    "secondary": [
+      "adductors"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Lat Pulldown",
+    "model": "Smart Strength Lat Pulldown S-104",
+    "brand": "Strive",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pulldown",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Lateral Raise",
+    "model": "Smart Strength Lat Raise S-119",
+    "brand": "Strive",
+    "region": "shoulders",
+    "muscle": "side delts",
+    "movement": "lateral raise",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Leg Extension",
+    "model": "Smart Strength Leg Extension S-105",
+    "brand": "Strive",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Leg Press",
+    "model": "Smart Strength Leg Press S-108",
+    "brand": "Strive",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg press",
+    "secondary": [
+      "glutes",
+      "hamstrings"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Back Extension",
+    "model": "Smart Strength Low Back S-110",
+    "brand": "Strive",
+    "region": "back",
+    "muscle": "lower back",
+    "movement": "back extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Multi-Hip",
+    "model": "Smart Strength Multi Hip S-114",
+    "brand": "Strive",
+    "region": "legs",
+    "muscle": "glutes",
+    "movement": "multi-hip",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Chest Fly",
+    "model": "Smart Strength Pec Fly S-118",
+    "brand": "Strive",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest fly",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Chest Fly",
+    "model": "Smart Strength Pec Fly/Rear Delt S-129",
+    "brand": "Strive",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest fly",
+    "secondary": [
+      "rear delts"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Lying Leg Curl",
+    "model": "Smart Strength Prone Leg Curl S-106",
+    "brand": "Strive",
+    "region": "legs",
+    "muscle": "hamstrings",
+    "movement": "leg curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Pullover",
+    "model": "Smart Strength Pullover S-136",
+    "brand": "Strive",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pullover",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Torso Rotation",
+    "model": "Smart Strength Rotary Torso S-111",
+    "brand": "Strive",
+    "region": "abs",
+    "muscle": "obliques",
+    "movement": "torso rotation",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Leg Curl",
+    "model": "Smart Strength Seated Leg Curl S-124",
+    "brand": "Strive",
+    "region": "legs",
+    "muscle": "hamstrings",
+    "movement": "leg curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Triceps Pushdown",
+    "model": "Smart Strength Seated Push Down S-125",
+    "brand": "Strive",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "triceps extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Row",
+    "model": "Smart Strength Seated Row S-121",
+    "brand": "Strive",
+    "region": "back",
+    "muscle": "mid-back",
+    "movement": "row",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Shoulder Press",
+    "model": "Smart Strength Shoulder Press S-103",
+    "brand": "Strive",
+    "region": "shoulders",
+    "muscle": "front delts",
+    "movement": "shoulder press",
+    "secondary": [],
     "facets": {
       "implement": "selectorized"
     }
