@@ -1,9 +1,9 @@
 """Add Strive's "Smart Strength" selectorized line to the catalog.
 
-Source: the Full Circle Padding "Strive > Smart Strength" parts page the user saved
-to catalog/strive#.pdf (a printed webpage, so image-less here — the product photos on
-that page are the reseller's watermarked stock shots, not ours to ship). Names + model
-codes are transcribed from the 25 product tiles on that page.
+Source: the Full Circle Padding "Strive > Smart Strength" parts page the user saved to
+catalog/strive#.pdf. Names + model codes are transcribed from the 25 product tiles; the
+per-machine photos are extracted from that PDF (pdfimages) into catalog/strive_images/
+and attached here — they carry a faint reseller watermark but are clearly recognizable.
 
 Like atlantis_catalog.py, these rows are added on top of the base catalog under their
 own source tag, idempotently — re-running clears only this source's rows first.
@@ -13,7 +13,9 @@ own source tag, idempotently — re-running clears only this source's rows first
 """
 from __future__ import annotations
 
+import base64
 import sys
+from pathlib import Path
 
 from sqlmodel import Session, delete, select
 
@@ -23,6 +25,17 @@ from models import Brand, Exercise, Machine
 SOURCE = "strive-smart-strength"
 BRAND = "Strive"
 LINE = "Smart Strength"
+
+# product photos cropped from catalog/strive#.pdf (watermarked reseller shots),
+# saved one-per-machine and named by the model's trailing token (e.g. S-109.jpg).
+IMG_DIR = Path(__file__).resolve().parent.parent / "catalog" / "strive_images"
+
+
+def _image_uri(model: str) -> str | None:
+    p = IMG_DIR / (model.split()[-1].replace("/", "-") + ".jpg")
+    if p.exists():
+        return "data:image/jpeg;base64," + base64.b64encode(p.read_bytes()).decode()
+    return None
 
 # slug -> (display name, muscle_group) so we can create any exercise the base load
 # happened not to include. Every slug below already exists in the shipped DB, but this
@@ -87,7 +100,8 @@ def run(dry: bool = False) -> None:
     if dry:
         for name, code, mech, slug, muscle in MODELS:
             print(f"  {_model_name(name, code):42} {mech:12} -> {slug or '(none)':20} [{muscle or '-'}]")
-        print(f"\n{len(MODELS)} machines (all image-less).")
+        imgs = sum(1 for r in MODELS if _image_uri(_model_name(r[0], r[1])))
+        print(f"\n{len(MODELS)} machines, {imgs} with photos.")
         return
 
     with Session(engine) as s:
@@ -125,10 +139,11 @@ def run(dry: bool = False) -> None:
             ex = ex_by_slug.get(slug) if slug else None
             s.add(Machine(brand_id=brand.id, model=model, machine_type=mech,
                           exercise_id=ex.id if ex else None, muscle_label=muscle,
-                          image_url=None, source=f"{SOURCE}:{code or name}"))
+                          image_url=_image_uri(model), source=f"{SOURCE}:{code or name}"))
             added += 1
         s.commit()
-        print(f"Strive Smart Strength: {added} machines added (image-less), brand id={brand.id}.")
+        imgs = sum(1 for r in MODELS if _image_uri(_model_name(r[0], r[1])))
+        print(f"Strive Smart Strength: {added} machines added ({imgs} with photos), brand id={brand.id}.")
 
 
 if __name__ == "__main__":
