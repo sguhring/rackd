@@ -339,6 +339,11 @@
   .ov-head .ov-n{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
   .ov-head .ov-go{color:var(--label-3);flex:0 0 auto;}
   .ov-head .ov-go svg{width:8px;height:13px;display:block;}
+  .ov-note{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--elev-2);border:0;color:var(--label-2);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .12s ease,color .12s ease;}
+  .ov-note:active{background:#3A3A3C;}
+  .ov-note svg{width:16px;height:16px;}
+  .ov-note.has{color:var(--accent);}
+  .ov-note.has::after{content:"";position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--elev-2);}
   .ov-tblh,.ov-row{display:grid;grid-template-columns:34px 1fr 1fr 1fr 30px;align-items:center;gap:8px;padding:6px 14px;}
   .ov-tblh{padding-top:2px;padding-bottom:2px;}
   .ov-tblh span{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--label-3);text-align:center;}
@@ -1051,8 +1056,28 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   function persistActive(){ DB.active = st.session ? {name:st.session.name,items:st.session.items,idx:st.session.idx,wid:st.session.wid} : null; saveDB(); }
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  function keyFor(m){const scope=st.catalog?'cat':(st.session?(st.session.wid?('w'+st.session.wid):'custom'):(st.gym?('g'+st.gym.id):'custom'));return scope+'|'+m.brand+'|'+m.name;}
-  function setsFor(k){return DB.sets.filter(s=>s.key===k);}
+  // a machine's history belongs to the MACHINE, not to whichever workout you opened it from.
+  // keys are brand|name. sets written before this fix carry a context scope in front
+  // ('w<wid>|', 'g<gym>|', 'cat|', 'custom|'), which split one machine into a separate
+  // timeline per workout — so the same curl logged in WA1 was invisible in WA3, and PRs
+  // never fired. mkey() strips that prefix at read time, so legacy sets and notes still
+  // resolve without rewriting anything already stored on the device.
+  function mkey(k){return String(k||'').split('|').slice(-2).join('|');}
+  function keyFor(m){return m.brand+'|'+m.name;}
+  function setsFor(k){const mk=mkey(k);return DB.sets.filter(s=>mkey(s.key)===mk);}
+  // notes are keyed like sets, so they need the same legacy fallback
+  function noteFor(k){
+    const mk=mkey(k); if(!mk) return '';
+    if(DB.notes[mk]!=null) return String(DB.notes[mk]);
+    const legacy=Object.keys(DB.notes).find(n=>!n.startsWith('sess:')&&mkey(n)===mk);
+    return legacy?String(DB.notes[legacy]):'';
+  }
+  // clear every copy of a machine's note — the clean key and any legacy scoped ones —
+  // so clearing a note can't have an old workout-scoped copy resurface behind it.
+  function dropNote(k){
+    const mk=mkey(k); if(!mk) return;
+    Object.keys(DB.notes).forEach(n=>{if(!n.startsWith('sess:')&&mkey(n)===mk) delete DB.notes[n];});
+  }
   function lastSession(k,m){
     const all=setsFor(k);
     if(all.length){
@@ -1066,7 +1091,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     return null;
   }
   function bestWeight(k,m){let best=m.lastW||0;setsFor(k).forEach(s=>{if(s.w>best)best=s.w;});return best;}
-  function todays(k){const t=new Date().toDateString();return DB.sets.filter(s=>s.key===k&&new Date(s.ts).toDateString()===t);}
+  function todays(k){const t=new Date().toDateString();return setsFor(k).filter(s=>new Date(s.ts).toDateString()===t);}
 
   function show(id){
     document.querySelectorAll('.screen').forEach(s=>{
@@ -1240,8 +1265,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const items=s.items||[];
     // notes: prefer the snapshot stored on the record; fall back to the live DB.notes
     // entry (so sessions saved before notes were snapshotted still show them).
-    const scope=s.wid?('w'+s.wid):'custom';
-    const noteOf=it=>(it.note||'').trim()||(DB.notes[scope+'|'+it.brand+'|'+it.name]||'').trim();
+    const noteOf=it=>(it.note||'').trim()||noteFor(it.brand+'|'+it.name).trim();
     const sNote=(s.note||'').trim()||(DB.notes['sess:'+(s.wid||s.name)]||'').trim();
     const noteBox=(txt,extra)=>txt?`<div class="sd-note${extra||''}">${escHTML(txt)}</div>`:'';
     const body=items.map((it,ei)=>`
@@ -1840,11 +1864,10 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   function saveSession(){
     if(!st.session) return;
     const t=new Date().toDateString();
-    const scope=st.session.wid?('w'+st.session.wid):'custom';   // same scope keyFor() uses
     const items=st.session.items.map(m=>{
       const it={brand:m.brand, name:m.name,
         sets:setsFor(keyFor(m)).filter(s=>new Date(s.ts).toDateString()===t).map(s=>({w:s.w,r:s.r,pr:!!s.pr}))};
-      const note=(DB.notes[scope+'|'+m.brand+'|'+m.name]||'').trim();  // snapshot the per-machine note
+      const note=noteFor(keyFor(m)).trim();  // snapshot the per-machine note
       if(note) it.note=note;
       return it;
     }).filter(it=>it.sets.length);
@@ -2075,6 +2098,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
         <div class="ov-head" onclick="ovFocus(${ei})">
           ${thumbHTML(m.brand,m.name,m.group,m.img)}
           <div class="ov-tt"><div class="ov-b">${m.brand}</div><div class="ov-n">${m.name}</div></div>
+          <button class="ov-note${noteFor(key).trim()?' has':''}" onclick="event.stopPropagation();openNotesFor(${ei})" aria-label="machine note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/><path d="M8 9h8M8 13h5"/></svg></button>
           <span class="ov-go"><svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></span>
         </div>
         <div class="ov-tblh"><span>set</span><span>prev</span><span>kg</span><span>reps</span><span></span></div>
@@ -2133,30 +2157,42 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
 
   // ---- per-exercise notes (on-device, keyed per machine like the set history) ----
   function refreshNoteBtn(){
-    const note=(st.machineKey && (DB.notes[st.machineKey]||'').trim())||'';
+    const note=(st.machineKey && noteFor(st.machineKey).trim())||'';
     const btn=document.getElementById('note-btn'); if(btn) btn.classList.toggle('has',!!note);
     const line=document.getElementById('setnote'), txt=document.getElementById('setnote-txt');
     if(line&&txt){ txt.textContent=note; line.style.display=note?'flex':'none'; }
   }
-  function openNotes(){
-    if(!st.machineKey)return;
-    document.getElementById('note-sub').textContent=st.m?st.m.name:'this exercise';
+  let noteTarget=null;   // {key,name} of the machine whose note the sheet is editing
+  function openNoteSheet(key,name){
+    if(!key)return;
+    noteTarget={key,name};
+    document.getElementById('note-sub').textContent=name||'this exercise';
     const ta=document.getElementById('note-area');
-    ta.value=DB.notes[st.machineKey]||'';
+    ta.value=noteFor(key);
     document.getElementById('note-back').classList.add('show');
     document.getElementById('note-sheet').classList.add('show');
     setTimeout(()=>ta.focus(),120);
   }
+  function openNotes(){ openNoteSheet(st.machineKey, st.m?st.m.name:'this exercise'); }
+  // per-machine note opened from a routine-overview row
+  function openNotesFor(ei){
+    if(!st.session)return;
+    const m=st.session.items[ei]; if(!m)return;
+    openNoteSheet(keyFor(m), m.name);
+  }
   function saveNote(){
-    if(!st.machineKey)return;
+    if(!noteTarget)return;
     const v=document.getElementById('note-area').value;
-    if(v.trim()) DB.notes[st.machineKey]=v.trim(); else delete DB.notes[st.machineKey];
+    dropNote(noteTarget.key);                                 // drop legacy scoped copies too
+    if(v.trim()) DB.notes[mkey(noteTarget.key)]=v.trim();
     saveDB(); refreshNoteBtn();
+    if(activeScreenId()==='s-overview') renderOverview();     // refresh the row's note indicator
   }
   function closeNotes(){
     saveNote();
     document.getElementById('note-back').classList.remove('show');
     document.getElementById('note-sheet').classList.remove('show');
+    noteTarget=null;
   }
 
   function logSet(){
