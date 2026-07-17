@@ -1078,18 +1078,24 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const mk=mkey(k); if(!mk) return;
     Object.keys(DB.notes).forEach(n=>{if(!n.startsWith('sess:')&&mkey(n)===mk) delete DB.notes[n];});
   }
-  function lastSession(k,m){
-    const all=setsFor(k);
+  // the top set of the most recent training day. skipToday leaves today's own sets out,
+  // so "last time" keeps showing the number you came in to beat even after you log.
+  function sessionOf(k,m,skipToday){
+    const all=setsFor(k), today=new Date().toDateString();
     if(all.length){
       const days={};all.forEach(s=>{const d=new Date(s.ts).toDateString();(days[d]=days[d]||[]).push(s);});
-      const latest=Object.keys(days).sort((a,b)=>new Date(b)-new Date(a))[0];
-      const ds=days[latest];const top=ds.reduce((mx,s)=>s.w>mx.w?s:mx,ds[0]);
-      const dt=new Date(latest);
-      return{w:top.w,r:top.r,s:ds.length,date:dt.getDate()+' '+MON[dt.getMonth()]};
+      const latest=Object.keys(days).filter(d=>!skipToday||d!==today).sort((a,b)=>new Date(b)-new Date(a))[0];
+      if(latest){
+        const ds=days[latest];const top=ds.reduce((mx,s)=>s.w>mx.w?s:mx,ds[0]);
+        const dt=new Date(latest);
+        return{w:top.w,r:top.r,s:ds.length,date:dt.getDate()+' '+MON[dt.getMonth()]};
+      }
     }
     if(m.lastW)return{w:m.lastW,r:m.lastR,s:m.lastS,date:m.date};
     return null;
   }
+  function lastSession(k,m){ return sessionOf(k,m,false); }   // incl. today — seeds the weight/reps you continue at
+  function prevSession(k,m){ return sessionOf(k,m,true); }    // excl. today — what "last time" should show
   function bestWeight(k,m){let best=m.lastW||0;setsFor(k).forEach(s=>{if(s.w>best)best=s.w;});return best;}
   function todays(k){const t=new Date().toDateString();return setsFor(k).filter(s=>new Date(s.ts).toDateString()===t);}
 
@@ -1481,13 +1487,14 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   }
   function loadLog(m){
     st.m=m; st.machineKey=keyFor(m); const ls=lastSession(st.machineKey,m); st.w=ls?ls.w:(m.lastW||60); st.r=ls?ls.r:(m.lastR||10);
+    const ps=prevSession(st.machineKey,m);   // "last time" = the session before today
     document.getElementById('log-thumb').innerHTML=thumbHTML(m.brand,m.name,m.group,m.img);
     document.getElementById('log-brand').textContent=m.brand;
     document.getElementById('log-name').textContent=m.name;
     document.getElementById('sets-machine').textContent=m.name;
     const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
-    if(ls){
-      lastL.innerHTML=`last time · <b>${ls.s}×${ls.r} @ ${ls.w}kg</b>`;
+    if(ps){
+      lastL.innerHTML=`last time · <b>${ps.s}×${ps.r} @ ${ps.w}kg</b>`;
       beat.className='beat'; beat.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it';
     } else {
       lastL.innerHTML='first time on <b>this</b> exercise';
@@ -2084,7 +2091,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     document.getElementById('ov-back').textContent=st.session.name;
     document.getElementById('ov-notes').value=DB.notes[sessNoteKey()]||'';
     document.getElementById('ov-list').innerHTML=st.session.items.map((m,ei)=>{
-      const key=keyFor(m), sets=todays(key), ls=lastSession(key,m);
+      const key=keyFor(m), sets=todays(key), ls=prevSession(key,m);   // prev/last time = before today
       const prev= ls?`${ls.r}×${ls.w%1===0?ls.w:ls.w.toFixed(1)}`:'—';
       const rows= sets.length ? sets.map((s,i)=>`
         <div class="ov-row">
@@ -2093,7 +2100,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
           <input class="ov-in" type="number" inputmode="decimal" step="0.5" min="0" value="${s.w}" onchange="ovEdit(${ei},${i},'w',this.value)">
           <input class="ov-in" type="number" inputmode="numeric" min="0" value="${s.r}" onchange="ovEdit(${ei},${i},'r',this.value)">
           <button class="ov-del" onclick="ovDel(${ei},${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
-        </div>`).join('') : '<div class="ov-empty">no sets yet — add one.</div>';
+        </div>`).join('') : `<div class="ov-empty">${ls?`last time · ${ls.s}×${ls.r} @ ${ls.w%1===0?ls.w:ls.w.toFixed(1)}kg`:'no sets yet — add one.'}</div>`;
       return `<div class="ov-card">
         <div class="ov-head" onclick="ovFocus(${ei})">
           ${thumbHTML(m.brand,m.name,m.group,m.img)}

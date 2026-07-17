@@ -45,3 +45,6 @@ api/.azure/
 
 # local db rollback snapshots
 *.bak
+
+# claude code local settings
+.claude/settings.local.json
