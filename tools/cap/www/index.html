@@ -205,6 +205,10 @@
   .setrow .pr svg{width:13px;height:13px;}
   .setrow .done{margin-left:auto;color:var(--accent);}
   .setrow .done svg{width:18px;height:18px;display:block;}
+  /* failed attempt (0 reps): kept in history, shown muted with a red cross */
+  .setrow.failed .sv{color:var(--label-3);}
+  .setrow .fail{margin-left:auto;color:#FF453A;}
+  .setrow .fail svg{width:17px;height:17px;display:block;}
   /* edit a logged set */
   .setrow .se-edit{width:30px;height:30px;border-radius:8px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:background .12s ease,color .12s ease;}
   .setrow .se-edit:active{background:var(--elev-2);color:var(--label);}
@@ -1086,7 +1090,9 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
       const days={};all.forEach(s=>{const d=new Date(s.ts).toDateString();(days[d]=days[d]||[]).push(s);});
       const latest=Object.keys(days).filter(d=>!skipToday||d!==today).sort((a,b)=>new Date(b)-new Date(a))[0];
       if(latest){
-        const ds=days[latest];const top=ds.reduce((mx,s)=>s.w>mx.w?s:mx,ds[0]);
+        const ds=days[latest];
+        const ok=ds.filter(s=>!isFail(s));                       // prefer the best *successful* set
+        const top=(ok.length?ok:ds).reduce((mx,s)=>s.w>mx.w?s:mx,(ok.length?ok:ds)[0]);
         const dt=new Date(latest);
         return{w:top.w,r:top.r,s:ds.length,date:dt.getDate()+' '+MON[dt.getMonth()]};
       }
@@ -1096,7 +1102,10 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   }
   function lastSession(k,m){ return sessionOf(k,m,false); }   // incl. today — seeds the weight/reps you continue at
   function prevSession(k,m){ return sessionOf(k,m,true); }    // excl. today — what "last time" should show
-  function bestWeight(k,m){let best=m.lastW||0;setsFor(k).forEach(s=>{if(s.w>best)best=s.w;});return best;}
+  // a set logged with 0 reps is a FAILED attempt: it stays in the history, but it never
+  // counts as a best/PR and never stands in as the "last time" number to beat.
+  function isFail(s){ return !s.r; }
+  function bestWeight(k,m){let best=m.lastW||0;setsFor(k).forEach(s=>{if(!isFail(s)&&s.w>best)best=s.w;});return best;}
   function todays(k){const t=new Date().toDateString();return setsFor(k).filter(s=>new Date(s.ts).toDateString()===t);}
 
   function show(id){
@@ -2224,10 +2233,12 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
         <button class="se-btn del" onclick="delSet(${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
         <button class="se-btn save" onclick="saveEdit(${i})" aria-label="save set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></button>
       </div>` : `
-      <div class="setrow">
+      <div class="setrow${isFail(s)?' failed':''}">
         <span class="sn">${i+1}</span>
-        <span class="sv">${s.r}<span class="x">×</span>${s.w%1===0?s.w:s.w.toFixed(1)} kg</span>
-        ${s.pr
+        <span class="sv">${isFail(s)?'<span class="x">failed @</span>'+(s.w%1===0?s.w:s.w.toFixed(1))+' kg':s.r+'<span class="x">×</span>'+(s.w%1===0?s.w:s.w.toFixed(1))+' kg'}</span>
+        ${isFail(s)
+          ? '<span class="fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>'
+          : s.pr
           ? '<span class="pr"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/></svg>PR</span>'
           : '<span class="done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>'}
         <button class="se-edit" onclick="editSet(${i})" aria-label="edit set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
