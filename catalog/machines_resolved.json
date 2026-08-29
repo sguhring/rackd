@@ -8620,7 +8620,8 @@
     "facets": {
       "implement": "machine",
       "position": "seated"
-    }
+    },
+    "image": "img/hoist/RS-1203.jpg"
   },
   {
     "mechanism": "Standing Calf Raise",
@@ -8704,7 +8705,8 @@
     "facets": {
       "implement": "machine",
       "position": "seated"
-    }
+    },
+    "image": "img/hoist/RS-1101.jpg"
   },
   {
     "mechanism": "Biceps Curl",
@@ -8716,7 +8718,8 @@
     "secondary": [],
     "facets": {
       "implement": "machine"
-    }
+    },
+    "image": "img/hoist/RS-1102.jpg"
   },
   {
     "mechanism": "Chest Press",
@@ -8730,7 +8733,8 @@
     ],
     "facets": {
       "implement": "machine"
-    }
+    },
+    "image": "img/hoist/RS-1301.jpg"
   },
   {
     "mechanism": "Chest Fly",
@@ -8743,7 +8747,8 @@
     "facets": {
       "implement": "machine",
       "laterality": "converging"
-    }
+    },
+    "image": "img/hoist/RS-1302.jpg"
   },
   {
     "mechanism": "Leg Extension",
@@ -8755,7 +8760,8 @@
     "secondary": [],
     "facets": {
       "implement": "machine"
-    }
+    },
+    "image": "img/hoist/RS-1401.jpg"
   },
   {
     "mechanism": "Leg Extension",
@@ -8767,7 +8773,8 @@
     "secondary": [],
     "facets": {
       "implement": "machine"
-    }
+    },
+    "image": "img/hoist/RS-1401.jpg"
   },
   {
     "mechanism": "Leg Press",
@@ -8781,7 +8788,8 @@
     ],
     "facets": {
       "implement": "machine"
-    }
+    },
+    "image": "img/hoist/RS-1403.jpg"
   },
   {
     "mechanism": "Dip",
@@ -8838,7 +8846,8 @@
     ],
     "facets": {
       "implement": "machine"
-    }
+    },
+    "image": "img/hoist/RS-1201.jpg"
   },
   {
     "mechanism": "Leg Raise",
