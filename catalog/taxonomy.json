@@ -4,38 +4,38 @@
     {
       "slug": "chest",
       "label": "chest",
-      "machines": 131,
+      "machines": 232,
       "muscles": [
         {
           "slug": "upper-chest",
           "label": "upper chest",
-          "machines": 29,
+          "machines": 54,
           "movements": [
             {
               "slug": "chest-press",
               "label": "chest press",
-              "machines": 28,
+              "machines": 52,
               "facets": {
                 "implement": {
-                  "machine": 10,
-                  "plate-loaded": 15,
-                  "selectorized": 3
+                  "machine": 19,
+                  "plate-loaded": 21,
+                  "selectorized": 12
                 },
                 "angle": {
-                  "incline": 28
+                  "incline": 36
                 },
                 "laterality": {
-                  "iso-lateral": 13
+                  "iso-lateral": 12
                 }
               }
             },
             {
               "slug": "chest-fly",
               "label": "chest fly",
-              "machines": 1,
+              "machines": 2,
               "facets": {
                 "implement": {
-                  "plate-loaded": 1
+                  "plate-loaded": 2
                 },
                 "angle": {
                   "incline": 1
@@ -47,43 +47,44 @@
         {
           "slug": "mid-chest",
           "label": "mid chest",
-          "machines": 94,
+          "machines": 167,
           "movements": [
             {
               "slug": "chest-press",
               "label": "chest press",
-              "machines": 74,
+              "machines": 126,
               "facets": {
                 "implement": {
                   "smith": 1,
-                  "machine": 30,
-                  "plate-loaded": 27,
-                  "selectorized": 16
+                  "machine": 46,
+                  "plate-loaded": 44,
+                  "selectorized": 34,
+                  "hydraulic": 1
                 },
                 "angle": {
                   "decline": 3,
                   "incline": 1
                 },
                 "laterality": {
-                  "iso-lateral": 23,
+                  "iso-lateral": 24,
                   "converging": 1
                 },
                 "position": {
                   "standing": 2,
                   "seated": 3,
-                  "lying": 1
+                  "lying": 3
                 }
               }
             },
             {
               "slug": "chest-fly",
               "label": "chest fly",
-              "machines": 18,
+              "machines": 38,
               "facets": {
                 "implement": {
-                  "selectorized": 7,
-                  "machine": 7,
-                  "plate-loaded": 4
+                  "selectorized": 19,
+                  "machine": 12,
+                  "plate-loaded": 7
                 },
                 "position": {
                   "seated": 2,
@@ -98,10 +99,10 @@
             {
               "slug": "jammer---push-press",
               "label": "jammer / push press",
-              "machines": 2,
+              "machines": 3,
               "facets": {
                 "implement": {
-                  "plate-loaded": 1,
+                  "plate-loaded": 2,
                   "machine": 1
                 }
               }
@@ -111,20 +112,20 @@
         {
           "slug": "lower-chest",
           "label": "lower chest",
-          "machines": 8,
+          "machines": 11,
           "movements": [
             {
               "slug": "chest-press",
               "label": "chest press",
-              "machines": 8,
+              "machines": 11,
               "facets": {
                 "implement": {
-                  "plate-loaded": 5,
-                  "selectorized": 2,
-                  "machine": 1
+                  "plate-loaded": 8,
+                  "machine": 1,
+                  "selectorized": 2
                 },
                 "angle": {
-                  "decline": 8
+                  "decline": 7
                 }
               }
             }
@@ -135,43 +136,44 @@
     {
       "slug": "back",
       "label": "back",
-      "machines": 272,
+      "machines": 456,
       "muscles": [
         {
           "slug": "lats",
           "label": "lats",
-          "machines": 141,
+          "machines": 205,
           "movements": [
             {
               "slug": "pulldown",
               "label": "pulldown",
-              "machines": 73,
+              "machines": 109,
               "facets": {
                 "implement": {
-                  "machine": 37,
-                  "selectorized": 20,
-                  "plate-loaded": 13,
-                  "cable": 3
+                  "machine": 48,
+                  "selectorized": 38,
+                  "plate-loaded": 19,
+                  "cable": 3,
+                  "hydraulic": 1
                 },
                 "laterality": {
-                  "iso-lateral": 18
+                  "iso-lateral": 20
                 },
                 "position": {
-                  "seated": 3
+                  "seated": 4
                 }
               }
             },
             {
               "slug": "pull-up---chin",
               "label": "pull-up / chin",
-              "machines": 51,
+              "machines": 69,
               "facets": {
                 "implement": {
                   "smith": 26,
-                  "plate-loaded": 9,
+                  "plate-loaded": 12,
                   "cable": 5,
-                  "machine": 9,
-                  "selectorized": 2
+                  "machine": 18,
+                  "selectorized": 8
                 },
                 "position": {
                   "seated": 1,
@@ -188,12 +190,12 @@
             {
               "slug": "pullover",
               "label": "pullover",
-              "machines": 15,
+              "machines": 25,
               "facets": {
                 "implement": {
-                  "plate-loaded": 4,
-                  "machine": 10,
-                  "selectorized": 1
+                  "plate-loaded": 7,
+                  "machine": 13,
+                  "selectorized": 5
                 }
               }
             },
@@ -215,23 +217,23 @@
         {
           "slug": "upper-back",
           "label": "upper-back",
-          "machines": 9,
+          "machines": 10,
           "movements": [
             {
               "slug": "row",
               "label": "row",
-              "machines": 9,
+              "machines": 10,
               "facets": {
                 "implement": {
-                  "machine": 2,
+                  "machine": 1,
                   "selectorized": 2,
-                  "plate-loaded": 5
+                  "plate-loaded": 7
                 },
                 "angle": {
                   "incline": 2
                 },
                 "laterality": {
-                  "iso-lateral": 6
+                  "iso-lateral": 5
                 }
               }
             }
@@ -240,24 +242,24 @@
         {
           "slug": "mid-back",
           "label": "mid-back",
-          "machines": 88,
+          "machines": 149,
           "movements": [
             {
               "slug": "row",
               "label": "row",
-              "machines": 88,
+              "machines": 149,
               "facets": {
                 "implement": {
-                  "machine": 42,
-                  "plate-loaded": 27,
+                  "machine": 62,
+                  "plate-loaded": 53,
                   "cable": 5,
-                  "selectorized": 14
+                  "selectorized": 29
                 },
                 "laterality": {
                   "iso-lateral": 21
                 },
                 "position": {
-                  "seated": 21,
+                  "seated": 22,
                   "kneeling": 1,
                   "standing": 2
                 },
@@ -271,17 +273,20 @@
         {
           "slug": "lower-back",
           "label": "lower back",
-          "machines": 29,
+          "machines": 86,
           "movements": [
             {
               "slug": "back-extension",
               "label": "back extension",
-              "machines": 29,
+              "machines": 83,
               "facets": {
                 "implement": {
-                  "selectorized": 14,
-                  "machine": 12,
-                  "plate-loaded": 3
+                  "selectorized": 43,
+                  "machine": 33,
+                  "plate-loaded": 7
+                },
+                "position": {
+                  "seated": 2
                 }
               }
             }
@@ -290,15 +295,15 @@
         {
           "slug": "traps",
           "label": "traps",
-          "machines": 5,
+          "machines": 6,
           "movements": [
             {
               "slug": "shrug",
               "label": "shrug",
-              "machines": 4,
+              "machines": 5,
               "facets": {
                 "implement": {
-                  "plate-loaded": 1,
+                  "plate-loaded": 2,
                   "machine": 3
                 },
                 "position": {
@@ -323,20 +328,21 @@
     {
       "slug": "shoulders",
       "label": "shoulders",
-      "machines": 113,
+      "machines": 168,
       "muscles": [
         {
           "slug": "front-delts",
           "label": "front delts",
-          "machines": 1,
+          "machines": 2,
           "movements": [
             {
               "slug": "shoulder-press",
               "label": "shoulder press",
-              "machines": 1,
+              "machines": 2,
               "facets": {
                 "implement": {
-                  "plate-loaded": 1
+                  "plate-loaded": 1,
+                  "selectorized": 1
                 }
               }
             }
@@ -345,17 +351,17 @@
         {
           "slug": "side-delts",
           "label": "side delts",
-          "machines": 25,
+          "machines": 38,
           "movements": [
             {
               "slug": "lateral-raise",
               "label": "lateral raise",
-              "machines": 25,
+              "machines": 38,
               "facets": {
                 "implement": {
-                  "machine": 14,
-                  "selectorized": 7,
-                  "plate-loaded": 4
+                  "machine": 17,
+                  "selectorized": 15,
+                  "plate-loaded": 6
                 },
                 "position": {
                   "seated": 2,
@@ -371,17 +377,18 @@
         {
           "slug": "rear-delts",
           "label": "rear delts",
-          "machines": 28,
+          "machines": 30,
           "movements": [
             {
               "slug": "rear-delt-fly",
               "label": "rear-delt fly",
-              "machines": 27,
+              "machines": 29,
               "facets": {
                 "implement": {
                   "machine": 15,
-                  "selectorized": 11,
-                  "plate-loaded": 1
+                  "selectorized": 12,
+                  "plate-loaded": 1,
+                  "hydraulic": 1
                 },
                 "laterality": {
                   "iso-lateral": 1
@@ -403,20 +410,20 @@
         {
           "slug": "delts",
           "label": "delts",
-          "machines": 59,
+          "machines": 98,
           "movements": [
             {
               "slug": "shoulder-press",
               "label": "shoulder press",
-              "machines": 59,
+              "machines": 97,
               "facets": {
                 "implement": {
-                  "plate-loaded": 19,
-                  "machine": 21,
-                  "selectorized": 19
+                  "plate-loaded": 30,
+                  "machine": 31,
+                  "selectorized": 36
                 },
                 "laterality": {
-                  "iso-lateral": 16,
+                  "iso-lateral": 15,
                   "converging": 2
                 },
                 "position": {
@@ -431,30 +438,31 @@
     {
       "slug": "arms",
       "label": "arms",
-      "machines": 150,
+      "machines": 232,
       "muscles": [
         {
           "slug": "biceps",
           "label": "biceps",
-          "machines": 63,
+          "machines": 104,
           "movements": [
             {
               "slug": "biceps-curl",
               "label": "biceps curl",
-              "machines": 63,
+              "machines": 104,
               "facets": {
                 "implement": {
-                  "machine": 32,
-                  "selectorized": 19,
-                  "plate-loaded": 11,
-                  "cable": 1
+                  "machine": 51,
+                  "selectorized": 34,
+                  "plate-loaded": 17,
+                  "cable": 1,
+                  "hydraulic": 1
                 },
                 "laterality": {
                   "iso-lateral": 4
                 },
                 "position": {
-                  "seated": 4,
-                  "standing": 1
+                  "seated": 7,
+                  "standing": 2
                 }
               }
             }
@@ -463,17 +471,17 @@
         {
           "slug": "triceps",
           "label": "triceps",
-          "machines": 84,
+          "machines": 126,
           "movements": [
             {
               "slug": "triceps-extension",
               "label": "triceps extension",
-              "machines": 45,
+              "machines": 75,
               "facets": {
                 "implement": {
-                  "machine": 24,
-                  "selectorized": 14,
-                  "plate-loaded": 6,
+                  "machine": 33,
+                  "selectorized": 30,
+                  "plate-loaded": 11,
                   "cable": 1
                 },
                 "position": {
@@ -487,12 +495,12 @@
             {
               "slug": "dip",
               "label": "dip",
-              "machines": 39,
+              "machines": 51,
               "facets": {
                 "implement": {
-                  "machine": 18,
-                  "selectorized": 13,
-                  "plate-loaded": 7,
+                  "machine": 21,
+                  "selectorized": 20,
+                  "plate-loaded": 9,
                   "cable": 1
                 },
                 "position": {
@@ -506,15 +514,15 @@
         {
           "slug": "forearms",
           "label": "forearms",
-          "machines": 3,
+          "machines": 2,
           "movements": [
             {
               "slug": "grip",
               "label": "grip",
-              "machines": 3,
+              "machines": 2,
               "facets": {
                 "implement": {
-                  "plate-loaded": 3
+                  "plate-loaded": 2
                 }
               }
             }
@@ -525,41 +533,23 @@
     {
       "slug": "legs",
       "label": "legs",
-      "machines": 362,
+      "machines": 582,
       "muscles": [
         {
           "slug": "quads",
           "label": "quads",
-          "machines": 215,
+          "machines": 312,
           "movements": [
-            {
-              "slug": "leg-extension",
-              "label": "leg extension",
-              "machines": 84,
-              "facets": {
-                "implement": {
-                  "machine": 57,
-                  "selectorized": 21,
-                  "plate-loaded": 6
-                },
-                "position": {
-                  "seated": 7,
-                  "lying": 4
-                },
-                "laterality": {
-                  "iso-lateral": 4
-                }
-              }
-            },
             {
               "slug": "leg-press",
               "label": "leg press",
-              "machines": 83,
+              "machines": 124,
               "facets": {
                 "implement": {
-                  "machine": 37,
-                  "plate-loaded": 22,
-                  "selectorized": 24
+                  "machine": 45,
+                  "plate-loaded": 41,
+                  "selectorized": 37,
+                  "hydraulic": 1
                 },
                 "position": {
                   "seated": 26,
@@ -571,13 +561,33 @@
               }
             },
             {
-              "slug": "hack---v-squat",
-              "label": "hack / v-squat",
-              "machines": 45,
+              "slug": "leg-extension",
+              "label": "leg extension",
+              "machines": 105,
               "facets": {
                 "implement": {
-                  "machine": 20,
-                  "plate-loaded": 25
+                  "machine": 63,
+                  "selectorized": 33,
+                  "plate-loaded": 9
+                },
+                "position": {
+                  "seated": 9,
+                  "lying": 4
+                },
+                "laterality": {
+                  "iso-lateral": 3
+                }
+              }
+            },
+            {
+              "slug": "hack---v-squat",
+              "label": "hack / v-squat",
+              "machines": 73,
+              "facets": {
+                "implement": {
+                  "machine": 29,
+                  "plate-loaded": 40,
+                  "selectorized": 4
                 },
                 "position": {
                   "seated": 1
@@ -587,30 +597,33 @@
             {
               "slug": "belt-squat",
               "label": "belt squat",
-              "machines": 1,
+              "machines": 4,
               "facets": {
                 "implement": {
-                  "plate-loaded": 1
-                }
-              }
-            },
-            {
-              "slug": "deadlift---squat",
-              "label": "deadlift / squat",
-              "machines": 1,
-              "facets": {
-                "implement": {
-                  "plate-loaded": 1
+                  "plate-loaded": 4
                 }
               }
             },
             {
               "slug": "lunge",
               "label": "lunge",
-              "machines": 1,
+              "machines": 4,
               "facets": {
                 "implement": {
-                  "machine": 1
+                  "machine": 1,
+                  "plate-loaded": 2,
+                  "selectorized": 1
+                }
+              }
+            },
+            {
+              "slug": "deadlift---squat",
+              "label": "deadlift / squat",
+              "machines": 2,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 1,
+                  "selectorized": 1
                 }
               }
             }
@@ -619,26 +632,38 @@
         {
           "slug": "hamstrings",
           "label": "hamstrings",
-          "machines": 64,
+          "machines": 108,
           "movements": [
             {
               "slug": "leg-curl",
               "label": "leg curl",
-              "machines": 64,
+              "machines": 103,
               "facets": {
                 "implement": {
-                  "machine": 22,
-                  "selectorized": 29,
-                  "plate-loaded": 13
+                  "machine": 34,
+                  "selectorized": 47,
+                  "plate-loaded": 21,
+                  "hydraulic": 1
                 },
                 "position": {
-                  "lying": 20,
-                  "standing": 4,
-                  "seated": 26,
+                  "lying": 23,
+                  "standing": 6,
+                  "seated": 28,
                   "kneeling": 5
                 },
                 "laterality": {
                   "iso-lateral": 3
+                }
+              }
+            },
+            {
+              "slug": "deadlift---squat",
+              "label": "deadlift / squat",
+              "machines": 5,
+              "facets": {
+                "implement": {
+                  "selectorized": 1,
+                  "plate-loaded": 4
                 }
               }
             }
@@ -647,24 +672,24 @@
         {
           "slug": "calves",
           "label": "calves",
-          "machines": 49,
+          "machines": 82,
           "movements": [
             {
               "slug": "calf-raise",
               "label": "calf raise",
-              "machines": 49,
+              "machines": 82,
               "facets": {
                 "implement": {
-                  "machine": 21,
-                  "plate-loaded": 17,
-                  "selectorized": 11
+                  "machine": 27,
+                  "plate-loaded": 31,
+                  "selectorized": 24
                 },
                 "position": {
-                  "standing": 16,
-                  "seated": 14
+                  "standing": 17,
+                  "seated": 19
                 },
                 "angle": {
-                  "incline": 1
+                  "incline": 4
                 }
               }
             }
@@ -673,15 +698,18 @@
         {
           "slug": "adductors",
           "label": "adductors",
-          "machines": 7,
+          "machines": 27,
           "movements": [
             {
               "slug": "hip-adduction",
               "label": "hip adduction",
-              "machines": 7,
+              "machines": 27,
               "facets": {
                 "implement": {
-                  "selectorized": 7
+                  "selectorized": 20,
+                  "hydraulic": 1,
+                  "machine": 5,
+                  "plate-loaded": 1
                 }
               }
             }
@@ -690,17 +718,17 @@
         {
           "slug": "abductors",
           "label": "abductors",
-          "machines": 25,
+          "machines": 48,
           "movements": [
             {
               "slug": "hip-abduction",
               "label": "hip abduction",
-              "machines": 25,
+              "machines": 48,
               "facets": {
                 "implement": {
-                  "machine": 19,
-                  "plate-loaded": 2,
-                  "selectorized": 4
+                  "machine": 29,
+                  "plate-loaded": 5,
+                  "selectorized": 14
                 },
                 "position": {
                   "standing": 2
@@ -718,15 +746,32 @@
         {
           "slug": "shins",
           "label": "shins",
-          "machines": 2,
+          "machines": 4,
           "movements": [
             {
               "slug": "tibialis-raise",
               "label": "tibialis raise",
-              "machines": 2,
+              "machines": 4,
               "facets": {
                 "implement": {
-                  "plate-loaded": 2
+                  "plate-loaded": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "slug": "glutes",
+          "label": "glutes",
+          "machines": 1,
+          "movements": [
+            {
+              "slug": "multi-hip",
+              "label": "multi-hip",
+              "machines": 1,
+              "facets": {
+                "implement": {
+                  "selectorized": 1
                 }
               }
             }
@@ -737,25 +782,40 @@
     {
       "slug": "glutes",
       "label": "glutes",
-      "machines": 55,
+      "machines": 87,
       "muscles": [
         {
           "slug": "glutes",
           "label": "glutes",
-          "machines": 55,
+          "machines": 87,
           "movements": [
             {
               "slug": "glute-kickback-bridge",
               "label": "glute (kickback/bridge)",
-              "machines": 38,
+              "machines": 60,
               "facets": {
                 "implement": {
-                  "machine": 22,
-                  "selectorized": 9,
-                  "plate-loaded": 7
+                  "machine": 27,
+                  "selectorized": 24,
+                  "plate-loaded": 9
                 },
                 "position": {
-                  "standing": 2
+                  "standing": 6
+                },
+                "laterality": {
+                  "iso-lateral": 1
+                }
+              }
+            },
+            {
+              "slug": "hip-thrust",
+              "label": "hip thrust",
+              "machines": 10,
+              "facets": {
+                "implement": {
+                  "plate-loaded": 7,
+                  "selectorized": 2,
+                  "machine": 1
                 }
               }
             },
@@ -772,20 +832,10 @@
             {
               "slug": "multi-hip",
               "label": "multi-hip",
-              "machines": 4,
+              "machines": 7,
               "facets": {
                 "implement": {
-                  "selectorized": 4
-                }
-              }
-            },
-            {
-              "slug": "hip-thrust",
-              "label": "hip thrust",
-              "machines": 3,
-              "facets": {
-                "implement": {
-                  "plate-loaded": 3
+                  "selectorized": 7
                 }
               }
             },
@@ -806,39 +856,44 @@
     {
       "slug": "abs",
       "label": "abs",
-      "machines": 78,
+      "machines": 137,
       "muscles": [
         {
           "slug": "abs",
           "label": "abs",
-          "machines": 61,
+          "machines": 109,
           "movements": [
             {
               "slug": "ab-crunch",
               "label": "ab crunch",
-              "machines": 52,
+              "machines": 95,
               "facets": {
                 "implement": {
-                  "selectorized": 24,
-                  "machine": 18,
-                  "plate-loaded": 10
+                  "selectorized": 43,
+                  "machine": 37,
+                  "plate-loaded": 14,
+                  "hydraulic": 1
                 },
                 "position": {
                   "seated": 1,
-                  "standing": 1
+                  "standing": 1,
+                  "lying": 3
                 },
                 "laterality": {
                   "converging": 1
+                },
+                "angle": {
+                  "incline": 1
                 }
               }
             },
             {
               "slug": "leg-raise",
               "label": "leg raise",
-              "machines": 9,
+              "machines": 11,
               "facets": {
                 "implement": {
-                  "machine": 9
+                  "machine": 11
                 }
               }
             }
@@ -847,17 +902,21 @@
         {
           "slug": "obliques",
           "label": "obliques",
-          "machines": 17,
+          "machines": 28,
           "movements": [
             {
               "slug": "torso-rotation",
               "label": "torso rotation",
-              "machines": 17,
+              "machines": 28,
               "facets": {
                 "implement": {
-                  "machine": 6,
-                  "selectorized": 7,
-                  "plate-loaded": 4
+                  "machine": 12,
+                  "selectorized": 11,
+                  "plate-loaded": 4,
+                  "hydraulic": 1
+                },
+                "position": {
+                  "seated": 1
                 }
               }
             }
@@ -874,21 +933,22 @@
     {
       "slug": "neck",
       "label": "neck",
-      "machines": 6,
+      "machines": 7,
       "muscles": [
         {
           "slug": "neck",
           "label": "neck",
-          "machines": 6,
+          "machines": 7,
           "movements": [
             {
               "slug": "neck",
               "label": "neck",
-              "machines": 6,
+              "machines": 7,
               "facets": {
                 "implement": {
                   "machine": 5,
-                  "plate-loaded": 1
+                  "plate-loaded": 1,
+                  "selectorized": 1
                 }
               }
             }
@@ -899,7 +959,7 @@
     {
       "slug": "functional-other",
       "label": "functional / other",
-      "machines": 132,
+      "machines": 709,
       "muscles": [],
       "note": "no single target muscle; ~60 are unlabeled and will move into the tree later"
     }
