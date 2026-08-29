@@ -14215,7 +14215,8 @@
     "secondary": [],
     "facets": {
       "implement": "smith"
-    }
+    },
+    "image": "img/precor/DBR0611.jpg"
   },
   {
     "mechanism": "Lat Pulldown",
@@ -14229,7 +14230,8 @@
     ],
     "facets": {
       "implement": "plate-loaded"
-    }
+    },
+    "image": "img/precor/DPL0305.jpg"
   },
   {
     "mechanism": "Chest Press",
@@ -14243,7 +14245,8 @@
     ],
     "facets": {
       "implement": "plate-loaded"
-    }
+    },
+    "image": "img/precor/DPL0540.jpg"
   },
   {
     "mechanism": "Leg Press",
@@ -14257,7 +14260,8 @@
     ],
     "facets": {
       "implement": "plate-loaded"
-    }
+    },
+    "image": "img/precor/DPL0601.jpg"
   },
   {
     "mechanism": "Biceps Curl",
@@ -14716,7 +14720,8 @@
     ],
     "facets": {
       "implement": "plate-loaded"
-    }
+    },
+    "image": "img/precor/DPL0624.jpg"
   },
   {
     "mechanism": "Triceps Extension",
