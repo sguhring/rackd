@@ -4000,7 +4000,8 @@
       "implement": "plate-loaded",
       "laterality": "iso-lateral"
     },
-    "mechanism": "Low Row"
+    "mechanism": "Low Row",
+    "image": "img/gymleco/012.jpg"
   },
   {
     "model": "013 Iso Lateral High Row",
@@ -4015,7 +4016,8 @@
       "implement": "plate-loaded",
       "laterality": "iso-lateral"
     },
-    "mechanism": "High Row"
+    "mechanism": "High Row",
+    "image": "img/gymleco/013.jpg"
   },
   {
     "model": "017 D.Y. Row",
@@ -4029,7 +4031,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "D.Y. Row"
+    "mechanism": "D.Y. Row",
+    "image": "img/gymleco/017.jpg"
   },
   {
     "model": "020 Lateral Incline Bench Press",
@@ -4045,7 +4048,8 @@
       "angle": "incline",
       "laterality": "iso-lateral"
     },
-    "mechanism": "Incline Chest Press"
+    "mechanism": "Incline Chest Press",
+    "image": "img/gymleco/020.jpg"
   },
   {
     "model": "021 Seated Chest Press",
@@ -4061,7 +4065,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Chest Press"
+    "mechanism": "Chest Press",
+    "image": "img/gymleco/021.jpg"
   },
   {
     "model": "022 ISO Lateral Bench Press, Horizontal",
@@ -4078,7 +4083,8 @@
       "laterality": "iso-lateral",
       "position": "lying"
     },
-    "mechanism": "lying Chest Press"
+    "mechanism": "lying Chest Press",
+    "image": "img/gymleco/022.jpg"
   },
   {
     "model": "023 Incline Pec Fly",
@@ -4093,7 +4099,8 @@
       "implement": "plate-loaded",
       "angle": "incline"
     },
-    "mechanism": "Incline Chest Fly"
+    "mechanism": "Incline Chest Fly",
+    "image": "img/gymleco/023.jpg"
   },
   {
     "model": "027 Decline Chest Press",
@@ -4108,7 +4115,8 @@
       "implement": "plate-loaded",
       "angle": "decline"
     },
-    "mechanism": "Decline Chest Press"
+    "mechanism": "Decline Chest Press",
+    "image": "img/gymleco/027.jpg"
   },
   {
     "model": "028 Standing Chest Press",
@@ -4124,7 +4132,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Chest Press"
+    "mechanism": "Chest Press",
+    "image": "img/gymleco/028.jpg"
   },
   {
     "model": "029 Incline Press / Chest Flyes",
@@ -4139,7 +4148,8 @@
       "implement": "plate-loaded",
       "angle": "incline"
     },
-    "mechanism": "Incline Chest Press"
+    "mechanism": "Incline Chest Press",
+    "image": "img/gymleco/029.jpg"
   },
   {
     "model": "030 Shoulder Press",
@@ -4153,7 +4163,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Shoulder Press"
+    "mechanism": "Shoulder Press",
+    "image": "img/gymleco/030.jpg"
   },
   {
     "model": "031 Shoulder Rotation",
@@ -4165,7 +4176,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Shoulder Rotation"
+    "mechanism": "Shoulder Rotation",
+    "image": "img/gymleco/031.jpg"
   },
   {
     "model": "032 Upright Row",
@@ -4179,7 +4191,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Upright Row"
+    "mechanism": "Upright Row",
+    "image": "img/gymleco/032.jpg"
   },
   {
     "model": "038 Viking Press",
@@ -4193,7 +4206,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Shoulder Press"
+    "mechanism": "Shoulder Press",
+    "image": "img/gymleco/038.jpg"
   },
   {
     "model": "040 Leg Extension",
@@ -4205,7 +4219,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Leg Extension"
+    "mechanism": "Leg Extension",
+    "image": "img/gymleco/040.jpg"
   },
   {
     "model": "041 Leg Curl, Seated",
@@ -4218,7 +4233,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Seated Leg Curl"
+    "mechanism": "Seated Leg Curl",
+    "image": "img/gymleco/041.jpg"
   },
   {
     "model": "042 Standing Leg Curl",
@@ -4231,7 +4247,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Standing Leg Curl"
+    "mechanism": "Standing Leg Curl",
+    "image": "img/gymleco/042.jpg"
   },
   {
     "model": "043 Hip Press",
@@ -4245,7 +4262,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Leg Press"
+    "mechanism": "Leg Press",
+    "image": "img/gymleco/043.jpg"
   },
   {
     "model": "044 V-Squat, Plate Loaded",
@@ -4259,7 +4277,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Hack/V-Squat"
+    "mechanism": "Hack/V-Squat",
+    "image": "img/gymleco/044.jpg"
   },
   {
     "model": "045 Pendulum Squat",
@@ -4273,7 +4292,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Hack/V-Squat"
+    "mechanism": "Hack/V-Squat",
+    "image": "img/gymleco/045.jpg"
   },
   {
     "model": "046 Donkey Raise",
@@ -4285,7 +4305,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Calf Raise"
+    "mechanism": "Calf Raise",
+    "image": "img/gymleco/046.jpg"
   },
   {
     "model": "047 Tibia Dorsi Flexion",
@@ -4297,7 +4318,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Tibialis Raise"
+    "mechanism": "Tibialis Raise",
+    "image": "img/gymleco/047.jpg"
   },
   {
     "model": "050 Biceps Curl Machine",
@@ -4309,7 +4331,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Biceps Curl"
+    "mechanism": "Biceps Curl",
+    "image": "img/gymleco/050.jpg"
   },
   {
     "model": "051 Iso Lateral Triceps",
@@ -4322,7 +4345,8 @@
       "implement": "plate-loaded",
       "laterality": "iso-lateral"
     },
-    "mechanism": "Triceps Extension"
+    "mechanism": "Triceps Extension",
+    "image": "img/gymleco/051.jpg"
   },
   {
     "model": "055 Dip Press",
@@ -4336,7 +4360,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Dip"
+    "mechanism": "Dip",
+    "image": "img/gymleco/055.jpg"
   },
   {
     "model": "060 Glute Kickback",
@@ -4348,7 +4373,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Glute Kickback"
+    "mechanism": "Glute Kickback",
+    "image": "img/gymleco/060.jpg"
   },
   {
     "model": "061 Reverse Hyper",
@@ -4363,7 +4389,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Reverse Hyper"
+    "mechanism": "Reverse Hyper",
+    "image": "img/gymleco/061.jpg"
   },
   {
     "model": "062 Standing Abductor, Plate Loaded",
@@ -4378,7 +4405,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Hip Abduction"
+    "mechanism": "Hip Abduction",
+    "image": "img/gymleco/062.jpg"
   },
   {
     "model": "063 Reverse Hyper Pendulum",
@@ -4393,7 +4421,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Reverse Hyper"
+    "mechanism": "Reverse Hyper",
+    "image": "img/gymleco/063.jpg"
   },
   {
     "model": "066 Hip Thrust",
@@ -4407,7 +4436,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Hip Thrust"
+    "mechanism": "Hip Thrust",
+    "image": "img/gymleco/066.jpg"
   },
   {
     "model": "067 Hip & Back Extension",
@@ -4435,7 +4465,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Ab Crunch"
+    "mechanism": "Ab Crunch",
+    "image": "img/gymleco/070.jpg"
   },
   {
     "model": "072 Ab Roll Up",
@@ -4447,7 +4478,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Ab Crunch"
+    "mechanism": "Ab Crunch",
+    "image": "img/gymleco/072.jpg"
   },
   {
     "model": "082 Belt Squat Machine",
@@ -4461,7 +4493,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Belt Squat"
+    "mechanism": "Belt Squat",
+    "image": "img/gymleco/082.jpg"
   },
   {
     "model": "083 Deadlift / Squat Machine",
@@ -4476,7 +4509,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Deadlift/Squat machine"
+    "mechanism": "Deadlift/Squat machine",
+    "image": "img/gymleco/083.jpg"
   },
   {
     "model": "110K Chins Rack for Cable Cross",
@@ -4515,7 +4549,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "T-Bar Row"
+    "mechanism": "T-Bar Row",
+    "image": "img/gymleco/115.jpg"
   },
   {
     "model": "116 Incline T-Bar Row",
@@ -4530,7 +4565,8 @@
       "implement": "plate-loaded",
       "angle": "incline"
     },
-    "mechanism": "Incline T-Bar Row"
+    "mechanism": "Incline T-Bar Row",
+    "image": "img/gymleco/116.jpg"
   },
   {
     "model": "117 Seal Row Bench",
@@ -4544,7 +4580,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Seal Row"
+    "mechanism": "Seal Row",
+    "image": "img/gymleco/117.jpg"
   },
   {
     "model": "118 Seal Row Bench, Open model",
@@ -4558,7 +4595,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Seal Row"
+    "mechanism": "Seal Row",
+    "image": "img/gymleco/118.jpg"
   },
   {
     "model": "145 Seated Calf Press",
@@ -4571,7 +4609,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Seated Calf Raise"
+    "mechanism": "Seated Calf Raise",
+    "image": "img/gymleco/145.jpg"
   },
   {
     "model": "167 Glute Bridge",
@@ -4583,7 +4622,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Glute Kickback"
+    "mechanism": "Glute Kickback",
+    "image": "img/gymleco/167.jpg"
   },
   {
     "model": "210 Seated Row",
@@ -4598,7 +4638,8 @@
       "implement": "cable",
       "position": "seated"
     },
-    "mechanism": "Seated Row"
+    "mechanism": "Seated Row",
+    "image": "img/gymleco/210.jpg"
   },
   {
     "model": "211 Lateral Pulldown",
@@ -4612,7 +4653,8 @@
     "facets": {
       "implement": "cable"
     },
-    "mechanism": "Lat Pulldown"
+    "mechanism": "Lat Pulldown",
+    "image": "img/gymleco/211.jpg"
   },
   {
     "model": "211R Lateral Pulldown, Adjustable",
@@ -4641,7 +4683,8 @@
       "implement": "cable",
       "position": "seated"
     },
-    "mechanism": "Lat Pulldown"
+    "mechanism": "Lat Pulldown",
+    "image": "img/gymleco/214.jpg"
   },
   {
     "model": "215 Four Station Multi Gym",
@@ -4652,7 +4695,8 @@
     "secondary": [],
     "facets": {
       "implement": "cable"
-    }
+    },
+    "image": "img/gymleco/215.jpg"
   },
   {
     "model": "215DK Multi Gym/8-Station with Cable Cross",
@@ -4685,7 +4729,8 @@
     "secondary": [],
     "facets": {
       "implement": "cable"
-    }
+    },
+    "image": "img/gymleco/225.jpg"
   },
   {
     "model": "225B Half of a Cable Cross",
@@ -4707,7 +4752,8 @@
     "secondary": [],
     "facets": {
       "implement": "cable"
-    }
+    },
+    "image": "img/gymleco/226.jpg"
   },
   {
     "model": "243 Leg Press 45°",
@@ -4721,7 +4767,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Leg Press"
+    "mechanism": "Leg Press",
+    "image": "img/gymleco/243.jpg"
   },
   {
     "model": "244 Hacklift",
@@ -4735,7 +4782,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Hack/V-Squat"
+    "mechanism": "Hack/V-Squat",
+    "image": "img/gymleco/244.jpg"
   },
   {
     "model": "245 Leg Press/Hacklift",
@@ -4749,7 +4797,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Leg Press"
+    "mechanism": "Leg Press",
+    "image": "img/gymleco/245.jpg"
   },
   {
     "model": "251 Triceps Pushdown",
@@ -4761,7 +4810,8 @@
     "facets": {
       "implement": "cable"
     },
-    "mechanism": "Triceps Extension"
+    "mechanism": "Triceps Extension",
+    "image": "img/gymleco/251.jpg"
   },
   {
     "model": "255 Biceps Curl/Triceps Extension",
@@ -4773,7 +4823,8 @@
     "facets": {
       "implement": "cable"
     },
-    "mechanism": "Biceps Curl"
+    "mechanism": "Biceps Curl",
+    "image": "img/gymleco/255.jpg"
   },
   {
     "model": "280 Smith Machine",
@@ -4787,7 +4838,8 @@
     "facets": {
       "implement": "smith"
     },
-    "mechanism": "Assisted Pull-up"
+    "mechanism": "Assisted Pull-up",
+    "image": "img/gymleco/280.jpg"
   },
   {
     "model": "281 Smith Machine with Counterweight",
@@ -4801,7 +4853,8 @@
     "facets": {
       "implement": "smith"
     },
-    "mechanism": "Assisted Pull-up"
+    "mechanism": "Assisted Pull-up",
+    "image": "img/gymleco/281.jpg"
   },
   {
     "model": "285 Multi Smith Machine",
@@ -4815,7 +4868,8 @@
     "facets": {
       "implement": "smith"
     },
-    "mechanism": "Assisted Pull-up"
+    "mechanism": "Assisted Pull-up",
+    "image": "img/gymleco/285.jpg"
   },
   {
     "model": "310 Seated Row",
@@ -4830,7 +4884,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Seated Row"
+    "mechanism": "Seated Row",
+    "image": "img/gymleco/310.jpg"
   },
   {
     "model": "311 Iso Lateral Pulldown",
@@ -4845,7 +4900,8 @@
       "implement": "plate-loaded",
       "laterality": "iso-lateral"
     },
-    "mechanism": "Lat Pulldown"
+    "mechanism": "Lat Pulldown",
+    "image": "img/gymleco/311.jpg"
   },
   {
     "model": "312 Iso Lateral Low Row",
@@ -4860,7 +4916,8 @@
       "implement": "plate-loaded",
       "laterality": "iso-lateral"
     },
-    "mechanism": "Low Row"
+    "mechanism": "Low Row",
+    "image": "img/gymleco/312.jpg"
   },
   {
     "model": "314 Chins/Dips",
@@ -4874,7 +4931,8 @@
     "facets": {
       "implement": "selectorized"
     },
-    "mechanism": "Dip"
+    "mechanism": "Dip",
+    "image": "img/gymleco/314.jpg"
   },
   {
     "model": "320 Incline Chest Press",
@@ -4889,7 +4947,8 @@
       "implement": "plate-loaded",
       "angle": "incline"
     },
-    "mechanism": "Incline Chest Press"
+    "mechanism": "Incline Chest Press",
+    "image": "img/gymleco/320.jpg"
   },
   {
     "model": "321 Seated Wide Chest Press",
@@ -4904,7 +4963,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Chest Press"
+    "mechanism": "Chest Press",
+    "image": "img/gymleco/321.jpg"
   },
   {
     "model": "323 Seated Pec Deck",
@@ -4917,7 +4977,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Chest Fly"
+    "mechanism": "Chest Fly",
+    "image": "img/gymleco/323.jpg"
   },
   {
     "model": "324 Pullover",
@@ -4929,7 +4990,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Pullover"
+    "mechanism": "Pullover",
+    "image": "img/gymleco/324.jpg"
   },
   {
     "model": "326 Standing Pec Fly",
@@ -4942,7 +5004,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Chest Fly"
+    "mechanism": "Chest Fly",
+    "image": "img/gymleco/326.jpg"
   },
   {
     "model": "330 Shoulder Press",
@@ -4956,7 +5019,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Shoulder Press"
+    "mechanism": "Shoulder Press",
+    "image": "img/gymleco/330.jpg"
   },
   {
     "model": "331 Shoulder Rotation",
@@ -4968,7 +5032,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "seated lat raises"
+    "mechanism": "seated lat raises",
+    "image": "img/gymleco/331.jpg"
   },
   {
     "model": "333 Rear Deltoid Shoulder",
@@ -4980,7 +5045,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Rear-Delt Fly"
+    "mechanism": "Rear-Delt Fly",
+    "image": "img/gymleco/333.jpg"
   },
   {
     "model": "334 Standing Side Lateral",
@@ -4993,7 +5059,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Lateral Raise"
+    "mechanism": "Lateral Raise",
+    "image": "img/gymleco/334.jpg"
   },
   {
     "model": "335 Rear Deltoid/Pec Deck",
@@ -5005,7 +5072,8 @@
     "facets": {
       "implement": "selectorized"
     },
-    "mechanism": "Rear-Delt Fly"
+    "mechanism": "Rear-Delt Fly",
+    "image": "img/gymleco/335.jpg"
   },
   {
     "model": "336 Shoulder Front Press",
@@ -5017,7 +5085,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "seated shoulder press"
+    "mechanism": "seated shoulder press",
+    "image": "img/gymleco/336.jpg"
   },
   {
     "model": "340 Leg Extension",
@@ -5029,7 +5098,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Leg Extension"
+    "mechanism": "Leg Extension",
+    "image": "img/gymleco/340.jpg"
   },
   {
     "model": "340R Leg Extension, Adjustable",
@@ -5054,7 +5124,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Seated Leg Curl"
+    "mechanism": "Seated Leg Curl",
+    "image": "img/gymleco/341.jpg"
   },
   {
     "model": "342 Lying Leg Curl",
@@ -5067,7 +5138,8 @@
       "implement": "plate-loaded",
       "position": "lying"
     },
-    "mechanism": "Lying Leg Curl"
+    "mechanism": "Lying Leg Curl",
+    "image": "img/gymleco/342.jpg"
   },
   {
     "model": "342R Lying Leg Curl, Adjustable",
@@ -5095,7 +5167,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Leg Press"
+    "mechanism": "Leg Press",
+    "image": "img/gymleco/343.jpg"
   },
   {
     "model": "344 Horizontal Lying Leg Press",
@@ -5110,7 +5183,8 @@
       "implement": "selectorized",
       "position": "lying"
     },
-    "mechanism": "Leg Press"
+    "mechanism": "Leg Press",
+    "image": "img/gymleco/344.jpg"
   },
   {
     "model": "345 Seated Calf Press",
@@ -5123,7 +5197,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Seated Calf Raise"
+    "mechanism": "Seated Calf Raise",
+    "image": "img/gymleco/345.jpg"
   },
   {
     "model": "347 Standing Calf Press",
@@ -5136,7 +5211,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Standing Calf Raise"
+    "mechanism": "Standing Calf Raise",
+    "image": "img/gymleco/347.jpg"
   },
   {
     "model": "348 Seated Calf Press 45°",
@@ -5149,7 +5225,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Seated Calf Raise"
+    "mechanism": "Seated Calf Raise",
+    "image": "img/gymleco/348.jpg"
   },
   {
     "model": "349 Leg Extension/Leg Curl",
@@ -5161,7 +5238,8 @@
     "facets": {
       "implement": "selectorized"
     },
-    "mechanism": "Leg Extension"
+    "mechanism": "Leg Extension",
+    "image": "img/gymleco/349.jpg"
   },
   {
     "model": "350 Biceps Curl Machine",
@@ -5173,7 +5251,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Biceps Curl"
+    "mechanism": "Biceps Curl",
+    "image": "img/gymleco/350.jpg"
   },
   {
     "model": "351 Triceps Extension",
@@ -5185,7 +5264,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Triceps Extension"
+    "mechanism": "Triceps Extension",
+    "image": "img/gymleco/351.jpg"
   },
   {
     "model": "354 Dips Press/Shoulder Pull",
@@ -5199,7 +5279,8 @@
     "facets": {
       "implement": "selectorized"
     },
-    "mechanism": "Dip"
+    "mechanism": "Dip",
+    "image": "img/gymleco/354.jpg"
   },
   {
     "model": "355 Biceps/Triceps",
@@ -5211,7 +5292,8 @@
     "facets": {
       "implement": "selectorized"
     },
-    "mechanism": "Biceps Curl"
+    "mechanism": "Biceps Curl",
+    "image": "img/gymleco/355.jpg"
   },
   {
     "model": "356 Forearm Machine, 3 Exercises",
@@ -5225,7 +5307,8 @@
     "facets": {
       "implement": "selectorized"
     },
-    "mechanism": "Assisted Pull-up"
+    "mechanism": "Assisted Pull-up",
+    "image": "img/gymleco/356.jpg"
   },
   {
     "model": "357 Forearm Curl",
@@ -5237,7 +5320,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Biceps Curl"
+    "mechanism": "Biceps Curl",
+    "image": "img/gymleco/357.jpg"
   },
   {
     "model": "360 Gluteus, One Leg kick",
@@ -5249,7 +5333,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Glute Kickback"
+    "mechanism": "Glute Kickback",
+    "image": "img/gymleco/360.jpg"
   },
   {
     "model": "362 Standing Abductor",
@@ -5262,7 +5347,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Hip Abduction"
+    "mechanism": "Hip Abduction",
+    "image": "img/gymleco/362.jpg"
   },
   {
     "model": "364 Adductor/Abductor",
@@ -5274,7 +5360,8 @@
     "facets": {
       "implement": "selectorized"
     },
-    "mechanism": "Hip Abduction"
+    "mechanism": "Hip Abduction",
+    "image": "img/gymleco/364.jpg"
   },
   {
     "model": "365A Lumbar/Abdominal",
@@ -5309,7 +5396,8 @@
     "secondary": [],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/gymleco/369.jpg"
   },
   {
     "model": "370 Seated Abs Machine",
@@ -5324,7 +5412,8 @@
       "implement": "plate-loaded",
       "position": "seated"
     },
-    "mechanism": "Assisted Pull-up"
+    "mechanism": "Assisted Pull-up",
+    "image": "img/gymleco/370.jpg"
   },
   {
     "model": "375 Torso Rotation",
@@ -5338,7 +5427,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Torso Rotation"
+    "mechanism": "Torso Rotation",
+    "image": "img/gymleco/375.jpg"
   },
   {
     "model": "376 Knee standing Abdominal",
@@ -5351,7 +5441,8 @@
       "implement": "plate-loaded",
       "position": "standing"
     },
-    "mechanism": "Ab Crunch"
+    "mechanism": "Ab Crunch",
+    "image": "img/gymleco/376.jpg"
   },
   {
     "model": "725 Cable Cross, Adjustable 2×75 kg",
@@ -5362,7 +5453,8 @@
     "secondary": [],
     "facets": {
       "implement": "cable"
-    }
+    },
+    "image": "img/gymleco/725.jpg"
   },
   {
     "model": "726 Dual Adjustable Pulley 2×75 kg, Home Gym",
@@ -5373,7 +5465,8 @@
     "secondary": [],
     "facets": {
       "implement": "cable"
-    }
+    },
+    "image": "img/gymleco/726.jpg"
   },
   {
     "model": "893 Split Squat Stand, Adjustable bench",
@@ -5387,7 +5480,8 @@
     "facets": {
       "implement": "plate-loaded"
     },
-    "mechanism": "Hack/V-Squat"
+    "mechanism": "Hack/V-Squat",
+    "image": "img/gymleco/893.jpg"
   },
   {
     "model": "Abdominal Bench",
@@ -8634,7 +8728,8 @@
     "facets": {
       "implement": "machine",
       "position": "standing"
-    }
+    },
+    "image": "img/hoist/RPL-5405.jpg"
   },
   {
     "mechanism": "Hip Abduction",

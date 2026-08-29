@@ -7,18 +7,15 @@ Every HOIST row in the catalog came from a single used-equipment marketplace,
 and 24 of the 28 cutouts are ghosted warehouse shots — the worst image quality
 of any brand. This replaces the ones we can identify with studio photography.
 
-The brochure is the most regular of any so far: one machine per page across
-pages 6-27, each carrying an 18pt name, a 13pt RS code, one large hero photo
-and a couple of small feature thumbnails. So the rule is simply "largest image
-on the page" (hero ~120-175k px^2 vs ~10k for the detail shots).
+Both brochures are the most regular of any so far: one machine per page, each
+carrying a name, a product code, one large hero photo and a couple of small
+feature thumbnails. So the rule is simply "largest image on the page" (hero
+50-175k px^2 vs ~10k for the detail shots).
 
-Matching is by explicit RS-1xxx code only, never by machine name. HOIST sells a
-selectorized *and* a plate-loaded machine for most movements, so name-matching
-a "Plate Loaded Chest Press" row onto the RS-1301 selectorized Chest Press
-would attach a photo of a different machine.
-
-Page 28 is the summary index — it repeats all 21 codes and has no photos, so it
-is excluded by the page range.
+Matching is by explicit RS-1xxx / RPL-5xxx code only, never by machine name.
+HOIST sells a selectorized *and* a plate-loaded machine for most movements, so
+name-matching a "Plate Loaded Chest Press" row onto the RS-1301 selectorized
+Chest Press would attach a photo of a different machine.
 
 Idempotent: re-running overwrites the same img/hoist/<code>.jpg.
 """
@@ -32,21 +29,38 @@ from pathlib import Path
 import pymupdf
 
 ROOT = Path(__file__).resolve().parent.parent
-PDF = ROOT / "docs" / "hoist-rocit-rs-brochure.pdf"
 RESOLVED = ROOT / "catalog" / "machines_resolved.json"
 OUT = ROOT / "tools" / "cap" / "www" / "img" / "hoist"
 BRAND = "Hoist"
-PAGES = range(6, 28)          # 6-27; page 28 is the index
 
-CODE = re.compile(r"RS-1\d{3}")
-MIN_HERO = 40000              # px^2; detail thumbnails are ~10k, heroes >100k
+# Both HOIST brochures share a layout, so one rule covers them: name, code,
+# one hero photo and a couple of detail thumbnails, one machine per page. The
+# final page of each is a summary index repeating every code with no photos,
+# which the page range excludes.
+SOURCES = [
+    (ROOT / "docs" / "hoist-rocit-rs-brochure.pdf", range(6, 28)),            # selectorized
+    (ROOT / "docs" / "hoist-rocit-plate-loaded-brochure.pdf", range(4, 17)),  # plate loaded
+]
+
+CODE = re.compile(r"R(?:S-1|PL-5)\d{3}")
+MIN_HERO = 40000              # px^2; detail thumbnails are ~10k, heroes 50-175k
 
 
-def heroes() -> dict[str, tuple[int, int]]:
-    """RS code -> (page, xref of the hero photo)."""
-    doc = pymupdf.open(PDF)
-    out: dict[str, tuple[int, int]] = {}
-    for pno in PAGES:
+def heroes() -> dict[str, tuple[Path, int, int]]:
+    """RS/RPL code -> (pdf, page, xref of the hero photo)."""
+    out: dict[str, tuple[Path, int, int]] = {}
+    for pdf, pages in SOURCES:
+        if not pdf.exists():
+            print(f"note: {pdf.name} not present, skipping")
+            continue
+        out.update(_heroes_in(pdf, pages))
+    return out
+
+
+def _heroes_in(pdf: Path, pages) -> dict[str, tuple[Path, int, int]]:
+    doc = pymupdf.open(pdf)
+    out: dict[str, tuple[Path, int, int]] = {}
+    for pno in pages:
         if pno > doc.page_count:
             break
         page = doc[pno - 1]
@@ -60,7 +74,7 @@ def heroes() -> dict[str, tuple[int, int]]:
                 if area > best_area:
                     best_area, best = area, x[0]
         if best is not None and best_area >= MIN_HERO:
-            out[codes.pop()] = (pno, best)
+            out[codes.pop()] = (pdf, pno, best)
     return out
 
 
@@ -85,10 +99,11 @@ def main() -> None:
         print("\ndry run — pass --write to extract and attach")
         return
 
-    doc = pymupdf.open(PDF)
     OUT.mkdir(parents=True, exist_ok=True)
+    docs = {}
     for r, code in ok:
-        _, xref = pics[code]
+        pdf, _, xref = pics[code]
+        doc = docs.setdefault(pdf, pymupdf.open(pdf))
         pix = pymupdf.Pixmap(doc, xref)
         if pix.alpha or (pix.colorspace and pix.colorspace.n > 3):
             pix = pymupdf.Pixmap(pymupdf.csRGB, pix)
