@@ -934,6 +934,60 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     ? 'http://127.0.0.1:8000'
     : 'https://rackd-api-sguhring.azurewebsites.net';
   const USER='me';   // single local user for now (on-device, no accounts)
+  // ===== bundled catalog (catalog/catalog.json + catalog/img/, written by api/export_bundle.py) =====
+  // the phone build ships the whole machine catalog with every photo, so browsing and
+  // search work offline and never depend on the hosted API being current. when the
+  // bundle is missing (PC dev server without an export) the same calls go to the API.
+  let CATALOG=null, _catalogLoad=null;
+  function loadCatalogBundle(){
+    if(_catalogLoad) return _catalogLoad;
+    _catalogLoad=(async()=>{
+      try{
+        const r=await fetch('catalog/catalog.json',{cache:'no-store'});
+        if(!r.ok) return null;
+        const d=await r.json();
+        if(!d||!Array.isArray(d.machines)||!d.machines.length) return null;
+        d.exBySlug={}; (d.exercises||[]).forEach(e=>{ d.exBySlug[e.slug]=e; });
+        d.byEx={}; d.machines.forEach(m=>{ if(m.exercise)(d.byEx[m.exercise]=d.byEx[m.exercise]||[]).push(m); });
+        CATALOG=d;
+      }catch(e){ CATALOG=null; }
+      return CATALOG;
+    })();
+    return _catalogLoad;
+  }
+  // same row shape the API's /catalog/machines and /catalog/search return
+  const catRow=m=>({machine_id:m.id, brand:m.brand, model:m.model, machine_type:m.machine_type,
+    muscle_label:m.muscle_label, muscle_group:(CATALOG.exBySlug[m.exercise]||{}).muscle_group||null,
+    image_url:m.img||null});
+  async function catalogGet(kind,p={}){
+    const c=await loadCatalogBundle();
+    if(!c){
+      const path={exercises:'/catalog/exercises',
+        brands:`/catalog/brands?exercise=${encodeURIComponent(p.exercise||'')}`,
+        machines:`/catalog/machines?exercise=${encodeURIComponent(p.exercise||'')}&brand=${encodeURIComponent(p.brand||'')}`,
+        search:`/catalog/search?q=${encodeURIComponent(p.q||'')}`}[kind];
+      try{ const r=await fetch(API+path); return r.ok?await r.json():[]; }catch(e){ return []; }
+    }
+    if(kind==='exercises')
+      return c.exercises.filter(e=>(c.byEx[e.slug]||[]).length)
+        .map(e=>({slug:e.slug, name:e.name, muscle_group:e.muscle_group, machine_count:c.byEx[e.slug].length}));
+    if(kind==='brands'){
+      const n={}; (c.byEx[p.exercise]||[]).forEach(m=>{ n[m.brand]=(n[m.brand]||0)+1; });
+      return Object.keys(n).sort((a,b)=>n[b]-n[a]||a.localeCompare(b)).map(b=>({brand:b, count:n[b]}));
+    }
+    if(kind==='machines')
+      return (c.byEx[p.exercise]||[]).filter(m=>!p.brand||m.brand===p.brand)
+        .sort((a,b)=>a.model.localeCompare(b.model)).map(catRow);
+    if(kind==='search'){
+      const q=(p.q||'').trim(); if(q.length<2) return [];
+      return c.machines
+        .map(m=>({m, s:fuzzyScore(q,[m.brand, m.model, m.machine_type||'', m.muscle_label||'', (c.exBySlug[m.exercise]||{}).name||''])}))
+        .filter(x=>x.s>0)
+        .sort((a,b)=>b.s-a.s||a.m.brand.localeCompare(b.m.brand)||a.m.model.localeCompare(b.m.model))
+        .slice(0, p.limit||30).map(x=>catRow(x.m));
+    }
+    return [];
+  }
   const PALETTE=['#B71C1C','#0A6EBD','#1A8E6E','#E8551F','#7B5EA7','#C4161C','#2C7A4B',
                  '#B58100','#0F6E6E','#9A3B8C','#3A5BBF','#A04515'];
   // style for ANY brand: known ones keep their colour; unknown ones get a stable badge.
@@ -987,7 +1041,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
       // already-embedded images (data: URIs) or img/ paths are used as-is (offline-safe);
       // remote URLs map to a pre-rendered local cutout so they work offline too.
       const isSvg = /\.svg(?:$|[?#])/i.test(image_url);
-      const cutout = /^(data:|img\/)/.test(image_url) || isSvg ? image_url : `img/${imgHash(image_url)}.png`;
+      const cutout = /^(data:|img\/|catalog\/)/.test(image_url) || isSvg ? image_url : `img/${imgHash(image_url)}.png`;
       const src = IMAGES_MODE==='original' ? image_url : cutout;
       // if the local cutout is missing, fall back to the real remote image, then the icon
       const orig = (src!==image_url) ? image_url.replace(/"/g,'&quot;') : '';
@@ -1642,8 +1696,8 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     document.getElementById('catmove').innerHTML='<div class="empty">loading…</div>';
     show('s-cat-move');
     let list=[];
-    try{const r=await fetch(`${API}/catalog/exercises`); if(r.ok) list=await r.json();}catch(e){}
-    if(!list.length){document.getElementById('catmove').innerHTML='<div class="empty">catalog unavailable — start the API (uvicorn main:app).</div>';return;}
+    list=await catalogGet('exercises');
+    if(!list.length){document.getElementById('catmove').innerHTML='<div class="empty">catalog unavailable — no bundled catalog and the API is offline.</div>';return;}
     let html='';
     ['push','pull','legs','core'].forEach(g=>{
       const items=list.filter(e=>(e.muscle_group||'core')===g);
@@ -1662,7 +1716,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     document.getElementById('catbrand').innerHTML='<div class="empty">loading…</div>';
     show('s-cat-brand');
     let list=[];
-    try{const r=await fetch(`${API}/catalog/brands?exercise=${encodeURIComponent(slug)}`); if(r.ok) list=await r.json();}catch(e){}
+    list=await catalogGet('brands',{exercise:slug});
     let html='<div class="group">';
     list.forEach(b=>{const s=brandStyle(b.brand.toLowerCase());
       html+=`<div class="row" onclick="catPickBrand('${esc(b.brand)}')">
@@ -1679,7 +1733,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     document.getElementById('catmodel').innerHTML='<div class="empty">loading…</div>';
     show('s-cat-model');
     let list=[];
-    try{const r=await fetch(`${API}/catalog/machines?exercise=${encodeURIComponent(cat.move)}&brand=${encodeURIComponent(brand)}`); if(r.ok) list=await r.json();}catch(e){}
+    list=await catalogGet('machines',{exercise:cat.move, brand});
     cat.models=list;
     const s=brandStyle(brand.toLowerCase());
     let html='<div class="group">';
@@ -1973,7 +2027,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
         .map(x=>({brand:x.m.brand,model:x.m.name,muscle_group:x.m.group,muscle_label:x.m.muscle,image_url:x.m.img,_score:x.score}));
       // branded machines (API)
       let api=[];
-      try{const r=await fetch(`${API}/catalog/search?q=${encodeURIComponent(q.trim())}`); if(r.ok) api=await r.json();}catch(e){}
+      api=await catalogGet('search',{q:q.trim()});
       const seen=new Set();
       catResults=[...local, ...api].filter(m=>{
         const key=(m.brand||'').toLowerCase()+'|'+(m.model||'').toLowerCase();
@@ -2132,9 +2186,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const found={};
     for(const k of keys.slice(0,25)){
       try{
-        const r=await fetch(`${API}/catalog/search?q=${encodeURIComponent(need[k])}`);
-        if(!r.ok) continue;
-        const list=await r.json();
+        const list=await catalogGet('search',{q:need[k]});
         // same identity the catalog picker builds an item with: brand|model, lowercased
         const hit=(list||[]).find(m=>m&&m.image_url&&((m.brand||'')+'|'+(m.model||'')).toLowerCase()===k);
         if(hit) found[k]=hit.image_url;
