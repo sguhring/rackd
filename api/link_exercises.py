@@ -66,29 +66,29 @@ NOT_ONE_MOVEMENT = re.compile(
     r"multi[- ]?station|jungle|crossover|cross over|functional trainer|dual adjustable|cable (column|tower|station|motion)|"
     r"smith|power rack|half rack|squat rack|rack\b|bench\b(?!.*press)|storage|platform|multi[- ]?press|multi[- ]?gym|"
     r"\bft\b|4[- ]?stack|8[- ]?stack|circuit|kinesis|synrgy|hoist mi\d|home gym|total gym|combo\b.*/|"
-    r"ablage|stand\b|jack\b|bravo|platinum|triple press|multifunctional|dual system|monolith|push and pull|"
+    r"ablage|\bstands?$|jack\b|bravo|platinum|triple press|multifunctional|dual system|monolith|push and pull|"
     r"tibia|sissy", re.I)
 
 # ordered keyword rules over "model · muscle_label" (lowercased); first hit wins
 RULES: list[tuple[str, str]] = [
-    (r"rear[- ]?delt|reverse fly|rear fly", "rear-delt"),
-    (r"pec ?deck|pec fly|chest fly|butterfly|\bfly\b|flye|flight", "pec-fly"),
+    (r"rear[- ]?delt|reverse fly|rear fly|delts? machine", "rear-delt"),
+    (r"pec ?deck|pec ?fly|chest fly|butterfly|\bfly\b|flye|flight", "pec-fly"),
     (r"total chest|incline decline|flat.*incline|incline.*flat", "chest-press"),
     (r"incline.*(press|chest)|(press|chest).*incline", "incline-chest-press"),
     (r"chest press|bench press|decline press|vertical press|seated press|converging.*press|press.*chest|brust", "chest-press"),
     (r"shoulder press|overhead press|military press|delt press|press.*shoulder", "shoulder-press"),
     (r"lateral raise|lat raise|side raise|deltoid raise|seithebe", "lateral-raise"),
-    (r"lat ?pull|pull ?down|pull-?down|front pull|latzug", "lat-pulldown"),
+    (r"lat ?pull|pull ?down|pull-?down|front pull|latzug|back-pulling", "lat-pulldown"),
     (r"pull[- ]?up|\bchin\b|chin/|/chin|gravitron|assisted dip|dip.*assist|assist.*dip|klimmzug", "chin-up"),
     (r"pullover|pull over", "pullover"),
-    (r"\brow\b|rowing|rudern|ruder", "seated-row"),
+    (r"\brow\b|rowing|rower|rudern|ruder", "seated-row"),
     (r"shrug", "shrug"),
     (r"jammer|push press|ground base", "jammer-press"),
     (r"tricep|triceps|pushdown|arm extension|trizeps", "triceps-extension"),
     (r"\bdip\b|dips\b", "triceps-dip"),
     (r"bicep|biceps|preacher|arm curl|curl.*(arm|bicep)|bizeps|scott", "biceps-curl"),
     (r"hip thrust|glute bridge|glute drive", "hip-thrust"),
-    (r"glute|kickback|kick back|booty|butt blaster|hip extension", "glute"),
+    (r"glute|kickback|kick back|rear kick|booty|butt blaster|hip extension", "glute"),
     (r"multi[- ]?hip|4[- ]way hip|total hip", "multi-hip"),
     (r"abduct|outer thigh", "hip-abduction"),
     (r"adduct|inner thigh", "hip-adduction"),
@@ -102,7 +102,7 @@ RULES: list[tuple[str, str]] = [
     (r"deadlift|kreuzheben|trap bar", "deadlift"),
     (r"back ext|back raise|hyper|lower back|lumbar|rückenstreck|45 degree back|roman chair|glute ham|ghd", "back-extension"),
     (r"leg raise|knee raise|vkr|captain|hanging", "leg-raise"),
-    (r"rotary torso|torso rot|rotation|twist|oblique", "torso-rotation"),
+    (r"rotary torso|torso rot|torso|rotation|twist|oblique", "torso-rotation"),
     (r"\bab\b|abdominal|crunch|bauch|core\b", "ab-crunch"),
 ]
 
