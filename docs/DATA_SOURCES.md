@@ -125,6 +125,7 @@ machine (Cybex Eagle ≠ Eagle NX, Precor Discovery ≠ Resolute, Muscle D Power
 | Life Fitness Optima (OS*) + Signature Cable Motion / Multi-Jungle | `lifefitness_produktkatalog_2020.pdf` | user-supplied | `catalog/brand_brochure_photos.py` |
 | Life Fitness Signature Series single stations (FZ*) + Pro2 (PS*SE) | `lifefitness-catalog-2015.pdf` | Wayback: lifefitness.com/static-assets/document/LF_product_catalogs/LF_DIGITAL_Spreads.pdf (2015-02) | same |
 | Muscle D Power Leverage (MDP) + Classic MDC-1011A / Dual Function MDD-1008 / Free Weight MD-LPM, Smith | `muscledfitness.com_.pdf` | user-supplied print of the original muscledfitness.com Strength Equipment Catalog (page images only, no text layer — photos are hand-pinned crop rectangles) | `catalog/muscled_images.py` |
+| StairMaster Arcuate / Linear (Pacific Fitness design; 11 renders + 4 new Linear rows) | — (downloaded at run time) | Wayback: stairmaster.com/commercial/products/strength/ (2001–02), /Images/Product/arcuate*.jpg, linearline*.jpg — the Seated Row image was never captured | `catalog/stairmaster_wayback_images.py` |
 | Paramount SP Circuit | `catalog_sp.pdf` | user-supplied | `api/paramount_catalog.py` |
 
 Still open (no same-generation source found yet): Precor Discovery *Selectorized* (DSL, needs the

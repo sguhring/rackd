@@ -16244,7 +16244,7 @@
       "implement": "selectorized",
       "position": "seated"
     },
-    "image": "img/stairmaster/stairmaster-arcuate-bicep-curl.jpg"
+    "image": "img/stairmaster/arcuate-bicep-curl.jpg"
   },
   {
     "mechanism": "Chest Press",
@@ -16258,7 +16258,8 @@
     ],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/arcuate-chest-press.jpg"
   },
   {
     "mechanism": "Incline Chest Press",
@@ -16273,7 +16274,8 @@
     "facets": {
       "implement": "selectorized",
       "angle": "incline"
-    }
+    },
+    "image": "img/stairmaster/arcuate-incline-press.jpg"
   },
   {
     "mechanism": "Lat Pulldown",
@@ -16289,7 +16291,7 @@
       "implement": "selectorized",
       "position": "seated"
     },
-    "image": "img/stairmaster/stairmaster-arcuate-lat-pull.jpg"
+    "image": "img/stairmaster/arcuate-lat-pull.jpg"
   },
   {
     "mechanism": "Leg Press",
@@ -16303,7 +16305,8 @@
     ],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/arcuate-leg-press.jpg"
   },
   {
     "mechanism": "Seated Row",
@@ -16332,7 +16335,8 @@
     ],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/arcuate-shoulder-press.jpg"
   },
   {
     "mechanism": "Triceps Extension",
@@ -16344,7 +16348,8 @@
     "secondary": [],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/arcuate-tricep.jpg"
   },
   {
     "mechanism": "Ab Crunch",
@@ -16358,7 +16363,8 @@
     ],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/linear-ab-torso.jpg"
   },
   {
     "mechanism": "Rear-Delt Fly",
@@ -16372,7 +16378,8 @@
     ],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/linear-fly-rear-deltoid.jpg"
   },
   {
     "mechanism": "Hip Adduction",
@@ -16384,7 +16391,8 @@
     "secondary": [],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/linear-inner-thigh.jpg"
   },
   {
     "mechanism": "Leg Extension",
@@ -16396,7 +16404,8 @@
     "secondary": [],
     "facets": {
       "implement": "selectorized"
-    }
+    },
+    "image": "img/stairmaster/linear-leg-extension.jpg"
   },
   {
     "mechanism": "Leg Press",

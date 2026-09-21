@@ -26,8 +26,13 @@ Checked and came up empty:
 Everything StairMaster that has been digitised is cardio: 4000/4200/4400/4600 PT, FreeClimber,
 StepMill 5 / 7000, Gauntlet, HIIT bike. The strength lines were never scanned by anyone.
 
-⚠️ `web.archive.org` is not fetchable from this environment, so the Wayback Machine's copies of
-`stairmaster.com` circa 1998–2002 remain **unchecked**. That's the one real open lead — see below.
+**Update Sept 2026 — the Wayback lead paid off.** `stairmaster.com` (2001–02) has a product page per
+machine under `commercial/products/strength/arcuate/` and `/linear/`, with the official render in
+`/Images/Product/`. 11 of 12 survive (300 px, or the 200 px `_sm` thumbnail); the **Arcuate Seated Row**
+page is archived but its image was never captured. Recovered by `catalog/stairmaster_wayback_images.py`,
+which also adds the four Linear machines the model list below lacked (Lower Back, Outer Thigh, Seated
+Leg Curl, Total Glute). The line was designed with Pacific Fitness (StairMaster partnered with them for
+strength in 1996; Precor bought Pacific Fitness in 1998, whose site then only carried home gyms).
 
 ## What does exist — the model list
 
