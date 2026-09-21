@@ -402,7 +402,12 @@
   .histaxis{display:flex;justify-content:space-between;font-size:11px;color:var(--label-3);font-variant-numeric:tabular-nums;margin-top:-2px;}
   .histmeta{font-size:12px;color:var(--label-3);margin-top:7px;}
   /* previous-workout session detail */
-  .ps-ex{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);}
+  .ps-ex{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);}
+  .ps-exl{display:flex;align-items:center;gap:9px;min-width:0;}
+  .ps-ex .micon{width:30px;height:30px;border-radius:8px;}
+  .ps-ex .micon svg{width:22px;height:22px;}
+  .ps-ex .mthumb-over{border-radius:8px;}
+  .sd-exh{display:flex;align-items:center;gap:10px;}
   .ps-ex:first-of-type{margin-top:8px;}
   .ps-exn{font-size:13px;color:var(--label);}
   .ps-b{color:var(--accent);font-size:11px;text-transform:lowercase;}
@@ -420,6 +425,7 @@
   .tapcard{cursor:pointer;}
   .sd-card{margin:0 16px 12px;background:var(--elev);border-radius:14px;padding:14px 16px;}
   .sd-exh{font-size:15px;font-weight:600;color:var(--label);margin-bottom:8px;}
+  .sd-exh .micon{width:34px;height:34px;border-radius:9px;flex:0 0 auto;}
   .sd-note{margin:-2px 0 10px;padding:8px 11px;background:rgba(48,209,88,.09);border:.5px solid rgba(48,209,88,.18);border-radius:10px;font-size:13px;line-height:1.4;color:var(--label);white-space:pre-wrap;letter-spacing:-.01em;}
   .sd-snote{margin:0 16px 12px;}
   .sd-tblh{display:grid;grid-template-columns:34px 1fr 1fr 36px;gap:8px;font-size:11px;color:var(--label-3);text-transform:uppercase;letter-spacing:.4px;padding:0 0 4px;}
@@ -1053,12 +1059,223 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // ===== on-device persistence (localStorage) =====
   const LS='rackd.v1';
   function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];d.active=d.active||null;return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[],active:null};}}
-  function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
+  // a swallowed write is how a finished workout silently disappears: the set lands in
+  // memory, the screen renders it, and the next launch reloads the last DB that fit.
+  // localStorage is a few MB and every machine photo is stored inline, so quota is
+  // reachable — say so loudly instead of losing the session.
+  let _saveWarned=false;
+  function saveDB(){
+    try{ localStorage.setItem(LS,JSON.stringify(DB)); _saveWarned=false; return true; }
+    catch(e){
+      if(!_saveWarned){
+        _saveWarned=true;
+        try{ toastMsg(true,'could not save','storage is full — export a backup, this workout is not on disk yet'); }catch(_){}
+      }
+      return false;
+    }
+  }
   // the in-progress workout is a live DUPLICATE of the preset: its own idx + items,
   // so edits/sets during the workout never touch the saved preset. Persisted so the
   // "current workout" card survives an app restart until the user taps finish.
-  function persistActive(){ DB.active = st.session ? {name:st.session.name,items:st.session.items,idx:st.session.idx,wid:st.session.wid} : null; saveDB(); }
+  function persistActive(){ DB.active = st.session ? {name:st.session.name,items:st.session.items,idx:st.session.idx,wid:st.session.wid,startedAt:st.session.startedAt||null} : null; saveDB(); }
   let DB=loadDB();
+  // ---- one-time cleanup: machines logged as "custom" before they existed in the catalog.
+  // brand+name is the identity used everywhere — sets, saved sessions, workout presets and
+  // the per-machine notes — so all four have to move together or the machine's history splits
+  // in two and "last time on this machine" stops seeing the older sets.
+  const LEGACY_MACHINES=[
+    {from:['custom','acurate lat zug'],        to:['stairmaster','arcuate lat pull']},
+    {from:['custom','arcuate rudermaschiene'], to:['stairmaster','arcuate seated row']},
+    {from:['custom','hbp leg extension'],      to:['hbp','standardline beinstreck maschine, sitzend 0402']},
+    {from:['custom','hbp leg curl lying'],     to:['hbp','standardline beinbeuge maschine, liegend 0403']},
+  ];
+  function migrateLegacyMachines(){
+    if(DB.mig_machines) return;
+    const hit={}; LEGACY_MACHINES.forEach(r=>{hit[r.from[0]+'|'+r.from[1]]=r.to;});
+    const remap=o=>{ if(!o||!o.name) return false; const t=hit[(o.brand||'')+'|'+o.name]; if(!t) return false; o.brand=t[0]; o.name=t[1]; return true; };
+    let n=0;
+    (DB.sets||[]).forEach(s=>{ if(remap(s)) n++; });
+    (DB.sessions||[]).forEach(s=>(s.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    // notes are keyed brand|name, sometimes behind a workout-scope prefix — keep the prefix,
+    // and never clobber a note the real machine already carries.
+    const notes=DB.notes||{};
+    Object.keys(notes).forEach(k=>{
+      const r=LEGACY_MACHINES.find(x=>{const f=x.from[0]+'|'+x.from[1]; return k===f||k.endsWith('|'+f);});
+      if(!r) return;
+      const f=r.from[0]+'|'+r.from[1], nk=k.slice(0,k.length-f.length)+r.to[0]+'|'+r.to[1];
+      notes[nk]=(notes[nk]&&notes[nk]!==notes[k])?notes[nk]+'\n'+notes[k]:notes[k];
+      delete notes[k]; n++;
+    });
+    DB.notes=notes;
+    // the custom stand-ins are duplicates of real catalog machines now
+    DB.custom=(DB.custom||[]).filter(c=>!hit[(c.brand||'')+'|'+c.name]);
+    DB.mig_machines=1; saveDB();
+    if(n) console.log('[rackd] migrated '+n+' legacy custom reference(s)');
+  }
+  migrateLegacyMachines();
+  // ---- round two: machines that only reached the catalog in the Aug-29 rebuild (HBP,
+  // GervaSport, StairMaster, Strive) plus one Panatta name that never lined up. Needs its
+  // own flag — mig_machines is already 1 on any device that ran the first round, so
+  // appending to LEGACY_MACHINES above would silently never execute.
+  const LEGACY_MACHINES_2=[
+    {from:['custom','strive shoulder press'], to:['strive','smart strength shoulder press s-103']},
+    {from:['custom','prime butterfly'],       to:['prime fitness','prime hybrid pec fly']},
+    {from:['custom','gerva sport bizeps'],    to:['gervasport','classic c080']},
+    // logged under the line name; the catalog drops it: "FREEWEIGHT HP High Row" -> "HP High Row"
+    {from:['panatta','freeweight hp high row (1hp503)'], to:['panatta','hp high row (1hp503)']},
+    // deliberately NOT migrated: "48 bizeps curl" and "panatta sup" stay custom — no
+    // catalog machine matches them, and a wrong link would attach real sets to the
+    // wrong machine (loads are not comparable across machines).
+  ];
+  function migrateLegacyMachines2(){
+    if(DB.mig_machines2) return;
+    const hit={}; LEGACY_MACHINES_2.forEach(r=>{hit[r.from[0]+'|'+r.from[1]]=r.to;});
+    const remap=o=>{ if(!o||!o.name) return false; const t=hit[(o.brand||'')+'|'+o.name]; if(!t) return false; o.brand=t[0]; o.name=t[1]; return true; };
+    let n=0;
+    (DB.sets||[]).forEach(s=>{ if(remap(s)) n++; });
+    (DB.sessions||[]).forEach(s=>(s.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    const notes=DB.notes||{};
+    Object.keys(notes).forEach(k=>{
+      const r=LEGACY_MACHINES_2.find(x=>{const f=x.from[0]+'|'+x.from[1]; return k===f||k.endsWith('|'+f);});
+      if(!r) return;
+      const f=r.from[0]+'|'+r.from[1], nk=k.slice(0,k.length-f.length)+r.to[0]+'|'+r.to[1];
+      notes[nk]=(notes[nk]&&notes[nk]!==notes[k])?notes[nk]+'\n'+notes[k]:notes[k];
+      delete notes[k]; n++;
+    });
+    DB.notes=notes;
+    DB.custom=(DB.custom||[]).filter(c=>!hit[(c.brand||'')+'|'+c.name]);
+    DB.mig_machines2=1; saveDB();
+    if(n) console.log('[rackd] migrated '+n+' further legacy reference(s)');
+  }
+  migrateLegacyMachines2();
+  // one-time: two exercises added to the "Back, Arms & Full Body" preset. presets are user
+  // data, so this ships as a guarded migration rather than a code-level default. runs after
+  // the machine migration so it sees canonical brand+name.
+  function migratePresetAdds(){
+    if(DB.mig_preset_ba) return;
+    const w=(DB.workouts||[]).find(x=>x&&x.name==='Back, Arms & Full Body');
+    if(w){
+      w.items=w.items||[];
+      const has=(b,n)=>w.items.some(i=>i&&i.brand===b&&i.name===n);
+      const mk=(b,n,g,mu)=>{
+        const src=(DB.custom||[]).find(c=>c&&c.brand===b&&c.name===n)||{};
+        return {brand:b,name:n,group:src.group||g,muscle:src.muscle||mu||'',img:src.img||'',lastW:0,lastR:0,lastS:0,date:''};
+      };
+      if(!has('custom','48 bizeps curl')) w.items.push(mk('custom','48 bizeps curl','pull','biceps'));
+      if(!has('barbell','barbell strict curl')){
+        // not in the shipped library — register it so it stays searchable and reusable
+        if(!(DB.custom||[]).some(c=>c&&c.brand==='barbell'&&c.name==='barbell strict curl'))
+          DB.custom.push({brand:'barbell',name:'barbell strict curl',group:'pull',muscle:'biceps',img:'',lastW:0,lastR:0,lastS:0,date:''});
+        w.items.push(mk('barbell','barbell strict curl','pull','biceps'));
+      }
+    }
+    DB.mig_preset_ba=1; saveDB();
+  }
+  migratePresetAdds();
+  // ---- one-time: a single preset holding every distinct exercise from the last five
+  // sessions (31 Jul - 21 Aug). Runs after migrateLegacyMachines2 so the Panatta high row
+  // is already under its canonical name.
+  //
+  // Two deliberate edits to what the sessions actually contain:
+  //   * "monolith standing multi flight (1mth028)" is dropped — despite the name that
+  //     machine is the cable tower, logged by mistake in place of the real standing multi
+  //     flight, which is "fit evo standing multi flight machine (1fe028)" and takes its slot
+  //   * only one of the two Nautilus pullovers is kept (nitro plus, the more recent)
+  // Basis are the last five TRAINING DAYS (19-27 Aug), not the last five saved
+  // sessions: everything after 21 Aug was logged as sets without the session ever
+  // being finished — one workout is still open in DB.active — so going by sessions
+  // silently ignores the three most recent workouts.
+  const PRESET_ALL='everything (last 5 training days)';
+  const PRESET_ITEMS=[
+    ['barbell','barbell bench press','push','chest'],
+    ['barbell','barbell curl','pull','biceps'],
+    ['barbell','spider curls','pull','biceps'],
+    ['watson','animal adjustable hack squat (0042)','legs','quads · glutes'],
+    ['hbp','standardline beinstreck maschine, sitzend 0402','legs','quads'],
+    ['hbp','standardline beinbeuge maschine, liegend 0403','legs','hamstrings'],
+    ['strive','smart strength arm curl s-101','pull','biceps'],
+    ['nautilus','nitro compound row','pull','mid-back'],
+    ['panatta','freeweight special super rowing machine circular (1fw204)','pull','mid-back · lats'],
+    ['panatta','freeweight special super lat pulldown circular (1fw101)','pull','lats'],
+    ['panatta','freeweight special super high row (1fw003)','pull','upper-back · lats'],
+    ['panatta','fit evo standing multi flight machine (1fe028)','push','side delts'],
+    ['stairmaster','arcuate lat pull','pull','lats'],
+    ['stairmaster','arcuate seated row','pull','mid-back · lats'],
+    ['gervasport','classic c080','pull','biceps'],
+    ['custom','48 bizeps curl','pull','biceps'],
+    ['custom','panatta sup','core',''],
+  ];
+  function migratePresetAll(){
+    if(DB.mig_preset_all) return;
+    DB.workouts=DB.workouts||[];
+    if(!DB.workouts.some(w=>w&&w.name===PRESET_ALL)){
+      const items=PRESET_ITEMS.map(([b,n,g,mu])=>{
+        // free-weight moves are not in the machine catalog, so register them as custom
+        // once — otherwise they are not searchable and cannot be reused in another preset
+        if(b==='barbell'&&!(DB.custom||[]).some(c=>c&&c.brand===b&&c.name===n))
+          (DB.custom=DB.custom||[]).push({brand:b,name:n,group:g,muscle:mu,img:'',lastW:0,lastR:0,lastS:0,date:''});
+        const src=(DB.custom||[]).find(c=>c&&c.brand===b&&c.name===n)||{};
+        return {brand:b,name:n,group:g,muscle:mu,img:src.img||'',lastW:0,lastR:0,lastS:0,date:''};
+      });
+      DB.workouts.push({id:'wall5'+Date.now().toString(36),name:PRESET_ALL,items:items});
+    }
+    DB.mig_preset_all=1; saveDB();
+  }
+  migratePresetAll();
+  // one-time: the custom stand-ins carried accidental screenshots rather than machine photos,
+  // and renaming them onto real machines left one preset holding the same machine twice. pin the
+  // shipped catalog photo where we actually have one, drop the screenshot, and de-duplicate —
+  // but only for the identities this migration created, since a preset may legitimately repeat
+  // a machine on purpose.
+  const MACHINE_IMG={'stairmaster|arcuate lat pull':'img/stairmaster-arcuate-lat-pull.jpg'};
+  const NO_IMAGE={'stairmaster|arcuate seated row':1};   // only candidate was an unrelated screenshot
+  function migrateMachineImages(){
+    if(DB.mig_img1) return;
+    const pin=o=>{ if(!o||!o.name) return; const k=(o.brand||'')+'|'+o.name;
+      if(MACHINE_IMG[k]) o.img=MACHINE_IMG[k]; else if(NO_IMAGE[k]) o.img=''; };
+    const targets={}; LEGACY_MACHINES.forEach(r=>{targets[r.to[0]+'|'+r.to[1]]=1;});
+    (DB.custom||[]).forEach(pin);
+    (DB.workouts||[]).forEach(w=>{
+      (w.items||[]).forEach(pin);
+      const seen={};
+      w.items=(w.items||[]).filter(i=>{
+        const k=((i&&i.brand)||'')+'|'+((i&&i.name)||'');
+        if(!targets[k]) return true;
+        if(seen[k]) return false; seen[k]=1; return true;
+      });
+    });
+    DB.mig_img1=1; saveDB();
+  }
+  migrateMachineImages();
+  // ---- a set is now stamped with the session that recorded it (s.sid). before this, a set
+  // belonged to a session only by "same calendar day", so anything logged after you tapped
+  // finish — or on a machine that was never in the workout — was invisible in history for
+  // good. stamp the sets of every session saved before the flag existed, matching on the
+  // machine first, then on the load alone (older sessions still carry pre-rename names).
+  function migrateSetSids(){
+    if(DB.mig_setsid) return;
+    const dk=ts=>{const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime();};
+    const k=o=>((o.brand||'')+'|'+o.name).toLowerCase();
+    const byDay={}; (DB.sets||[]).forEach(s=>{ if(s&&s.ts)(byDay[dk(s.ts)]||(byDay[dk(s.ts)]=[])).push(s); });
+    const ofDay={}; (DB.sessions||[]).forEach(x=>{ if(x&&x.ts)(ofDay[dk(x.ts)]||(ofDay[dk(x.ts)]=[])).push(x); });
+    (DB.sessions||[]).forEach(sess=>{
+      const day=byDay[dk(sess.ts)]||[];
+      (sess.items||[]).forEach(it=>(it.sets||[]).forEach(x=>{
+        const hit=day.find(s=>!s.sid&&k(s)===k(it)&&s.w===x.w&&s.r===x.r)
+               || day.find(s=>!s.sid&&k(s)===k(it))
+               || day.find(s=>!s.sid&&s.w===x.w&&s.r===x.r);
+        if(hit) hit.sid=sess.id;
+      }));
+    });
+    // one session that day means everything logged that day belongs to it — the old rule,
+    // applied once so no historic set surfaces as "not saved".
+    Object.keys(byDay).forEach(d=>{ const ss=ofDay[d]||[];
+      if(ss.length===1) byDay[d].forEach(s=>{ if(!s.sid) s.sid=ss[0].id; }); });
+    DB.mig_setsid=1; saveDB();
+  }
+  migrateSetSids();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   // a machine's history belongs to the MACHINE, not to whichever workout you opened it from.
   // keys are brand|name. sets written before this fix carry a context scope in front
@@ -1213,65 +1430,107 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // ===== previous workouts: list of completed sessions (editable) =====
   function goSessions(){ renderSessions(); show('s-sessions'); }
   function fmtW(w){ return w%1===0?w:(+w).toFixed(1); }
-  // archive today's logged sets into history (covers logging without a started workout)
-  function saveTodayAsSession(){
-    if(st.session){ finishSession(); renderSessions(); show('s-sessions'); return; }
-    const groups=todayCard(); if(!groups) return;
-    const items=groups.map(g=>({brand:g.brand,name:g.name,sets:g.sets.map(s=>({w:s.w,r:s.r,pr:!!s.pr}))}));
-    DB.sessions.push({id:'s'+Date.now().toString(36), wid:null, name:'workout', ts:Date.now(), items});
-    saveDB(); renderSessions();
-    toastMsg(false,'saved to history','today’s workout is now in previous workouts');
+  const dayKey=ts=>{const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime();};
+  // days you logged sets on but never finished as a session. this used to be today-only,
+  // so a day you didn't tap "finish" on dropped out of this screen at midnight — the sets
+  // stayed in DB.sets and kept feeding the charts, but nothing here ever showed them again.
+  // every unfinished day now gets its own card and can still be archived after the fact.
+  function unsavedDays(){
+    const days={};
+    (DB.sets||[]).forEach(s=>{
+      if(!s||!s.ts||s.sid) return;              // s.sid = already part of a saved session
+      const k=dayKey(s.ts);
+      const D=days[k]||(days[k]={key:k, ts:s.ts, by:{}, order:[]});
+      if(s.ts>D.ts) D.ts=s.ts;                    // the session inherits that day's last set time
+      const g=(s.brand||'')+'|'+s.name;
+      if(!D.by[g]){ D.by[g]={brand:s.brand,name:s.name,sets:[]}; D.order.push(g); }
+      D.by[g].sets.push(s);
+    });
+    const today=dayKey(Date.now());
+    return Object.keys(days).map(k=>days[k])
+      .map(D=>({key:D.key, ts:D.ts, isToday:D.key===today, groups:D.order.map(g=>D.by[g])}))
+      .sort((a,b)=>b.key-a.key);
   }
-  // today's logged sets that aren't yet saved as a finished session
-  function todayCard(){
-    const t=new Date().toDateString();
-    if((DB.sessions||[]).some(s=>s&&s.ts&&new Date(s.ts).toDateString()===t)) return null;
-    const todays=(DB.sets||[]).filter(s=>s&&s.ts&&new Date(s.ts).toDateString()===t);
-    if(!todays.length) return null;
-    const by={}, order=[];
-    todays.forEach(s=>{const k=(s.brand||'')+'|'+s.name; if(!by[k]){by[k]={brand:s.brand,name:s.name,sets:[]};order.push(k);} by[k].sets.push(s);});
-    return order.map(k=>by[k]);
+  // archive one unfinished day into previous workouts (covers logging without a started workout)
+  function saveDayAsSession(key){
+    key=+key;
+    if(st.session && key===dayKey(Date.now())){ finishSession(); renderSessions(); show('s-sessions'); return; }
+    const day=unsavedDays().find(d=>d.key===key); if(!day) return;
+    const items=day.groups.map(g=>({brand:g.brand,name:g.name,sets:g.sets.map(s=>({w:s.w,r:s.r,pr:!!s.pr}))}));
+    const id='s'+Date.now().toString(36);
+    day.groups.forEach(g=>g.sets.forEach(s=>{ s.sid=id; }));   // these sets are now accounted for
+    DB.sessions.push({id, wid:null, name:'workout', ts:day.ts, items});
+    const ok=saveDB(); renderSessions();
+    if(!ok) return;                            // saveDB() already warned that nothing was written
+    toastMsg(false,'saved to history', day.isToday
+      ? 'today’s workout is now in previous workouts'
+      : histDay(day.ts)+' is now in previous workouts');
+  }
+  // one card per training day, newest first. saved sessions and days you logged without
+  // finishing a workout live in the SAME chronological list — pending days used to be
+  // rendered as a block above every saved session, so the workout you finished yesterday
+  // sat below four older unfinished days and read as missing.
+  // a session record stores only brand+name, so its rows have no photo of their own.
+  // look it up in the workouts and exercises that do carry one — history should show the
+  // same machine picture as every other screen.
+  let _photoIX=null;
+  function photoIndex(rebuild){
+    if(!_photoIX||rebuild){
+      const IX={}, put=o=>{ if(o&&o.name&&o.img&&!IX[imgKey(o)]) IX[imgKey(o)]=o.img; };
+      (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(put));
+      (DB.custom||[]).forEach(put);
+      _photoIX=IX;
+    }
+    return _photoIX;
+  }
+  const photoFor=(b,n)=>photoIndex()[((b||'')+'|'+(n||'')).toLowerCase()]||'';
+  const exRow=(brand,name,sets)=>`<div class="ps-ex">
+      <div class="ps-exl">${thumbHTML(brand,name,guessGroup(name),photoFor(brand,name))}
+        <div class="ps-exn">${name}${brand&&brand!=='custom'?` <span class="ps-b">${brand}</span>`:''}</div></div>
+      <div class="ps-sets">${sets}</div>
+    </div>`;
+  function pendingCard(day){
+    const nsets=day.groups.reduce((a,it)=>a+it.sets.length,0);
+    const d=new Date(day.ts);
+    const label=day.isToday?'today':d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
+    return `<div class="histcard">
+      <div class="histhd"><span class="histname">${label}</span><span class="histtrend">${day.isToday?'in progress':'not saved'}</span></div>
+      <div class="histmeta">${day.groups.length} exercise${day.groups.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''}</div>
+      ${day.groups.map(it=>exRow(it.brand,it.name,it.sets.map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · '))).join('')}
+      <button class="ov-add" style="margin-top:10px;" onclick="saveDayAsSession(${day.key})">${day.isToday?'finish &amp; save to history':'save to history'}</button>
+    </div>`;
+  }
+  // saved sessions: read-only summary cards, tap to open the editor screen
+  function savedCard(s){
+    const d=new Date(s.ts);
+    const date=d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
+    const items=s.items||[];
+    const nsets=items.reduce((a,it)=>a+(it.sets?it.sets.length:0),0);
+    const ex=items.map(it=>exRow(it.brand,it.name,
+      (it.sets||[]).map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')||'—')).join('');
+    return `<div class="histcard tapcard" onclick="openSession('${s.id}')">
+      <div class="histhd"><span class="histname">${s.name||'workout'}</span><span class="histtrend">${date}</span>
+        <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span></div>
+      <div class="histmeta">${items.length} exercise${items.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''} · tap to edit</div>
+      ${ex}
+    </div>`;
   }
   function renderSessions(){
     const wrap=document.getElementById('sessbody');
-    const ss=(DB.sessions||[]).filter(s=>s&&s.ts).slice().sort((a,b)=>b.ts-a.ts);
-    const today=todayCard();
-    let html='';
-    if(today){
-      const nsets=today.reduce((a,it)=>a+it.sets.length,0);
-      html+=`<div class="histcard">
-        <div class="histhd"><span class="histname">today</span><span class="histtrend">in progress</span></div>
-        <div class="histmeta">${today.length} exercise${today.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''}</div>
-        ${today.map(it=>`<div class="ps-ex"><div class="ps-exn">${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</div><div class="ps-sets">${it.sets.map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')}</div></div>`).join('')}
-        <button class="ov-add" style="margin-top:10px;" onclick="saveTodayAsSession()">finish &amp; save to history</button>
-      </div>`;
-    }
-    if(!ss.length && !today){ wrap.innerHTML='<div class="empty">no completed workouts yet — finish a workout and it shows up here.</div>'; return; }
-    // saved sessions: read-only summary cards, tap to open the editor screen
-    html+=ss.map(s=>{
-      const d=new Date(s.ts);
-      const date=d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
-      const items=s.items||[];
-      const nsets=items.reduce((a,it)=>a+(it.sets?it.sets.length:0),0);
-      const ex=items.map(it=>`
-        <div class="ps-ex">
-          <div class="ps-exn">${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</div>
-          <div class="ps-sets">${(it.sets||[]).map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')||'—'}</div>
-        </div>`).join('');
-      return `<div class="histcard tapcard" onclick="openSession('${s.id}')">
-        <div class="histhd"><span class="histname">${s.name||'workout'}</span><span class="histtrend">${date}</span>
-          <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span></div>
-        <div class="histmeta">${items.length} exercise${items.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''} · tap to edit</div>
-        ${ex}
-      </div>`;
-    }).join('');
-    wrap.innerHTML=html;
+    photoIndex(true);
+    const ss=(DB.sessions||[]).filter(s=>s&&s.ts);
+    const pending=unsavedDays();
+    if(!ss.length && !pending.length){ wrap.innerHTML='<div class="empty">no completed workouts yet — finish a workout and it shows up here.</div>'; return; }
+    const cards=[...pending.map(d=>({ts:d.ts, html:pendingCard(d)})),
+                 ...ss.map(s=>({ts:s.ts, html:savedCard(s)}))].sort((a,b)=>b.ts-a.ts);
+    wrap.innerHTML=cards.map(c=>c.html).join('');
   }
 
   // ----- session editor (its own screen) -----
   let curSess=null;
   function openSession(sid){ curSess=sid; renderSessionDetail(); show('s-session-detail'); }
   function renderSessionDetail(){
+    photoIndex(true);
     const s=(DB.sessions||[]).find(x=>x.id===curSess);
     if(!s){ goSessions(); return; }
     const d=new Date(s.ts);
@@ -1285,7 +1544,8 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const noteBox=(txt,extra)=>txt?`<div class="sd-note${extra||''}">${escHTML(txt)}</div>`:'';
     const body=items.map((it,ei)=>`
       <div class="sd-card">
-        <div class="sd-exh">${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</div>
+        <div class="sd-exh">${thumbHTML(it.brand,it.name,guessGroup(it.name),photoFor(it.brand,it.name))}
+          <span>${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</span></div>
         ${noteBox(noteOf(it))}
         <div class="sd-tblh"><span>set</span><span>kg</span><span>reps</span><span></span></div>
         ${(it.sets||[]).map((x,xi)=>`<div class="sd-row">
@@ -1799,7 +2059,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const nm=document.getElementById('wname').value.trim()||'workout';
     const wid=ensureSaved(nm);          // persist so it shows on home (reuses an earlier save)
     st.gym=null; st.catalog=false;
-    st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid};
+    st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid,startedAt:Date.now()};
     loadLog(st.session.items[0]);
   }
   function saveCustom(){                  // add to the home screen without starting now
@@ -1819,19 +2079,108 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // ---- starter routines (the user's real gym splits) — seeded per device ----
   // items are REAL catalog machines (brand/model/muscle + bundled image), loaded from
   // starter_machines.json. versioned so an updated mapping upgrades existing devices.
+  const imgKey=o=>((o&&o.brand||'')+'|'+(o&&o.name||'')).toLowerCase();
+  // a workout item carries its OWN copy of the machine photo, so anything that built an
+  // item without one — a migration reading only DB.custom, an exercise picked before we
+  // shipped its photo — sticks at img:'' forever and renders as a bare icon. rebuild the
+  // brand|name -> photo index from the seed file plus your own exercises and fill the gaps.
+  function backfillImages(seed){
+    const IX={};
+    const put=o=>{ if(o&&o.name&&o.img&&!IX[imgKey(o)]) IX[imgKey(o)]=o.img; };
+    ((seed&&seed.workouts)||[]).forEach(w=>(w.items||[]).forEach(put));
+    (DB.custom||[]).forEach(put);
+    let n=0;
+    const fill=o=>{ if(o&&o.name&&!o.img&&IX[imgKey(o)]){ o.img=IX[imgKey(o)]; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    if(n){ persistActive(); saveDB(); }
+    return n;
+  }
+  // the seed file is generated from historical logs, so it still spells some machines the
+  // way they were logged before we canonicalised them. run every seed item through the same
+  // renames the migrations applied — otherwise a seed bump re-adds the old identity next to
+  // the new one and the workout grows a duplicate exercise.
+  const SEED_RENAME=[...LEGACY_MACHINES, ...LEGACY_MACHINES_2,
+    // the cable tower logged in place of the real standing multi flight (see migratePresetAll)
+    {from:['panatta','monolith standing multi flight (1mth028)'],
+     to:  ['panatta','fit evo standing multi flight machine (1fe028)']}];
+  function canonSeedItems(items){
+    const hit={}; SEED_RENAME.forEach(r=>{ hit[(r.from[0]+'|'+r.from[1]).toLowerCase()]=r.to; });
+    const out=[], at={};
+    (items||[]).forEach(it=>{
+      const t=hit[imgKey(it)];
+      const c=t?{...it, brand:t[0], name:t[1]}:it;
+      const k=imgKey(c), j=at[k];
+      if(j===undefined){ at[k]=out.length; out.push(c); return; }
+      if(!out[j].img && c.img) out[j].img=c.img;      // a rename can collide with the real
+    });                                               // machine — keep whichever has the photo
+    return out;
+  }
+  // starter_machines.json only carries the photos for the machines it seeds, but the
+  // catalog the API serves has one for nearly every model (e.g. panatta hp high row
+  // 1hp503). anything still blank after the local pass is looked up there — online only,
+  // offline simply leaves the icon and retries on the next launch.
+  const NO_PHOTO_BRANDS={custom:1, barbell:1, dumbbell:1, cable:1};
+  async function backfillFromCatalog(){
+    const need={};
+    const scan=o=>{ if(o&&o.name&&!o.img&&o.brand&&!NO_PHOTO_BRANDS[o.brand]) need[imgKey(o)]=o.name; };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(scan));
+    (DB.custom||[]).forEach(scan);
+    const keys=Object.keys(need);
+    if(!keys.length) return 0;
+    const found={};
+    for(const k of keys.slice(0,25)){
+      try{
+        const r=await fetch(`${API}/catalog/search?q=${encodeURIComponent(need[k])}`);
+        if(!r.ok) continue;
+        const list=await r.json();
+        // same identity the catalog picker builds an item with: brand|model, lowercased
+        const hit=(list||[]).find(m=>m&&m.image_url&&((m.brand||'')+'|'+(m.model||'')).toLowerCase()===k);
+        if(hit) found[k]=hit.image_url;
+      }catch(e){ return 0; }                   // no connection — leave it for next time
+    }
+    let n=0;
+    const fill=o=>{ if(o&&o.name&&!o.img&&found[imgKey(o)]){ o.img=found[imgKey(o)]; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    if(n){ persistActive(); saveDB(); renderWorkouts(); renderHome(); }
+    return n;
+  }
   async function seedStarterWorkouts(){
     try{
       const r=await fetch('starter_machines.json',{cache:'no-store'});
       if(!r.ok) return;
       const data=await r.json();
-      if((DB.starterSeedV||0) >= data.version) return;            // already up to date
-      data.workouts.forEach((w,i)=>{
-        const ex=DB.workouts.find(x=>x.name===w.name);
-        if(ex){ ex.items=w.items; }                                // upgrade existing WA to matched machines
-        else { DB.workouts.push({id:'w'+Date.now().toString(36)+i, name:w.name, items:w.items, created:Date.now()}); }
-      });
-      DB.starterSeedV=data.version; DB.starterSeeded=true; saveDB();
+      (data.workouts||[]).forEach(w=>{ w.items=canonSeedItems(w.items); });
+      if((DB.starterSeedV||0) < data.version){
+        data.workouts.forEach((w,i)=>{
+          const ex=DB.workouts.find(x=>x.name===w.name);
+          if(ex){
+            // merge, never overwrite: a seed bump must not drop exercises you added to a
+            // workout yourself. matched machines take the refreshed photo/muscle data,
+            // machines new to the seed are appended.
+            const at={}; (ex.items||[]).forEach((it,j)=>{ at[imgKey(it)]=j; });
+            (w.items||[]).forEach(it=>{
+              const j=at[imgKey(it)];
+              if(j===undefined){ ex.items.push(it); return; }
+              const cur=ex.items[j];
+              if(it.img) cur.img=it.img;
+              if(it.muscle) cur.muscle=it.muscle;
+              if(it.group) cur.group=it.group;
+            });
+          }
+          else { DB.workouts.push({id:'w'+Date.now().toString(36)+i, name:w.name, items:w.items, created:Date.now()}); }
+        });
+        DB.starterSeedV=data.version; DB.starterSeeded=true;
+      }
+      // runs on every launch, not just a version bump: items created after the last seed
+      // (and the ones migratePresetAll built from DB.custom alone) need repairing too.
+      backfillImages(data);
+      saveDB();
       renderWorkouts(); renderHome();
+      backfillFromCatalog();                  // the rest comes from the API catalog, if online
     }catch(e){ /* offline / missing file: keep whatever workouts already exist */ }
   }
   function ensureSaved(nm){               // create once per draft; update on re-save (no dups)
@@ -1845,7 +2194,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   function startWorkout(wid){
     const w=DB.workouts.find(x=>x.id===wid); if(!w||!w.items.length)return;
     st.gym=null; st.catalog=false;
-    st.session={name:w.name,items:w.items.slice(),idx:0,wid:w.id};
+    st.session={name:w.name,items:w.items.slice(),idx:0,wid:w.id,startedAt:Date.now()};
     loadLog(st.session.items[0]);
   }
   // ---- confirm dialog (app-styled, not a native popup) ----
@@ -1878,22 +2227,44 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // (the per-set history in DB.sets — which powers "last time on this machine" —
   // is already written by logSet; this adds the redoable completed-workout record.)
   function saveSession(){
-    if(!st.session) return;
-    const t=new Date().toDateString();
-    const items=st.session.items.map(m=>{
-      const it={brand:m.brand, name:m.name,
-        sets:setsFor(keyFor(m)).filter(s=>new Date(s.ts).toDateString()===t).map(s=>({w:s.w,r:s.r,pr:!!s.pr}))};
-      const note=noteFor(keyFor(m)).trim();  // snapshot the per-machine note
-      if(note) it.note=note;
-      return it;
-    }).filter(it=>it.sets.length);
-    if(!items.length) return;                 // nothing logged — don't save an empty session
-    const rec={id:'s'+Date.now().toString(36), wid:st.session.wid||null,
-               name:st.session.name, ts:Date.now(), items};
+    if(!st.session) return false;
+    // Which sets belong to this workout? Previously this was "sets logged today",
+    // so finishing the morning after — or any time the tap landed on a later
+    // calendar day than the training — matched nothing and silently saved nothing.
+    // Anchor on when the session actually started instead.
+    const since=sessionSince();
+    // EVERY set logged since the workout started belongs to it — including sets on a machine
+    // that was never in the workout (picked straight from the gym or the catalog mid-session).
+    // those used to be dropped from the record: they stayed in DB.sets and fed the charts,
+    // but because the day now counted as "saved", no card in history ever showed them again.
+    const mine=(DB.sets||[]).filter(s=>s&&s.ts>=since&&!s.sid);
+    if(!mine.length) return 'empty';          // nothing logged — don't save an empty session
+    const id='s'+Date.now().toString(36);
+    const order=[], by={};
+    const slot=(brand,name)=>{ const k=(brand||'')+'|'+name;
+      if(!by[k]){ by[k]={brand:brand,name:name,sets:[]}; order.push(k); } return by[k]; };
+    st.session.items.forEach(m=>slot(m.brand,m.name));      // keep the workout's own order
+    mine.forEach(s=>{ slot(s.brand,s.name).sets.push({w:s.w,r:s.r,pr:!!s.pr}); s.sid=id; });
+    const items=order.map(k=>by[k]).filter(it=>it.sets.length);
+    items.forEach(it=>{ const note=noteFor(it.brand+'|'+it.name).trim();   // per-machine note
+      if(note) it.note=note; });
+    if(!items.length) return 'empty';
+    const rec={id, wid:st.session.wid||null, name:st.session.name, ts:Date.now(), items};
     const snote=(DB.notes[sessNoteKey()]||'').trim();   // snapshot the workout-level note
     if(snote) rec.note=snote;
     DB.sessions.push(rec);
-    saveDB();
+    return saveDB();                          // false here = the write failed, not "nothing logged"
+  }
+  // Start of the current workout. Sessions started before startedAt existed (and any
+  // restored from an older "current workout") fall back to the most recent day on
+  // which these machines were actually trained, so finishing them still records.
+  function sessionSince(){
+    if(!st.session) return Date.now();
+    if(st.session.startedAt) return st.session.startedAt;
+    const ts=st.session.items.flatMap(m=>setsFor(keyFor(m)).map(s=>s.ts||0));
+    if(!ts.length) return Date.now();
+    const last=new Date(Math.max.apply(null,ts));
+    return new Date(last.getFullYear(),last.getMonth(),last.getDate()).getTime();
   }
   function lastDone(wid){                      // most recent date this workout was completed
     const ts=DB.sessions.filter(s=>s.wid===wid).map(s=>s.ts);
@@ -1979,7 +2350,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const items=routineItems(rid,di);
     if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
     st.gym=null; st.catalog=false;
-    st.session={name:`${r.short} · ${day.name}`, items, idx:0, wid:`r-${rid}-${di}`};  // stable key → tracks history per routine day
+    st.session={name:`${r.short} · ${day.name}`, items, idx:0, wid:`r-${rid}-${di}`, startedAt:Date.now()};  // stable key → tracks history per routine day
     loadLog(items[0]);
   }
 
@@ -2144,8 +2515,11 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   }
   function finishSession(){
     if(!st.session)return;
-    const n=st.session.name; saveSession(); st.session=null; persistActive();
-    renderWorkouts(); renderHome(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged');
+    const n=st.session.name; const res=saveSession(); st.session=null; persistActive();
+    renderWorkouts(); renderHome(); show('s-workouts');
+    if(res===true) toastMsg(false,'workout saved','“'+n+'” logged');
+    else if(res==='empty') toastMsg(false,'nothing to log','no sets were recorded in “'+n+'”');
+    // res===false: the write failed and saveDB() already said so — don't claim it was empty
   }
   function finishFromOverview(){ finishSession(); }
   // discard the in-progress workout without logging it as a completed session.
