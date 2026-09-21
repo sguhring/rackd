@@ -51,7 +51,9 @@ if ($LASTEXITCODE -ne 0) { throw "cap sync failed." }
 $task = if ($Release) { 'assembleRelease' } else { 'assembleDebug' }
 Write-Host "==> gradlew $task" -ForegroundColor Cyan
 Push-Location $android
-try { & (Join-Path $android 'gradlew.bat') $task }
+# 'clean' first: AGP packages incrementally and leaves removed assets as holes in
+# the zip, so an APK whose payload shrank by 100 MB stayed 160 MB on disk.
+try { & (Join-Path $android 'gradlew.bat') clean $task }
 finally { Pop-Location }
 if ($LASTEXITCODE -ne 0) { throw "gradle build failed." }
 
