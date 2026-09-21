@@ -2200,6 +2200,25 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     if(n){ persistActive(); saveDB(); renderWorkouts(); renderHome(); }
     return n;
   }
+  // every workout item carries its own copy of the machine photo from the moment it was
+  // added, so a new catalog build never reached machines you already train on. when the
+  // bundled catalog's version changes, every item that maps to a catalog machine
+  // (brand|model, lowercased — the identity the picker builds) takes the bundle's photo:
+  // brochure renders replace the old marketplace shots in WA1/WA2/... too.
+  async function refreshImagesFromBundle(){
+    const c=await loadCatalogBundle(); if(!c) return 0;
+    if(DB.catalogV===c.version) return 0;
+    const IX={};
+    c.machines.forEach(m=>{ if(m.img&&/^catalog\//.test(m.img)) IX[(m.brand+'|'+m.model).toLowerCase()]=m.img; });
+    let n=0;
+    const fill=o=>{ if(!o||!o.name) return; const k=imgKey(o); if(IX[k]&&o.img!==IX[k]){ o.img=IX[k]; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    DB.catalogV=c.version; persistActive(); saveDB();
+    if(n){ renderWorkouts(); renderHome(); }
+    return n;
+  }
   async function seedStarterWorkouts(){
     try{
       const r=await fetch('starter_machines.json',{cache:'no-store'});
@@ -2233,6 +2252,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
       saveDB();
       renderWorkouts(); renderHome();
       backfillFromCatalog();                  // the rest comes from the API catalog, if online
+      refreshImagesFromBundle();              // new catalog build -> newer photos for existing items
     }catch(e){ /* offline / missing file: keep whatever workouts already exist */ }
   }
   function ensureSaved(nm){               // create once per draft; update on re-save (no dups)
