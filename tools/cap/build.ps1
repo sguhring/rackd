@@ -31,14 +31,23 @@ if (-not (Test-FullJdk $env:JAVA_HOME)) {
 }
 Write-Host "java: $env:JAVA_HOME" -ForegroundColor DarkGray
 
-# --- 2. Sync web assets into the native project ------------------------------
+# --- 2. Stage the app payload ------------------------------------------------
+# www/ is the dev tree (curate pages, source photos for the catalog pipeline);
+# stage.py copies only what the app opens into dist/, which is the Capacitor webDir.
+Write-Host "==> stage.py (www/ -> dist/)" -ForegroundColor Cyan
+$py = Join-Path $cap '..\..\.venv\Scripts\python.exe'
+if (-not (Test-Path $py)) { $py = 'python' }
+& $py (Join-Path $cap 'stage.py')
+if ($LASTEXITCODE -ne 0) { throw "stage.py failed." }
+
+# --- 3. Sync web assets into the native project ------------------------------
 Write-Host "==> cap sync (copying www/ into android assets)" -ForegroundColor Cyan
 Push-Location $cap
 try { & (Join-Path $cap 'node_modules\.bin\cap.cmd') sync android }
 finally { Pop-Location }
 if ($LASTEXITCODE -ne 0) { throw "cap sync failed." }
 
-# --- 3. Compile the APK ------------------------------------------------------
+# --- 4. Compile the APK ------------------------------------------------------
 $task = if ($Release) { 'assembleRelease' } else { 'assembleDebug' }
 Write-Host "==> gradlew $task" -ForegroundColor Cyan
 Push-Location $android
@@ -46,7 +55,7 @@ try { & (Join-Path $android 'gradlew.bat') $task }
 finally { Pop-Location }
 if ($LASTEXITCODE -ne 0) { throw "gradle build failed." }
 
-# --- 4. Report the artifact --------------------------------------------------
+# --- 5. Report the artifact --------------------------------------------------
 $variant = if ($Release) { 'release' } else { 'debug' }
 $apk = Join-Path $android "app\build\outputs\apk\$variant\app-$variant.apk"
 if (Test-Path $apk) {
