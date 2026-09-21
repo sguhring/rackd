@@ -48,3 +48,9 @@ api/.azure/
 
 # claude code local settings
 .claude/settings.local.json
+
+# reference-page thumbnail cache (rebuilt by catalog/build_reference.py)
+catalog/reference_thumbs/
+
+# regenerated from the DB by catalog/build_reference.py (17 MB of inlined thumbnails)
+docs/machine-reference.html

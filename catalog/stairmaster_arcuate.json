@@ -1,0 +1,168 @@
+[
+  {
+    "mechanism": "Biceps Curl",
+    "model": "Arcuate Bicep Curl",
+    "brand": "StairMaster",
+    "region": "arms",
+    "muscle": "biceps",
+    "movement": "biceps curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    },
+    "image": "img/stairmaster/stairmaster-arcuate-bicep-curl.jpg"
+  },
+  {
+    "mechanism": "Chest Press",
+    "model": "Arcuate Chest Press",
+    "brand": "StairMaster",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest press",
+    "secondary": [
+      "front delts"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Incline Chest Press",
+    "model": "Arcuate Incline Press",
+    "brand": "StairMaster",
+    "region": "chest",
+    "muscle": "upper chest",
+    "movement": "chest press",
+    "secondary": [
+      "front delts"
+    ],
+    "facets": {
+      "implement": "selectorized",
+      "angle": "incline"
+    }
+  },
+  {
+    "mechanism": "Lat Pulldown",
+    "model": "Arcuate Lat Pull",
+    "brand": "StairMaster",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pulldown",
+    "secondary": [
+      "biceps"
+    ],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    },
+    "image": "img/stairmaster/stairmaster-arcuate-lat-pull.jpg"
+  },
+  {
+    "mechanism": "Leg Press",
+    "model": "Arcuate Leg Press",
+    "brand": "StairMaster",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg press",
+    "secondary": [
+      "glutes"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Row",
+    "model": "Arcuate Seated Row",
+    "brand": "StairMaster",
+    "region": "back",
+    "muscle": "mid-back",
+    "movement": "row",
+    "secondary": [
+      "lats"
+    ],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Shoulder Press",
+    "model": "Arcuate Shoulder Press",
+    "brand": "StairMaster",
+    "region": "shoulders",
+    "muscle": "delts",
+    "movement": "shoulder press",
+    "secondary": [
+      "triceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Triceps Extension",
+    "model": "Arcuate Tricep Press",
+    "brand": "StairMaster",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "triceps extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Ab Crunch",
+    "model": "Linear Ab Torso",
+    "brand": "StairMaster",
+    "region": "abs",
+    "muscle": "abs",
+    "movement": "ab crunch",
+    "secondary": [
+      "obliques"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Rear-Delt Fly",
+    "model": "Linear Fly / Deltoid",
+    "brand": "StairMaster",
+    "region": "shoulders",
+    "muscle": "rear delts",
+    "movement": "rear-delt fly",
+    "secondary": [
+      "mid chest"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Hip Adduction",
+    "model": "Linear Inner Thigh",
+    "brand": "StairMaster",
+    "region": "legs",
+    "muscle": "adductors",
+    "movement": "hip adduction",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Leg Extension",
+    "model": "Linear Leg Extension",
+    "brand": "StairMaster",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  }
+]

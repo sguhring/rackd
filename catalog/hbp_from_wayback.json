@@ -1,0 +1,3047 @@
+[
+  {
+    "id": 257,
+    "line": "ActiveLine",
+    "article": "4140H",
+    "name": "Kniebeuge / Hüftstrecken",
+    "specs_raw": "Squat / Squats / GG 178 kg L 2100 B 660 H 1400",
+    "dims_mm": {
+      "l": 2100,
+      "w": 660,
+      "h": 1400
+    },
+    "image": "1545913680.jpg",
+    "translation": "Squat / Squats",
+    "total_kg": 178.0
+  },
+  {
+    "id": 258,
+    "line": "ActiveLine",
+    "article": "2030 H",
+    "name": "Butterfly / Butterfly-Invers",
+    "specs_raw": "Butterfly / Back Deltold Butterfly / Dorsaux GG 115 kg L 1100 B 950 H 1200",
+    "dims_mm": {
+      "l": 1100,
+      "w": 950,
+      "h": 1200
+    },
+    "image": "204647335.jpg",
+    "translation": "Butterfly / Back Deltold Butterfly / Dorsaux",
+    "total_kg": 115.0
+  },
+  {
+    "id": 259,
+    "line": "ActiveLine",
+    "article": "1020 H",
+    "name": "Rücken / Schulter",
+    "specs_raw": "Lat Pulley / Shoulder Lat à Traction / Presse à Deltoides GG 159 kg L 1150 B 1100 H 1250",
+    "dims_mm": {
+      "l": 1150,
+      "w": 1100,
+      "h": 1250
+    },
+    "image": "1066871563.jpg",
+    "translation": "Lat Pulley / Shoulder Lat à Traction / Presse à Deltoides",
+    "total_kg": 159.0
+  },
+  {
+    "id": 260,
+    "line": "ActiveLine",
+    "article": "3010 H",
+    "name": "Bizeps / Trizeps",
+    "specs_raw": "Biceps / Trizeps Biceps / Triceps GG 106 kg L 950 B 900 H 1150",
+    "dims_mm": {
+      "l": 950,
+      "w": 900,
+      "h": 1150
+    },
+    "image": "877077983.jpg",
+    "translation": "Biceps / Trizeps Biceps / Triceps",
+    "total_kg": 106.0
+  },
+  {
+    "id": 261,
+    "line": "ActiveLine",
+    "article": "4020 H",
+    "name": "Beinstreck / Beinbeuge",
+    "specs_raw": "Leg Extension / Leg Curl Quatriceps / Ischios GG 151 kg L 1100 B 1000 H 1300",
+    "dims_mm": {
+      "l": 1100,
+      "w": 1000,
+      "h": 1300
+    },
+    "image": "769069299.jpg",
+    "translation": "Leg Extension / Leg Cur",
+    "total_kg": 151.0
+  },
+  {
+    "id": 262,
+    "line": "ActiveLine",
+    "article": "6040 H",
+    "name": "Rumpf - Rotation",
+    "specs_raw": "Twister Twister GG 116 kg L 1150 B 850 H 1100",
+    "dims_mm": {
+      "l": 1150,
+      "w": 850,
+      "h": 1100
+    },
+    "image": "1071859202.jpg",
+    "translation": "Twister Twister",
+    "total_kg": 116.0
+  },
+  {
+    "id": 263,
+    "line": "ActiveLine",
+    "article": "2040 H",
+    "name": "Bankdrück / Ruder Gerät",
+    "specs_raw": "Chest Press / Rowing Presse Developpe / Rameur GG 153 kg L 1300 B 950 H 1200",
+    "dims_mm": {
+      "l": 1300,
+      "w": 950,
+      "h": 1200
+    },
+    "image": "2054669488.jpg",
+    "translation": "Chest Press / Rowing Presse Developpe / Rameur",
+    "total_kg": 153.0
+  },
+  {
+    "id": 264,
+    "line": "ActiveLine",
+    "article": "5020 H",
+    "name": "Rumpfbeugen / Rumpfstrecken",
+    "specs_raw": "Abdominal / Back Extension Abdominaux / Lombaires GG 133 kg L 1200 B 1050 H 1150",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1050,
+      "h": 1150
+    },
+    "image": "2087409828.jpg",
+    "translation": "Abdomina",
+    "total_kg": 133.0
+  },
+  {
+    "id": 265,
+    "line": "ActiveLine",
+    "article": "4060 H",
+    "name": "Adduktion / Abduktion",
+    "specs_raw": "Adductors / Abductors Adducteurs / Abducteurs GG 123 kg L 1300 B 1350 H 1100",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1350,
+      "h": 1100
+    },
+    "image": "1493977653.jpg",
+    "translation": "Adductors / Abductors Adducteurs / Abducteurs",
+    "total_kg": 123.0
+  },
+  {
+    "id": 266,
+    "line": "Avantgarde",
+    "article": "107a",
+    "name": "Rückenstreck Maschine",
+    "specs_raw": "L 1100 B 960 H 1650 GG 293 kg GM 110 kg",
+    "dims_mm": {
+      "l": 1100,
+      "w": 960,
+      "h": 1650
+    },
+    "image": "1897755728.jpg",
+    "total_kg": 293.0,
+    "stack_kg": 110.0
+  },
+  {
+    "id": 267,
+    "line": "Avantgarde",
+    "article": "101a",
+    "name": "Klimmzug-/Dipp Maschine",
+    "specs_raw": "L 1230 B 1110 H 2350 GG 274 kg GM 67,5 kg",
+    "dims_mm": {
+      "l": 1230,
+      "w": 1110,
+      "h": 2350
+    },
+    "image": "737072072.jpg",
+    "total_kg": 274.0,
+    "stack_kg": 67.5
+  },
+  {
+    "id": 268,
+    "line": "Avantgarde",
+    "article": "1022a",
+    "name": "Rückenwippe Beinrolle höhenverstellbar",
+    "specs_raw": "L 1470 B 1260 H 1850 GG 365 kg GM 120 kg",
+    "dims_mm": {
+      "l": 1470,
+      "w": 1260,
+      "h": 1850
+    },
+    "image": "1733923624.jpg",
+    "total_kg": 365.0,
+    "stack_kg": 120.0
+  },
+  {
+    "id": 270,
+    "line": "Avantgarde",
+    "article": "108a",
+    "name": "Rücken Maschine",
+    "specs_raw": "L 1200 B 1520 H 1650 GG 235 kg GM 45 kg",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1520,
+      "h": 1650
+    },
+    "image": "1197609897.jpg",
+    "total_kg": 235.0,
+    "stack_kg": 45.0
+  },
+  {
+    "id": 271,
+    "line": "Avantgarde",
+    "article": "116a",
+    "name": "Schulterwippe",
+    "specs_raw": "L 2170 B 1360 H 1650 GG 326 kg GM 80 kg",
+    "dims_mm": {
+      "l": 2170,
+      "w": 1360,
+      "h": 1650
+    },
+    "image": "1881373612.jpg",
+    "total_kg": 326.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 272,
+    "line": "Avantgarde",
+    "article": "119a",
+    "name": "Deltoid Maschine",
+    "specs_raw": "L 1210 B 1310 H 1650 GG 258 kg GM 35 kg",
+    "dims_mm": {
+      "l": 1210,
+      "w": 1310,
+      "h": 1650
+    },
+    "image": "566533210.jpg",
+    "total_kg": 258.0,
+    "stack_kg": 35.0
+  },
+  {
+    "id": 273,
+    "line": "Avantgarde",
+    "article": "201a",
+    "name": "Butterfly Maschine",
+    "specs_raw": "L 1200 B 1460 H 1650 GG 276 kg GM 80 kg",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1460,
+      "h": 1650
+    },
+    "image": "698783026.jpg",
+    "total_kg": 276.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 274,
+    "line": "Avantgarde",
+    "article": "204a",
+    "name": "Bankdrück Maschine horizontal",
+    "specs_raw": "L 1460 B 1350 H 1650 GG 298 kg GM 100 kg",
+    "dims_mm": {
+      "l": 1460,
+      "w": 1350,
+      "h": 1650
+    },
+    "image": "1913283618.jpg",
+    "total_kg": 298.0,
+    "stack_kg": 100.0
+  },
+  {
+    "id": 275,
+    "line": "Avantgarde",
+    "article": "208a",
+    "name": "Schrägbank Maschine",
+    "specs_raw": "L 2285 B 1390 H 1650 GG 350 kg GM 100 kg",
+    "dims_mm": {
+      "l": 2285,
+      "w": 1390,
+      "h": 1650
+    },
+    "image": "1890226061.jpg",
+    "total_kg": 350.0,
+    "stack_kg": 100.0
+  },
+  {
+    "id": 276,
+    "line": "Avantgarde",
+    "article": "301a",
+    "name": "Bizeps Maschine",
+    "specs_raw": "L 1000 B 950 H 1650 GG 194 kg GM 50 kg",
+    "dims_mm": {
+      "l": 1000,
+      "w": 950,
+      "h": 1650
+    },
+    "image": "2402703.jpg",
+    "total_kg": 194.0,
+    "stack_kg": 50.0
+  },
+  {
+    "id": 277,
+    "line": "Avantgarde",
+    "article": "308a",
+    "name": "Dipp Maschine",
+    "specs_raw": "L 1980 B 1360 H 1650 GG 359 kg GM 125 kg",
+    "dims_mm": {
+      "l": 1980,
+      "w": 1360,
+      "h": 1650
+    },
+    "image": "1167290137.jpg",
+    "total_kg": 359.0,
+    "stack_kg": 125.0
+  },
+  {
+    "id": 278,
+    "line": "Avantgarde",
+    "article": "402a",
+    "name": "Beinstreck Maschine",
+    "specs_raw": "L 1260 B 1230 H 1650 GG 286 kg GM 120 kg",
+    "dims_mm": {
+      "l": 1260,
+      "w": 1230,
+      "h": 1650
+    },
+    "image": "103688672.jpg",
+    "total_kg": 286.0,
+    "stack_kg": 120.0
+  },
+  {
+    "id": 279,
+    "line": "Avantgarde",
+    "article": "403a",
+    "name": "Beinbeuge Maschine liegend",
+    "specs_raw": "L 1910 B 970 H 1650 GG 265 kg GM 90 kg",
+    "dims_mm": {
+      "l": 1910,
+      "w": 970,
+      "h": 1650
+    },
+    "image": "1583094348.jpg",
+    "total_kg": 265.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 280,
+    "line": "Avantgarde",
+    "article": "406a",
+    "name": "Adduktions Maschine",
+    "specs_raw": "L 1400 B 1240 H 1650 GG 333 kg GM 127,5 kg",
+    "dims_mm": {
+      "l": 1400,
+      "w": 1240,
+      "h": 1650
+    },
+    "image": "1541017375.jpg",
+    "total_kg": 333.0,
+    "stack_kg": 127.5
+  },
+  {
+    "id": 281,
+    "line": "Avantgarde",
+    "article": "408a",
+    "name": "Abduktions Maschine",
+    "specs_raw": "L 1400 B 1240 H 1650 GG 298 kg GM 127,5 kg",
+    "dims_mm": {
+      "l": 1400,
+      "w": 1240,
+      "h": 1650
+    },
+    "image": "1197150609.jpg",
+    "total_kg": 298.0,
+    "stack_kg": 127.5
+  },
+  {
+    "id": 282,
+    "line": "Avantgarde",
+    "article": "4082a",
+    "name": "Adduktions-/ Abduktions Maschine",
+    "specs_raw": "L 1400 B 1240 H 1650 GG 333 kg GM 127,5 kg",
+    "dims_mm": {
+      "l": 1400,
+      "w": 1240,
+      "h": 1650
+    },
+    "image": "1597424981.jpg",
+    "total_kg": 333.0,
+    "stack_kg": 127.5
+  },
+  {
+    "id": 283,
+    "line": "Avantgarde",
+    "article": "4092a",
+    "name": "Beinpresse horiz./Rückenlehne verstellbar",
+    "specs_raw": "L 2300 B 1000 H 2000 GG 569 kg GM 240 kg",
+    "dims_mm": {
+      "l": 2300,
+      "w": 1000,
+      "h": 2000
+    },
+    "image": "867402943.jpg",
+    "total_kg": 569.0,
+    "stack_kg": 240.0
+  },
+  {
+    "id": 284,
+    "line": "Avantgarde",
+    "article": "419a",
+    "name": "Waden Maschine schräg sitzend",
+    "specs_raw": "L 1350 B 980 H 1650 GG 263 kg GM 120 kg",
+    "dims_mm": {
+      "l": 1350,
+      "w": 980,
+      "h": 1650
+    },
+    "image": "124341612.jpg",
+    "total_kg": 263.0,
+    "stack_kg": 120.0
+  },
+  {
+    "id": 285,
+    "line": "Avantgarde",
+    "article": "5032a",
+    "name": "Bauch Maschine liegend",
+    "specs_raw": "L 1440 B 910 H 1650 GG 256 kg GM 90 kg",
+    "dims_mm": {
+      "l": 1440,
+      "w": 910,
+      "h": 1650
+    },
+    "image": "871806624.jpg",
+    "total_kg": 256.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 286,
+    "line": "Avantgarde",
+    "article": "604a",
+    "name": "Rumpf-Rotations Maschine",
+    "specs_raw": "L 100 B 770 H 1650 GG 266 kg GM 90 kg",
+    "dims_mm": {
+      "l": 100,
+      "w": 770,
+      "h": 1650
+    },
+    "image": "1185187587.jpg",
+    "total_kg": 266.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 287,
+    "line": "Avantgarde",
+    "article": "7032a",
+    "name": "Gluteus Maschine stehend Rundpolster",
+    "specs_raw": "L 930 B 980 H 1650 GG 263 kg GM 80 kg",
+    "dims_mm": {
+      "l": 930,
+      "w": 980,
+      "h": 1650
+    },
+    "image": "119568739.jpg",
+    "total_kg": 263.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 288,
+    "line": "Avantgarde",
+    "article": "212a",
+    "name": "Flachbank",
+    "specs_raw": "L 1050 B 450 H 450 GG 28 kg",
+    "dims_mm": {
+      "l": 1050,
+      "w": 450,
+      "h": 450
+    },
+    "image": "208041959.jpg",
+    "total_kg": 28.0
+  },
+  {
+    "id": 290,
+    "line": "Avantgarde",
+    "article": "121a",
+    "name": "Nackendrückbank breit",
+    "specs_raw": "L 1050 B 1250 H 1600 GG 85 kg",
+    "dims_mm": {
+      "l": 1050,
+      "w": 1250,
+      "h": 1600
+    },
+    "image": "1631560502.jpg",
+    "total_kg": 85.0
+  },
+  {
+    "id": 291,
+    "line": "Avantgarde",
+    "article": "206a",
+    "name": "Multipresse 50 mm",
+    "specs_raw": "L 1500 B 1900 H 2300 GG 193 kg",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1900,
+      "h": 2300
+    },
+    "image": "966591455.jpg",
+    "total_kg": 193.0
+  },
+  {
+    "id": 292,
+    "line": "Avantgarde",
+    "article": "210a",
+    "name": "Drückbank breit",
+    "specs_raw": "L 1345 B 1250 H 1120 GG 82 kg",
+    "dims_mm": {
+      "l": 1345,
+      "w": 1250,
+      "h": 1120
+    },
+    "image": "1360640381.jpg",
+    "total_kg": 82.0
+  },
+  {
+    "id": 293,
+    "line": "Avantgarde",
+    "article": "213a",
+    "name": "Universalbank",
+    "specs_raw": "L 1300 B 450 H 450 GG 40 kg",
+    "dims_mm": {
+      "l": 1300,
+      "w": 450,
+      "h": 450
+    },
+    "image": "1621056536.jpg",
+    "total_kg": 40.0
+  },
+  {
+    "id": 294,
+    "line": "Avantgarde",
+    "article": "217a",
+    "name": "Schrägbank breit",
+    "specs_raw": "L 1375 B 1250 H 1300 GG 92 kg",
+    "dims_mm": {
+      "l": 1375,
+      "w": 1250,
+      "h": 1300
+    },
+    "image": "2016879631.jpg",
+    "total_kg": 92.0
+  },
+  {
+    "id": 295,
+    "line": "Avantgarde",
+    "article": "303a",
+    "name": "Scottcurler sitzend / stehend",
+    "specs_raw": "L 1140 B 700 H 1050 GG 52 kg",
+    "dims_mm": {
+      "l": 1140,
+      "w": 700,
+      "h": 1050
+    },
+    "image": "569295454.jpg",
+    "total_kg": 52.0
+  },
+  {
+    "id": 296,
+    "line": "Avantgarde",
+    "article": "415a",
+    "name": "Kniebeugenablage",
+    "specs_raw": "L 1580 B 1750 H 1760 GG 125 kg",
+    "dims_mm": {
+      "l": 1580,
+      "w": 1750,
+      "h": 1760
+    },
+    "image": "1848981342.jpg",
+    "total_kg": 125.0
+  },
+  {
+    "id": 297,
+    "line": "Avantgarde",
+    "article": "504a",
+    "name": "Beinhebegestell",
+    "specs_raw": "L 1000 B 770 H 1520 GG 82 kg",
+    "dims_mm": {
+      "l": 1000,
+      "w": 770,
+      "h": 1520
+    },
+    "image": "1111517680.jpg",
+    "total_kg": 82.0
+  },
+  {
+    "id": 298,
+    "line": "Avantgarde",
+    "article": "505a",
+    "name": "Profi Bauchmuskelbank",
+    "specs_raw": "L 1570 B 700 H 110 GG 45 kg",
+    "dims_mm": {
+      "l": 1570,
+      "w": 700,
+      "h": 110
+    },
+    "image": "915743467.jpg",
+    "total_kg": 45.0
+  },
+  {
+    "id": 299,
+    "line": "Avantgarde",
+    "article": "5052a",
+    "name": "Bauchmuskelbank verstellbar",
+    "specs_raw": "L 1140 B 700 H 1300 GG 69 kg",
+    "dims_mm": {
+      "l": 1140,
+      "w": 700,
+      "h": 1300
+    },
+    "image": "2112410366.jpg",
+    "total_kg": 69.0
+  },
+  {
+    "id": 300,
+    "line": "Avantgarde",
+    "article": "801a",
+    "name": "4 Stationen Turm",
+    "specs_raw": "L 4000 B 1490 H 2300 GG 711 kg GM 120 kg",
+    "dims_mm": {
+      "l": 4000,
+      "w": 1490,
+      "h": 2300
+    },
+    "image": "1013473015.jpg",
+    "total_kg": 711.0,
+    "stack_kg": 120.0
+  },
+  {
+    "id": 301,
+    "line": "Avantgarde",
+    "article": "802a",
+    "name": "5 Stationen Turm",
+    "specs_raw": "L 4110 B 4000 H 2300 GG 870 kg GM 120 kg",
+    "dims_mm": {
+      "l": 4110,
+      "w": 4000,
+      "h": 2300
+    },
+    "image": "1605740545.jpg",
+    "total_kg": 870.0,
+    "stack_kg": 120.0
+  },
+  {
+    "id": 302,
+    "line": "Avantgarde",
+    "article": "8032a",
+    "name": "Doppelstation höhenverstellbar",
+    "specs_raw": "L 960 B 1200 H 2300 GG 313 kg GM 55 kg",
+    "dims_mm": {
+      "l": 960,
+      "w": 1200,
+      "h": 2300
+    },
+    "image": "440675230.jpg",
+    "total_kg": 313.0,
+    "stack_kg": 55.0
+  },
+  {
+    "id": 303,
+    "line": "Avantgarde",
+    "article": "8042a",
+    "name": "Kreuzzugstation höhenverstellbar",
+    "specs_raw": "L 3730 B 740 H 2300 GG 310 kg GM 55 kg",
+    "dims_mm": {
+      "l": 3730,
+      "w": 740,
+      "h": 2300
+    },
+    "image": "1818877901.jpg",
+    "total_kg": 310.0,
+    "stack_kg": 55.0
+  },
+  {
+    "id": 304,
+    "line": "Avantgarde",
+    "article": "a11500a - 11540a",
+    "name": "Kurzhantelständer",
+    "specs_raw": "L 1800 B 600 H 800 GG 60 kg für KHS 2,5 - 20, 25, 30, 40, 50 ,60 kg",
+    "dims_mm": {
+      "l": 1800,
+      "w": 600,
+      "h": 800
+    },
+    "image": "375001184.jpg",
+    "total_kg": 60.0
+  },
+  {
+    "id": 305,
+    "line": "Avantgarde",
+    "article": "105a",
+    "name": "Rückenisolator",
+    "specs_raw": "L 1380 B 900 H 1650 GG 281 kg GM 125 kg",
+    "dims_mm": {
+      "l": 1380,
+      "w": 900,
+      "h": 1650
+    },
+    "image": "1509911241.jpg",
+    "total_kg": 281.0,
+    "stack_kg": 125.0
+  },
+  {
+    "id": 39,
+    "line": "DynamicLineDG",
+    "article": "1022 DG",
+    "name": "Rückenwippe",
+    "specs_raw": "L 2200 B 1200 H 2060 GG: 376 kg GM: 120 kg",
+    "dims_mm": {
+      "l": 2200,
+      "w": 1200,
+      "h": 2060
+    },
+    "total_kg": 376.0,
+    "stack_kg": 120.0,
+    "image": "975850183.jpg"
+  },
+  {
+    "id": 40,
+    "line": "DynamicLineDG",
+    "article": "1023 DG",
+    "name": "Rückenwippe",
+    "specs_raw": "L 2200 B 1200 H 2210 GG: 372 kg GM: 120 kg",
+    "dims_mm": {
+      "l": 2200,
+      "w": 1200,
+      "h": 2210
+    },
+    "total_kg": 372.0,
+    "stack_kg": 120.0,
+    "image": "1946484322.jpg"
+  },
+  {
+    "id": 67,
+    "line": "DynamicLineDG",
+    "article": "1050 DG",
+    "name": "Rückenisolator",
+    "specs_raw": "L 1850 B 1200 H 1860 GG: 399 kg GM: 140 kg",
+    "dims_mm": {
+      "l": 1850,
+      "w": 1200,
+      "h": 1860
+    },
+    "total_kg": 399.0,
+    "stack_kg": 140.0,
+    "image": "1697091829.jpg"
+  },
+  {
+    "id": 68,
+    "line": "DynamicLineDG",
+    "article": "1160 DG",
+    "name": "Schulterwippe",
+    "specs_raw": "L 2600 B 1500 H 1860 GG: 399 kg GM: 140 kg",
+    "dims_mm": {
+      "l": 2600,
+      "w": 1500,
+      "h": 1860
+    },
+    "total_kg": 399.0,
+    "stack_kg": 140.0,
+    "image": "374057481.jpg"
+  },
+  {
+    "id": 70,
+    "line": "DynamicLineDG",
+    "article": "2040 DG",
+    "name": "Bankdrück Maschine",
+    "specs_raw": "L 2050 B 1300 H 1860 GG: 387 kg GM:120 kg",
+    "dims_mm": {
+      "l": 2050,
+      "w": 1300,
+      "h": 1860
+    },
+    "total_kg": 387.0,
+    "stack_kg": 120.0,
+    "image": "757749297.jpg"
+  },
+  {
+    "id": 71,
+    "line": "DynamicLineDG",
+    "article": "2080 DG",
+    "name": "Schrägbank Maschine",
+    "specs_raw": "L 2920 B 1180 H 1860 GG: 429 kg GM: 120 kg Preis: 2.410,00 *",
+    "dims_mm": {
+      "l": 2920,
+      "w": 1180,
+      "h": 1860
+    },
+    "total_kg": 429.0,
+    "stack_kg": 120.0,
+    "price_eur": 2410.0,
+    "image": "20192485.jpg"
+  },
+  {
+    "id": 72,
+    "line": "DynamicLineDS",
+    "article": "1022 DS",
+    "name": "Rückenwippe",
+    "specs_raw": "L 2100 B 1330 H 1900 GG: 120 kg",
+    "dims_mm": {
+      "l": 2100,
+      "w": 1330,
+      "h": 1900
+    },
+    "total_kg": 120.0,
+    "image": "525012042.jpg"
+  },
+  {
+    "id": 73,
+    "line": "DynamicLineDS",
+    "article": "1023 DS",
+    "name": "Rückenwippe",
+    "specs_raw": "L 2100 B 1330 H 2050 GG: 120 kg",
+    "dims_mm": {
+      "l": 2100,
+      "w": 1330,
+      "h": 2050
+    },
+    "total_kg": 120.0,
+    "image": "1253748301.jpg"
+  },
+  {
+    "id": 74,
+    "line": "DynamicLineDS",
+    "article": "1050 DS",
+    "name": "Rückenisolator",
+    "specs_raw": "L 1770 B 1050 H 1260 GG: 115 kg Preis: 1.403,00 *",
+    "dims_mm": {
+      "l": 1770,
+      "w": 1050,
+      "h": 1260
+    },
+    "total_kg": 115.0,
+    "price_eur": 1403.0,
+    "image": "1128463696.jpg"
+  },
+  {
+    "id": 75,
+    "line": "DynamicLineDS",
+    "article": "1160 DS",
+    "name": "Schulterwippe",
+    "specs_raw": "L 2300 B 1500 H 1350 GG: 161 kg",
+    "dims_mm": {
+      "l": 2300,
+      "w": 1500,
+      "h": 1350
+    },
+    "total_kg": 161.0,
+    "image": "1138386661.jpg"
+  },
+  {
+    "id": 76,
+    "line": "DynamicLineDS",
+    "article": "2020 DS",
+    "name": "Bankdrück Maschine",
+    "specs_raw": "L 2680 B 2530 H 1000 GG: 175 kg",
+    "dims_mm": {
+      "l": 2680,
+      "w": 2530,
+      "h": 1000
+    },
+    "total_kg": 175.0,
+    "image": "1022504530.jpg"
+  },
+  {
+    "id": 77,
+    "line": "DynamicLineDS",
+    "article": "2040 DS",
+    "name": "Bankdrück Maschine",
+    "specs_raw": "L 1730 B 1780 H 1520 GG: 156 kg",
+    "dims_mm": {
+      "l": 1730,
+      "w": 1780,
+      "h": 1520
+    },
+    "total_kg": 156.0,
+    "image": "1844410057.jpg"
+  },
+  {
+    "id": 78,
+    "line": "DynamicLineDS",
+    "article": "2080 DS",
+    "name": "Schrägbank Maschine",
+    "specs_raw": "L 2460 B 1520 H 1560 GG: 183 kg",
+    "dims_mm": {
+      "l": 2460,
+      "w": 1520,
+      "h": 1560
+    },
+    "total_kg": 183.0,
+    "image": "513453535.jpg"
+  },
+  {
+    "id": 79,
+    "line": "DynamicLineDS",
+    "article": "3010 DS",
+    "name": "Bizeps Maschine",
+    "specs_raw": "L 1200 B 1460 H 1300 GG: 156 kg",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1460,
+      "h": 1300
+    },
+    "total_kg": 156.0,
+    "image": "1233020527.jpg"
+  },
+  {
+    "id": 80,
+    "line": "DynamicLineDS",
+    "article": "3050 DS",
+    "name": "Trizeps Maschine",
+    "specs_raw": "L 1200 B 1460 H 1300 GG: 156 kg",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1460,
+      "h": 1300
+    },
+    "total_kg": 156.0,
+    "image": "950304540.jpg"
+  },
+  {
+    "id": 81,
+    "line": "DynamicLineDS",
+    "article": "4020 DS",
+    "name": "Beinstreck Maschine",
+    "specs_raw": "L 1700 B 1500 H 1050 GG: 187 kg Preis: 1.390,00 *",
+    "dims_mm": {
+      "l": 1700,
+      "w": 1500,
+      "h": 1050
+    },
+    "total_kg": 187.0,
+    "price_eur": 1390.0,
+    "image": "670353510.jpg"
+  },
+  {
+    "id": 82,
+    "line": "DynamicLineDS",
+    "article": "4030 DS",
+    "name": "Beinbeuge Maschine",
+    "specs_raw": "L 2000 B 1500 H 1010 GG: 179 kg",
+    "dims_mm": {
+      "l": 2000,
+      "w": 1500,
+      "h": 1010
+    },
+    "total_kg": 179.0,
+    "image": "659232979.jpg"
+  },
+  {
+    "id": 83,
+    "line": "DynamicLineDS",
+    "article": "4090 DS",
+    "name": "Beinpresse, Horizontal",
+    "specs_raw": "L 2100 B 1750 H 1230 GG: 302 kg",
+    "dims_mm": {
+      "l": 2100,
+      "w": 1750,
+      "h": 1230
+    },
+    "total_kg": 302.0,
+    "image": "269909857.jpg"
+  },
+  {
+    "id": 155,
+    "line": "ExclusiveLine",
+    "article": "5033E",
+    "name": "Bauch Maschine",
+    "specs_raw": "L 1275 B 1010 H 1850 GG 330 kg GM 90 kg",
+    "dims_mm": {
+      "l": 1275,
+      "w": 1010,
+      "h": 1850
+    },
+    "image": "1097250289.jpg",
+    "total_kg": 330.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 156,
+    "line": "ExclusiveLine",
+    "article": "5032E",
+    "name": "Bauch Maschine, liegend",
+    "specs_raw": "L 2300 B 1230 H 1850 GG 345 kg GM 90 kg",
+    "dims_mm": {
+      "l": 2300,
+      "w": 1230,
+      "h": 1850
+    },
+    "image": "560108.jpg",
+    "total_kg": 345.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 157,
+    "line": "ExclusiveLine",
+    "article": "5030E",
+    "name": "Bauch Maschine",
+    "specs_raw": "L 1620 B 1030 H 1860 GG 346 kg GM 105 kg Preis: 2.516,00 *",
+    "dims_mm": {
+      "l": 1620,
+      "w": 1030,
+      "h": 1860
+    },
+    "price_eur": 2516.0,
+    "image": "131380344.jpg",
+    "total_kg": 346.0,
+    "stack_kg": 105.0
+  },
+  {
+    "id": 158,
+    "line": "ExclusiveLine",
+    "article": "5020E",
+    "name": "Bauchfixator",
+    "specs_raw": "L 1350 B 1250 H 1860 GG 304 kg GM 80 kg",
+    "dims_mm": {
+      "l": 1350,
+      "w": 1250,
+      "h": 1860
+    },
+    "image": "254359689.jpg",
+    "total_kg": 304.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 159,
+    "line": "ExclusiveLine",
+    "article": "5010E",
+    "name": "Bauchgeuge Maschine mit Brustpolster",
+    "specs_raw": "L 1250 B 1200 H 1860 GG 331 kg GM 95 kg Preis: 2.298,00 *",
+    "dims_mm": {
+      "l": 1250,
+      "w": 1200,
+      "h": 1860
+    },
+    "price_eur": 2298.0,
+    "image": "86748889.jpg",
+    "total_kg": 331.0,
+    "stack_kg": 95.0
+  },
+  {
+    "id": 160,
+    "line": "ExclusiveLine",
+    "article": "4190E",
+    "name": "Waden Maschine, schräg sitzend",
+    "specs_raw": "L 1700 B 950 H 1860 GG 337 kg GM 100 kg Preis: 2.193,00 *",
+    "dims_mm": {
+      "l": 1700,
+      "w": 950,
+      "h": 1860
+    },
+    "price_eur": 2193.0,
+    "image": "1646956835.jpg",
+    "total_kg": 337.0,
+    "stack_kg": 100.0
+  },
+  {
+    "id": 161,
+    "line": "ExclusiveLine",
+    "article": "4170E",
+    "name": "Waden Maschine, stehend 30 mm",
+    "specs_raw": "L 1000 B 1170 H 1860 GG 449 kg GM 250 kg Preis: 2.156,00 *",
+    "dims_mm": {
+      "l": 1000,
+      "w": 1170,
+      "h": 1860
+    },
+    "price_eur": 2156.0,
+    "image": "2101395264.jpg",
+    "total_kg": 449.0,
+    "stack_kg": 250.0
+  },
+  {
+    "id": 162,
+    "line": "ExclusiveLine",
+    "article": "4090E",
+    "name": "Beinpresse, horizontal",
+    "specs_raw": "L 2750 B 1200 H 2060 GG 558 kg GM 240 kg Preis: 3.298,00 *",
+    "dims_mm": {
+      "l": 2750,
+      "w": 1200,
+      "h": 2060
+    },
+    "price_eur": 3298.0,
+    "image": "2086180927.jpg",
+    "total_kg": 558.0,
+    "stack_kg": 240.0
+  },
+  {
+    "id": 163,
+    "line": "ExclusiveLine",
+    "article": "4080E",
+    "name": "Abduktions Maschine",
+    "specs_raw": "L 1500 B 1650 H 1860 GG 368 kg GM 125 kg Preis: 2.546,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1650,
+      "h": 1860
+    },
+    "price_eur": 2546.0,
+    "image": "1771214291.jpg",
+    "total_kg": 368.0,
+    "stack_kg": 125.0
+  },
+  {
+    "id": 164,
+    "line": "ExclusiveLine",
+    "article": "4060E",
+    "name": "Adduktions Maschine",
+    "specs_raw": "L 1500 B 1650 H 1860 GG 396 kg GM 125 kg Preis: 2.806,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1650,
+      "h": 1860
+    },
+    "price_eur": 2806.0,
+    "image": "1439527004.jpg",
+    "total_kg": 396.0,
+    "stack_kg": 125.0
+  },
+  {
+    "id": 165,
+    "line": "ExclusiveLine",
+    "article": "4050E",
+    "name": "Beinbeuge Maschine, stehend",
+    "specs_raw": "L 1500 B 1350 H 1860 GG 293 kg GM 55 kg Preis: 2.096,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1350,
+      "h": 1860
+    },
+    "price_eur": 2096.0,
+    "image": "2035370616.jpg",
+    "total_kg": 293.0,
+    "stack_kg": 55.0
+  },
+  {
+    "id": 166,
+    "line": "ExclusiveLine",
+    "article": "4040E",
+    "name": "Beinbeuge Maschine, sitzend",
+    "specs_raw": "L 1500 B 1150 H 1860 GG 356 kg GM 100 kg Preis: 2.696,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1150,
+      "h": 1860
+    },
+    "price_eur": 2696.0,
+    "image": "969869695.jpg",
+    "total_kg": 356.0,
+    "stack_kg": 100.0
+  },
+  {
+    "id": 167,
+    "line": "ExclusiveLine",
+    "article": "4030E",
+    "name": "Beinbeuge Maschine, liegend",
+    "specs_raw": "L 1900 B 1200 H 1860 GG 325 kg GM 90 kg Preis: 2.246,00 *",
+    "dims_mm": {
+      "l": 1900,
+      "w": 1200,
+      "h": 1860
+    },
+    "price_eur": 2246.0,
+    "image": "1397394262.jpg",
+    "total_kg": 325.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 168,
+    "line": "ExclusiveLine",
+    "article": "4020E",
+    "name": "Beinstreck Maschine, sitzend",
+    "specs_raw": "L 1550 B 1200 H 1860 GG 347 kg GM 110 kg",
+    "dims_mm": {
+      "l": 1550,
+      "w": 1200,
+      "h": 1860
+    },
+    "image": "761200829.jpg",
+    "total_kg": 347.0,
+    "stack_kg": 110.0
+  },
+  {
+    "id": 169,
+    "line": "ExclusiveLine",
+    "article": "3080E",
+    "name": "Dipp Maschine",
+    "specs_raw": "L 2050 B 1300 H 1860 GG 407 kg GM 125 kg",
+    "dims_mm": {
+      "l": 2050,
+      "w": 1300,
+      "h": 1860
+    },
+    "image": "1390873792.jpg",
+    "total_kg": 407.0,
+    "stack_kg": 125.0
+  },
+  {
+    "id": 170,
+    "line": "ExclusiveLine",
+    "article": "3050E",
+    "name": "Trizeps Maschine Spezial",
+    "specs_raw": "L 1700 B 1100 H 1860 GG 336 kg GM 90 kg",
+    "dims_mm": {
+      "l": 1700,
+      "w": 1100,
+      "h": 1860
+    },
+    "image": "1504487437.jpg",
+    "total_kg": 336.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 171,
+    "line": "ExclusiveLine",
+    "article": "3020E",
+    "name": "Bizeps Maschine, horizontal",
+    "specs_raw": "L 1600 B 1200 H 1860 GG 237 kg GM 40 kg",
+    "dims_mm": {
+      "l": 1600,
+      "w": 1200,
+      "h": 1860
+    },
+    "image": "2076509323.jpg",
+    "total_kg": 237.0,
+    "stack_kg": 40.0
+  },
+  {
+    "id": 172,
+    "line": "ExclusiveLine",
+    "article": "3010E",
+    "name": "Bizeps Maschine",
+    "specs_raw": "L 1400 B 1100 H 1860 GG 301 kg GM 60 kg",
+    "dims_mm": {
+      "l": 1400,
+      "w": 1100,
+      "h": 1860
+    },
+    "image": "785131875.jpg",
+    "total_kg": 301.0,
+    "stack_kg": 60.0
+  },
+  {
+    "id": 173,
+    "line": "ExclusiveLine",
+    "article": "2090E",
+    "name": "Pull Over Maschine",
+    "specs_raw": "L 1470 B 1160 H 1860 GG 379 kg GM 140 kg Preis: 2.208,00 *",
+    "dims_mm": {
+      "l": 1470,
+      "w": 1160,
+      "h": 1860
+    },
+    "price_eur": 2208.0,
+    "image": "1830920687.jpg",
+    "total_kg": 379.0,
+    "stack_kg": 140.0
+  },
+  {
+    "id": 174,
+    "line": "ExclusiveLine",
+    "article": "2080E",
+    "name": "Schrägbank Maschine",
+    "specs_raw": "L 2250 B 1300 H 1860 GG 429 kg GM 100 kg Preis: 2.096,00 *",
+    "dims_mm": {
+      "l": 2250,
+      "w": 1300,
+      "h": 1860
+    },
+    "price_eur": 2096.0,
+    "image": "1813672444.jpg",
+    "total_kg": 429.0,
+    "stack_kg": 100.0
+  },
+  {
+    "id": 176,
+    "line": "ExclusiveLine",
+    "article": "2040E",
+    "name": "Bankdrück Maschine, horizontal",
+    "specs_raw": "L 1620 B 1350 H 1860 GG 363 kg GM 100 kg Preis: 2.223,00 *",
+    "dims_mm": {
+      "l": 1620,
+      "w": 1350,
+      "h": 1860
+    },
+    "price_eur": 2223.0,
+    "image": "953108199.jpg",
+    "total_kg": 363.0,
+    "stack_kg": 100.0
+  },
+  {
+    "id": 177,
+    "line": "ExclusiveLine",
+    "article": "2030E",
+    "name": "Butterfly Maschine",
+    "specs_raw": "L 1300 B 1200 H 1860 GG 306 kg GM 80 kg Preis: 2.170,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1200,
+      "h": 1860
+    },
+    "price_eur": 2170.0,
+    "image": "1054442994.jpg",
+    "total_kg": 306.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 178,
+    "line": "ExclusiveLine",
+    "article": "2020E",
+    "name": "Bankdrückmaschine, liegend",
+    "specs_raw": "L 2150 B 1300 H 1860 GG 426 kg GM 140 kg Preis: 2.096,00 *",
+    "dims_mm": {
+      "l": 2150,
+      "w": 1300,
+      "h": 1860
+    },
+    "price_eur": 2096.0,
+    "image": "472282884.jpg",
+    "total_kg": 426.0,
+    "stack_kg": 140.0
+  },
+  {
+    "id": 179,
+    "line": "ExclusiveLine",
+    "article": "2010E",
+    "name": "Butterfly Maschine",
+    "specs_raw": "L 1300 B 1000 H 1860 GG 279 kg GM 80 kg Preis: 2.771,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1000,
+      "h": 1860
+    },
+    "price_eur": 2771.0,
+    "image": "357539513.jpg",
+    "total_kg": 279.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 180,
+    "line": "ExclusiveLine",
+    "article": "1190E",
+    "name": "Deltoid Maschine",
+    "specs_raw": "L 1300 B 1000 H 1860 GG 302 kg GM 35 kg Preis: 2.193,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1000,
+      "h": 1860
+    },
+    "price_eur": 2193.0,
+    "image": "2083285121.jpg",
+    "total_kg": 302.0,
+    "stack_kg": 35.0
+  },
+  {
+    "id": 181,
+    "line": "ExclusiveLine",
+    "article": "1180E",
+    "name": "Seithebe Maschine",
+    "specs_raw": "L 1380 B 1050 H 1860 GG 246 kg GM 55 kg Preis: 2.174,00 *",
+    "dims_mm": {
+      "l": 1380,
+      "w": 1050,
+      "h": 1860
+    },
+    "price_eur": 2174.0,
+    "image": "957749821.jpg",
+    "total_kg": 246.0,
+    "stack_kg": 55.0
+  },
+  {
+    "id": 182,
+    "line": "ExclusiveLine",
+    "article": "1160E",
+    "name": "Schulterwippe",
+    "specs_raw": "L 2100 B 1300 H 1860 GG 396 kg GM 75 kg Preis: 2.096,00 *",
+    "dims_mm": {
+      "l": 2100,
+      "w": 1300,
+      "h": 1860
+    },
+    "price_eur": 2096.0,
+    "image": "454270803.jpg",
+    "total_kg": 396.0,
+    "stack_kg": 75.0
+  },
+  {
+    "id": 183,
+    "line": "ExclusiveLine",
+    "article": "1080E",
+    "name": "Rücken Maschine",
+    "specs_raw": "L 1300 B 1000 H 1860 GG 297 kg GM 80 kg Preis: 2.223,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1000,
+      "h": 1860
+    },
+    "price_eur": 2223.0,
+    "image": "1464818826.jpg",
+    "total_kg": 297.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 184,
+    "line": "ExclusiveLine",
+    "article": "1070E",
+    "name": "Rückenstreck Maschine",
+    "specs_raw": "L 1300 B 1200 H 1860 GG 349 kg GM 110 kg Preis: 2.242,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1200,
+      "h": 1860
+    },
+    "price_eur": 2242.0,
+    "image": "2022489092.jpg",
+    "total_kg": 349.0,
+    "stack_kg": 110.0
+  },
+  {
+    "id": 185,
+    "line": "ExclusiveLine",
+    "article": "1050E",
+    "name": "Rückenisolator, sitzend",
+    "specs_raw": "L 1650 B 1400 H 1860 GG 360 kg GM 140 kg",
+    "dims_mm": {
+      "l": 1650,
+      "w": 1400,
+      "h": 1860
+    },
+    "image": "291253308.jpg",
+    "total_kg": 360.0,
+    "stack_kg": 140.0
+  },
+  {
+    "id": 186,
+    "line": "ExclusiveLine",
+    "article": "1020E",
+    "name": "Rückenwippe",
+    "specs_raw": "L 2150 B 1300 H 1860 GG 375 kg GM 105 kg",
+    "dims_mm": {
+      "l": 2150,
+      "w": 1300,
+      "h": 1860
+    },
+    "image": "800086457.jpg",
+    "total_kg": 375.0,
+    "stack_kg": 105.0
+  },
+  {
+    "id": 188,
+    "line": "ExclusiveLine",
+    "article": "6040E",
+    "name": "Rumpf-Rotations Maschine",
+    "specs_raw": "L 1200 B 1270 H 1860 GG 365 kg GM 90 Preis: 2.171,00 *",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1270,
+      "h": 1860
+    },
+    "price_eur": 2171.0,
+    "image": "901009189.jpg",
+    "total_kg": 365.0
+  },
+  {
+    "id": 189,
+    "line": "ExclusiveLine",
+    "article": "7010E",
+    "name": "Multi Kick Maschine",
+    "specs_raw": "L 1700 B 1350 H 1860 GG 324 kg GM 90 kg Preis: 2.193,00 *",
+    "dims_mm": {
+      "l": 1700,
+      "w": 1350,
+      "h": 1860
+    },
+    "price_eur": 2193.0,
+    "image": "1661409841.jpg",
+    "total_kg": 324.0,
+    "stack_kg": 90.0
+  },
+  {
+    "id": 190,
+    "line": "ExclusiveLine",
+    "article": "7030E",
+    "name": "Gluteus Maschine, stehend",
+    "specs_raw": "L 1180 B 1100 H 1860 GG 346 kg GM 80 kg Preis: 2.231,00 *",
+    "dims_mm": {
+      "l": 1180,
+      "w": 1100,
+      "h": 1860
+    },
+    "price_eur": 2231.0,
+    "image": "1179900220.jpg",
+    "total_kg": 346.0,
+    "stack_kg": 80.0
+  },
+  {
+    "id": 46,
+    "line": "FitnessLine",
+    "article": "1020 F",
+    "name": "Rückenwippe",
+    "specs_raw": "L 1500 B 1200 H 1700 GG: 247 kg GM: 65 kg",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1200,
+      "h": 1700
+    },
+    "total_kg": 247.0,
+    "stack_kg": 65.0,
+    "image": "1581564511.jpg"
+  },
+  {
+    "id": 47,
+    "line": "FitnessLine",
+    "article": "1050 F",
+    "name": "Rückenisolator",
+    "specs_raw": "L 1250 B 1350 H 1700rnGG: 215 kgrnGM: 65 kg Preis: 1.408,00 *",
+    "dims_mm": {
+      "l": 1250,
+      "w": 1350,
+      "h": 1700
+    },
+    "total_kg": 215.0,
+    "stack_kg": 65.0,
+    "price_eur": 1408.0,
+    "image": "498829735.jpg"
+  },
+  {
+    "id": 48,
+    "line": "FitnessLine",
+    "article": "1070 F",
+    "name": "Rückenstreck Maschine",
+    "specs_raw": "L 1250 B 900 H 1700rnGG: 190 kgrnGM: 65 kg Preis: 1.132,00 *",
+    "dims_mm": {
+      "l": 1250,
+      "w": 900,
+      "h": 1700
+    },
+    "total_kg": 190.0,
+    "stack_kg": 65.0,
+    "price_eur": 1132.0,
+    "image": "567819047.jpg"
+  },
+  {
+    "id": 49,
+    "line": "FitnessLine",
+    "article": "1080 F",
+    "name": "Rücken Maschine",
+    "specs_raw": "L 1250 B 850 H 1700rnGG: 230 kgrnGM: 65 kg Preis: 1.399,00 *",
+    "dims_mm": {
+      "l": 1250,
+      "w": 850,
+      "h": 1700
+    },
+    "total_kg": 230.0,
+    "stack_kg": 65.0,
+    "price_eur": 1399.0,
+    "image": "863201207.jpg"
+  },
+  {
+    "id": 50,
+    "line": "FitnessLine",
+    "article": "1160 F",
+    "name": "Schulterwippe",
+    "specs_raw": "L 1850 B 1200 H 1700 GG: 238 kg GM: 65 kg Preis: 1.348,00 *",
+    "dims_mm": {
+      "l": 1850,
+      "w": 1200,
+      "h": 1700
+    },
+    "total_kg": 238.0,
+    "stack_kg": 65.0,
+    "price_eur": 1348.0,
+    "image": "300273368.jpg"
+  },
+  {
+    "id": 51,
+    "line": "FitnessLine",
+    "article": "1190 F",
+    "name": "Deltoid Maschine",
+    "specs_raw": "L 2200 B 1200 H 2060 GG: 376 kg GM: 120 kg Preis: 1.376,00 *",
+    "dims_mm": {
+      "l": 2200,
+      "w": 1200,
+      "h": 2060
+    },
+    "total_kg": 376.0,
+    "stack_kg": 120.0,
+    "price_eur": 1376.0,
+    "image": "153516303.jpg"
+  },
+  {
+    "id": 53,
+    "line": "FitnessLine",
+    "article": "2040 F",
+    "name": "Bankdrück Maschine",
+    "specs_raw": "L 1500 B 1300 H 1700 GG: 228 kg rnGM: 65 kg Preis: 1.183,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1300,
+      "h": 1700
+    },
+    "total_kg": 228.0,
+    "stack_kg": 65.0,
+    "price_eur": 1183.0,
+    "image": "355052934.jpg"
+  },
+  {
+    "id": 54,
+    "line": "FitnessLine",
+    "article": "2080 F",
+    "name": "Schrägbank Maschine",
+    "specs_raw": "L 2000 B 1200 H 1700 GG: 260 kg GM: 65 kg Preis: 1.238,00 *",
+    "dims_mm": {
+      "l": 2000,
+      "w": 1200,
+      "h": 1700
+    },
+    "total_kg": 260.0,
+    "stack_kg": 65.0,
+    "price_eur": 1238.0,
+    "image": "802939815.jpg"
+  },
+  {
+    "id": 55,
+    "line": "FitnessLine",
+    "article": "2090 F",
+    "name": "Pull Over Maschine",
+    "specs_raw": "L 1050 B 950 H 1700 GG: 186 kg GM: 65 kg",
+    "dims_mm": {
+      "l": 1050,
+      "w": 950,
+      "h": 1700
+    },
+    "total_kg": 186.0,
+    "stack_kg": 65.0,
+    "image": "1326818730.jpg"
+  },
+  {
+    "id": 56,
+    "line": "FitnessLine",
+    "article": "3010 F",
+    "name": "Bizeps Maschine",
+    "specs_raw": "L 900 B 900 H 1700 GG: 178 kg GM: 65 kg Preis: 1.081,00 *",
+    "dims_mm": {
+      "l": 900,
+      "w": 900,
+      "h": 1700
+    },
+    "total_kg": 178.0,
+    "stack_kg": 65.0,
+    "price_eur": 1081.0,
+    "image": "1576065315.jpg"
+  },
+  {
+    "id": 57,
+    "line": "FitnessLine",
+    "article": "3050 F",
+    "name": "Trizeps Maschine",
+    "specs_raw": "L 1300 B 900 H 1700 GG: 208 kg GM: 65 kg Preis: 1.316,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 900,
+      "h": 1700
+    },
+    "total_kg": 208.0,
+    "stack_kg": 65.0,
+    "price_eur": 1316.0,
+    "image": "540517812.jpg"
+  },
+  {
+    "id": 58,
+    "line": "FitnessLine",
+    "article": "3080 F",
+    "name": "Dipp Maschine",
+    "specs_raw": "L 1600 B 1200 H 1700 GG: 252 kg GM: 65 kg Preis: 1.344,00 *",
+    "dims_mm": {
+      "l": 1600,
+      "w": 1200,
+      "h": 1700
+    },
+    "total_kg": 252.0,
+    "stack_kg": 65.0,
+    "price_eur": 1344.0,
+    "image": "54281879.jpg"
+  },
+  {
+    "id": 59,
+    "line": "FitnessLine",
+    "article": "4020 F",
+    "name": "Beinstreck Maschine",
+    "specs_raw": "L 1350 B 1000 H 1700 GG: 220 kg GM: 65 kg Preis: 1.334,00 *",
+    "dims_mm": {
+      "l": 1350,
+      "w": 1000,
+      "h": 1700
+    },
+    "total_kg": 220.0,
+    "stack_kg": 65.0,
+    "price_eur": 1334.0,
+    "image": "1356150070.jpg"
+  },
+  {
+    "id": 60,
+    "line": "FitnessLine",
+    "article": "4030 F",
+    "name": "Beinbeuge Maschine",
+    "specs_raw": "L 1900 B 950 H 1700 GG: 212 kg GM: 65 kg Preis: 1.334,00 *",
+    "dims_mm": {
+      "l": 1900,
+      "w": 950,
+      "h": 1700
+    },
+    "total_kg": 212.0,
+    "stack_kg": 65.0,
+    "price_eur": 1334.0,
+    "image": "1711496765.jpg"
+  },
+  {
+    "id": 61,
+    "line": "FitnessLine",
+    "article": "4060 F",
+    "name": "Adduktions Maschine",
+    "specs_raw": "L 1300 B 1150 H 1700 GG: 244 kg GM: 65 kg",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1150,
+      "h": 1700
+    },
+    "total_kg": 244.0,
+    "stack_kg": 65.0,
+    "image": "956261456.jpg"
+  },
+  {
+    "id": 63,
+    "line": "FitnessLine",
+    "article": "4090 F",
+    "name": "Beinpresse",
+    "specs_raw": "L 2100 B 1000 H 1700 GG: 319 kg GM:105 kg Preis: 1.846,00 *",
+    "dims_mm": {
+      "l": 2100,
+      "w": 1000,
+      "h": 1700
+    },
+    "total_kg": 319.0,
+    "stack_kg": 105.0,
+    "price_eur": 1846.0,
+    "image": "1359494341.jpg"
+  },
+  {
+    "id": 64,
+    "line": "FitnessLine",
+    "article": "4190 F",
+    "name": "Waden Maschine",
+    "specs_raw": "L 1400 B 900 H 1700 GG: 213 kg GM: 65 kg Preis: 1.339,00 *",
+    "dims_mm": {
+      "l": 1400,
+      "w": 900,
+      "h": 1700
+    },
+    "total_kg": 213.0,
+    "stack_kg": 65.0,
+    "price_eur": 1339.0,
+    "image": "759720217.jpg"
+  },
+  {
+    "id": 65,
+    "line": "FitnessLine",
+    "article": "5032 F",
+    "name": "Bauch Maschine",
+    "specs_raw": "L 1250 B 900 H 1700 GG: 223 kg GM: 65 kg Preis: 1.261,00 *",
+    "dims_mm": {
+      "l": 1250,
+      "w": 900,
+      "h": 1700
+    },
+    "total_kg": 223.0,
+    "stack_kg": 65.0,
+    "price_eur": 1261.0,
+    "image": "1557611861.jpg"
+  },
+  {
+    "id": 66,
+    "line": "FitnessLine",
+    "article": "7030 F",
+    "name": "Gluteus Maschine",
+    "specs_raw": "L 1100 B 850 H 1700 GG: 208 kg GM: 65 kg Preis: 1.173,00 *",
+    "dims_mm": {
+      "l": 1100,
+      "w": 850,
+      "h": 1700
+    },
+    "total_kg": 208.0,
+    "stack_kg": 65.0,
+    "price_eur": 1173.0,
+    "image": "34072435.jpg"
+  },
+  {
+    "id": 27,
+    "line": "StandardLine",
+    "article": "0101",
+    "name": "Klimmzug/Dipp Maschine",
+    "specs_raw": "L 1070 B 1150 H 2250 GG: 278 kg GM: 67,5 kg Preis: 1.589,00 *",
+    "dims_mm": {
+      "l": 1070,
+      "w": 1150,
+      "h": 2250
+    },
+    "total_kg": 278.0,
+    "stack_kg": 67.5,
+    "price_eur": 1589.0,
+    "image": "1866121300.jpg"
+  },
+  {
+    "id": 28,
+    "line": "StandardLine",
+    "article": "0108",
+    "name": "Rücken Maschine",
+    "specs_raw": "L 1270 B 870 H 1850 GG: 208 kg GM: 45 kg Preis: 1.589,00 *",
+    "dims_mm": {
+      "l": 1270,
+      "w": 870,
+      "h": 1850
+    },
+    "total_kg": 208.0,
+    "stack_kg": 45.0,
+    "price_eur": 1589.0,
+    "image": "2131982474.jpg"
+  },
+  {
+    "id": 30,
+    "line": "StandardLine",
+    "article": "0204",
+    "name": "Bankdrückmaschine, horizontal",
+    "specs_raw": "L 1785 B 1290 H 1850 GG: 281 kg GM: 100 kg Preis: 1.589,00 *",
+    "dims_mm": {
+      "l": 1785,
+      "w": 1290,
+      "h": 1850
+    },
+    "total_kg": 281.0,
+    "stack_kg": 100.0,
+    "price_eur": 1589.0,
+    "image": "609930034.jpg"
+  },
+  {
+    "id": 31,
+    "line": "StandardLine",
+    "article": "0301",
+    "name": "Bizeps Maschine",
+    "specs_raw": "L 1300 B 1040 H 1850 GG: 222 kg GM: 50 kg Preis: 1.536,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1040,
+      "h": 1850
+    },
+    "total_kg": 222.0,
+    "stack_kg": 50.0,
+    "price_eur": 1536.0,
+    "image": "1517147598.jpg"
+  },
+  {
+    "id": 32,
+    "line": "StandardLine",
+    "article": "0306",
+    "name": "Trizepsstation mit Rückenstütze",
+    "specs_raw": "L 1530 B 900 H 2300 GG: 124 kg GM: 60 kg Preis: 1.337,00 *",
+    "dims_mm": {
+      "l": 1530,
+      "w": 900,
+      "h": 2300
+    },
+    "total_kg": 124.0,
+    "stack_kg": 60.0,
+    "price_eur": 1337.0,
+    "image": "103890990.jpg"
+  },
+  {
+    "id": 33,
+    "line": "StandardLine",
+    "article": "05033",
+    "name": "Bauchbeugemaschine, vertikal",
+    "specs_raw": "L 1070 B 910 H 1850 GG: 269 kg GM: 95 kg Preis: 1.800,00 *",
+    "dims_mm": {
+      "l": 1070,
+      "w": 910,
+      "h": 1850
+    },
+    "total_kg": 269.0,
+    "stack_kg": 95.0,
+    "price_eur": 1800.0,
+    "image": "1836706809.jpg"
+  },
+  {
+    "id": 34,
+    "line": "StandardLine",
+    "article": "0702",
+    "name": "Gluteus Maschine",
+    "specs_raw": "L 1500 B 1110 H 1850 GG: 315 kg GM: 120 kg Preis: 1.552,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1110,
+      "h": 1850
+    },
+    "total_kg": 315.0,
+    "stack_kg": 120.0,
+    "price_eur": 1552.0,
+    "image": "899514785.jpg"
+  },
+  {
+    "id": 35,
+    "line": "StandardLine",
+    "article": "0402",
+    "name": "Beinstreck Maschine, sitzend",
+    "specs_raw": "L 1390 B 1150 H 1900 GG: 317 kg GM: 120 kg Preis: 1.606,00 *",
+    "dims_mm": {
+      "l": 1390,
+      "w": 1150,
+      "h": 1900
+    },
+    "total_kg": 317.0,
+    "stack_kg": 120.0,
+    "price_eur": 1606.0,
+    "image": "660514002.jpg"
+  },
+  {
+    "id": 36,
+    "line": "StandardLine",
+    "article": "0409",
+    "name": "Beinpresse, horizontal",
+    "specs_raw": "L 2700 B 1120 H 2500 GG: 467 kg GM: 240 kg Preis: 2.357,00 *",
+    "dims_mm": {
+      "l": 2700,
+      "w": 1120,
+      "h": 2500
+    },
+    "total_kg": 467.0,
+    "stack_kg": 240.0,
+    "price_eur": 2357.0,
+    "image": "1887802394.jpg"
+  },
+  {
+    "id": 37,
+    "line": "StandardLine",
+    "article": "0419",
+    "name": "Waden Maschine, schräg sitzend",
+    "specs_raw": "L 1625 B 980 H 1850 GG: 281 kg GM: 120 kg Preis: 1.568,00 *",
+    "dims_mm": {
+      "l": 1625,
+      "w": 980,
+      "h": 1850
+    },
+    "total_kg": 281.0,
+    "stack_kg": 120.0,
+    "price_eur": 1568.0,
+    "image": "523725319.jpg"
+  },
+  {
+    "id": 85,
+    "line": "StandardLine",
+    "article": "0102",
+    "name": "Rückenwippe",
+    "specs_raw": "L 1460 B 1260 H 2050 GG: 322 kg GM: 100kg Preis: 1.551,00 *",
+    "dims_mm": {
+      "l": 1460,
+      "w": 1260,
+      "h": 2050
+    },
+    "total_kg": 322.0,
+    "stack_kg": 100.0,
+    "price_eur": 1551.0,
+    "image": "304277405.jpg"
+  },
+  {
+    "id": 86,
+    "line": "StandardLine",
+    "article": "0103",
+    "name": "Latzug Station",
+    "specs_raw": "L 1520 B 900 H 2300 GG:250 kg GM: 120 kg Preis: 1.444,00 *",
+    "dims_mm": {
+      "l": 1520,
+      "w": 900,
+      "h": 2300
+    },
+    "total_kg": 250.0,
+    "stack_kg": 120.0,
+    "price_eur": 1444.0,
+    "image": "895189509.jpg"
+  },
+  {
+    "id": 87,
+    "line": "StandardLine",
+    "article": "0104",
+    "name": "Ruderstation",
+    "specs_raw": "L 3000 B 900 H 2300 GG: 295 kg GM: 120 kg Preis: 1.460,00 *",
+    "dims_mm": {
+      "l": 3000,
+      "w": 900,
+      "h": 2300
+    },
+    "total_kg": 295.0,
+    "stack_kg": 120.0,
+    "price_eur": 1460.0,
+    "image": "45639821.jpg"
+  },
+  {
+    "id": 88,
+    "line": "StandardLine",
+    "article": "0105",
+    "name": "Rückenisolator, sitzend",
+    "specs_raw": "L1500 B 1200 H 1850 GG: 262 kg GM: 120 kg Preis: 1.514,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 1200,
+      "h": 1850
+    },
+    "total_kg": 262.0,
+    "stack_kg": 120.0,
+    "price_eur": 1514.0,
+    "image": "43615213.jpg"
+  },
+  {
+    "id": 89,
+    "line": "StandardLine",
+    "article": "0106",
+    "name": "Dorsal Maschine",
+    "specs_raw": "L 1360 B 1090 H 1850 GG: 282 kg GM: 75kg Preis: 1.514,00 *",
+    "dims_mm": {
+      "l": 1360,
+      "w": 1090,
+      "h": 1850
+    },
+    "total_kg": 282.0,
+    "stack_kg": 75.0,
+    "price_eur": 1514.0,
+    "image": "1542111855.jpg"
+  },
+  {
+    "id": 90,
+    "line": "StandardLine",
+    "article": "0107",
+    "name": "Rückenstreck Maschine",
+    "specs_raw": "L 1400 B 1070 H 1850 GG 308 kg GM 112,5 kg Preis: 1.603,00 *",
+    "dims_mm": {
+      "l": 1400,
+      "w": 1070,
+      "h": 1850
+    },
+    "price_eur": 1603.0,
+    "image": "760494476.jpg",
+    "total_kg": 308.0,
+    "stack_kg": 112.5
+  },
+  {
+    "id": 91,
+    "line": "StandardLine",
+    "article": "0109",
+    "name": "Klimmzuggestell",
+    "specs_raw": "L 1300 B 950 H 2300 GG 62 kg Preis: 427,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 950,
+      "h": 2300
+    },
+    "price_eur": 427.0,
+    "image": "961245060.jpg",
+    "total_kg": 62.0
+  },
+  {
+    "id": 92,
+    "line": "StandardLine",
+    "article": "0111",
+    "name": "Ruderhantel mit Bruststütze, 50 mm",
+    "specs_raw": "L 1850 B 950 H 1350 GG 66kg",
+    "dims_mm": {
+      "l": 1850,
+      "w": 950,
+      "h": 1350
+    },
+    "image": "175529536.jpg",
+    "total_kg": 66.0
+  },
+  {
+    "id": 93,
+    "line": "StandardLine",
+    "article": "0112",
+    "name": "Ruderbodenhantel Maschine",
+    "specs_raw": "L 2250 B 950 H 2050 GG: 380 kg GM: 210 kg Preis: 1.493,00 *",
+    "dims_mm": {
+      "l": 2250,
+      "w": 950,
+      "h": 2050
+    },
+    "total_kg": 380.0,
+    "stack_kg": 210.0,
+    "price_eur": 1493.0,
+    "image": "273488518.jpg"
+  },
+  {
+    "id": 94,
+    "line": "StandardLine",
+    "article": "0114",
+    "name": "Ruderbodenhantel, 50 mm",
+    "specs_raw": "L 1950 B 750 H 350 GG: 67 kg Preis: 427,00 *",
+    "dims_mm": {
+      "l": 1950,
+      "w": 750,
+      "h": 350
+    },
+    "total_kg": 67.0,
+    "price_eur": 427.0,
+    "image": "1924995848.jpg"
+  },
+  {
+    "id": 95,
+    "line": "StandardLine",
+    "article": "0115",
+    "name": "Hyperextension 45º",
+    "specs_raw": "L 1450 B 750 H 750 GG: 50 kg",
+    "dims_mm": {
+      "l": 1450,
+      "w": 750,
+      "h": 750
+    },
+    "total_kg": 50.0,
+    "image": "560397031.jpg"
+  },
+  {
+    "id": 96,
+    "line": "StandardLine",
+    "article": "0116",
+    "name": "Schulterwippe",
+    "specs_raw": "L 2070 B 1300 H 1850 GG: 306 kg GM: 80 kg Preis: 1.498,00 *",
+    "dims_mm": {
+      "l": 2070,
+      "w": 1300,
+      "h": 1850
+    },
+    "total_kg": 306.0,
+    "stack_kg": 80.0,
+    "price_eur": 1498.0,
+    "image": "1586255524.jpg"
+  },
+  {
+    "id": 97,
+    "line": "StandardLine",
+    "article": "0117",
+    "name": "Nackendrück Maschine",
+    "specs_raw": "L 1200 B 1180 H 2100 GG: 272 kg GM: 90 kg Preis: 1.589,00 *",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1180,
+      "h": 2100
+    },
+    "total_kg": 272.0,
+    "stack_kg": 90.0,
+    "price_eur": 1589.0,
+    "image": "711783096.jpg"
+  },
+  {
+    "id": 99,
+    "line": "StandardLine",
+    "article": "0118",
+    "name": "Seithebe Maschine",
+    "specs_raw": "L 1300 B 870 H 1850 GG: 195 kg GM: 35 kg Preis: 1.554,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 870,
+      "h": 1850
+    },
+    "total_kg": 195.0,
+    "stack_kg": 35.0,
+    "price_eur": 1554.0,
+    "image": "534727128.jpg"
+  },
+  {
+    "id": 100,
+    "line": "StandardLine",
+    "article": "0119",
+    "name": "Deltoid Maschine",
+    "specs_raw": "L 1270 B 890 H 1850 GG: 235 kg GM: 35 kg Preis: 1.568,00 *",
+    "dims_mm": {
+      "l": 1270,
+      "w": 890,
+      "h": 1850
+    },
+    "total_kg": 235.0,
+    "stack_kg": 35.0,
+    "price_eur": 1568.0,
+    "image": "798360000.jpg"
+  },
+  {
+    "id": 102,
+    "line": "StandardLine",
+    "article": "0121",
+    "name": "Nackendrückbank, breit",
+    "specs_raw": "L 1300 B 1250 H 1600 GG: 64 kg Preis: 450,00 *",
+    "dims_mm": {
+      "l": 1300,
+      "w": 1250,
+      "h": 1600
+    },
+    "total_kg": 64.0,
+    "price_eur": 450.0,
+    "image": "1017157468.jpg"
+  },
+  {
+    "id": 103,
+    "line": "StandardLine",
+    "article": "0201",
+    "name": "Butterfly Maschine",
+    "specs_raw": "L 1510 B 1890 H 1850 GG: 270 kg GM: 80 kg Preis: 1.981,00 *",
+    "dims_mm": {
+      "l": 1510,
+      "w": 1890,
+      "h": 1850
+    },
+    "total_kg": 270.0,
+    "stack_kg": 80.0,
+    "price_eur": 1981.0,
+    "image": "1627949522.jpg"
+  },
+  {
+    "id": 104,
+    "line": "StandardLine",
+    "article": "0202",
+    "name": "Bankdrück Maschine, liegend",
+    "specs_raw": "L 2300 B 3110 H 1700 GG: 392 kg GM: 140 kg Preis: 1.498,00 *",
+    "dims_mm": {
+      "l": 2300,
+      "w": 3110,
+      "h": 1700
+    },
+    "total_kg": 392.0,
+    "stack_kg": 140.0,
+    "price_eur": 1498.0,
+    "image": "984263287.jpg"
+  },
+  {
+    "id": 105,
+    "line": "StandardLine",
+    "article": "0206",
+    "name": "Multipresse, 50 mm",
+    "specs_raw": "L 1900 B 1500 H 2300 GG: 164 kg Preis: 1.541,00 *",
+    "dims_mm": {
+      "l": 1900,
+      "w": 1500,
+      "h": 2300
+    },
+    "total_kg": 164.0,
+    "price_eur": 1541.0,
+    "image": "2030582700.jpg"
+  },
+  {
+    "id": 108,
+    "line": "StandardLine",
+    "article": "0207",
+    "name": "Brust Maschine",
+    "specs_raw": "L 1380 B 900 H 1850 GG: 240 kg GM: 80 kg Preis: 1.584,00 *",
+    "dims_mm": {
+      "l": 1380,
+      "w": 900,
+      "h": 1850
+    },
+    "total_kg": 240.0,
+    "stack_kg": 80.0,
+    "price_eur": 1584.0,
+    "image": "1393879214.jpg"
+  },
+  {
+    "id": 109,
+    "line": "StandardLine",
+    "article": "0208",
+    "name": "Schrägbank Maschine",
+    "specs_raw": "L 2285 B 1320H 1850 GG: 333 kg GM: 100 kg Preis: 1.498,00 *",
+    "dims_mm": {
+      "l": 2285,
+      "w": 1320,
+      "h": 1850
+    },
+    "total_kg": 333.0,
+    "stack_kg": 100.0,
+    "price_eur": 1498.0,
+    "image": "891643235.jpg"
+  },
+  {
+    "id": 111,
+    "line": "StandardLine",
+    "article": "0210",
+    "name": "Drückbank, breit",
+    "specs_raw": "L 1450 B 1300 H 1150 GG: 75 kg",
+    "dims_mm": {
+      "l": 1450,
+      "w": 1300,
+      "h": 1150
+    },
+    "total_kg": 75.0,
+    "image": "1235617442.jpg"
+  },
+  {
+    "id": 112,
+    "line": "StandardLine",
+    "article": "0211",
+    "name": "Universalbank, breit",
+    "specs_raw": "L 1360 B 1280 H 1350 GG: 145 kg Preis: 1.018,00 *",
+    "dims_mm": {
+      "l": 1360,
+      "w": 1280,
+      "h": 1350
+    },
+    "total_kg": 145.0,
+    "price_eur": 1018.0,
+    "image": "1797754478.jpg"
+  },
+  {
+    "id": 114,
+    "line": "StandardLine",
+    "article": "0213",
+    "name": "Universalbank",
+    "specs_raw": "L 1200 B 450 H 500 GG: 26 kg Preis: 319,00 *",
+    "dims_mm": {
+      "l": 1200,
+      "w": 450,
+      "h": 500
+    },
+    "total_kg": 26.0,
+    "price_eur": 319.0,
+    "image": "1022088537.jpg"
+  },
+  {
+    "id": 115,
+    "line": "StandardLine",
+    "article": "0214",
+    "name": "Universalbank mit Fußstütze",
+    "specs_raw": "L 1800 B 450 H 500 GG: 42 kg Preis: 368,00 *",
+    "dims_mm": {
+      "l": 1800,
+      "w": 450,
+      "h": 500
+    },
+    "total_kg": 42.0,
+    "price_eur": 368.0,
+    "image": "671987569.jpg"
+  },
+  {
+    "id": 116,
+    "line": "StandardLine",
+    "article": "0215",
+    "name": "Negativbank",
+    "specs_raw": "L 1750 B 750 H 700 GG: 46 kg Preis: 290,00 *",
+    "dims_mm": {
+      "l": 1750,
+      "w": 750,
+      "h": 700
+    },
+    "total_kg": 46.0,
+    "price_eur": 290.0,
+    "image": "1959644843.jpg"
+  },
+  {
+    "id": 118,
+    "line": "StandardLine",
+    "article": "0217",
+    "name": "Schrägbank, breit",
+    "specs_raw": "L 1550 B 1300 H 1300 GG: 77 kg Preis: 506,00 *",
+    "dims_mm": {
+      "l": 1550,
+      "w": 1300,
+      "h": 1300
+    },
+    "total_kg": 77.0,
+    "price_eur": 506.0,
+    "image": "597261800.jpg"
+  },
+  {
+    "id": 119,
+    "line": "StandardLine",
+    "article": "0302",
+    "name": "Bizeps Maschine, horizontal",
+    "specs_raw": "L 1550 B 1070 H 1850 GG: 193 kg GM: 40 kg",
+    "dims_mm": {
+      "l": 1550,
+      "w": 1070,
+      "h": 1850
+    },
+    "total_kg": 193.0,
+    "stack_kg": 40.0,
+    "image": "576169230.jpg"
+  },
+  {
+    "id": 120,
+    "line": "StandardLine",
+    "article": "0303",
+    "name": "Scottcurler, sitzend",
+    "specs_raw": "L 1150 B 700 H 1000 GG: 47 kg Preis: 423,00 *",
+    "dims_mm": {
+      "l": 1150,
+      "w": 700,
+      "h": 1000
+    },
+    "total_kg": 47.0,
+    "price_eur": 423.0,
+    "image": "971646558.jpg"
+  },
+  {
+    "id": 121,
+    "line": "StandardLine",
+    "article": "0304",
+    "name": "Scottcurler, stehend",
+    "specs_raw": "L 900 B 700 H 1000 GG: 38 kg Preis: 393,00 *",
+    "dims_mm": {
+      "l": 900,
+      "w": 700,
+      "h": 1000
+    },
+    "total_kg": 38.0,
+    "price_eur": 393.0,
+    "image": "1422983324.jpg"
+  },
+  {
+    "id": 122,
+    "line": "StandardLine",
+    "article": "0305",
+    "name": "Trizeps Maschine, spezial",
+    "specs_raw": "L 1280 B 1020 H 1850 GG: 247 kg GM: 60 kg Preis: 1.536,00 *",
+    "dims_mm": {
+      "l": 1280,
+      "w": 1020,
+      "h": 1850
+    },
+    "total_kg": 247.0,
+    "stack_kg": 60.0,
+    "price_eur": 1536.0,
+    "image": "982836564.jpg"
+  },
+  {
+    "id": 123,
+    "line": "StandardLine",
+    "article": "0307",
+    "name": "Profi Trizeps Maschine",
+    "specs_raw": "L 1400 B 870 H 1850 GG: 182 kg GM: 60 kg Preis: 1.445,00 *",
+    "dims_mm": {
+      "l": 1400,
+      "w": 870,
+      "h": 1850
+    },
+    "total_kg": 182.0,
+    "stack_kg": 60.0,
+    "price_eur": 1445.0,
+    "image": "508170462.jpg"
+  },
+  {
+    "id": 124,
+    "line": "StandardLine",
+    "article": "0308",
+    "name": "Dipp Maschine",
+    "specs_raw": "L 2050 B 1260 H 1850 GG: 353 kg GM: 125 kg Preis: 1.444,00 *",
+    "dims_mm": {
+      "l": 2050,
+      "w": 1260,
+      "h": 1850
+    },
+    "total_kg": 353.0,
+    "stack_kg": 125.0,
+    "price_eur": 1444.0,
+    "image": "1070043676.jpg"
+  },
+  {
+    "id": 125,
+    "line": "StandardLine",
+    "article": "0309",
+    "name": "Dipp Barren",
+    "specs_raw": "L 1100 B 770 H 1300 GG: 43 kg Preis: 314,00 *",
+    "dims_mm": {
+      "l": 1100,
+      "w": 770,
+      "h": 1300
+    },
+    "total_kg": 43.0,
+    "price_eur": 314.0,
+    "image": "836217518.jpg"
+  },
+  {
+    "id": 126,
+    "line": "StandardLine",
+    "article": "0401",
+    "name": "Kniebeugenhilfe",
+    "specs_raw": "L 750 B 600 H 500 GG: 32 kg Preis: 266,00 *",
+    "dims_mm": {
+      "l": 750,
+      "w": 600,
+      "h": 500
+    },
+    "total_kg": 32.0,
+    "price_eur": 266.0,
+    "image": "628037684.jpg"
+  },
+  {
+    "id": 127,
+    "line": "StandardLine",
+    "article": "0403",
+    "name": "Beinbeuge Maschine, liegend",
+    "specs_raw": "L 1910 B 1110 H 1850 GG: 281 kg GM: 90 kg Preis: 1.606,00 *",
+    "dims_mm": {
+      "l": 1910,
+      "w": 1110,
+      "h": 1850
+    },
+    "total_kg": 281.0,
+    "stack_kg": 90.0,
+    "price_eur": 1606.0,
+    "image": "763486728.jpg"
+  },
+  {
+    "id": 128,
+    "line": "StandardLine",
+    "article": "0404",
+    "name": "Beinbeuge Maschine, sitzend",
+    "specs_raw": "L 1410 B 1110 H 1850 GG: 381 kg GM: 120 kg",
+    "dims_mm": {
+      "l": 1410,
+      "w": 1110,
+      "h": 1850
+    },
+    "total_kg": 381.0,
+    "stack_kg": 120.0,
+    "image": "1954937001.jpg"
+  },
+  {
+    "id": 129,
+    "line": "StandardLine",
+    "article": "0405",
+    "name": "Beinbeuge Maschine, stehend",
+    "specs_raw": "L 1240 B 1275 H 1850 GG: 189 kg GM: 55 kg Preis: 1.498,00 *",
+    "dims_mm": {
+      "l": 1240,
+      "w": 1275,
+      "h": 1850
+    },
+    "total_kg": 189.0,
+    "stack_kg": 55.0,
+    "price_eur": 1498.0,
+    "image": "1152845485.jpg"
+  },
+  {
+    "id": 130,
+    "line": "StandardLine",
+    "article": "0406",
+    "name": "Adduktions Maschine",
+    "specs_raw": "L 1350 B 1350 H 1850 GG: 342 kg GM: 127,5 kg Preis: 2.030,00 *",
+    "dims_mm": {
+      "l": 1350,
+      "w": 1350,
+      "h": 1850
+    },
+    "total_kg": 342.0,
+    "stack_kg": 127.5,
+    "price_eur": 2030.0,
+    "image": "335192688.jpg"
+  },
+  {
+    "id": 131,
+    "line": "StandardLine",
+    "article": "0408",
+    "name": "Abduktions Maschine",
+    "specs_raw": "L 1550 B 1200 H 1600 GG: 314 kg GM: 127,5 kg Preis: 1.821,00 *",
+    "dims_mm": {
+      "l": 1550,
+      "w": 1200,
+      "h": 1600
+    },
+    "total_kg": 314.0,
+    "stack_kg": 127.5,
+    "price_eur": 1821.0,
+    "image": "1234235397.jpg"
+  },
+  {
+    "id": 132,
+    "line": "StandardLine",
+    "article": "0411",
+    "name": "Beinpresse 45º, 50 mm",
+    "specs_raw": "L 2250 B 1000 H 1450 GG: 197 kg Preis: 1.552,00 *",
+    "dims_mm": {
+      "l": 2250,
+      "w": 1000,
+      "h": 1450
+    },
+    "total_kg": 197.0,
+    "price_eur": 1552.0,
+    "image": "994432095.jpg"
+  },
+  {
+    "id": 133,
+    "line": "StandardLine",
+    "article": "0412",
+    "name": "Beinpresse 45º, mit Gewichtsmagazin",
+    "specs_raw": "L 2400 B 660 H 2000 GG: 481 kg GM: 240 kg Preis: 2.594,00 *",
+    "dims_mm": {
+      "l": 2400,
+      "w": 660,
+      "h": 2000
+    },
+    "total_kg": 481.0,
+    "stack_kg": 240.0,
+    "price_eur": 2594.0,
+    "image": "222244999.jpg"
+  },
+  {
+    "id": 134,
+    "line": "StandardLine",
+    "article": "0414",
+    "name": "Hackenmitt Maschine, 50 mm",
+    "specs_raw": "L 2150 B 700 H 1450 GG: 169 kg Preis: 1.520,00 *",
+    "dims_mm": {
+      "l": 2150,
+      "w": 700,
+      "h": 1450
+    },
+    "total_kg": 169.0,
+    "price_eur": 1520.0,
+    "image": "1321384164.jpg"
+  },
+  {
+    "id": 135,
+    "line": "StandardLine",
+    "article": "0415",
+    "name": "Kniebeugenablage",
+    "specs_raw": "L 1750 B 1750 H 1750 GG. 84 kg Preis: 586,00 *",
+    "dims_mm": {
+      "l": 1750,
+      "w": 1750,
+      "h": 1750
+    },
+    "price_eur": 586.0,
+    "image": "969259807.jpg"
+  },
+  {
+    "id": 136,
+    "line": "StandardLine",
+    "article": "0416",
+    "name": "Powerrack",
+    "specs_raw": "L 1200 B 1200 H 2250 GG: 102 kg Preis: 532,00 *",
+    "dims_mm": {
+      "l": 1200,
+      "w": 1200,
+      "h": 2250
+    },
+    "total_kg": 102.0,
+    "price_eur": 532.0,
+    "image": "1042980770.jpg"
+  },
+  {
+    "id": 138,
+    "line": "StandardLine",
+    "article": "0420",
+    "name": "Waden Maschine Donkey",
+    "specs_raw": "L 1500 B 920 H 1850 GG: 160 kg GM: 200 kg Preis: 1.608,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 920,
+      "h": 1850
+    },
+    "total_kg": 160.0,
+    "stack_kg": 200.0,
+    "price_eur": 1608.0,
+    "image": "1296297570.jpg"
+  },
+  {
+    "id": 139,
+    "line": "StandardLine",
+    "article": "0421",
+    "name": "Waden Maschine, sitzend",
+    "specs_raw": "L 1650 B 920 H 1850 GG: 318 kg GM: 160 kg Preis: 1.525,00 *",
+    "dims_mm": {
+      "l": 1650,
+      "w": 920,
+      "h": 1850
+    },
+    "total_kg": 318.0,
+    "stack_kg": 160.0,
+    "price_eur": 1525.0,
+    "image": "1264801561.jpg"
+  },
+  {
+    "id": 140,
+    "line": "StandardLine",
+    "article": "0423",
+    "name": "Wadengerät, sitzend 50 mm",
+    "specs_raw": "L 1150 B 500 H 900 GG: 58 kg Preis: 591,00 *",
+    "dims_mm": {
+      "l": 1150,
+      "w": 500,
+      "h": 900
+    },
+    "total_kg": 58.0,
+    "price_eur": 591.0,
+    "image": "496577893.jpg"
+  },
+  {
+    "id": 142,
+    "line": "StandardLine",
+    "article": "0502",
+    "name": "Bauchfixator",
+    "specs_raw": "L 1280 B 1190 H 1850 GG: 271 kg GM: 100 kg",
+    "dims_mm": {
+      "l": 1280,
+      "w": 1190,
+      "h": 1850
+    },
+    "total_kg": 271.0,
+    "stack_kg": 100.0,
+    "image": "1951196545.jpg"
+  },
+  {
+    "id": 146,
+    "line": "StandardLine",
+    "article": "0505",
+    "name": "Profi Bauchmuskelbank",
+    "specs_raw": "L 1600 B 750 H 1000 GG: 42 kg Preis: 365,00 *",
+    "dims_mm": {
+      "l": 1600,
+      "w": 750,
+      "h": 1000
+    },
+    "total_kg": 42.0,
+    "price_eur": 365.0,
+    "image": "1055123946.jpg"
+  },
+  {
+    "id": 147,
+    "line": "StandardLine",
+    "article": "0506",
+    "name": "Bauchmuskelbank, stufenform",
+    "specs_raw": "L 1550 B 750 H 1250 GG: 54 kg Preis: 317,00 *",
+    "dims_mm": {
+      "l": 1550,
+      "w": 750,
+      "h": 1250
+    },
+    "total_kg": 54.0,
+    "price_eur": 317.0,
+    "image": "1772423841.jpg"
+  },
+  {
+    "id": 148,
+    "line": "StandardLine",
+    "article": "0507",
+    "name": "Kleiner Bauchmuskelsitz, schräg",
+    "specs_raw": "L 1200 B 700 H 650 GG: 53 kg Preis: 317,00 *",
+    "dims_mm": {
+      "l": 1200,
+      "w": 700,
+      "h": 650
+    },
+    "total_kg": 53.0,
+    "price_eur": 317.0,
+    "image": "1097211091.jpg"
+  },
+  {
+    "id": 149,
+    "line": "StandardLine",
+    "article": "0601",
+    "name": "Twister, sitzend",
+    "specs_raw": "L 950 B 650 H 1000 GG: 39 kg Preis: 363,00 *",
+    "dims_mm": {
+      "l": 950,
+      "w": 650,
+      "h": 1000
+    },
+    "total_kg": 39.0,
+    "price_eur": 363.0,
+    "image": "281215707.jpg"
+  },
+  {
+    "id": 150,
+    "line": "StandardLine",
+    "article": "0604",
+    "name": "Rumpf-Rotations Maschine",
+    "specs_raw": "L 1180 B 1030 H 1850 GG: 299 kg GM: 90 kg Preis: 1.552,00 *",
+    "dims_mm": {
+      "l": 1180,
+      "w": 1030,
+      "h": 1850
+    },
+    "total_kg": 299.0,
+    "stack_kg": 90.0,
+    "price_eur": 1552.0,
+    "image": "1626876065.jpg"
+  },
+  {
+    "id": 151,
+    "line": "StandardLine",
+    "article": "0701",
+    "name": "Multi Kick Maschine",
+    "specs_raw": "L 1260 B 1280 H 1850 GG: 262 kg GM: 90 kg Preis: 1.568,00 *",
+    "dims_mm": {
+      "l": 1260,
+      "w": 1280,
+      "h": 1850
+    },
+    "total_kg": 262.0,
+    "stack_kg": 90.0,
+    "price_eur": 1568.0,
+    "image": "1007322338.jpg"
+  },
+  {
+    "id": 152,
+    "line": "StandardLine",
+    "article": "0703",
+    "name": "Gluteus Maschine, stehend",
+    "specs_raw": "L 1450 B 1110 H 1850 GG: 283 kg GM: 80 kg Preis: 1.595,00 *",
+    "dims_mm": {
+      "l": 1450,
+      "w": 1110,
+      "h": 1850
+    },
+    "total_kg": 283.0,
+    "stack_kg": 80.0,
+    "price_eur": 1595.0,
+    "image": "65224666.jpg"
+  },
+  {
+    "id": 191,
+    "line": "StandardLine",
+    "article": "01172",
+    "name": "Hals-/ Nackenmaschine",
+    "specs_raw": "L 1070 B 1270 H 1850 GG: 254 kg GM: 30 kg",
+    "dims_mm": {
+      "l": 1070,
+      "w": 1270,
+      "h": 1850
+    },
+    "total_kg": 254.0,
+    "stack_kg": 30.0,
+    "image": "1178129936.jpg"
+  },
+  {
+    "id": 192,
+    "line": "StandardLine",
+    "article": "02062",
+    "name": "Multipresse mit Gewichtsmagazin",
+    "specs_raw": "L 1900 B 1440 H 2300 GG: 415 kg GM: 2 x 62,5 kg",
+    "dims_mm": {
+      "l": 1900,
+      "w": 1440,
+      "h": 2300
+    },
+    "total_kg": 415.0,
+    "image": "1168913052.jpg"
+  },
+  {
+    "id": 193,
+    "line": "StandardLine",
+    "article": "02063",
+    "name": "Universalbank für Multipresse",
+    "specs_raw": "L 1450 B 370 H 460 GG: 94 kg Preis: 864,00 *",
+    "dims_mm": {
+      "l": 1450,
+      "w": 370,
+      "h": 460
+    },
+    "total_kg": 94.0,
+    "price_eur": 864.0,
+    "image": "1443998857.jpg"
+  },
+  {
+    "id": 194,
+    "line": "StandardLine",
+    "article": "05032",
+    "name": "Bauch Maschine, liegend",
+    "specs_raw": "L 1550 B 1120 H 1850 GG: 255 kg GM: 90 kg Preis: 1.570,00 *",
+    "dims_mm": {
+      "l": 1550,
+      "w": 1120,
+      "h": 1850
+    },
+    "total_kg": 255.0,
+    "stack_kg": 90.0,
+    "price_eur": 1570.0,
+    "image": "966536588.jpg"
+  },
+  {
+    "id": 206,
+    "line": "StandardLine",
+    "article": "0503",
+    "name": "Bauch Maschine",
+    "specs_raw": "L 1490 B 1080 H 1850 GG: 296 kg GM: 105 kg Preis: 1.799,00 *",
+    "dims_mm": {
+      "l": 1490,
+      "w": 1080,
+      "h": 1850
+    },
+    "total_kg": 296.0,
+    "stack_kg": 105.0,
+    "price_eur": 1799.0,
+    "image": "1431678753.jpg"
+  },
+  {
+    "id": 238,
+    "line": "StandardLine",
+    "article": "01152",
+    "name": "Hyperextension, stufenlos höhenverstellbar 45°",
+    "specs_raw": "L 1450 B 750 H 880 GG: 68 kg Preis: 614,00 *",
+    "dims_mm": {
+      "l": 1450,
+      "w": 750,
+      "h": 880
+    },
+    "total_kg": 68.0,
+    "price_eur": 614.0,
+    "image": "1243467828.jpg"
+  },
+  {
+    "id": 241,
+    "line": "StandardLine",
+    "article": "03012",
+    "name": "Armdrück Maschine",
+    "specs_raw": "L 1240 B 1050 H 1850 GG: 231 kg GM: 80 kg Preis: 1.453,00 *",
+    "dims_mm": {
+      "l": 1240,
+      "w": 1050,
+      "h": 1850
+    },
+    "total_kg": 231.0,
+    "stack_kg": 80.0,
+    "price_eur": 1453.0,
+    "image": "1592578437.jpg"
+  },
+  {
+    "id": 242,
+    "line": "StandardLine",
+    "article": "04082",
+    "name": "Adduktions-Abbduktions Maschine",
+    "specs_raw": "L 1350 B 1350 H 1850 GG: 316 kg GM: 127,5 kg Preis: 2.290,00 *",
+    "dims_mm": {
+      "l": 1350,
+      "w": 1350,
+      "h": 1850
+    },
+    "total_kg": 316.0,
+    "stack_kg": 127.5,
+    "price_eur": 2290.0,
+    "image": "1802909067.jpg"
+  },
+  {
+    "id": 243,
+    "line": "StandardLine",
+    "article": "04092",
+    "name": "Beinpresse, horizontal (Rückenlehne höhenverstellbar)",
+    "specs_raw": "L 2700 B 1120 H 2050 GG: 556 kg GM: 240 kg Preis: 2.843,00 *",
+    "dims_mm": {
+      "l": 2700,
+      "w": 1120,
+      "h": 2050
+    },
+    "total_kg": 556.0,
+    "stack_kg": 240.0,
+    "price_eur": 2843.0,
+    "image": "782802961.jpg"
+  },
+  {
+    "id": 245,
+    "line": "StandardLine",
+    "article": "05052",
+    "name": "Bauchmuskelbank, verstellbar",
+    "specs_raw": "L 1200 B 540 H 1300 GG: 66 kg Preis: 453,00 *",
+    "dims_mm": {
+      "l": 1200,
+      "w": 540,
+      "h": 1300
+    },
+    "total_kg": 66.0,
+    "price_eur": 453.0,
+    "image": "1761078865.jpg"
+  },
+  {
+    "id": 247,
+    "line": "StandardLine",
+    "article": "06042",
+    "name": "Rumpf-Rotations Maschine",
+    "specs_raw": "L 1350 B 1160 H 1850 GG: 252 kg GM: 90 kg Preis: 1.642,00 *",
+    "dims_mm": {
+      "l": 1350,
+      "w": 1160,
+      "h": 1850
+    },
+    "total_kg": 252.0,
+    "stack_kg": 90.0,
+    "price_eur": 1642.0,
+    "image": "838323080.jpg"
+  },
+  {
+    "id": 248,
+    "line": "StandardLine",
+    "article": "07032",
+    "name": "Gluteus Maschine, stehend, Rundpolster",
+    "specs_raw": "L1400 B 1110 H 1850 GG: 274 kg GM: 80 kg Preis: 1.595,00 *",
+    "dims_mm": {
+      "l": 1400,
+      "w": 1110,
+      "h": 1850
+    },
+    "total_kg": 274.0,
+    "stack_kg": 80.0,
+    "price_eur": 1595.0,
+    "image": "375994857.jpg"
+  },
+  {
+    "id": 250,
+    "line": "StandardLine",
+    "article": "0603",
+    "name": "Twister Kombi",
+    "specs_raw": "L 1500 B 700 H 1200 GG: 76 kg Preis: 301,00 *",
+    "dims_mm": {
+      "l": 1500,
+      "w": 700,
+      "h": 1200
+    },
+    "total_kg": 76.0,
+    "price_eur": 301.0,
+    "image": "1905760588.jpg"
+  },
+  {
+    "id": 252,
+    "line": "StandardLine",
+    "article": "0706",
+    "name": "Gluetus Maschine, spezial",
+    "specs_raw": "L 1530 B 1250 H 1850 GG: 327 kg GM: 80 kg Preis: 1.998,00 *",
+    "dims_mm": {
+      "l": 1530,
+      "w": 1250,
+      "h": 1850
+    },
+    "total_kg": 327.0,
+    "stack_kg": 80.0,
+    "price_eur": 1998.0,
+    "image": "442299068.jpg"
+  },
+  {
+    "id": 253,
+    "line": "StandardLine",
+    "article": "0707",
+    "name": "Gluteus Maschine, vertikal",
+    "specs_raw": "L 1460 B 1070 H 1850 GG: 272 kg GM: 80 kg Preis: 1.958,00 *",
+    "dims_mm": {
+      "l": 1460,
+      "w": 1070,
+      "h": 1850
+    },
+    "total_kg": 272.0,
+    "stack_kg": 80.0,
+    "price_eur": 1958.0,
+    "image": "169085228.jpg"
+  }
+]
