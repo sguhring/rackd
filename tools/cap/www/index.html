@@ -1284,7 +1284,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // but only for the identities this migration created, since a preset may legitimately repeat
   // a machine on purpose.
   const MACHINE_IMG={'stairmaster|arcuate lat pull':'img/stairmaster-arcuate-lat-pull.jpg'};
-  const NO_IMAGE={'stairmaster|arcuate seated row':1};   // only candidate was an unrelated screenshot
+  const NO_IMAGE={};   // brand|name pairs that must stay photo-less (none right now)
   function migrateMachineImages(){
     if(DB.mig_img1) return;
     const pin=o=>{ if(!o||!o.name) return; const k=(o.brand||'')+'|'+o.name;

@@ -42,8 +42,10 @@ SOURCE = "stairmaster-wayback"
 MAX_PX, JPEG_Q = 512, 82
 BASE = "http://stairmaster.com/Images/Product/"
 
-# key -> (wayback timestamp, file under /Images/Product/)
-PHOTOS: dict[str, tuple[str, str]] = {
+# key -> (wayback timestamp, file under /Images/Product/); timestamp None = local file
+# (the Seated Row render was never archived, so it takes the user's own gym photo)
+PHOTOS: dict[str, tuple[str | None, str]] = {
+    "arcuate-seated-row": (None, "catalog/stairmaster_images/arcuate-seated-row-user.png"),
     "arcuate-bicep-curl": ("20020629", "arcuatebicepcurl.jpg"),
     "arcuate-lat-pull": ("20010902", "arcuatelatpulldown.jpg"),
     "arcuate-chest-press": ("20010902", "arcuateseatedchestpress.jpg"),
@@ -65,6 +67,7 @@ PHOTOS: dict[str, tuple[str, str]] = {
 MAP: dict[str, str] = {
     "Arcuate Bicep Curl": "arcuate-bicep-curl",
     "Arcuate Lat Pull": "arcuate-lat-pull",
+    "Arcuate Seated Row": "arcuate-seated-row",
     "Arcuate Chest Press": "arcuate-chest-press",
     "Arcuate Incline Press": "arcuate-incline-press",
     "Arcuate Leg Press": "arcuate-leg-press",
@@ -101,7 +104,9 @@ def fetch_all() -> dict[str, Path]:
     files = {}
     for key, (ts, name) in PHOTOS.items():
         fn = OUT / f"{key}.jpg"
-        if not (fn.exists() and fn.stat().st_size > 3000):
+        if ts is None:
+            Image.open(ROOT / name).convert("RGB").save(fn, "JPEG", quality=92)
+        elif not (fn.exists() and fn.stat().st_size > 3000):
             url = f"http://web.archive.org/web/{ts}000000id_/{BASE}{name}"
             for attempt in range(4):
                 try:
