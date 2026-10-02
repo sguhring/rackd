@@ -19036,10 +19036,10 @@
     }
   },
   {
-    "model": "Classic C080",
+    "model": "Classic Biceps Curl C080",
     "brand": "GervaSport",
     "region": "arms",
-    "muscle": null,
+    "muscle": "biceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19048,10 +19048,10 @@
     "image": "img/gervasport/classic-c080.jpg"
   },
   {
-    "model": "Classic C082ISO",
+    "model": "Classic Iso-Lateral Shoulder Press C082ISO",
     "brand": "GervaSport",
-    "region": "arms",
-    "muscle": null,
+    "region": "shoulders",
+    "muscle": "delts · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19060,10 +19060,10 @@
     "image": "img/gervasport/classic-c082iso.jpg"
   },
   {
-    "model": "Classic C040",
+    "model": "Classic Lateral Raise C040",
     "brand": "GervaSport",
     "region": "shoulders",
-    "muscle": null,
+    "muscle": "side delts",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19072,10 +19072,10 @@
     "image": "img/gervasport/classic-c040.jpg"
   },
   {
-    "model": "Classic C082",
+    "model": "Classic Shoulder Press C082",
     "brand": "GervaSport",
     "region": "shoulders",
-    "muscle": "delts",
+    "muscle": "delts · triceps",
     "movement": null,
     "secondary": [
       "traps"
@@ -19086,10 +19086,10 @@
     "image": "img/gervasport/classic-c082.jpg"
   },
   {
-    "model": "Classic C044",
+    "model": "Classic Pec Fly C044",
     "brand": "GervaSport",
     "region": "chest",
-    "muscle": null,
+    "muscle": "chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19098,10 +19098,10 @@
     "image": "img/gervasport/classic-c044.jpg"
   },
   {
-    "model": "Classic C045",
+    "model": "Classic Pec Fly / Rear Delt C045",
     "brand": "GervaSport",
-    "region": "chest",
-    "muscle": null,
+    "region": "shoulders",
+    "muscle": "rear delts · chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19110,10 +19110,10 @@
     "image": "img/gervasport/classic-c045.jpg"
   },
   {
-    "model": "Classic C046",
+    "model": "Classic Vertical Chest Press C046",
     "brand": "GervaSport",
     "region": "chest",
-    "muscle": null,
+    "muscle": "chest · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19122,10 +19122,10 @@
     "image": "img/gervasport/classic-c046.jpg"
   },
   {
-    "model": "Classic C078",
+    "model": "Classic Seated Chest & Triceps Dip C078",
     "brand": "GervaSport",
-    "region": "chest",
-    "muscle": null,
+    "region": "arms",
+    "muscle": "triceps · chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19134,9 +19134,9 @@
     "image": "img/gervasport/classic-c078.jpg"
   },
   {
-    "model": "Classic CG085",
+    "model": "Classic Plate-Loaded Smith Machine CG085",
     "brand": "GervaSport",
-    "region": "chest",
+    "region": "functional-other",
     "muscle": null,
     "movement": null,
     "secondary": [],
@@ -19146,10 +19146,10 @@
     "image": "img/gervasport/classic-cg085.jpg"
   },
   {
-    "model": "Classic C032",
+    "model": "Classic Chest-Supported T-Bar Row C032",
     "brand": "GervaSport",
     "region": "back",
-    "muscle": null,
+    "muscle": "mid-back · lats",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19158,10 +19158,10 @@
     "image": "img/gervasport/classic-c032.jpg"
   },
   {
-    "model": "Classic C035",
+    "model": "Classic Chest-Supported Seated Row C035",
     "brand": "GervaSport",
     "region": "back",
-    "muscle": null,
+    "muscle": "mid-back · lats",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19170,10 +19170,10 @@
     "image": "img/gervasport/classic-c035.jpg"
   },
   {
-    "model": "Classic C052A",
+    "model": "Classic Kneeling Assisted Chin & Dip C052A",
     "brand": "GervaSport",
     "region": "back",
-    "muscle": null,
+    "muscle": "lats · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19182,10 +19182,10 @@
     "image": "img/gervasport/classic-c052a.jpg"
   },
   {
-    "model": "Classic C001",
+    "model": "Classic 45-Degree Leg Press C001",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads · glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19194,10 +19194,10 @@
     "image": "img/gervasport/classic-c001.jpg"
   },
   {
-    "model": "Classic C005",
+    "model": "Classic Horizontal Leg Press C005",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads · glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19206,10 +19206,10 @@
     "image": "img/gervasport/classic-c005.jpg"
   },
   {
-    "model": "Classic C007",
+    "model": "Classic Hack Squat C007",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads · glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19218,10 +19218,10 @@
     "image": "img/gervasport/classic-c007.jpg"
   },
   {
-    "model": "Classic C008",
+    "model": "Classic Squat Stand C008",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads · glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19230,10 +19230,10 @@
     "image": "img/gervasport/classic-c008.jpg"
   },
   {
-    "model": "Classic C011",
+    "model": "Classic Lying Leg Curl C011",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "hamstrings",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19242,10 +19242,10 @@
     "image": "img/gervasport/classic-c011.jpg"
   },
   {
-    "model": "Classic C012",
+    "model": "Classic Leg Extension C012",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19254,10 +19254,10 @@
     "image": "img/gervasport/classic-c012.jpg"
   },
   {
-    "model": "Classic C015",
+    "model": "Classic Squat Cage C015",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads · glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19266,10 +19266,10 @@
     "image": "img/gervasport/classic-c015.jpg"
   },
   {
-    "model": "Classic C016",
+    "model": "Classic Standing Calf & Squat C016",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "calves",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19278,10 +19278,10 @@
     "image": "img/gervasport/classic-c016.jpg"
   },
   {
-    "model": "Classic C018",
+    "model": "Classic Seated Calf Raise (Plate-Loaded) C018",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "calves",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19290,10 +19290,10 @@
     "image": "img/gervasport/classic-c018.jpg"
   },
   {
-    "model": "Classic C019",
+    "model": "Classic Standing Glute C019",
     "brand": "GervaSport",
-    "region": "legs",
-    "muscle": null,
+    "region": "glutes",
+    "muscle": "glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19302,10 +19302,10 @@
     "image": "img/gervasport/classic-c019.jpg"
   },
   {
-    "model": "Classic C021",
+    "model": "Classic Glute Machine C021",
     "brand": "GervaSport",
-    "region": "legs",
-    "muscle": null,
+    "region": "glutes",
+    "muscle": "glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19314,10 +19314,10 @@
     "image": "img/gervasport/classic-c021.jpg"
   },
   {
-    "model": "Classic C021A",
+    "model": "Classic Kneeling Glute Kickback C021A",
     "brand": "GervaSport",
-    "region": "legs",
-    "muscle": null,
+    "region": "glutes",
+    "muscle": "glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19326,10 +19326,10 @@
     "image": "img/gervasport/classic-c021a.jpg"
   },
   {
-    "model": "Classic C022",
+    "model": "Classic Adductor C022",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "adductors",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19338,10 +19338,10 @@
     "image": "img/gervasport/classic-c022.jpg"
   },
   {
-    "model": "Classic C023",
+    "model": "Classic Abductor C023",
     "brand": "GervaSport",
-    "region": "legs",
-    "muscle": null,
+    "region": "glutes",
+    "muscle": "abductors",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19350,10 +19350,10 @@
     "image": "img/gervasport/classic-c023.jpg"
   },
   {
-    "model": "Classic C058",
+    "model": "Classic 45-Degree Calf Raise C058",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "calves",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19362,10 +19362,10 @@
     "image": "img/gervasport/classic-c058.jpg"
   },
   {
-    "model": "Classic C059",
+    "model": "Classic Seated Calf Raise C059",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "calves",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19374,10 +19374,10 @@
     "image": "img/gervasport/classic-c059.jpg"
   },
   {
-    "model": "Classic C043",
+    "model": "Classic Iso-Lateral Lat Pulldown C043",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "back",
+    "muscle": "lats · biceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19386,10 +19386,10 @@
     "image": "img/gervasport/classic-c043.jpg"
   },
   {
-    "model": "Classic C048",
+    "model": "Classic Iso-Lateral Incline Press C048",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "chest",
+    "muscle": "upper chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19398,10 +19398,10 @@
     "image": "img/gervasport/classic-c048.jpg"
   },
   {
-    "model": "Classic CE001",
+    "model": "Classic Lever Incline Press CE001",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "chest",
+    "muscle": "upper chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19410,10 +19410,10 @@
     "image": "img/gervasport/classic-ce001.jpg"
   },
   {
-    "model": "Classic CE002",
+    "model": "Classic Lever Bench Press CE002",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "chest",
+    "muscle": "chest · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19422,10 +19422,10 @@
     "image": "img/gervasport/classic-ce002.jpg"
   },
   {
-    "model": "Classic CE004",
+    "model": "Classic Lever Shoulder Press CE004",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "shoulders",
+    "muscle": "delts · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19434,10 +19434,10 @@
     "image": "img/gervasport/classic-ce004.jpg"
   },
   {
-    "model": "Classic CE005",
+    "model": "Classic Lever T-Bar Row CE005",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "back",
+    "muscle": "mid-back · lats",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19446,10 +19446,10 @@
     "image": "img/gervasport/classic-ce005.jpg"
   },
   {
-    "model": "Classic CE006",
+    "model": "Classic Lever Lat Pulldown CE006",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "back",
+    "muscle": "lats · biceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19458,10 +19458,10 @@
     "image": "img/gervasport/classic-ce006.jpg"
   },
   {
-    "model": "Classic CE008",
+    "model": "Classic Lever Leg Press CE008",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "legs",
+    "muscle": "quads · glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19470,7 +19470,7 @@
     "image": "img/gervasport/classic-ce008.jpg"
   },
   {
-    "model": "Classic C050",
+    "model": "Classic Decline Press Bench C050",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19482,7 +19482,7 @@
     "image": "img/gervasport/classic-c050.jpg"
   },
   {
-    "model": "Classic C053",
+    "model": "Classic Olympic Bench Press C053",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19494,7 +19494,7 @@
     "image": "img/gervasport/classic-c053.jpg"
   },
   {
-    "model": "Classic C056",
+    "model": "Classic Incline Press Bench C056",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19506,10 +19506,10 @@
     "image": "img/gervasport/classic-c056.jpg"
   },
   {
-    "model": "Classic C069",
+    "model": "Classic Crunch Bench C069",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "abs",
+    "muscle": "abs",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19518,10 +19518,10 @@
     "image": "img/gervasport/classic-c069.jpg"
   },
   {
-    "model": "Classic C071",
+    "model": "Classic Adjustable Ab Bench C071",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "abs",
+    "muscle": "abs",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19530,10 +19530,10 @@
     "image": "img/gervasport/classic-c071.jpg"
   },
   {
-    "model": "Classic C073",
+    "model": "Classic Ab Crunch Bench C073",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "abs",
+    "muscle": "abs",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19542,10 +19542,10 @@
     "image": "img/gervasport/classic-c073.jpg"
   },
   {
-    "model": "Classic C079",
+    "model": "Classic Preacher Curl Bench C079",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "arms",
+    "muscle": "biceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19554,7 +19554,7 @@
     "image": "img/gervasport/classic-c079.jpg"
   },
   {
-    "model": "Classic C083",
+    "model": "Classic Shoulder Press Bench C083",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19566,10 +19566,10 @@
     "image": "img/gervasport/classic-c083.jpg"
   },
   {
-    "model": "Classic C168",
+    "model": "Classic Sit-Up Bench C168",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "abs",
+    "muscle": "abs",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19578,7 +19578,7 @@
     "image": "img/gervasport/classic-c168.jpg"
   },
   {
-    "model": "Classic C094",
+    "model": "Classic Flat Bench C094",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19590,10 +19590,10 @@
     "image": "img/gervasport/classic-c094.jpg"
   },
   {
-    "model": "Classic CG061",
+    "model": "Classic Hyperextension CG061",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "back",
+    "muscle": "lower back",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19602,7 +19602,7 @@
     "image": "img/gervasport/classic-cg061.jpg"
   },
   {
-    "model": "Classic C090",
+    "model": "Classic Multi-Station Cable Crossover C090",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19614,7 +19614,7 @@
     "image": "img/gervasport/classic-c090.jpg"
   },
   {
-    "model": "Classic C109",
+    "model": "Classic Plate Tree C109",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19626,7 +19626,7 @@
     "image": "img/gervasport/classic-c109.jpg"
   },
   {
-    "model": "Classic C164A",
+    "model": "Classic Barbell Rack C164A",
     "brand": "GervaSport",
     "region": "functional-other",
     "muscle": null,
@@ -19638,7 +19638,7 @@
     "image": "img/gervasport/classic-c164a.jpg"
   },
   {
-    "model": "Classic C057",
+    "model": "Classic Total Abdominal Crunch C057",
     "brand": "GervaSport",
     "region": "abs",
     "muscle": "abs",
@@ -19652,7 +19652,7 @@
     "image": "img/gervasport/classic-c057.jpg"
   },
   {
-    "model": "Classic C060",
+    "model": "Classic Lower Back Extension C060",
     "brand": "GervaSport",
     "region": "back",
     "muscle": "lower back",
@@ -19666,10 +19666,10 @@
     "image": "img/gervasport/classic-c060.jpg"
   },
   {
-    "model": "Exclusive S080",
+    "model": "Exclusive Biceps Curl S080",
     "brand": "GervaSport",
     "region": "arms",
-    "muscle": null,
+    "muscle": "biceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19678,10 +19678,10 @@
     "image": "img/gervasport/exclusive-s080.jpg"
   },
   {
-    "model": "Exclusive S052",
+    "model": "Exclusive Assisted Chin & Dip S052",
     "brand": "GervaSport",
     "region": "back",
-    "muscle": null,
+    "muscle": "lats · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19690,10 +19690,10 @@
     "image": "img/gervasport/exclusive-s052.jpg"
   },
   {
-    "model": "Exclusive S052A",
+    "model": "Exclusive Standing Assisted Chin & Dip S052A",
     "brand": "GervaSport",
-    "region": "shoulders",
-    "muscle": null,
+    "region": "back",
+    "muscle": "lats · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19702,10 +19702,10 @@
     "image": "img/gervasport/exclusive-s052a.jpg"
   },
   {
-    "model": "Exclusive S046",
+    "model": "Exclusive Vertical Chest Press S046",
     "brand": "GervaSport",
     "region": "chest",
-    "muscle": null,
+    "muscle": "chest · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19714,10 +19714,10 @@
     "image": "img/gervasport/exclusive-s046.jpg"
   },
   {
-    "model": "Exclusive S011",
+    "model": "Exclusive Lying Leg Curl S011",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "hamstrings",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19726,10 +19726,10 @@
     "image": "img/gervasport/exclusive-s011.jpg"
   },
   {
-    "model": "Exclusive S012",
+    "model": "Exclusive Leg Extension S012",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19738,10 +19738,10 @@
     "image": "img/gervasport/exclusive-s012.jpg"
   },
   {
-    "model": "Exclusive S019",
+    "model": "Exclusive Standing Glute S019",
     "brand": "GervaSport",
-    "region": "legs",
-    "muscle": null,
+    "region": "glutes",
+    "muscle": "glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19750,10 +19750,10 @@
     "image": "img/gervasport/exclusive-s019.jpg"
   },
   {
-    "model": "Exclusive S021",
+    "model": "Exclusive Kneeling Glute Kickback S021",
     "brand": "GervaSport",
-    "region": "legs",
-    "muscle": null,
+    "region": "glutes",
+    "muscle": "glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19762,10 +19762,10 @@
     "image": "img/gervasport/exclusive-s021.jpg"
   },
   {
-    "model": "Exclusive S023",
+    "model": "Exclusive Abductor S023",
     "brand": "GervaSport",
-    "region": "legs",
-    "muscle": null,
+    "region": "glutes",
+    "muscle": "abductors",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19774,7 +19774,7 @@
     "image": "img/gervasport/exclusive-s023.jpg"
   },
   {
-    "model": "Exclusive S057",
+    "model": "Exclusive Total Abdominal Crunch S057",
     "brand": "GervaSport",
     "region": "abs",
     "muscle": "abs",
@@ -19788,7 +19788,7 @@
     "image": "img/gervasport/exclusive-s057.jpg"
   },
   {
-    "model": "Exclusive S060",
+    "model": "Exclusive Lower Back Extension S060",
     "brand": "GervaSport",
     "region": "back",
     "muscle": "lower back",
@@ -19802,7 +19802,7 @@
     "image": "img/gervasport/exclusive-s060.jpg"
   },
   {
-    "model": "Fitness F057",
+    "model": "Fitness Total Abdominal Crunch F057",
     "brand": "GervaSport",
     "region": "abs",
     "muscle": "abs",
@@ -19816,7 +19816,7 @@
     "image": "img/gervasport/fitness-f057.jpg"
   },
   {
-    "model": "Fitness F060",
+    "model": "Fitness Lower Back Extension F060",
     "brand": "GervaSport",
     "region": "back",
     "muscle": "lower back",
@@ -19830,10 +19830,10 @@
     "image": "img/gervasport/fitness-f060.jpg"
   },
   {
-    "model": "Fitness F061",
+    "model": "Fitness Upper Ab Crunch F061",
     "brand": "GervaSport",
     "region": "abs",
-    "muscle": null,
+    "muscle": "abs",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19842,10 +19842,10 @@
     "image": "img/gervasport/fitness-f061.jpg"
   },
   {
-    "model": "Fitness F080",
+    "model": "Fitness Biceps Curl F080",
     "brand": "GervaSport",
     "region": "arms",
-    "muscle": null,
+    "muscle": "biceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19854,10 +19854,10 @@
     "image": "img/gervasport/fitness-f080.jpg"
   },
   {
-    "model": "Fitness F081",
+    "model": "Fitness Triceps Extension F081",
     "brand": "GervaSport",
     "region": "arms",
-    "muscle": null,
+    "muscle": "triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19866,7 +19866,7 @@
     "image": "img/gervasport/fitness-f081.jpg"
   },
   {
-    "model": "Fitness F011D",
+    "model": "Fitness Lying Leg Curl (Plate-Loaded) F011D",
     "brand": "GervaSport",
     "region": "legs",
     "muscle": "hamstrings",
@@ -19878,10 +19878,10 @@
     "image": "img/gervasport/fitness-f011d.jpg"
   },
   {
-    "model": "Fitness F076D",
+    "model": "Fitness Vertical Chest Press (Plate-Loaded) F076D",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "chest",
+    "muscle": "chest · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19890,10 +19890,10 @@
     "image": "img/gervasport/fitness-f076d.jpg"
   },
   {
-    "model": "Fitness F078D",
+    "model": "Fitness Seated Dip (Plate-Loaded) F078D",
     "brand": "GervaSport",
-    "region": "functional-other",
-    "muscle": null,
+    "region": "arms",
+    "muscle": "triceps · chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19902,10 +19902,10 @@
     "image": "img/gervasport/fitness-f078d.jpg"
   },
   {
-    "model": "Fitness F035",
+    "model": "Fitness Chest-Supported Seated Row F035",
     "brand": "GervaSport",
     "region": "back",
-    "muscle": null,
+    "muscle": "mid-back · lats",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19914,10 +19914,10 @@
     "image": "img/gervasport/fitness-f035.jpg"
   },
   {
-    "model": "Fitness F040",
+    "model": "Fitness Lateral Raise F040",
     "brand": "GervaSport",
     "region": "shoulders",
-    "muscle": null,
+    "muscle": "side delts",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19926,10 +19926,10 @@
     "image": "img/gervasport/fitness-f040.jpg"
   },
   {
-    "model": "Fitness F082",
+    "model": "Fitness Shoulder Press F082",
     "brand": "GervaSport",
     "region": "shoulders",
-    "muscle": null,
+    "muscle": "delts · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19938,10 +19938,10 @@
     "image": "img/gervasport/fitness-f082.jpg"
   },
   {
-    "model": "Fitness F005",
+    "model": "Fitness Horizontal Leg Press F005",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads · glutes",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19950,10 +19950,10 @@
     "image": "img/gervasport/fitness-f005.jpg"
   },
   {
-    "model": "Fitness F010",
+    "model": "Fitness 45-Degree Calf Raise F010",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "calves",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19962,10 +19962,10 @@
     "image": "img/gervasport/fitness-f010.jpg"
   },
   {
-    "model": "Fitness F011",
+    "model": "Fitness Lying Leg Curl F011",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "hamstrings",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19974,10 +19974,10 @@
     "image": "img/gervasport/fitness-f011.jpg"
   },
   {
-    "model": "Fitness F012",
+    "model": "Fitness Leg Extension F012",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "quads",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19986,10 +19986,10 @@
     "image": "img/gervasport/fitness-f012.jpg"
   },
   {
-    "model": "Fitness F014",
+    "model": "Fitness Seated Leg Curl F014",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "hamstrings",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -19998,10 +19998,10 @@
     "image": "img/gervasport/fitness-f014.jpg"
   },
   {
-    "model": "Fitness F016",
+    "model": "Fitness Standing Calf & Squat F016",
     "brand": "GervaSport",
     "region": "legs",
-    "muscle": null,
+    "muscle": "calves",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -20010,10 +20010,10 @@
     "image": "img/gervasport/fitness-f016.jpg"
   },
   {
-    "model": "Fitness F036",
+    "model": "Fitness Pullover F036",
     "brand": "GervaSport",
-    "region": "chest",
-    "muscle": null,
+    "region": "back",
+    "muscle": "lats",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -20022,10 +20022,10 @@
     "image": "img/gervasport/fitness-f036.jpg"
   },
   {
-    "model": "Fitness F044",
+    "model": "Fitness Pec Fly F044",
     "brand": "GervaSport",
     "region": "chest",
-    "muscle": null,
+    "muscle": "chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -20034,10 +20034,10 @@
     "image": "img/gervasport/fitness-f044.jpg"
   },
   {
-    "model": "Fitness F045",
+    "model": "Fitness Pec Fly / Rear Delt F045",
     "brand": "GervaSport",
-    "region": "chest",
-    "muscle": null,
+    "region": "shoulders",
+    "muscle": "rear delts · chest",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -20046,10 +20046,10 @@
     "image": "img/gervasport/fitness-f045.jpg"
   },
   {
-    "model": "Fitness F046",
+    "model": "Fitness Vertical Chest Press F046",
     "brand": "GervaSport",
     "region": "chest",
-    "muscle": null,
+    "muscle": "chest · triceps",
     "movement": null,
     "secondary": [],
     "facets": {
@@ -20058,10 +20058,10 @@
     "image": "img/gervasport/fitness-f046.jpg"
   },
   {
-    "model": "Fitness F078",
+    "model": "Fitness Seated Chest & Triceps Dip F078",
     "brand": "GervaSport",
-    "region": "chest",
-    "muscle": null,
+    "region": "arms",
+    "muscle": "triceps · chest",
     "movement": null,
     "secondary": [],
     "facets": {
