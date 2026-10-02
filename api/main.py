@@ -5,7 +5,9 @@ Run:  uvicorn main:app --reload   →   http://127.0.0.1:8000/docs
 from __future__ import annotations
 
 import base64
+import json
 import re
+from collections import Counter
 from contextlib import asynccontextmanager
 from datetime import datetime
 from decimal import Decimal
@@ -267,6 +269,11 @@ class CatalogRowOut(BaseModel):
     source: str | None
     gyms: list[str]            # which gym floors carry this model
     has_image: bool
+    region: str | None         # taxonomy: chest / back / legs / ... / functional-other
+    muscle: str | None         # primary muscle, e.g. 'upper chest'
+    movement: str | None       # implement-agnostic movement, e.g. 'chest press'
+    secondary: list[str]       # secondary muscles
+    facets: dict[str, str]     # implement / angle / position / laterality
 
 
 @app.get("/catalog/all", response_model=list[CatalogRowOut])
@@ -295,7 +302,83 @@ def catalog_all(session: Session = Depends(get_session)):
         exercise=ex.name if ex else None, source=m.source,
         gyms=sorted(set(gyms_by_machine.get(m.id, []))),
         has_image=bool(m.image_url),
+        region=m.region, muscle=m.muscle, movement=m.movement,
+        secondary=_secondary(m.secondary), facets=_facets(m.facets),
     ) for m, b, ex in rows]
+
+
+def _secondary(s: str | None) -> list[str]:
+    return [t.strip() for t in (s or "").split("·") if t.strip()]
+
+
+def _facets(s: str | None) -> dict[str, str]:
+    return json.loads(s) if s else {}
+
+
+# body-part order for the taxonomy tree; muscles/movements below sort by machine count
+REGION_ORDER = ["chest", "back", "shoulders", "arms", "legs", "glutes", "abs", "neck"]
+
+
+class TaxonomyMovementOut(BaseModel):
+    label: str
+    machines: int
+    facets: dict[str, dict[str, int]]   # axis -> value -> machine count
+
+
+class TaxonomyMuscleOut(BaseModel):
+    label: str
+    machines: int
+    movements: list[TaxonomyMovementOut]
+
+
+class TaxonomyRegionOut(BaseModel):
+    label: str
+    machines: int
+    muscles: list[TaxonomyMuscleOut]
+
+
+@app.get("/catalog/taxonomy", response_model=list[TaxonomyRegionOut])
+def catalog_taxonomy(session: Session = Depends(get_session)):
+    """The browse tree: body part -> muscle -> movement, with machine counts and the
+    facet values (implement / angle / position / laterality) available under each
+    movement. Machines without a target muscle are counted under 'functional-other'."""
+    tree: dict[str, dict[str, dict[str, Counter]]] = {}
+    region_n: Counter = Counter()
+    muscle_n: Counter = Counter()
+    move_n: Counter = Counter()
+    for region, muscle, movement, facets in session.exec(
+        select(Machine.region, Machine.muscle, Machine.movement, Machine.facets)
+    ).all():
+        region = region or "functional-other"
+        region_n[region] += 1
+        if region == "functional-other" or not muscle:
+            continue
+        muscle_n[(region, muscle)] += 1
+        if not movement:
+            continue
+        move_n[(region, muscle, movement)] += 1
+        axes = tree.setdefault(region, {}).setdefault(muscle, {}).setdefault(movement, {})
+        for ax, val in _facets(facets).items():
+            axes.setdefault(ax, Counter())[val] += 1
+
+    regions = REGION_ORDER + sorted(r for r in region_n if r not in REGION_ORDER and r != "functional-other")
+    out = []
+    for r in regions:
+        if not region_n[r]:
+            continue
+        muscles = sorted((m for (rg, m) in muscle_n if rg == r), key=lambda m: -muscle_n[(r, m)])
+        out.append(TaxonomyRegionOut(label=r, machines=region_n[r], muscles=[
+            TaxonomyMuscleOut(label=m, machines=muscle_n[(r, m)], movements=[
+                TaxonomyMovementOut(label=mv, machines=move_n[(r, m, mv)],
+                                    facets={ax: dict(c.most_common()) for ax, c in axes.items()})
+                for mv, axes in sorted(tree.get(r, {}).get(m, {}).items(),
+                                       key=lambda kv: -move_n[(r, m, kv[0])])
+            ]) for m in muscles
+        ]))
+    if region_n["functional-other"]:
+        out.append(TaxonomyRegionOut(label="functional-other",
+                                     machines=region_n["functional-other"], muscles=[]))
+    return out
 
 
 @app.get("/catalog/machines/{machine_id}/image")

@@ -1175,7 +1175,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   const LEGACY_MACHINES_2=[
     {from:['custom','strive shoulder press'], to:['strive','smart strength shoulder press s-103']},
     {from:['custom','prime butterfly'],       to:['prime fitness','prime hybrid pec fly']},
-    {from:['custom','gerva sport bizeps'],    to:['gervasport','classic c080']},
+    {from:['custom','gerva sport bizeps'],    to:['gervasport','classic biceps curl c080']},
     // logged under the line name; the catalog drops it: "FREEWEIGHT HP High Row" -> "HP High Row"
     {from:['panatta','freeweight hp high row (1hp503)'], to:['panatta','hp high row (1hp503)']},
     // deliberately NOT migrated: "48 bizeps curl" and "panatta sup" stay custom — no
@@ -1257,7 +1257,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     ['panatta','fit evo standing multi flight machine (1fe028)','push','side delts'],
     ['stairmaster','arcuate lat pull','pull','lats'],
     ['stairmaster','arcuate seated row','pull','mid-back · lats'],
-    ['gervasport','classic c080','pull','biceps'],
+    ['gervasport','classic biceps curl c080','pull','biceps'],
     ['custom','48 bizeps curl','pull','biceps'],
     ['custom','panatta sup','core',''],
   ];
@@ -1303,6 +1303,99 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     DB.mig_img1=1; saveDB();
   }
   migrateMachineImages();
+  // ---- round three: GervaSport rows were bare codes ("classic c080") until the catalog got
+  // their real names from the manufacturer's archived site (api/gervasport_names.py). the
+  // code stays at the end of the new name. same four places as the rounds above, plus the
+  // set KEY: rounds one and two rewrote brand/name but left s.key on the old identity, and
+  // setsFor() matches on the key — so every set they moved (the gerva curl, the arcuate
+  // rows, hbp, strive, prime, panatta high row) dropped out of "last time" and PRs. any set
+  // whose key disagrees with its own brand|name is re-keyed to it here.
+  const GERVA_RENAME={
+    'classic c080':'classic biceps curl c080',
+    'classic c082iso':'classic iso-lateral shoulder press c082iso',
+    'classic c040':'classic lateral raise c040', 'classic c082':'classic shoulder press c082',
+    'classic c044':'classic pec fly c044', 'classic c045':'classic pec fly / rear delt c045',
+    'classic c046':'classic vertical chest press c046',
+    'classic c078':'classic seated chest & triceps dip c078',
+    'classic cg085':'classic plate-loaded smith machine cg085',
+    'classic c032':'classic chest-supported t-bar row c032',
+    'classic c035':'classic chest-supported seated row c035',
+    'classic c052a':'classic kneeling assisted chin & dip c052a',
+    'classic c001':'classic 45-degree leg press c001',
+    'classic c005':'classic horizontal leg press c005', 'classic c007':'classic hack squat c007',
+    'classic c008':'classic squat stand c008', 'classic c011':'classic lying leg curl c011',
+    'classic c012':'classic leg extension c012', 'classic c015':'classic squat cage c015',
+    'classic c016':'classic standing calf & squat c016',
+    'classic c018':'classic seated calf raise (plate-loaded) c018',
+    'classic c019':'classic standing glute c019', 'classic c021':'classic glute machine c021',
+    'classic c021a':'classic kneeling glute kickback c021a', 'classic c022':'classic adductor c022',
+    'classic c023':'classic abductor c023', 'classic c058':'classic 45-degree calf raise c058',
+    'classic c059':'classic seated calf raise c059',
+    'classic c043':'classic iso-lateral lat pulldown c043',
+    'classic c048':'classic iso-lateral incline press c048',
+    'classic ce001':'classic lever incline press ce001',
+    'classic ce002':'classic lever bench press ce002',
+    'classic ce004':'classic lever shoulder press ce004',
+    'classic ce005':'classic lever t-bar row ce005', 'classic ce006':'classic lever lat pulldown ce006',
+    'classic ce008':'classic lever leg press ce008', 'classic c050':'classic decline press bench c050',
+    'classic c053':'classic olympic bench press c053', 'classic c056':'classic incline press bench c056',
+    'classic c069':'classic crunch bench c069', 'classic c071':'classic adjustable ab bench c071',
+    'classic c073':'classic ab crunch bench c073', 'classic c079':'classic preacher curl bench c079',
+    'classic c083':'classic shoulder press bench c083', 'classic c168':'classic sit-up bench c168',
+    'classic c094':'classic flat bench c094', 'classic cg061':'classic hyperextension cg061',
+    'classic c090':'classic multi-station cable crossover c090',
+    'classic c109':'classic plate tree c109', 'classic c164a':'classic barbell rack c164a',
+    'classic c057':'classic total abdominal crunch c057',
+    'classic c060':'classic lower back extension c060', 'exclusive s080':'exclusive biceps curl s080',
+    'exclusive s052':'exclusive assisted chin & dip s052',
+    'exclusive s052a':'exclusive standing assisted chin & dip s052a',
+    'exclusive s046':'exclusive vertical chest press s046',
+    'exclusive s011':'exclusive lying leg curl s011', 'exclusive s012':'exclusive leg extension s012',
+    'exclusive s019':'exclusive standing glute s019',
+    'exclusive s021':'exclusive kneeling glute kickback s021',
+    'exclusive s023':'exclusive abductor s023', 'exclusive s057':'exclusive total abdominal crunch s057',
+    'exclusive s060':'exclusive lower back extension s060',
+    'fitness f057':'fitness total abdominal crunch f057',
+    'fitness f060':'fitness lower back extension f060', 'fitness f061':'fitness upper ab crunch f061',
+    'fitness f080':'fitness biceps curl f080', 'fitness f081':'fitness triceps extension f081',
+    'fitness f011d':'fitness lying leg curl (plate-loaded) f011d',
+    'fitness f076d':'fitness vertical chest press (plate-loaded) f076d',
+    'fitness f078d':'fitness seated dip (plate-loaded) f078d',
+    'fitness f035':'fitness chest-supported seated row f035',
+    'fitness f040':'fitness lateral raise f040', 'fitness f082':'fitness shoulder press f082',
+    'fitness f005':'fitness horizontal leg press f005',
+    'fitness f010':'fitness 45-degree calf raise f010', 'fitness f011':'fitness lying leg curl f011',
+    'fitness f012':'fitness leg extension f012', 'fitness f014':'fitness seated leg curl f014',
+    'fitness f016':'fitness standing calf & squat f016', 'fitness f036':'fitness pullover f036',
+    'fitness f044':'fitness pec fly f044', 'fitness f045':'fitness pec fly / rear delt f045',
+    'fitness f046':'fitness vertical chest press f046',
+    'fitness f078':'fitness seated chest & triceps dip f078'
+  };
+  function migrateLegacyMachines3(){
+    if(DB.mig_machines3) return;
+    const remap=o=>{ if(!o||o.brand!=='gervasport'||!GERVA_RENAME[o.name]) return false; o.name=GERVA_RENAME[o.name]; return true; };
+    let n=0;
+    (DB.sets||[]).forEach(s=>{
+      if(remap(s)) n++;
+      if(s&&s.name&&mkey(s.key)!==(s.brand||'')+'|'+s.name){ s.key=(s.brand||'')+'|'+s.name; n++; }
+    });
+    (DB.sessions||[]).forEach(s=>(s.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.custom||[]).forEach(c=>{ if(remap(c)) n++; });
+    if(DB.active) (DB.active.items||[]).forEach(i=>{ if(remap(i)) n++; });
+    const notes=DB.notes||{};
+    Object.keys(notes).forEach(k=>{
+      const old=Object.keys(GERVA_RENAME).find(o=>{const f='gervasport|'+o; return k===f||k.endsWith('|'+f);});
+      if(!old) return;
+      const f='gervasport|'+old, nk=k.slice(0,k.length-f.length)+'gervasport|'+GERVA_RENAME[old];
+      notes[nk]=(notes[nk]&&notes[nk]!==notes[k])?notes[nk]+'\n'+notes[k]:notes[k];
+      delete notes[k]; n++;
+    });
+    DB.notes=notes;
+    DB.mig_machines3=1; saveDB();
+    if(n) console.log('[rackd] migrated '+n+' gervasport / set-key reference(s)');
+  }
+  migrateLegacyMachines3();
   // ---- a set is now stamped with the session that recorded it (s.sid). before this, a set
   // belonged to a session only by "same calendar day", so anything logged after you tapped
   // finish — or on a machine that was never in the workout — was invisible in history for
@@ -2156,6 +2249,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // renames the migrations applied — otherwise a seed bump re-adds the old identity next to
   // the new one and the workout grows a duplicate exercise.
   const SEED_RENAME=[...LEGACY_MACHINES, ...LEGACY_MACHINES_2,
+    ...Object.keys(GERVA_RENAME).map(o=>({from:['gervasport',o], to:['gervasport',GERVA_RENAME[o]]})),
     // the cable tower logged in place of the real standing multi flight (see migratePresetAll)
     {from:['panatta','monolith standing multi flight (1mth028)'],
      to:  ['panatta','fit evo standing multi flight machine (1fe028)']}];
