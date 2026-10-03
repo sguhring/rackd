@@ -123,7 +123,7 @@
 </table>
 
 <script>
-const API='http://127.0.0.1:8000';
+const API='https://rackd-api-sguhring.azurewebsites.net';
 let ROWS=[];
 const F={brand:'',bp:'',type:'',q:''};
 let groupBy='muscle_group', sortKey='model', sortDir=1;
@@ -274,7 +274,7 @@ function fail(msg){ document.getElementById('body').innerHTML=`<tr><td class="ms
   document.getElementById('body').innerHTML=`<tr><td class="msg" colspan="${COLS.length}">loading…</td></tr>`;
   let res;
   try{ res=await fetch(`${API}/catalog/all`); }
-  catch(e){ return fail(`can’t reach the api at ${API}. &nbsp;<code>uvicorn main:app --reload</code>`); }
+  catch(e){ return fail(`can’t reach the api at ${API}.`); }
   if(res.status===404) return fail(`the api is running but missing the <code>/catalog/all</code> route — restart it: &nbsp;<code>uvicorn main:app --reload</code>`);
   if(!res.ok) return fail(`the api returned ${res.status}. check the uvicorn console.`);
   const data=await res.json();
