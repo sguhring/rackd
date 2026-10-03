@@ -1423,6 +1423,41 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     DB.mig_setsid=1; saveDB();
   }
   migrateSetSids();
+  // ---- one-time: a preset of every distinct exercise from the last seven training days
+  // (18 Sep - 2 Oct), in first-trained order. the gerva leg curl was logged as the custom
+  // "gerva sport leg curk" (photo was a black frame); it is the classic c011 from the same
+  // floor as the c080 curl, and the c012 leg extension next to it is added on request.
+  // both nautilus pullovers and both leg extensions are kept on purpose.
+  const PRESET_7='last 7 training days';
+  const PRESET_7_ITEMS=[
+    ['barbell','barbell bench press','push','chest',''],
+    ['strive','smart strength arm curl s-101','pull','biceps','catalog/img/2969.jpg'],
+    ['watson','animal adjustable hack squat (0042)','legs','quads · glutes','catalog/img/2516.jpg'],
+    ['panatta','freeweight special super high row (1fw003)','pull','upper-back · lats','catalog/img/2797.jpg'],
+    ['custom','48 bizeps curl','pull','biceps',''],
+    ['nautilus','nitro evo pullover','pull','lats','catalog/img/1111.jpg'],
+    ['panatta','freeweight special super lat pulldown circular (1fw101)','pull','lats','catalog/img/2793.jpg'],
+    ['barbell','barbell curl','pull','biceps',''],
+    ['hbp','standardline beinstreck maschine, sitzend 0402','legs','quads',''],
+    ['gervasport','classic lying leg curl c011','legs','hamstrings','catalog/img/3229.jpg'],
+    ['gervasport','classic leg extension c012','legs','quads','catalog/img/3230.jpg'],
+    ['brightway','pl01 chest press','push','chest','catalog/img/4105.jpg'],
+    ['nautilus','nitro pullover','pull','lats','catalog/img/1137.jpg'],
+  ];
+  function migratePreset7(){
+    if(DB.mig_preset_7) return;
+    DB.workouts=DB.workouts||[];
+    if(!DB.workouts.some(w=>w&&w.name===PRESET_7)){
+      const items=PRESET_7_ITEMS.map(([b,n,g,mu,img])=>{
+        // no catalog photo (custom / hbp) -> reuse the one the user took for it
+        const src=(DB.custom||[]).find(c=>c&&c.brand===b&&c.name===n)||{};
+        return {brand:b,name:n,group:g,muscle:mu,img:img||src.img||'',lastW:0,lastR:0,lastS:0,date:''};
+      });
+      DB.workouts.push({id:'wlast7'+Date.now().toString(36),name:PRESET_7,items:items});
+    }
+    DB.mig_preset_7=1; saveDB();
+  }
+  migratePreset7();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   // a machine's history belongs to the MACHINE, not to whichever workout you opened it from.
   // keys are brand|name. sets written before this fix carry a context scope in front
