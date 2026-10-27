@@ -67,6 +67,8 @@ class LogSetIn(BaseModel):
     workout_id: int | None = None
     gym_machine_id: int | None = None
     exercise_id: int | None = None
+    setup_name: str = "standard"
+    setup_note: str | None = None
     weight_kg: Decimal
     reps: int
 
@@ -418,7 +420,7 @@ def list_gyms(session: Session = Depends(get_session)):
 
 
 @app.get("/gyms/{gym_id}/machines", response_model=list[MachineOut])
-def gym_machines(gym_id: int, user_id: str | None = None,
+def gym_machines(gym_id: int, user_id: str | None = None, setup_name: str = "standard",
                  session: Session = Depends(get_session)):
     """The machines on this gym's floor, each with the user's last session on it."""
     if not session.get(Gym, gym_id):
@@ -442,14 +444,14 @@ def gym_machines(gym_id: int, user_id: str | None = None,
             muscle_label=machine.muscle_label,
             muscle_group=exercise.muscle_group if exercise else None,
             image_url=machine.image_url,
-            last=_last_on_machine(session, user_id, gm.id) if user_id else None,
+            last=_last_on_machine(session, user_id, gm.id, setup_name) if user_id else None,
         ))
     return out
 
 
 @app.post("/sets")
 def log_set(body: LogSetIn, session: Session = Depends(get_session)):
-    """Log a set. Computes is_pr against this user's history on this machine."""
+    """Log a set and compute PR against this machine/setup progression."""
     if not body.gym_machine_id and not body.exercise_id:
         raise HTTPException(400, "gym_machine_id or exercise_id required")
 
@@ -468,6 +470,8 @@ def log_set(body: LogSetIn, session: Session = Depends(get_session)):
         user_id=body.user_id,
         gym_machine_id=body.gym_machine_id,
         exercise_id=body.exercise_id,
+        setup_name=body.setup_name.strip() or "standard",
+        setup_note=body.setup_note,
         weight_kg=body.weight_kg,
         reps=body.reps,
         is_pr=is_pr,
@@ -480,11 +484,13 @@ def log_set(body: LogSetIn, session: Session = Depends(get_session)):
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 
-def _last_on_machine(session: Session, user_id: str, gym_machine_id: int) -> dict | None:
+def _last_on_machine(session: Session, user_id: str, gym_machine_id: int,
+                     setup_name: str = "standard") -> dict | None:
     """The user's most recent past session on a specific machine."""
     last = session.exec(
         select(Set)
-        .where(Set.user_id == user_id, Set.gym_machine_id == gym_machine_id)
+        .where(Set.user_id == user_id, Set.gym_machine_id == gym_machine_id,
+               Set.setup_name == setup_name)
         .order_by(Set.logged_at.desc())
     ).first()
     if not last:
@@ -493,6 +499,7 @@ def _last_on_machine(session: Session, user_id: str, gym_machine_id: int) -> dic
         select(Set).where(
             Set.user_id == user_id,
             Set.gym_machine_id == gym_machine_id,
+            Set.setup_name == setup_name,
             Set.logged_at >= last.logged_at.replace(hour=0, minute=0, second=0, microsecond=0),
         )
     ).all()
@@ -505,12 +512,14 @@ def _last_on_machine(session: Session, user_id: str, gym_machine_id: int) -> dic
 
 
 def _is_pr(session: Session, body: LogSetIn) -> bool:
-    """Beat the best previous weight (or weight-matched reps) on THIS machine only."""
+    """Beat the best previous weight/reps on this machine and setup."""
     if not body.gym_machine_id:
         return False
+    setup_name = body.setup_name.strip() or "standard"
     best = session.exec(
         select(Set)
-        .where(Set.user_id == body.user_id, Set.gym_machine_id == body.gym_machine_id)
+        .where(Set.user_id == body.user_id, Set.gym_machine_id == body.gym_machine_id,
+               Set.setup_name == setup_name)
         .order_by(Set.weight_kg.desc(), Set.reps.desc())
     ).first()
     if not best:

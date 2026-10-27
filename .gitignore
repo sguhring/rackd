@@ -54,3 +54,6 @@ catalog/reference_thumbs/
 
 # regenerated from the DB by catalog/build_reference.py (17 MB of inlined thumbnails)
 docs/machine-reference.html
+
+# graphify knowledge graph (rebuilt locally by its git hooks)
+graphify-out/

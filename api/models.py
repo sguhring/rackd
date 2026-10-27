@@ -88,6 +88,8 @@ class Set(SQLModel, table=True):
     user_id: str = Field(index=True)
     gym_machine_id: int | None = Field(default=None, foreign_key="gymmachine.id")
     exercise_id: int | None = Field(default=None, foreign_key="exercise.id")
+    setup_name: str = "standard"
+    setup_note: str | None = None
     weight_kg: Decimal
     reps: int
     is_pr: bool = False

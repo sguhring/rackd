@@ -198,7 +198,7 @@
     font-variant-numeric:tabular-nums;animation:pop .32s cubic-bezier(.32,1.4,.5,1);
   }
   .setrow + .setrow::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep);}
-  .setrow .sn{width:24px;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .setrow .sn{min-width:24px;padding:0 3px;box-sizing:border-box;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
   .setrow .sv{font-size:16px;font-weight:500;}
   .setrow .sv .x{color:var(--label-3);margin:0 5px;}
   .setrow .pr{margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--pr);font-size:12px;font-weight:700;}
@@ -348,12 +348,42 @@
   .ov-note svg{width:16px;height:16px;}
   .ov-note.has{color:var(--accent);}
   .ov-note.has::after{content:"";position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--elev-2);}
+  /* setups: A/B/C picked in the note sheet header. the chosen letter takes the place of the
+     note dot, and sets logged on a setup carry its letter */
+  .note-seg{display:flex;gap:4px;margin:0 12px;align-self:center;flex:0 0 auto;}
+  .note-seg button,.setup-seg button{width:34px;height:30px;border-radius:9px;border:0;background:var(--elev-2);color:var(--label-2);font-family:var(--sf);font-size:14px;font-weight:700;cursor:pointer;}
+  .note-seg button.on,.setup-seg button.on{background:var(--accent);color:#00350F;}
+  /* the same A/B/C toggle on the log screen, between "last time" and weight/reps */
+  .setupbar{display:flex;align-items:center;margin:12px 16px 0;padding:8px 8px 8px 18px;background:var(--elev);border-radius:14px;}
+  .setupbar .cap{font-size:13px;color:var(--label-2);margin-right:auto;}
+  .setup-seg{display:flex;gap:4px;}
+  #note-sheet .sheet-hd .t{flex:1;min-width:0;}
+  #note-sheet .sheet-hd .t span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .note-btn[data-setup]::after,.ov-note[data-setup]::after{content:attr(data-setup);position:absolute;top:2px;right:2px;width:auto;min-width:14px;height:14px;padding:0 2px;box-sizing:border-box;border-radius:5px;background:var(--accent);color:#00350F;font-size:10px;font-weight:800;line-height:14px;text-align:center;}
+  .note-btn[data-setup]::after{box-shadow:0 0 0 2px var(--elev);}
+  .ov-note[data-setup]::after{box-shadow:0 0 0 2px var(--elev-2);}
+  .stag{font-size:11px;font-weight:700;color:var(--accent);margin-left:6px;}
+  .ov-set .stag,.sd-i .stag,.setrow .sn .stag{font-size:10px;margin-left:1px;}
+  /* a logged set's number opens the sheet that chooses its setup (none, A, B or C).
+     the badge is small, so its touch area reaches 8px past it */
+  button.sn,button.ov-set{border:0;font-family:var(--sf);cursor:pointer;position:relative;}
+  button.sn::before,button.ov-set::before{content:"";position:absolute;inset:-8px;}
+  button.sn:active,button.ov-set:active{opacity:.6;}
+  .ssu-opt{display:flex;align-items:center;gap:12px;width:100%;padding:11px 2px;background:transparent;border:0;border-top:.5px solid var(--sep);color:var(--label);font-family:var(--sf);text-align:left;cursor:pointer;}
+  .ssu-opt:first-child{border-top:0;}
+  .ssu-opt .code{width:32px;height:32px;border-radius:9px;background:var(--elev-2);color:var(--label-2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex:0 0 auto;}
+  .ssu-opt.on .code{background:var(--accent);color:#00350F;}
+  .ssu-opt .tx{flex:1;min-width:0;}
+  .ssu-opt .tx b{display:block;font-size:15px;font-weight:600;}
+  .ssu-opt .tx span{display:block;font-size:12px;color:var(--label-3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ssu-opt .ck{color:var(--accent);font-size:18px;font-weight:700;}
+  .ps-sets .stag{font-size:10px;margin-left:3px;}
   .ov-tblh,.ov-row{display:grid;grid-template-columns:34px 1fr 1fr 1fr 30px;align-items:center;gap:8px;padding:6px 14px;}
   .ov-tblh{padding-top:2px;padding-bottom:2px;}
   .ov-tblh span{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--label-3);text-align:center;}
   .ov-tblh span:first-child{text-align:left;}
   .ov-row + .ov-row{margin-top:-2px;}
-  .ov-set{width:24px;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+  .ov-set{min-width:24px;padding:0 3px;box-sizing:border-box;justify-self:start;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;}
   .ov-prev{font-size:13px;color:var(--label-3);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .ov-in{width:100%;background:var(--bg);border:.5px solid rgba(255,255,255,.12);border-radius:8px;color:var(--label);font-family:var(--sf);font-size:15px;font-weight:600;text-align:center;padding:7px 2px;box-sizing:border-box;-moz-appearance:textfield;}
   .ov-in:focus{outline:none;border-color:var(--accent);}
@@ -770,6 +800,10 @@
             <div class="l" id="last-l">last time · <b>3×10 @ 68kg</b></div>
             <div class="beat" id="beat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it</div>
           </div>
+          <div class="setupbar">
+            <span class="cap">setup</span>
+            <div class="setup-seg" id="setup-seg"></div>
+          </div>
 
           <div class="controls">
             <div class="ctl">
@@ -850,9 +884,21 @@
         <div class="sheet-grip"></div>
         <div class="sheet-hd">
           <div class="t">note<span id="note-sub">this exercise</span></div>
+          <div class="note-seg" id="note-seg"></div>
           <button class="done" onclick="closeNotes()">done</button>
         </div>
         <textarea class="note-area" id="note-area" placeholder="e.g. seat height 4 · last pin · grip just outside shoulders…"></textarea>
+      </div>
+
+      <!-- a logged set's setup: tap the set's number to choose none / A / B / C -->
+      <div class="sheet-back" id="ssu-back" onclick="closeSetSetup()"></div>
+      <div class="sheet" id="ssu-sheet">
+        <div class="sheet-grip"></div>
+        <div class="sheet-hd">
+          <div class="t">setup<span id="ssu-sub">set 1</span></div>
+          <button class="done" onclick="closeSetSetup()">done</button>
+        </div>
+        <div id="ssu-list"></div>
       </div>
 
       <!-- data backup: export / import -->
@@ -1458,6 +1504,31 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     DB.mig_preset_7=1; saveDB();
   }
   migratePreset7();
+  // ---- one-time: the first take on setups (the 20 oct debug build) tagged every set
+  // 'standard' or a free-form code, appended '|setup:<code>' to the set key, and kept the
+  // setups in their own localStorage entry — outside rackd.v1, so no backup ever had them.
+  // fold that into A/B/C: no setup = untagged, keys back to brand|name, and each saved
+  // setup's name + note becomes that letter's note on its machine.
+  function migrateSetups(){
+    if(DB.mig_setups) return;
+    DB.setups=DB.setups||{};
+    (DB.sets||[]).forEach(s=>{
+      if(!s) return;
+      if(typeof s.key==='string'&&s.key.includes('|setup:')) s.key=s.key.split('|setup:')[0];
+      if(s.setup==='standard'||s.setup==='') delete s.setup;
+    });
+    (DB.sessions||[]).forEach(ss=>(ss&&ss.items||[]).forEach(it=>(it.sets||[]).forEach(x=>{
+      if(x&&x.setup==='standard') delete x.setup; })));
+    let old={}; try{ old=JSON.parse(localStorage.getItem('rackd_setups'))||{}; }catch(e){}
+    Object.keys(old).forEach(mk=>(Array.isArray(old[mk])?old[mk]:[]).forEach(o=>{
+      if(!o||!o.code||o.code==='standard') return;
+      const rec=DB.setups[mk]||(DB.setups[mk]={notes:{}});
+      const txt=[o.name&&o.name!==o.code?o.name:'', o.note||''].filter(Boolean).join(' · ');
+      if(txt&&!rec.notes[o.code]) rec.notes[o.code]=txt;
+    }));
+    DB.mig_setups=1; saveDB();
+  }
+  migrateSetups();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   // a machine's history belongs to the MACHINE, not to whichever workout you opened it from.
   // keys are brand|name. sets written before this fix carry a context scope in front
@@ -1468,6 +1539,57 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   function mkey(k){return String(k||'').split('|').slice(-2).join('|');}
   function keyFor(m){return m.brand+'|'+m.name;}
   function setsFor(k){const mk=mkey(k);return DB.sets.filter(s=>mkey(s.key)===mk);}
+  // ---- setups: A, B or C per machine, picked in the note sheet ----
+  // a setup is one way of using a machine (seat 4 · pad 2, another handle, one arm…), so
+  // like two machines its numbers only compare with each other: "last time", the weight
+  // delta and PRs follow the machine's selected letter, and no letter is the machine's
+  // normal history. the choice sticks per machine until it is changed; every set records
+  // the letter it was logged on, and each letter keeps its own note.
+  const SETUPS=['A','B','C'];
+  function setupRec(k){return (DB.setups||{})[mkey(k)]||{notes:{}};}
+  function curSetup(k){return setupRec(k).cur||'';}
+  function setupSets(k){const l=curSetup(k);return setsFor(k).filter(s=>(s.setup||'')===l);}
+  function stagHTML(l){return l?`<span class="stag">${escHTML(l)}</span>`:'';}
+  // a logged set can be put on another letter afterwards (tap its number, choose in the sheet),
+  // for when the setup was forgotten or picked wrong. its PR is re-judged against the sets
+  // before it on the new letter, and the machine moves with it (the note button, the A/B/C
+  // toggle and "last time" show that letter), so the sets that follow log on it too.
+  function prFor(k,m,s){
+    if(isFail(s)) return false;
+    let best=s.setup?0:(m.lastW||0);
+    setsFor(k).forEach(x=>{if(x!==s&&x.ts<s.ts&&(x.setup||'')===(s.setup||'')&&!isFail(x)&&x.w>best)best=x.w;});
+    return best>0&&s.w>best;
+  }
+  function setSetSetup(k,m,s,l){                 // s: a live DB.sets entry, l: 'A'|'B'|'C'|'' (none)
+    if(l) s.setup=l; else delete s.setup;
+    s.pr=prFor(k,m,s);
+    const rec=editSetupRec(k); if(l) rec.cur=l; else delete rec.cur;
+    saveDB();
+  }
+  let setupTarget=null;   // {k,m,i,after}: the set the sheet is choosing for, and what to re-render
+  function openSetSetup(k,m,i,after){
+    const s=todays(k)[i]; if(!s)return;
+    setupTarget={k,m,i,after};
+    const notes=setupRec(k).notes||{}, cur=s.setup||'';
+    document.getElementById('ssu-sub').textContent=`set ${i+1} · ${m.name}`;
+    document.getElementById('ssu-list').innerHTML=['',...SETUPS].map(l=>
+      `<button class="ssu-opt${l===cur?' on':''}" onclick="chooseSetSetup('${l}')">
+        <span class="code">${l||'–'}</span>
+        <span class="tx"><b>${l?'setup '+l:'no setup'}</b><span>${l?escHTML(String(notes[l]||'no note yet')):"the machine's normal history"}</span></span>
+        ${l===cur?'<span class="ck">✓</span>':''}</button>`).join('');
+    document.getElementById('ssu-back').classList.add('show');
+    document.getElementById('ssu-sheet').classList.add('show');
+  }
+  function chooseSetSetup(l){
+    const t=setupTarget; closeSetSetup(); if(!t)return;
+    const s=todays(t.k)[t.i]; if(!s)return;
+    setSetSetup(t.k,t.m,s,l); t.after();
+  }
+  function closeSetSetup(){
+    document.getElementById('ssu-back').classList.remove('show');
+    document.getElementById('ssu-sheet').classList.remove('show');
+    setupTarget=null;
+  }
   // notes are keyed like sets, so they need the same legacy fallback
   function noteFor(k){
     const mk=mkey(k); if(!mk) return '';
@@ -1484,7 +1606,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // the top set of the most recent training day. skipToday leaves today's own sets out,
   // so "last time" keeps showing the number you came in to beat even after you log.
   function sessionOf(k,m,skipToday){
-    const all=setsFor(k), today=new Date().toDateString();
+    const all=setupSets(k), today=new Date().toDateString();
     if(all.length){
       const days={};all.forEach(s=>{const d=new Date(s.ts).toDateString();(days[d]=days[d]||[]).push(s);});
       const latest=Object.keys(days).filter(d=>!skipToday||d!==today).sort((a,b)=>new Date(b)-new Date(a))[0];
@@ -1496,7 +1618,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
         return{w:top.w,r:top.r,s:ds.length,date:dt.getDate()+' '+MON[dt.getMonth()]};
       }
     }
-    if(m.lastW)return{w:m.lastW,r:m.lastR,s:m.lastS,date:m.date};
+    if(!curSetup(k)&&m.lastW)return{w:m.lastW,r:m.lastR,s:m.lastS,date:m.date};
     return null;
   }
   function lastSession(k,m){ return sessionOf(k,m,false); }   // incl. today — seeds the weight/reps you continue at
@@ -1504,7 +1626,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   // a set logged with 0 reps is a FAILED attempt: it stays in the history, but it never
   // counts as a best/PR and never stands in as the "last time" number to beat.
   function isFail(s){ return !s.r; }
-  function bestWeight(k,m){let best=m.lastW||0;setsFor(k).forEach(s=>{if(!isFail(s)&&s.w>best)best=s.w;});return best;}
+  function bestWeight(k,m){let best=curSetup(k)?0:(m.lastW||0);setupSets(k).forEach(s=>{if(!isFail(s)&&s.w>best)best=s.w;});return best;}
   function todays(k){const t=new Date().toDateString();return setsFor(k).filter(s=>new Date(s.ts).toDateString()===t);}
 
   function show(id){
@@ -1638,7 +1760,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     key=+key;
     if(st.session && key===dayKey(Date.now())){ finishSession(); renderSessions(); show('s-sessions'); return; }
     const day=unsavedDays().find(d=>d.key===key); if(!day) return;
-    const items=day.groups.map(g=>({brand:g.brand,name:g.name,sets:g.sets.map(s=>({w:s.w,r:s.r,pr:!!s.pr}))}));
+    const items=day.groups.map(g=>({brand:g.brand,name:g.name,sets:g.sets.map(s=>({w:s.w,r:s.r,pr:!!s.pr,...(s.setup?{setup:s.setup}:{})}))}));
     const id='s'+Date.now().toString(36);
     day.groups.forEach(g=>g.sets.forEach(s=>{ s.sid=id; }));   // these sets are now accounted for
     DB.sessions.push({id, wid:null, name:'workout', ts:day.ts, items});
@@ -1678,7 +1800,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     return `<div class="histcard">
       <div class="histhd"><span class="histname">${label}</span><span class="histtrend">${day.isToday?'in progress':'not saved'}</span></div>
       <div class="histmeta">${day.groups.length} exercise${day.groups.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''}</div>
-      ${day.groups.map(it=>exRow(it.brand,it.name,it.sets.map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · '))).join('')}
+      ${day.groups.map(it=>exRow(it.brand,it.name,it.sets.map(x=>`${x.r}×${fmtW(x.w)}${stagHTML(x.setup)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · '))).join('')}
       <button class="ov-add" style="margin-top:10px;" onclick="saveDayAsSession(${day.key})">${day.isToday?'finish &amp; save to history':'save to history'}</button>
     </div>`;
   }
@@ -1689,7 +1811,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const items=s.items||[];
     const nsets=items.reduce((a,it)=>a+(it.sets?it.sets.length:0),0);
     const ex=items.map(it=>exRow(it.brand,it.name,
-      (it.sets||[]).map(x=>`${x.r}×${fmtW(x.w)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')||'—')).join('');
+      (it.sets||[]).map(x=>`${x.r}×${fmtW(x.w)}${stagHTML(x.setup)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')||'—')).join('');
     return `<div class="histcard tapcard" onclick="openSession('${s.id}')">
       <div class="histhd"><span class="histname">${s.name||'workout'}</span><span class="histtrend">${date}</span>
         <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span></div>
@@ -1728,10 +1850,10 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
       <div class="sd-card">
         <div class="sd-exh">${thumbHTML(it.brand,it.name,guessGroup(it.name),photoFor(it.brand,it.name))}
           <span>${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</span></div>
-        ${noteBox(noteOf(it))}
+        ${noteBox(noteOf(it))}${Object.keys(it.setups||{}).map(l=>noteBox(l+' · '+it.setups[l])).join('')}
         <div class="sd-tblh"><span>set</span><span>kg</span><span>reps</span><span></span></div>
         ${(it.sets||[]).map((x,xi)=>`<div class="sd-row">
-            <span class="sd-i">${xi+1}</span>
+            <span class="sd-i">${xi+1}${stagHTML(x.setup)}</span>
             <input class="ps-in" type="number" inputmode="decimal" step="0.5" min="0" value="${x.w}" onchange="sessEdit('${s.id}',${ei},${xi},'w',this.value)">
             <input class="ps-in" type="number" inputmode="numeric" min="0" value="${x.r}" onchange="sessEdit('${s.id}',${ei},${xi},'r',this.value)">
             <button class="ps-del" onclick="sessDelSet('${s.id}',${ei},${xi})" aria-label="delete set">✕</button>
@@ -1751,7 +1873,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   function sessAddSet(sid,ei){
     const s=(DB.sessions||[]).find(x=>x.id===sid); if(!s||!s.items[ei])return;
     const sets=s.items[ei].sets, last=sets[sets.length-1];
-    sets.push({w:last?last.w:0, r:last?last.r:10, pr:false});
+    sets.push({w:last?last.w:0, r:last?last.r:10, pr:false, ...(last&&last.setup?{setup:last.setup}:{})});
     saveDB(); renderSessionDetail();
   }
   function sessDelSet(sid,ei,xi){
@@ -1938,19 +2060,11 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   }
   function loadLog(m){
     st.m=m; st.machineKey=keyFor(m); const ls=lastSession(st.machineKey,m); st.w=ls?ls.w:(m.lastW||60); st.r=ls?ls.r:(m.lastR||10);
-    const ps=prevSession(st.machineKey,m);   // "last time" = the session before today
     document.getElementById('log-thumb').innerHTML=thumbHTML(m.brand,m.name,m.group,m.img);
     document.getElementById('log-brand').textContent=m.brand;
     document.getElementById('log-name').textContent=m.name;
     document.getElementById('sets-machine').textContent=m.name;
-    const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
-    if(ps){
-      lastL.innerHTML=`last time · <b>${ps.s}×${ps.r} @ ${ps.w}kg</b>`;
-      beat.className='beat'; beat.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it';
-    } else {
-      lastL.innerHTML='first time on <b>this</b> exercise';
-      beat.className='beat first'; beat.textContent='set a baseline';
-    }
+    renderLast();
     if(!st.session) document.getElementById('back-gym').textContent = st.gym ? st.gym.name.split(' ')[0] : 'back';
     updateSessionBar();
     editIdx=-1;
@@ -1960,6 +2074,18 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     refreshNoteBtn();
     if(st.session) persistActive();   // remember where we are in the in-progress workout
     show('s-log');
+  }
+  // the "last time" card, for the machine's selected setup
+  function renderLast(){
+    const l=curSetup(st.machineKey), ps=prevSession(st.machineKey,st.m);   // "last time" = the session before today
+    const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
+    if(ps){
+      lastL.innerHTML=`last time${l?' · '+l:''} · <b>${ps.s}×${ps.r} @ ${ps.w}kg</b>`;
+      beat.className='beat'; beat.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it';
+    } else {
+      lastL.innerHTML=l?`first time on <b>setup ${l}</b>`:'first time on <b>this</b> exercise';
+      beat.className='beat first'; beat.textContent='set a baseline';
+    }
   }
   function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-workouts'); else goMachines(); }
 
@@ -2445,10 +2571,13 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     const slot=(brand,name)=>{ const k=(brand||'')+'|'+name;
       if(!by[k]){ by[k]={brand:brand,name:name,sets:[]}; order.push(k); } return by[k]; };
     st.session.items.forEach(m=>slot(m.brand,m.name));      // keep the workout's own order
-    mine.forEach(s=>{ slot(s.brand,s.name).sets.push({w:s.w,r:s.r,pr:!!s.pr}); s.sid=id; });
+    mine.forEach(s=>{ slot(s.brand,s.name).sets.push({w:s.w,r:s.r,pr:!!s.pr,...(s.setup?{setup:s.setup}:{})}); s.sid=id; });
     const items=order.map(k=>by[k]).filter(it=>it.sets.length);
-    items.forEach(it=>{ const note=noteFor(it.brand+'|'+it.name).trim();   // per-machine note
-      if(note) it.note=note; });
+    items.forEach(it=>{ const k=it.brand+'|'+it.name, note=noteFor(k).trim();   // per-machine note
+      if(note) it.note=note;
+      const notes=setupRec(k).notes||{}, used={};                // + the note of each setup trained on
+      it.sets.forEach(x=>{ if(x.setup&&notes[x.setup]) used[x.setup]=notes[x.setup]; });
+      if(Object.keys(used).length) it.setups=used; });
     if(!items.length) return 'empty';
     const rec={id, wid:st.session.wid||null, name:st.session.name, ts:Date.now(), items};
     const snote=(DB.notes[sessNoteKey()]||'').trim();   // snapshot the workout-level note
@@ -2676,7 +2805,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
       const prev= ls?`${ls.r}×${ls.w%1===0?ls.w:ls.w.toFixed(1)}`:'—';
       const rows= sets.length ? sets.map((s,i)=>`
         <div class="ov-row">
-          <span class="ov-set">${i+1}</span>
+          <button class="ov-set" onclick="ovSetup(${ei},${i})" aria-label="set ${i+1} setup">${i+1}${stagHTML(s.setup)}</button>
           <span class="ov-prev">${i===0?prev:'—'}</span>
           <input class="ov-in" type="number" inputmode="decimal" step="0.5" min="0" value="${s.w}" onchange="ovEdit(${ei},${i},'w',this.value)">
           <input class="ov-in" type="number" inputmode="numeric" min="0" value="${s.r}" onchange="ovEdit(${ei},${i},'r',this.value)">
@@ -2686,7 +2815,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
         <div class="ov-head" onclick="ovFocus(${ei})">
           ${thumbHTML(m.brand,m.name,m.group,m.img)}
           <div class="ov-tt"><div class="ov-b">${m.brand}</div><div class="ov-n">${m.name}</div></div>
-          <button class="ov-note${noteFor(key).trim()?' has':''}" onclick="event.stopPropagation();openNotesFor(${ei})" aria-label="machine note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/><path d="M8 9h8M8 13h5"/></svg></button>
+          <button class="ov-note${noteFor(key).trim()||curSetup(key)?' has':''}"${curSetup(key)?` data-setup="${curSetup(key)}"`:''} onclick="event.stopPropagation();openNotesFor(${ei})" aria-label="machine note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/><path d="M8 9h8M8 13h5"/></svg></button>
           <span class="ov-go"><svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></span>
         </div>
         <div class="ov-tblh"><span>set</span><span>prev</span><span>kg</span><span>reps</span><span></span></div>
@@ -2702,11 +2831,13 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     else { const r=parseInt(val,10); if(!isNaN(r)) s.r=Math.max(0,Math.min(99,r)); }
     s.pr=false; saveDB();
   }
+  function ovSetup(ei,i){ const m=st.session.items[ei]; openSetSetup(keyFor(m),m,i,renderOverview); }
   function ovAdd(ei){
     const m=st.session.items[ei], key=keyFor(m), sets=todays(key), last=sets[sets.length-1], ls=lastSession(key,m);
     const w=last?last.w:(ls?ls.w:(m.lastW||60)), r=last?last.r:(ls?ls.r:(m.lastR||10));
     const best=bestWeight(key,m);
-    DB.sets.push({key,brand:m.brand,name:m.name,w,r,pr:best>0&&w>best,ts:Date.now()});
+    const l=curSetup(key);
+    DB.sets.push({key,brand:m.brand,name:m.name,...(l?{setup:l}:{}),w,r,pr:best>0&&w>best,ts:Date.now()});
     saveDB(); renderOverview();
   }
   function ovDel(ei,i){
@@ -2737,8 +2868,9 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   function renderW(){
     document.getElementById('wt').textContent=st.w%1===0?st.w:st.w.toFixed(1);
     const dl=document.getElementById('wt-delta');
-    if(st.m.lastW){
-      const diff=Math.round((st.w-st.m.lastW)*10)/10;
+    const ps=prevSession(st.machineKey,st.m);   // the same number the "last time" card shows
+    if(ps){
+      const diff=Math.round((st.w-ps.w)*10)/10;
       if(diff>0){dl.className='delta up';dl.textContent=`+${diff}kg vs last`;}
       else if(diff<0){dl.className='delta';dl.textContent=`${diff}kg vs last`;}
       else{dl.className='delta';dl.textContent='= last time';}
@@ -2747,22 +2879,62 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   function renderR(){document.getElementById('rp').textContent=st.r;}
 
   // ---- per-exercise notes (on-device, keyed per machine like the set history) ----
+  // the sheet also picks the machine's setup: with a letter selected it edits that letter's
+  // note, with none it edits the machine's ordinary note.
   function refreshNoteBtn(){
     const note=(st.machineKey && noteFor(st.machineKey).trim())||'';
-    const btn=document.getElementById('note-btn'); if(btn) btn.classList.toggle('has',!!note);
+    const l=st.machineKey?curSetup(st.machineKey):'', lnote=l?String(setupRec(st.machineKey).notes[l]||''):'';
+    const btn=document.getElementById('note-btn');
+    if(btn){ btn.classList.toggle('has',!!(note||l)); if(l) btn.dataset.setup=l; else delete btn.dataset.setup; }
+    const text=[l?(lnote?l+' · '+lnote:'setup '+l):'', note].filter(Boolean).join('\n');
     const line=document.getElementById('setnote'), txt=document.getElementById('setnote-txt');
-    if(line&&txt){ txt.textContent=note; line.style.display=note?'flex':'none'; }
+    if(line&&txt){ txt.textContent=text; line.style.display=text?'flex':'none'; }
+    const seg=document.getElementById('setup-seg');   // the log screen's toggle shows the same letter
+    if(seg) seg.innerHTML=setupSegHTML(l,x=>`toggleSetup('${x}')`);
   }
-  let noteTarget=null;   // {key,name} of the machine whose note the sheet is editing
+  // the A/B/C toggle above weight/reps: switch the machine between setups right where the
+  // sets are logged (tap the lit letter again for no setup)
+  function setupSegHTML(l,call){
+    return SETUPS.map(x=>`<button class="${x===l?'on':''}" onclick="${call(x)}" aria-label="setup ${x}">${x}</button>`).join('');
+  }
+  function switchSetup(k,x){
+    const rec=editSetupRec(k); if(curSetup(k)===x) delete rec.cur; else rec.cur=x;
+    saveDB();
+  }
+  // on the log screen another letter is another progression, so "last time" and the numbers
+  // you continue at reload for it
+  function toggleSetup(x){
+    if(!st.machineKey)return;
+    switchSetup(st.machineKey,x);
+    const ls=lastSession(st.machineKey,st.m); st.w=ls?ls.w:(st.m.lastW||60); st.r=ls?ls.r:(st.m.lastR||10);
+    renderLast(); renderW(); renderR(); refreshNoteBtn();
+  }
+  let noteTarget=null;   // {key,name,l,l0} of the machine being edited: the letter on screen, and the one it opened on
   function openNoteSheet(key,name){
     if(!key)return;
-    noteTarget={key,name};
+    noteTarget={key,name,l:curSetup(key),l0:curSetup(key)};
     document.getElementById('note-sub').textContent=name||'this exercise';
-    const ta=document.getElementById('note-area');
-    ta.value=noteFor(key);
+    renderNoteSheet();
     document.getElementById('note-back').classList.add('show');
     document.getElementById('note-sheet').classList.add('show');
-    setTimeout(()=>ta.focus(),120);
+    setTimeout(()=>document.getElementById('note-area').focus(),120);
+  }
+  function renderNoteSheet(){
+    const l=noteTarget.l, ta=document.getElementById('note-area');
+    document.getElementById('note-seg').innerHTML=SETUPS.map(x=>
+      `<button class="${x===l?'on':''}" onclick="pickSetup('${x}')" aria-label="setup ${x}">${x}</button>`).join('');
+    ta.value=l?String(setupRec(noteTarget.key).notes[l]||''):noteFor(noteTarget.key);
+    ta.placeholder=l?`setup ${l} — seat, pads, handle, grip…`:'e.g. seat height 4 · last pin · grip just outside shoulders…';
+  }
+  function editSetupRec(k){DB.setups=DB.setups||{};const mk=mkey(k);return DB.setups[mk]||(DB.setups[mk]={notes:{}});}
+  // tap a letter to put the machine on it (and show its note); tap it again for no setup
+  function pickSetup(x){
+    if(!noteTarget)return;
+    saveNote();                                   // what was typed stays with the letter it was typed under
+    const rec=editSetupRec(noteTarget.key), l=noteTarget.l===x?'':x;
+    if(l) rec.cur=l; else delete rec.cur;
+    noteTarget.l=l; saveDB(); refreshNoteBtn(); renderNoteSheet();
+    if(activeScreenId()==='s-overview') renderOverview();
   }
   function openNotes(){ openNoteSheet(st.machineKey, st.m?st.m.name:'this exercise'); }
   // per-machine note opened from a routine-overview row
@@ -2773,9 +2945,12 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
   }
   function saveNote(){
     if(!noteTarget)return;
-    const v=document.getElementById('note-area').value;
-    dropNote(noteTarget.key);                                 // drop legacy scoped copies too
-    if(v.trim()) DB.notes[mkey(noteTarget.key)]=v.trim();
+    const v=document.getElementById('note-area').value.trim(), l=noteTarget.l;
+    if(l){ const rec=editSetupRec(noteTarget.key); if(v) rec.notes[l]=v; else delete rec.notes[l]; }
+    else {
+      dropNote(noteTarget.key);                               // drop legacy scoped copies too
+      if(v) DB.notes[mkey(noteTarget.key)]=v;
+    }
     saveDB(); refreshNoteBtn();
     if(activeScreenId()==='s-overview') renderOverview();     // refresh the row's note indicator
   }
@@ -2783,13 +2958,18 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     saveNote();
     document.getElementById('note-back').classList.remove('show');
     document.getElementById('note-sheet').classList.remove('show');
-    noteTarget=null;
+    const t=noteTarget; noteTarget=null;
+    // another letter is another progression: reload "last time" and the numbers you continue at
+    if(t&&t.l!==t.l0&&st.m&&mkey(t.key)===mkey(st.machineKey)){
+      const ls=lastSession(st.machineKey,st.m); st.w=ls?ls.w:(st.m.lastW||60); st.r=ls?ls.r:(st.m.lastR||10);
+      renderLast(); renderW(); renderR();
+    }
   }
 
   function logSet(){
     const best=bestWeight(st.machineKey,st.m);
-    const isPR=best>0 && st.w>best;
-    DB.sets.push({key:st.machineKey,brand:st.m.brand,name:st.m.name,w:st.w,r:st.r,pr:isPR,ts:Date.now()});
+    const isPR=best>0 && st.w>best, l=curSetup(st.machineKey);
+    DB.sets.push({key:st.machineKey,brand:st.m.brand,name:st.m.name,...(l?{setup:l}:{}),w:st.w,r:st.r,pr:isPR,ts:Date.now()});
     saveDB();
     editIdx=-1; renderSets();
     toast(isPR,st.r,st.w);
@@ -2801,7 +2981,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
     if(!sets.length){wrap.innerHTML='<div class="empty">no sets yet. log your first.</div>';document.getElementById('vol').textContent='—';editIdx=-1;return;}
     wrap.innerHTML=sets.map((s,i)=> i===editIdx ? `
       <div class="setrow editing">
-        <span class="sn">${i+1}</span>
+        <span class="sn">${i+1}${stagHTML(s.setup)}</span>
         <input class="se-in" id="se-r" type="number" inputmode="numeric" value="${s.r}" min="0" max="99">
         <span class="x">×</span>
         <input class="se-in" id="se-w" type="number" inputmode="decimal" value="${s.w}" step="0.5" min="0"><span class="se-u">kg</span>
@@ -2809,7 +2989,7 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
         <button class="se-btn save" onclick="saveEdit(${i})" aria-label="save set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></button>
       </div>` : `
       <div class="setrow${isFail(s)?' failed':''}">
-        <span class="sn">${i+1}</span>
+        <button class="sn" onclick="pickSetSetup(${i})" aria-label="set ${i+1} setup">${i+1}${stagHTML(s.setup)}</button>
         <span class="sv">${isFail(s)?'<span class="x">failed @</span>'+(s.w%1===0?s.w:s.w.toFixed(1))+' kg':s.r+'<span class="x">×</span>'+(s.w%1===0?s.w:s.w.toFixed(1))+' kg'}</span>
         ${isFail(s)
           ? '<span class="fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>'
@@ -2820,6 +3000,9 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
       </div>`).join('');
     const vol=sets.reduce((t,s)=>t+s.w*s.r,0);
     document.getElementById('vol').textContent=vol.toLocaleString()+' kg';
+  }
+  function pickSetSetup(i){
+    openSetSetup(st.machineKey,st.m,i,()=>{ renderSets(); renderLast(); renderW(); refreshNoteBtn(); });
   }
   function editSet(i){ editIdx=i; renderSets(); const w=document.getElementById('se-w'); if(w){w.focus();if(w.select)w.select();} }
   function saveEdit(i){
@@ -2924,7 +3107,39 @@ if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.
         brand:(e.equipment||'other'), name:(e.name||'').toLowerCase(),
         group:e.muscle_group||'core', muscle:e.muscle_label||'', img:e.image_url||'',
         lastW:0,lastR:0,lastS:0,date:''}));
+      fillPhotosFromLibrary();
     }catch(e){ /* offline: pool() falls back to the small GENERIC list */ }
+  }
+  // free-weight moves that came in from a preset or by hand (the barbell curl in "last 7
+  // training days", spider curls…) were stored with no photo, and only 'custom' rows get a
+  // camera button — so every screen showed the bare line icon. the library has a picture
+  // for most of them under the same name (word order, plurals and "medium grip" aside), so
+  // fill the gaps once it is in. only generic moves (brand = a library equipment) are
+  // touched, and a photo that is already set — the user's own included — is never replaced.
+  const libKey=n=>String(n||'').toLowerCase().split(/[^a-z0-9]+/)
+    .filter(w=>w&&w!=='medium'&&w!=='grip')
+    .map(w=>w.length>3&&w.endsWith('s')?w.slice(0,-1):w).sort().join(' ');
+  function fillPhotosFromLibrary(){
+    const exact={}, loose={}, equip=new Set();
+    LIBRARY.forEach(e=>{ if(!e.img) return; equip.add(e.brand);
+      if(!exact[imgKey(e)]) exact[imgKey(e)]=e.img;
+      (loose[libKey(e.name)]=loose[libKey(e.name)]||[]).push(e); });
+    const find=o=>{ if(exact[imgKey(o)]) return exact[imgKey(o)];
+      const c=loose[libKey(o.name)]||[]; return (c.find(e=>e.brand===o.brand)||c[0]||{}).img||''; };
+    let n=0;
+    const fill=o=>{ if(!o||!o.name||o.img||!equip.has(o.brand)) return; const u=find(o); if(u){ o.img=u; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    draft.items.forEach(fill);
+    fill(st.m);
+    if(!n) return 0;
+    persistActive(); saveDB(); photoIndex(true);   // history rows look photos up here
+    renderWorkouts(); renderHome();
+    const sc=activeScreenId();
+    if(sc==='s-overview') renderOverview(); else if(sc==='s-custom') renderDraft(); else if(sc==='s-sessions') renderSessions();
+    if(st.m) document.getElementById('log-thumb').innerHTML=thumbHTML(st.m.brand,st.m.name,st.m.group,st.m.img);
+    return n;
   }
 
   // load the live catalog; keep bundled fallback data if the API isn't running.

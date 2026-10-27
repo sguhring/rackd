@@ -133,6 +133,21 @@
   .log-id .txt{min-width:0;}
   .log-id .b{font-size:12px;color:var(--label-3);font-weight:500;}
   .log-id .n{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:1px;}
+  .setup-row{margin:14px 16px 0;padding:13px 16px;background:var(--elev);border-radius:14px;display:flex;align-items:center;cursor:pointer;}
+  .setup-row .cap{font-size:12px;color:var(--label-2);}
+  .setup-row .name{font-size:16px;font-weight:600;margin-top:2px;}
+  .setup-row .note{font-size:12px;color:var(--label-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;}
+  .setup-row .chev{margin-left:auto;color:var(--label-3);font-size:22px;}
+  .sheet-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.52);z-index:40;display:flex;align-items:flex-end;}
+  .sheet{width:100%;background:var(--elev);border-radius:22px 22px 0 0;padding:18px 16px 24px;box-shadow:0 -8px 30px rgba(0,0,0,.35);}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .sheet-head b{font-size:18px;}
+  .sheet-close{border:0;background:var(--elev-2);color:var(--label);border-radius:50%;width:30px;height:30px;font-size:20px;}
+  .setup-option{display:flex;align-items:center;gap:12px;padding:13px 4px;border-top:.5px solid var(--sep);cursor:pointer;}
+  .setup-option .code{width:30px;height:30px;border-radius:9px;background:var(--elev-2);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);}
+  .setup-option .desc{font-size:13px;color:var(--label-2);margin-top:2px;}
+  .setup-option .check{margin-left:auto;color:var(--accent);font-size:20px;}
+  .setup-add{width:100%;margin-top:10px;padding:13px;border:0;border-radius:12px;background:var(--accent);color:#00350F;font-size:15px;font-weight:700;}
 
   /* hero: last time / beat it */
   .lastcard{
@@ -355,6 +370,10 @@
             <div class="l" id="last-l">last time · <b>3×10 @ 68kg</b></div>
             <div class="beat" id="beat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it</div>
           </div>
+          <div class="setup-row" onclick="openSetupSheet()">
+            <div><div class="cap">setup</div><div class="name" id="setup-name">standard</div><div class="note" id="setup-note">no custom settings</div></div>
+            <div class="chev">›</div>
+          </div>
 
           <div class="controls">
             <div class="ctl">
@@ -393,6 +412,13 @@
       <div class="toast" id="toast">
         <div class="ic ok" id="toast-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div><div class="tt" id="toast-t">set logged</div><div class="ts" id="toast-s">3×10 @ 68kg</div></div>
+      </div>
+      <div class="sheet-backdrop" id="setup-sheet" style="display:none;" onclick="closeSetupSheet(event)">
+        <div class="sheet" onclick="event.stopPropagation()">
+          <div class="sheet-head"><b>select setup</b><button class="sheet-close" onclick="closeSetupSheet()">×</button></div>
+          <div id="setup-options"></div>
+          <button class="setup-add" onclick="addSetup()">+ add setup</button>
+        </div>
       </div>
 
     </div>
@@ -440,7 +466,7 @@
   // data comes from the api (rackd.db) — no hardcoded catalog anymore.
   let GYMS=[];           // [{id,name,area,machineCount,brands,machines}]
   let MACHINE_POOL=[];   // distinct machines across gyms, for the custom builder
-  const GROUPS=['all','push','pull','legs','core'];
+  const GROUPS=['all','push','pull','legs','core','other'];
 
   function fmtDate(iso){
     try{ return new Date(iso).toLocaleDateString(undefined,{day:'numeric',month:'short'}).toLowerCase(); }
@@ -467,6 +493,14 @@
   async function loadLibrary(){
     return (await (await fetch(`${API}/library`)).json()).map(normLib);
   }
+  function normCatalog(m){
+    return { gmid:null, brand:cleanBrand(m.brand), name:cleanModel(m.model),
+      group:m.muscle_group||'other', muscle:fixText(m.muscle_label||m.movement||''),
+      image:m.image_url||'', lastW:0,lastR:0,lastS:0,date:'' };
+  }
+  async function loadCatalog(){
+    return (await (await fetch(`${API}/catalog/all`)).json()).map(normCatalog);
+  }
   async function loadGyms(){
     const data=await (await fetch(`${API}/gyms`)).json();
     GYMS=data.map(g=>({id:g.id,name:fixText(g.name).toLowerCase(),area:fixText(g.area).toLowerCase(),
@@ -479,14 +513,17 @@
   async function loadPool(){
     if(MACHINE_POOL.length) return MACHINE_POOL;
     const seen={};
-    // branded machines from the user's gyms first (they win name collisions)…
+    // Gym assignments win name collisions because they can be logged to a floor machine.
     for(const g of GYMS){ (await loadGymMachines(g)).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }
-    // …then the brand-agnostic default exercise library on top.
+    // Add the complete current catalog so new models are available even before a gym
+    // has been mapped. These entries remain local-only until assigned to a gym.
+    try{ (await loadCatalog()).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }catch(e){}
+    // Then add the brand-agnostic default exercise library.
     try{ (await loadLibrary()).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }catch(e){}
     return MACHINE_POOL;
   }
 
-  let st={gym:null,m:null,w:0,r:10,filter:'all',sets:[],session:null,workoutId:null};
+  let st={gym:null,m:null,w:0,r:10,filter:'all',sets:[],session:null,workoutId:null,setup:{code:'standard',name:'standard',note:''}};
   let draft={name:'push day',items:[]};
 
   function show(id){
@@ -579,8 +616,48 @@
     st.session=null; st.workoutId=null;
     loadLog(st.gym.machines.find(m=>m.gmid===gmid));
   }
+  const SETUPS_KEY='rackd_setups';
+  function setupKey(m){return String(m.gmid||m.name);}
+  function getSetups(m){
+    let all={}; try{all=JSON.parse(localStorage.getItem(SETUPS_KEY))||{};}catch(e){}
+    return [{code:'standard',name:'standard',note:'no custom settings'},...(all[setupKey(m)]||[])];
+  }
+  function saveSetups(m,items){
+    let all={}; try{all=JSON.parse(localStorage.getItem(SETUPS_KEY))||{};}catch(e){}
+    all[setupKey(m)]=items; localStorage.setItem(SETUPS_KEY,JSON.stringify(all));
+  }
+  function renderSetup(){
+    document.getElementById('setup-name').textContent=st.setup.code==='standard'?'standard':`${st.setup.code} · ${st.setup.name}`;
+    document.getElementById('setup-note').textContent=st.setup.note||'no custom settings';
+  }
+  function openSetupSheet(){
+    const options=document.getElementById('setup-options');
+    options.innerHTML=getSetups(st.m).map(s=>`<div class="setup-option" onclick="chooseSetup('${s.code.replace(/'/g,"\\'")}')">
+      <div class="code">${s.code}</div><div><b>${s.name}</b><div class="desc">${s.note||'no custom settings'}</div></div>
+      ${s.code===st.setup.code?'<div class="check">✓</div>':''}</div>`).join('');
+    document.getElementById('setup-sheet').style.display='flex';
+  }
+  function closeSetupSheet(ev){if(!ev||ev.target===document.getElementById('setup-sheet'))document.getElementById('setup-sheet').style.display='none';}
+  async function chooseSetup(code){
+    const setup=getSetups(st.m).find(s=>s.code===code); if(!setup)return;
+    st.setup=setup; document.getElementById('setup-sheet').style.display='none';
+    if(st.m.gmid&&st.gym){
+      const rows=await (await fetch(`${API}/gyms/${st.gym.id}/machines?user_id=${USER}&setup_name=${encodeURIComponent(setup.code)}`)).json();
+      const fresh=rows.map(normMachine).find(m=>m.gmid===st.m.gmid); if(fresh)st.m=fresh;
+    } else { st.m.lastW=0; st.m.lastR=0; st.m.lastS=0; }
+    st.w=st.m.lastW||60; st.r=st.m.lastR||10; st.sets=[]; renderSetup(); renderW(); renderR(); renderSets();
+    const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
+    if(st.m.lastW){lastL.innerHTML=`last time · ${setup.code} · <b>${st.m.lastS}×${st.m.lastR} @ ${st.m.lastW}kg</b>`;beat.className='beat';}
+    else {lastL.innerHTML=`first time on <b>setup ${setup.code}</b>`;beat.className='beat first';beat.textContent='set a baseline';}
+  }
+  function addSetup(){
+    const code=(prompt('shortcut (A, B, C…)','A')||'').trim().toUpperCase().slice(0,2); if(!code)return;
+    const name=(prompt('setup name',code)||code).trim(); const note=(prompt('note (optional)','')||'').trim();
+    const items=getSetups(st.m).filter(s=>s.code!=='standard'&&s.code!==code); items.push({code,name,note}); saveSetups(st.m,items); openSetupSheet();
+  }
   function loadLog(m){
     st.m=m; st.w=m.lastW||60; st.r=m.lastR||10; st.sets=[];
+    st.setup={code:'standard',name:'standard',note:'no custom settings'};
     const b=brandStyle(m.brand);
     const badge=document.getElementById('log-badge');
     if(m.image){ badge.style.background='#fff'; badge.classList.add('mphoto'); badge.innerHTML=`<img src="${m.image}" alt="">`; }
@@ -589,12 +666,13 @@
     document.getElementById('log-name').textContent=m.name;
     const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
     if(m.lastW){
-      lastL.innerHTML=`last time · <b>${m.lastS}×${m.lastR} @ ${m.lastW}kg</b>`;
+      lastL.innerHTML=`last time · standard · <b>${m.lastS}×${m.lastR} @ ${m.lastW}kg</b>`;
       beat.className='beat'; beat.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it';
     } else {
       lastL.innerHTML='first time on <b>this</b> exercise';
       beat.className='beat first'; beat.textContent='set a baseline';
     }
+    renderSetup();
     if(!st.session) document.getElementById('back-gym').textContent = st.gym ? st.gym.name.split(' ')[0] : 'back';
     updateSessionBar();
     renderW(); renderR(); renderSets();
@@ -731,7 +809,7 @@
     let isPR=st.m.lastW>0 && (w>st.m.lastW || (w===st.m.lastW && r>st.m.lastR)); // optimistic / offline fallback
     if(st.m.gmid){
       try{
-        const body={user_id:USER, gym_machine_id:st.m.gmid, weight_kg:w, reps:r};
+        const body={user_id:USER, gym_machine_id:st.m.gmid, setup_name:st.setup.code, setup_note:st.setup.note, weight_kg:w, reps:r};
         if(st.workoutId) body.workout_id=st.workoutId;
         const d=await (await fetch(`${API}/sets`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})).json();
         isPR=!!d.is_pr; st.workoutId=d.workout_id;
