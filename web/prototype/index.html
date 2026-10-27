@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--
   pick-your-gym's-machine flow — restyled in gainzy's language.
   native iOS dark mode · SF Pro (system) · lowercase voice · "last time" as the hero.
@@ -100,8 +103,10 @@
   /* machine icon */
   .mbadge{
     width:38px;height:38px;border-radius:9px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
-    color:#fff;font-size:14px;font-weight:700;letter-spacing:.02em;
+    color:#fff;font-size:14px;font-weight:700;letter-spacing:.02em;overflow:hidden;
   }
+  .mbadge.mphoto{background:#fff;object-fit:contain;padding:2px;}
+  .mbadge>img{width:100%;height:100%;object-fit:contain;border-radius:inherit;}
   .m-main{flex:1;min-width:0;}
   .m-brand{font-size:11px;color:var(--label-3);font-weight:500;letter-spacing:.02em;}
   .m-name{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-top:1px;}
@@ -128,6 +133,21 @@
   .log-id .txt{min-width:0;}
   .log-id .b{font-size:12px;color:var(--label-3);font-weight:500;}
   .log-id .n{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:1px;}
+  .setup-row{margin:14px 16px 0;padding:13px 16px;background:var(--elev);border-radius:14px;display:flex;align-items:center;cursor:pointer;}
+  .setup-row .cap{font-size:12px;color:var(--label-2);}
+  .setup-row .name{font-size:16px;font-weight:600;margin-top:2px;}
+  .setup-row .note{font-size:12px;color:var(--label-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;}
+  .setup-row .chev{margin-left:auto;color:var(--label-3);font-size:22px;}
+  .sheet-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.52);z-index:40;display:flex;align-items:flex-end;}
+  .sheet{width:100%;background:var(--elev);border-radius:22px 22px 0 0;padding:18px 16px 24px;box-shadow:0 -8px 30px rgba(0,0,0,.35);}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .sheet-head b{font-size:18px;}
+  .sheet-close{border:0;background:var(--elev-2);color:var(--label);border-radius:50%;width:30px;height:30px;font-size:20px;}
+  .setup-option{display:flex;align-items:center;gap:12px;padding:13px 4px;border-top:.5px solid var(--sep);cursor:pointer;}
+  .setup-option .code{width:30px;height:30px;border-radius:9px;background:var(--elev-2);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);}
+  .setup-option .desc{font-size:13px;color:var(--label-2);margin-top:2px;}
+  .setup-option .check{margin-left:auto;color:var(--accent);font-size:20px;}
+  .setup-add{width:100%;margin-top:10px;padding:13px;border:0;border-radius:12px;background:var(--accent);color:#00350F;font-size:15px;font-weight:700;}
 
   /* hero: last time / beat it */
   .lastcard{
@@ -165,6 +185,11 @@
     transition:transform .08s ease,background .12s ease;
   }
   .cta button:active{transform:scale(.98);background:var(--accent-press);}
+  .cta.cta-row{display:flex;gap:10px;}
+  .cta.cta-row #startbtn{flex:1;}
+  .btn-secondary{width:auto!important;background:var(--elev)!important;color:var(--accent)!important;padding-left:24px!important;padding-right:24px!important;}
+  .btn-secondary:active{background:var(--elev-2)!important;}
+  .btn-secondary:disabled{color:var(--label-3)!important;}
 
   /* today's sets */
   .sets{padding:10px 16px 26px;}
@@ -215,6 +240,10 @@
   .draftrow .rm:active{background:#3A3A3C;}
   #startbtn:disabled{background:var(--elev);color:var(--label-3);cursor:default;}
   .picker{margin:0;}
+  .exsearch{margin:10px 0 0;display:none;}
+  .exsearch-input{width:100%;background:var(--elev);border:0;border-radius:12px;color:var(--label);font-family:var(--sf);font-size:15px;padding:12px 14px;letter-spacing:-.01em;-webkit-appearance:none;appearance:none;}
+  .exsearch-input::placeholder{color:var(--label-3);}
+  .exsearch-input:focus{outline:none;}
   .chev.plus{color:var(--accent);font-size:22px;font-weight:400;line-height:1;}
   .empty-draft{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
 
@@ -257,6 +286,10 @@
               </div>
               <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
             </div>
+          </div>
+          <div id="savedwrap" style="display:none;">
+            <div class="sechead">your workouts</div>
+            <div class="group" id="savedlist"></div>
           </div>
           <div class="sechead">your gyms</div>
           <div id="gymlist"></div>
@@ -303,8 +336,12 @@
           <div class="sechead">exercises <span class="count-badge" id="ex-count"></span></div>
           <div class="group" id="draftlist"></div>
           <div class="cta" style="padding-bottom:0;"><button class="addex" onclick="togglePicker()" id="addex-btn">+ add exercise</button></div>
+          <div class="exsearch" id="exsearch-wrap"><input id="exsearch" class="exsearch-input" placeholder="search machine or brand…" autocomplete="off" oninput="renderPicker()" /></div>
           <div id="picker" class="picker" style="display:none;"></div>
-          <div class="cta"><button id="startbtn" onclick="startCustom()" disabled>start workout</button></div>
+          <div class="cta cta-row">
+            <button id="savebtn" class="btn-secondary" onclick="saveCustom()" disabled>save</button>
+            <button id="startbtn" onclick="startCustom()" disabled>start workout</button>
+          </div>
         </div>
       </section>
 
@@ -332,6 +369,10 @@
           <div class="lastcard">
             <div class="l" id="last-l">last time · <b>3×10 @ 68kg</b></div>
             <div class="beat" id="beat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it</div>
+          </div>
+          <div class="setup-row" onclick="openSetupSheet()">
+            <div><div class="cap">setup</div><div class="name" id="setup-name">standard</div><div class="note" id="setup-note">no custom settings</div></div>
+            <div class="chev">›</div>
           </div>
 
           <div class="controls">
@@ -372,12 +413,27 @@
         <div class="ic ok" id="toast-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div><div class="tt" id="toast-t">set logged</div><div class="ts" id="toast-s">3×10 @ 68kg</div></div>
       </div>
+      <div class="sheet-backdrop" id="setup-sheet" style="display:none;" onclick="closeSetupSheet(event)">
+        <div class="sheet" onclick="event.stopPropagation()">
+          <div class="sheet-head"><b>select setup</b><button class="sheet-close" onclick="closeSetupSheet()">×</button></div>
+          <div id="setup-options"></div>
+          <button class="setup-add" onclick="addSetup()">+ add setup</button>
+        </div>
+      </div>
 
     </div>
   </div>
 </div>
 
 <script>
+  // ── api config ──────────────────────────────────────────────────────────────
+  // localhost while developing on the PC; the deployed Azure backend everywhere else.
+  const API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')
+    ? 'http://127.0.0.1:8000'
+    : 'https://rackd-api-sguhring.azurewebsites.net';
+  const USER='local';            // single on-device user for now
+
+  // brand badge styling (presentation only). unknown brands get a derived badge.
   const BRANDS={
     'hammer strength':{abbr:'HS',color:'#B71C1C'},
     'technogym':{abbr:'TG',color:'#2C2C2E'},
@@ -385,46 +441,89 @@
     'cybex':{abbr:'CX',color:'#0A6EBD'},
     'matrix':{abbr:'MX',color:'#E8551F'},
     'precor':{abbr:'PR',color:'#1A8E6E'},
+    'gymleco':{abbr:'GL',color:'#222'},
     'barbell':{abbr:'BB',color:'#48484A'},
     'dumbbell':{abbr:'DB',color:'#48484A'},
   };
+  const BRAND_PALETTE=['#B71C1C','#0A6EBD','#E8551F','#1A8E6E','#7A5AF8','#C4161C','#2C2C2E'];
+  // a machine's avatar: real product photo if we have one, else the brand letter badge.
+  function mbadge(m){
+    const b=brandStyle(m.brand);
+    if(m.image){
+      return `<img class="mbadge mphoto" src="${m.image}" alt="" loading="lazy"
+        onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'mbadge',textContent:'${b.abbr}',style:'background:${b.color}'}))">`;
+    }
+    return `<div class="mbadge" style="background:${b.color}">${b.abbr}</div>`;
+  }
+  function brandStyle(brand){
+    const key=(brand||'').toLowerCase();
+    if(BRANDS[key]) return BRANDS[key];
+    const abbr=(key.replace(/[^a-z ]/g,' ').split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('')||'··').toUpperCase();
+    let h=0; for(let i=0;i<key.length;i++) h=(h*31+key.charCodeAt(i))>>>0;
+    return {abbr, color:BRAND_PALETTE[h%BRAND_PALETTE.length]};
+  }
 
-  // generic free-weight moves available in any gym (custom workouts)
-  const GENERIC=[
-    {brand:'barbell',name:'barbell bench press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
-    {brand:'barbell',name:'overhead press',group:'push',muscle:'delts',lastW:0,lastR:0,lastS:0,date:''},
-    {brand:'barbell',name:'barbell back squat',group:'legs',muscle:'quads · glutes',lastW:0,lastR:0,lastS:0,date:''},
-    {brand:'barbell',name:'deadlift',group:'pull',muscle:'posterior chain',lastW:0,lastR:0,lastS:0,date:''},
-    {brand:'barbell',name:'barbell row',group:'pull',muscle:'mid-back',lastW:0,lastR:0,lastS:0,date:''},
-    {brand:'dumbbell',name:'dumbbell curl',group:'pull',muscle:'biceps',lastW:0,lastR:0,lastS:0,date:''},
-  ];
+  // data comes from the api (rackd.db) — no hardcoded catalog anymore.
+  let GYMS=[];           // [{id,name,area,machineCount,brands,machines}]
+  let MACHINE_POOL=[];   // distinct machines across gyms, for the custom builder
+  const GROUPS=['all','push','pull','legs','core','other'];
 
-  // each gym is a SUBSET of the global catalog — the core idea, preserved.
-  const GYMS=[
-    {id:'benfica',name:'fitness hub',area:'benfica · lisboa',dist:'400 m',here:true,machines:[
-      {brand:'hammer strength',name:'iso-lateral chest press',group:'push',muscle:'chest · front delts',lastW:68,lastR:10,lastS:3,date:'4 jun'},
-      {brand:'hammer strength',name:'iso-lateral row',group:'pull',muscle:'lats · mid-back',lastW:61,lastR:12,lastS:3,date:'4 jun'},
-      {brand:'life fitness',name:'insignia lat pulldown',group:'pull',muscle:'lats · biceps',lastW:54,lastR:12,lastS:4,date:'2 jun'},
-      {brand:'cybex',name:'eagle nx leg press',group:'legs',muscle:'quads · glutes',lastW:140,lastR:10,lastS:4,date:'1 jun'},
-      {brand:'cybex',name:'eagle nx leg extension',group:'legs',muscle:'quads',lastW:47,lastR:15,lastS:3,date:'1 jun'},
-      {brand:'life fitness',name:'insignia shoulder press',group:'push',muscle:'delts · triceps',lastW:40,lastR:10,lastS:3,date:'30 may'},
-    ]},
-    {id:'saldanha',name:'phive wellness club',area:'saldanha · lisboa',dist:'2.1 km',here:false,machines:[
-      {brand:'technogym',name:'selection pro chest press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
-      {brand:'technogym',name:'selection pro leg press',group:'legs',muscle:'quads · glutes',lastW:0,lastR:0,lastS:0,date:''},
-      {brand:'technogym',name:'pure lat machine',group:'pull',muscle:'lats',lastW:0,lastR:0,lastS:0,date:''},
-      {brand:'matrix',name:'ultra seated row',group:'pull',muscle:'mid-back',lastW:0,lastR:0,lastS:0,date:''},
-      {brand:'precor',name:'discovery shoulder press',group:'push',muscle:'delts',lastW:0,lastR:0,lastS:0,date:''},
-    ]},
-    {id:'alvalade',name:'fitness up',area:'alvalade · lisboa',dist:'3.4 km',here:false,machines:[
-      {brand:'matrix',name:'aura chest press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
-      {brand:'matrix',name:'aura leg curl',group:'legs',muscle:'hamstrings',lastW:0,lastR:0,lastS:0,date:''},
-      {brand:'precor',name:'vitality lat pulldown',group:'pull',muscle:'lats',lastW:0,lastR:0,lastS:0,date:''},
-    ]},
-  ];
-  const GROUPS=['all','push','pull','legs'];
+  function fmtDate(iso){
+    try{ return new Date(iso).toLocaleDateString(undefined,{day:'numeric',month:'short'}).toLowerCase(); }
+    catch(e){ return ''; }
+  }
+  // gainzy voice = lowercase + plain. the db has mixed case, catalog codes and `Â·` mojibake;
+  // we normalise to the design language at display time (data stays untouched).
+  function fixText(s){ return (s||'').replace(/Â(?=[-¿])/g,''); }   // strip mojibake 0xC2 prefix
+  function cleanBrand(s){ return fixText(s).toLowerCase(); }
+  function cleanModel(s){ return fixText(s).trim().replace(/^(0\d+|\d{3,})\s+/,'').toLowerCase(); } // drop "020 " codes, keep "45 degree"
+  function normMachine(m){
+    const L=m.last;
+    return { gmid:m.gym_machine_id, brand:cleanBrand(m.brand), name:cleanModel(m.model),
+      group:m.muscle_group||'other', muscle:fixText(m.muscle_label||''), image:m.image_url||'',
+      lastW:L?L.weight_kg:0, lastR:L?L.reps:0, lastS:L?L.sets:0, date:L?fmtDate(L.logged_at):'' };
+  }
+  // brand-agnostic default exercises from the open library (free-exercise-db).
+  // no gym_machine instance (gmid null) — picked freely in the custom builder.
+  function normLib(e){
+    return { gmid:null, brand:'', name:cleanModel(e.name),
+      group:e.muscle_group||'core', muscle:fixText(e.muscle_label||e.equipment||''),
+      image:e.image_url||'', lastW:0,lastR:0,lastS:0,date:'' };
+  }
+  async function loadLibrary(){
+    return (await (await fetch(`${API}/library`)).json()).map(normLib);
+  }
+  function normCatalog(m){
+    return { gmid:null, brand:cleanBrand(m.brand), name:cleanModel(m.model),
+      group:m.muscle_group||'other', muscle:fixText(m.muscle_label||m.movement||''),
+      image:m.image_url||'', lastW:0,lastR:0,lastS:0,date:'' };
+  }
+  async function loadCatalog(){
+    return (await (await fetch(`${API}/catalog/all`)).json()).map(normCatalog);
+  }
+  async function loadGyms(){
+    const data=await (await fetch(`${API}/gyms`)).json();
+    GYMS=data.map(g=>({id:g.id,name:fixText(g.name).toLowerCase(),area:fixText(g.area).toLowerCase(),
+      machineCount:g.machine_count,brands:g.brands,machines:null}));
+  }
+  async function loadGymMachines(gym){
+    if(!gym.machines) gym.machines=(await (await fetch(`${API}/gyms/${gym.id}/machines?user_id=${USER}`)).json()).map(normMachine);
+    return gym.machines;
+  }
+  async function loadPool(){
+    if(MACHINE_POOL.length) return MACHINE_POOL;
+    const seen={};
+    // Gym assignments win name collisions because they can be logged to a floor machine.
+    for(const g of GYMS){ (await loadGymMachines(g)).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }
+    // Add the complete current catalog so new models are available even before a gym
+    // has been mapped. These entries remain local-only until assigned to a gym.
+    try{ (await loadCatalog()).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }catch(e){}
+    // Then add the brand-agnostic default exercise library.
+    try{ (await loadLibrary()).forEach(m=>{ if(!seen[m.name]){seen[m.name]=1; MACHINE_POOL.push(m);} }); }catch(e){}
+    return MACHINE_POOL;
+  }
 
-  let st={gym:null,m:null,w:0,r:10,filter:'all',sets:[],session:null};
+  let st={gym:null,m:null,w:0,r:10,filter:'all',sets:[],session:null,workoutId:null,setup:{code:'standard',name:'standard',note:''}};
   let draft={name:'push day',items:[]};
 
   function show(id){
@@ -441,30 +540,34 @@
   function goMachines(){show('s-machines');}
 
   // ---- screen 1 ----
-  function brandChips(ms){const seen=[];ms.forEach(m=>{if(!seen.includes(m.brand))seen.push(m.brand);});
-    return seen.slice(0,3).map(b=>`<span class="chip" style="background:${BRANDS[b].color}">${BRANDS[b].abbr}</span>`).join('');}
+  function brandChips(brands){return (brands||[]).slice(0,3).map(b=>{const s=brandStyle(b);
+    return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');}
   function renderGyms(){
     document.getElementById('gymlist').innerHTML='<div class="group">'+GYMS.map(g=>`
-      <div class="row" onclick="openGym('${g.id}')">
+      <div class="row" onclick="openGym(${g.id})">
         <div class="gym-main">
-          <div class="gym-name">${g.name}${g.here?'<span class="here-pill">you\u2019re here</span>':''}</div>
-          <div class="gym-sub">${g.area} · ${g.machines.length} machines</div>
+          <div class="gym-name">${g.name}</div>
+          <div class="gym-sub">${g.area} · ${g.machineCount} machines</div>
         </div>
         <div class="gym-right">
-          <span class="gym-dist">${g.dist}</span>
-          <span class="brandchips">${brandChips(g.machines)}</span>
+          <span class="brandchips">${brandChips(g.brands)}</span>
         </div>
         <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
       </div>`).join('')+'</div>';
   }
 
   // ---- screen 2 ----
-  function openGym(id){
+  async function openGym(id){
     st.gym=GYMS.find(g=>g.id===id); st.filter='all';
     document.getElementById('m-title').textContent=st.gym.name;
-    document.getElementById('m-sub').textContent='tap the exact machine in front of you.';
+    document.getElementById('m-sub').textContent='loading machines…';
     document.getElementById('back-gym').textContent=st.gym.name.split(' ')[0];
-    buildSegment(); renderMachines(); show('s-machines');
+    document.getElementById('mlist').innerHTML='<div class="empty">loading…</div>';
+    show('s-machines');
+    try{ await loadGymMachines(st.gym); }
+    catch(e){ document.getElementById('mlist').innerHTML='<div class="empty">couldn’t load machines. is the api running?</div>'; return; }
+    document.getElementById('m-sub').textContent='tap the exact machine in front of you.';
+    buildSegment(); renderMachines();
   }
   function buildSegment(){
     const seg=document.getElementById('segment');
@@ -493,9 +596,9 @@
     ordered.forEach(m=>{
       if(st.filter==='all'&&m.group!==last){ if(html)html+='</div>'; html+=`<div class="sechead">${m.group}</div><div class="group">`; last=m.group; }
       else if(!html){ html+='<div class="group">'; }
-      const b=BRANDS[m.brand];
-      html+=`<div class="row" onclick="openMachine('${st.gym.id}','${m.name}')">
-        <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
+      const b=brandStyle(m.brand);
+      html+=`<div class="row" onclick="openMachine(${m.gmid})">
+        ${mbadge(m)}
         <div class="m-main">
           <div class="m-brand">${m.brand}</div>
           <div class="m-name">${m.name}</div>
@@ -509,25 +612,67 @@
   }
 
   // ---- screen 3 ----
-  function openMachine(gid,name){
-    st.gym=GYMS.find(x=>x.id===gid);
-    st.session=null;
-    loadLog(st.gym.machines.find(m=>m.name===name));
+  function openMachine(gmid){
+    st.session=null; st.workoutId=null;
+    loadLog(st.gym.machines.find(m=>m.gmid===gmid));
+  }
+  const SETUPS_KEY='rackd_setups';
+  function setupKey(m){return String(m.gmid||m.name);}
+  function getSetups(m){
+    let all={}; try{all=JSON.parse(localStorage.getItem(SETUPS_KEY))||{};}catch(e){}
+    return [{code:'standard',name:'standard',note:'no custom settings'},...(all[setupKey(m)]||[])];
+  }
+  function saveSetups(m,items){
+    let all={}; try{all=JSON.parse(localStorage.getItem(SETUPS_KEY))||{};}catch(e){}
+    all[setupKey(m)]=items; localStorage.setItem(SETUPS_KEY,JSON.stringify(all));
+  }
+  function renderSetup(){
+    document.getElementById('setup-name').textContent=st.setup.code==='standard'?'standard':`${st.setup.code} · ${st.setup.name}`;
+    document.getElementById('setup-note').textContent=st.setup.note||'no custom settings';
+  }
+  function openSetupSheet(){
+    const options=document.getElementById('setup-options');
+    options.innerHTML=getSetups(st.m).map(s=>`<div class="setup-option" onclick="chooseSetup('${s.code.replace(/'/g,"\\'")}')">
+      <div class="code">${s.code}</div><div><b>${s.name}</b><div class="desc">${s.note||'no custom settings'}</div></div>
+      ${s.code===st.setup.code?'<div class="check">✓</div>':''}</div>`).join('');
+    document.getElementById('setup-sheet').style.display='flex';
+  }
+  function closeSetupSheet(ev){if(!ev||ev.target===document.getElementById('setup-sheet'))document.getElementById('setup-sheet').style.display='none';}
+  async function chooseSetup(code){
+    const setup=getSetups(st.m).find(s=>s.code===code); if(!setup)return;
+    st.setup=setup; document.getElementById('setup-sheet').style.display='none';
+    if(st.m.gmid&&st.gym){
+      const rows=await (await fetch(`${API}/gyms/${st.gym.id}/machines?user_id=${USER}&setup_name=${encodeURIComponent(setup.code)}`)).json();
+      const fresh=rows.map(normMachine).find(m=>m.gmid===st.m.gmid); if(fresh)st.m=fresh;
+    } else { st.m.lastW=0; st.m.lastR=0; st.m.lastS=0; }
+    st.w=st.m.lastW||60; st.r=st.m.lastR||10; st.sets=[]; renderSetup(); renderW(); renderR(); renderSets();
+    const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
+    if(st.m.lastW){lastL.innerHTML=`last time · ${setup.code} · <b>${st.m.lastS}×${st.m.lastR} @ ${st.m.lastW}kg</b>`;beat.className='beat';}
+    else {lastL.innerHTML=`first time on <b>setup ${setup.code}</b>`;beat.className='beat first';beat.textContent='set a baseline';}
+  }
+  function addSetup(){
+    const code=(prompt('shortcut (A, B, C…)','A')||'').trim().toUpperCase().slice(0,2); if(!code)return;
+    const name=(prompt('setup name',code)||code).trim(); const note=(prompt('note (optional)','')||'').trim();
+    const items=getSetups(st.m).filter(s=>s.code!=='standard'&&s.code!==code); items.push({code,name,note}); saveSetups(st.m,items); openSetupSheet();
   }
   function loadLog(m){
     st.m=m; st.w=m.lastW||60; st.r=m.lastR||10; st.sets=[];
-    const b=BRANDS[m.brand];
-    const badge=document.getElementById('log-badge'); badge.style.background=b.color; badge.textContent=b.abbr;
+    st.setup={code:'standard',name:'standard',note:'no custom settings'};
+    const b=brandStyle(m.brand);
+    const badge=document.getElementById('log-badge');
+    if(m.image){ badge.style.background='#fff'; badge.classList.add('mphoto'); badge.innerHTML=`<img src="${m.image}" alt="">`; }
+    else { badge.style.background=b.color; badge.classList.remove('mphoto'); badge.textContent=b.abbr; }
     document.getElementById('log-brand').textContent=m.brand;
     document.getElementById('log-name').textContent=m.name;
     const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
     if(m.lastW){
-      lastL.innerHTML=`last time · <b>${m.lastS}×${m.lastR} @ ${m.lastW}kg</b>`;
+      lastL.innerHTML=`last time · standard · <b>${m.lastS}×${m.lastR} @ ${m.lastW}kg</b>`;
       beat.className='beat'; beat.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it';
     } else {
       lastL.innerHTML='first time on <b>this</b> exercise';
       beat.className='beat first'; beat.textContent='set a baseline';
     }
+    renderSetup();
     if(!st.session) document.getElementById('back-gym').textContent = st.gym ? st.gym.name.split(' ')[0] : 'back';
     updateSessionBar();
     renderW(); renderR(); renderSets();
@@ -536,16 +681,11 @@
   function backFromLog(){ if(st.session) show('s-custom'); else goMachines(); }
 
   // ---- custom workout builder ----
-  function pool(){
-    const seen={}, out=[];
-    GYMS.forEach(g=>g.machines.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}}));
-    GENERIC.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});
-    return out;
-  }
   function openCustom(){
     draft={name:'push day',items:[]};
     document.getElementById('wname').value='push day';
     document.getElementById('picker').style.display='none';
+    document.getElementById('exsearch-wrap').style.display='none';
     document.getElementById('addex-btn').textContent='+ add exercise';
     renderDraft(); show('s-custom');
   }
@@ -553,39 +693,86 @@
     const dl=document.getElementById('draftlist');
     document.getElementById('ex-count').textContent=draft.items.length?('· '+draft.items.length):'';
     if(!draft.items.length){ dl.innerHTML='<div class="empty-draft">no exercises yet — add some below.</div>'; }
-    else dl.innerHTML=draft.items.map((m,i)=>{const b=BRANDS[m.brand];return `
+    else dl.innerHTML=draft.items.map((m,i)=>{const b=brandStyle(m.brand);return `
       <div class="row draftrow">
-        <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
+        ${mbadge(m)}
         <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
         <button class="rm" onclick="removeEx(${i})">−</button>
       </div>`;}).join('');
     document.getElementById('startbtn').disabled=!draft.items.length;
+    document.getElementById('savebtn').disabled=!draft.items.length;
   }
-  function togglePicker(){
-    const p=document.getElementById('picker'), btn=document.getElementById('addex-btn');
-    if(p.style.display==='none'){ renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
-    else { p.style.display='none'; btn.textContent='+ add exercise'; }
+
+  // ---- saved workouts (on-device, local-first) ----
+  const SAVED_KEY='rackd_saved';
+  let SAVED=[];
+  function loadSaved(){ try{ SAVED=JSON.parse(localStorage.getItem(SAVED_KEY))||[]; }catch(e){ SAVED=[]; } }
+  function persistSaved(){ try{ localStorage.setItem(SAVED_KEY,JSON.stringify(SAVED)); }catch(e){} }
+  function saveCustom(){
+    if(!draft.items.length)return;
+    const nm=(document.getElementById('wname').value||'').trim()||'workout';
+    const entry={name:nm,items:draft.items.slice()};
+    const ex=SAVED.findIndex(w=>w.name.toLowerCase()===nm.toLowerCase());
+    if(ex>=0) SAVED[ex]=entry; else SAVED.unshift(entry);
+    persistSaved(); renderSaved(); show('s-gym');
+    toastMsg(false,'workout saved','“'+nm+'” saved to your workouts');
+  }
+  function openSaved(i){
+    const w=SAVED[i]; if(!w)return;
+    draft={name:w.name,items:w.items.slice()};
+    document.getElementById('wname').value=w.name;
+    const p=document.getElementById('picker'); if(p)p.style.display='none';
+    const sw=document.getElementById('exsearch-wrap'); if(sw)sw.style.display='none';
+    document.getElementById('addex-btn').textContent='+ add exercise';
+    renderDraft(); show('s-custom');
+  }
+  function deleteSaved(i,ev){ if(ev)ev.stopPropagation(); SAVED.splice(i,1); persistSaved(); renderSaved(); }
+  function renderSaved(){
+    const wrap=document.getElementById('savedwrap'), list=document.getElementById('savedlist');
+    if(!SAVED.length){ wrap.style.display='none'; return; }
+    wrap.style.display='';
+    list.innerHTML=SAVED.map((w,i)=>`
+      <div class="row draftrow" onclick="openSaved(${i})">
+        <div class="mbadge" style="background:var(--elev-2);color:var(--label)">${w.items.length}</div>
+        <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}</div></div>
+        <button class="rm" onclick="deleteSaved(${i},event)">−</button>
+      </div>`).join('');
+  }
+  async function togglePicker(){
+    const p=document.getElementById('picker'), btn=document.getElementById('addex-btn'),
+          sw=document.getElementById('exsearch-wrap'), si=document.getElementById('exsearch');
+    if(p.style.display==='none'){
+      si.value=''; sw.style.display='block'; p.style.display='block'; btn.textContent='done adding';
+      p.innerHTML='<div class="empty-draft">loading machines\u2026</div>';
+      try{ await loadPool(); }catch(e){ p.innerHTML='<div class="empty-draft">couldn\u2019t load the catalog.</div>'; return; }
+      renderPicker(); si.focus();
+    }
+    else { sw.style.display='none'; p.style.display='none'; btn.textContent='+ add exercise'; }
   }
   function renderPicker(){
-    const avail=pool().filter(m=>!draft.items.some(d=>d.name===m.name));
+    const q=(document.getElementById('exsearch').value||'').trim().toLowerCase();
+    const avail=MACHINE_POOL.map((m,i)=>({m,i}))
+      .filter(({m})=>!draft.items.some(d=>d.name===m.name))
+      .filter(({m})=>!q||m.name.toLowerCase().includes(q)||m.brand.toLowerCase().includes(q));
     let html='';
-    ['push','pull','legs'].forEach(gr=>{
-      const items=avail.filter(m=>m.group===gr); if(!items.length)return;
-      html+=`<div class="sechead">${gr}</div><div class="group">`+items.map(m=>{const b=BRANDS[m.brand];return `
-        <div class="row" onclick="addEx('${m.name}')">
-          <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
+    GROUPS.filter(g=>g!=='all').forEach(gr=>{
+      const items=avail.filter(({m})=>m.group===gr); if(!items.length)return;
+      html+=`<div class="sechead">${gr}</div><div class="group">`+items.map(({m,i})=>{const b=brandStyle(m.brand);return `
+        <div class="row" onclick="addEx(${i})">
+          ${mbadge(m)}
           <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
           <span class="chev plus">+</span>
         </div>`;}).join('')+`</div>`;
     });
-    document.getElementById('picker').innerHTML=html||'<div class="empty-draft">everything\u2019s added.</div>';
+    const empty=q?`<div class="empty-draft">no machines match \u201c${q}\u201d.</div>`:'<div class="empty-draft">everything\u2019s added.</div>';
+    document.getElementById('picker').innerHTML=html||empty;
   }
-  function addEx(name){ const m=pool().find(x=>x.name===name); if(m){draft.items.push(m); renderDraft(); renderPicker();} }
+  function addEx(i){ const m=MACHINE_POOL[i]; if(m){draft.items.push(m); renderDraft(); renderPicker();} }
   function removeEx(i){ draft.items.splice(i,1); renderDraft(); if(document.getElementById('picker').style.display!=='none')renderPicker(); }
   function startCustom(){
     if(!draft.items.length)return;
     const nm=document.getElementById('wname').value.trim()||'workout';
-    st.session={name:nm,items:draft.items.slice(),idx:0};
+    st.session={name:nm,items:draft.items.slice(),idx:0}; st.workoutId=null;
     loadLog(st.session.items[0]);
   }
   function updateSessionBar(){
@@ -617,11 +804,20 @@
   }
   function renderR(){document.getElementById('rp').textContent=st.r;}
 
-  function logSet(){
-    const isPR=st.m.lastW>0 && (st.w>st.m.lastW || (st.w===st.m.lastW && st.r>st.m.lastR));
-    st.sets.push({w:st.w,r:st.r,pr:isPR});
+  async function logSet(){
+    const w=st.w, r=st.r;
+    let isPR=st.m.lastW>0 && (w>st.m.lastW || (w===st.m.lastW && r>st.m.lastR)); // optimistic / offline fallback
+    if(st.m.gmid){
+      try{
+        const body={user_id:USER, gym_machine_id:st.m.gmid, setup_name:st.setup.code, setup_note:st.setup.note, weight_kg:w, reps:r};
+        if(st.workoutId) body.workout_id=st.workoutId;
+        const d=await (await fetch(`${API}/sets`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})).json();
+        isPR=!!d.is_pr; st.workoutId=d.workout_id;
+      }catch(e){ /* keep optimistic isPR */ }
+    }
+    st.sets.push({w,r,pr:isPR});
     renderSets();
-    toast(isPR,st.r,st.w);
+    toast(isPR,r,w);
   }
   function renderSets(){
     const wrap=document.getElementById('setlist');
@@ -654,5 +850,14 @@
   }
 
   window.addEventListener('resize',()=>{if(st.gym)moveThumb();});
-  renderGyms();
+
+  (async()=>{
+    loadSaved(); renderSaved();
+    const gl=document.getElementById('gymlist');
+    gl.innerHTML='<div class="empty">loading gyms…</div>';
+    try{ await loadGyms(); }
+    catch(e){ gl.innerHTML='<div class="empty">can’t reach the api at '+API+'.<br>is it running? (uvicorn main:app)</div>'; return; }
+    if(!GYMS.length){ gl.innerHTML='<div class="empty">no gyms in the database yet.</div>'; return; }
+    renderGyms();
+  })();
 </script>

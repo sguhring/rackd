@@ -72,6 +72,8 @@ CREATE TABLE sets (
     -- exactly one of these identifies what was trained:
     gym_machine_id INTEGER REFERENCES gym_machines(id),  -- a specific machine instance
     exercise_id    INTEGER REFERENCES exercises(id),     -- generic / free-weight move
+    setup_name     TEXT NOT NULL DEFAULT 'standard',
+    setup_note     TEXT,
     weight_kg     NUMERIC(6,2) NOT NULL,
     reps          INTEGER NOT NULL,
     is_pr         BOOLEAN NOT NULL DEFAULT FALSE,

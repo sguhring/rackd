@@ -1,0 +1,714 @@
+[
+  {
+    "mechanism": "Biceps Curl",
+    "model": "PRIME Evolution Arm Curl",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "biceps",
+    "movement": "biceps curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Shoulder Press",
+    "model": "PRIME Evolution Shoulder Press",
+    "brand": "Prime",
+    "region": "shoulders",
+    "muscle": "delts",
+    "movement": "shoulder press",
+    "secondary": [
+      "triceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Leg Extension",
+    "model": "PRIME Evolution Leg Extension",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Triceps Extension",
+    "model": "PRIME Evolution Tricep Extension",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "triceps extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Chest Press",
+    "model": "PRIME Evolution Chest Press",
+    "brand": "Prime",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest press",
+    "secondary": [
+      "front delts",
+      "triceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Lying Leg Curl",
+    "model": "PRIME Evolution Prone Leg Curl",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "hamstrings",
+    "movement": "leg curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized",
+      "position": "lying"
+    }
+  },
+  {
+    "mechanism": "Lat Pulldown",
+    "model": "PRIME Evolution Lat Pulldown",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pulldown",
+    "secondary": [
+      "biceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Row",
+    "model": "PRIME Evolution Seated Row",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "mid-back",
+    "movement": "row",
+    "secondary": [
+      "lats"
+    ],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Leg Press",
+    "model": "PRIME Evolution Leg Press",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg press",
+    "secondary": [
+      "glutes"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Back Extension",
+    "model": "PRIME Evolution Back Extension",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "lower back",
+    "movement": "back extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Leg Curl",
+    "model": "PRIME Evolution Seated Leg Curl",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "hamstrings",
+    "movement": "leg curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Ab Crunch",
+    "model": "PRIME Evolution Abdominal Crunch",
+    "brand": "Prime",
+    "region": "abs",
+    "muscle": "abs",
+    "movement": "ab crunch",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Biceps Curl",
+    "model": "PRIME Hybrid Arm Curl",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "biceps",
+    "movement": "biceps curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Leg Extension",
+    "model": "PRIME Hybrid Leg Extension",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Chest Press",
+    "model": "PRIME Hybrid Chest Press",
+    "brand": "Prime",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest press",
+    "secondary": [
+      "front delts",
+      "triceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Lat Pulldown",
+    "model": "PRIME Hybrid Lat Pulldown",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pulldown",
+    "secondary": [
+      "biceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Leg Press",
+    "model": "PRIME Hybrid Leg Press",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg press",
+    "secondary": [
+      "glutes"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Leg Curl",
+    "model": "PRIME Hybrid Seated Leg Curl",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "hamstrings",
+    "movement": "leg curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Shoulder Press",
+    "model": "PRIME Hybrid Shoulder Press",
+    "brand": "Prime",
+    "region": "shoulders",
+    "muscle": "delts",
+    "movement": "shoulder press",
+    "secondary": [
+      "triceps"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Triceps Extension",
+    "model": "PRIME Hybrid Tricep Extension",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "triceps extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Ab Crunch",
+    "model": "PRIME Hybrid Abdominal Crunch",
+    "brand": "Prime",
+    "region": "abs",
+    "muscle": "abs",
+    "movement": "ab crunch",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Back Extension",
+    "model": "PRIME Hybrid Back Extension",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "lower back",
+    "movement": "back extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Row",
+    "model": "PRIME Hybrid Seated Row",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "mid-back",
+    "movement": "row",
+    "secondary": [
+      "lats"
+    ],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Lying Leg Curl",
+    "model": "PRIME Hybrid Prone Leg Curl",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "hamstrings",
+    "movement": "leg curl",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized",
+      "position": "lying"
+    }
+  },
+  {
+    "mechanism": "Torso Rotation",
+    "model": "PRIME Hybrid Rotary Torso",
+    "brand": "Prime",
+    "region": "abs",
+    "muscle": "obliques",
+    "movement": "torso rotation",
+    "secondary": [
+      "core"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Multi-Hip",
+    "model": "PRIME Hybrid Multi-Hip",
+    "brand": "Prime",
+    "region": "glutes",
+    "muscle": "glutes",
+    "movement": "multi-hip",
+    "secondary": [
+      "hip flexors"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Chest Fly",
+    "model": "PRIME Hybrid Pec Fly",
+    "brand": "Prime",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest fly",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Lateral Raise",
+    "model": "PRIME Hybrid Lateral Raise",
+    "brand": "Prime",
+    "region": "shoulders",
+    "muscle": "side delts",
+    "movement": "lateral raise",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Incline Chest Press",
+    "model": "PRIME Hybrid Incline Press",
+    "brand": "Prime",
+    "region": "chest",
+    "muscle": "upper chest",
+    "movement": "chest press",
+    "secondary": [
+      "front delts"
+    ],
+    "facets": {
+      "implement": "selectorized",
+      "angle": "incline"
+    }
+  },
+  {
+    "mechanism": "Triceps Pushdown",
+    "model": "PRIME Hybrid Seated Pushdown",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "triceps extension",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Hip Abduction/Adduction",
+    "model": "PRIME Hybrid Inner/Outer Thigh Combo",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "abductors",
+    "movement": "hip abduction",
+    "secondary": [
+      "adductors"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Seated Calf Raise",
+    "model": "PRIME Hybrid Seated Calf",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "calves",
+    "movement": "calf raise",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Pullover",
+    "model": "PRIME Hybrid Pullover",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pullover",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Rear-Delt Fly",
+    "model": "PRIME Hybrid Pec/Rear Delt",
+    "brand": "Prime",
+    "region": "shoulders",
+    "muscle": "rear delts",
+    "movement": "rear-delt fly",
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "mechanism": "Biceps Curl",
+    "model": "PRIME Plate Loaded Arm Curl",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "biceps",
+    "movement": "biceps curl",
+    "secondary": [],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Chest Press",
+    "model": "PRIME Plate Loaded Chest Press",
+    "brand": "Prime",
+    "region": "chest",
+    "muscle": "mid chest",
+    "movement": "chest press",
+    "secondary": [
+      "front delts",
+      "triceps"
+    ],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Shoulder Press",
+    "model": "PRIME Plate Loaded Shoulder Press",
+    "brand": "Prime",
+    "region": "shoulders",
+    "muscle": "delts",
+    "movement": "shoulder press",
+    "secondary": [
+      "triceps"
+    ],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Lat Pulldown",
+    "model": "PRIME Plate Loaded Lat Pulldown",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "lats",
+    "movement": "pulldown",
+    "secondary": [
+      "biceps"
+    ],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Leg Extension",
+    "model": "PRIME Plate Loaded Leg Extension",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg extension",
+    "secondary": [],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Lying Leg Curl",
+    "model": "PRIME Plate Loaded Prone Leg Curl",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "hamstrings",
+    "movement": "leg curl",
+    "secondary": [],
+    "facets": {
+      "implement": "plate-loaded",
+      "position": "lying"
+    }
+  },
+  {
+    "mechanism": "Leg Press",
+    "model": "PRIME Plate Loaded Leg Press",
+    "brand": "Prime",
+    "region": "legs",
+    "muscle": "quads",
+    "movement": "leg press",
+    "secondary": [
+      "glutes"
+    ],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Ab Crunch",
+    "model": "PRIME Plate Loaded Abdominal Crunch",
+    "brand": "Prime",
+    "region": "abs",
+    "muscle": "abs",
+    "movement": "ab crunch",
+    "secondary": [],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Back Extension",
+    "model": "PRIME Plate Loaded Low Back Extension",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "lower back",
+    "movement": "back extension",
+    "secondary": [],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Triceps Extension",
+    "model": "PRIME Plate Loaded Tricep Extension",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "triceps extension",
+    "secondary": [],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Incline Chest Press",
+    "model": "PRIME Plate Loaded Incline Press",
+    "brand": "Prime",
+    "region": "chest",
+    "muscle": "upper chest",
+    "movement": "chest press",
+    "secondary": [
+      "front delts"
+    ],
+    "facets": {
+      "implement": "plate-loaded",
+      "angle": "incline"
+    }
+  },
+  {
+    "mechanism": "Seated Row",
+    "model": "PRIME Plate Loaded Seated Row",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "mid-back",
+    "movement": "row",
+    "secondary": [
+      "lats"
+    ],
+    "facets": {
+      "implement": "plate-loaded",
+      "position": "seated"
+    }
+  },
+  {
+    "mechanism": "Row",
+    "model": "PRIME Plate Loaded Extreme Row",
+    "brand": "Prime",
+    "region": "back",
+    "muscle": "mid-back",
+    "movement": "row",
+    "secondary": [
+      "lats"
+    ],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "mechanism": "Dip",
+    "model": "PRIME Chin/Dip Assist",
+    "brand": "Prime",
+    "region": "arms",
+    "muscle": "triceps",
+    "movement": "dip",
+    "secondary": [
+      "mid chest"
+    ],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "model": "PRIME Functional Trainer",
+    "brand": "Prime",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "cable"
+    }
+  },
+  {
+    "model": "PRIME Prodigy HLP Selectorized Rack",
+    "brand": "Prime",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "selectorized"
+    }
+  },
+  {
+    "model": "PRIME Prodigy HLP Plate Loaded Rack",
+    "brand": "Prime",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "plate-loaded"
+    }
+  },
+  {
+    "model": "PRIME Prodigy Power Rack",
+    "brand": "Prime",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "machine"
+    }
+  },
+  {
+    "model": "PRIME Prodigy Half Rack",
+    "brand": "Prime",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "machine"
+    }
+  },
+  {
+    "model": "PRIME Steel Double Half Rack",
+    "brand": "Prime",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "machine"
+    }
+  },
+  {
+    "model": "PRIME Steel Half Rack",
+    "brand": "Prime",
+    "region": "functional-other",
+    "muscle": null,
+    "movement": null,
+    "secondary": [],
+    "facets": {
+      "implement": "machine"
+    }
+  }
+]

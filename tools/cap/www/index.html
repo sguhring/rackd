@@ -1,0 +1,3172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<title>rackd</title>
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="rackd">
+<link rel="apple-touch-icon" href="icon-192.png">
+<!--
+  pick-your-gym's-machine flow — restyled in gainzy's language.
+  native iOS dark mode · SF Pro (system) · lowercase voice · "last time" as the hero.
+  Accent is inferred (gainzy's exact hue unconfirmed) and lives in one CSS variable: --accent.
+-->
+<style>
+  :root{
+    /* iOS system dark palette */
+    --bg:#000000;
+    --elev:#1C1C1E;          /* grouped card */
+    --elev-2:#2C2C2E;        /* pressed / nested */
+    --sep:rgba(84,84,88,0.55);
+    --label:#FFFFFF;
+    --label-2:rgba(235,235,245,0.60);
+    --label-3:rgba(235,235,245,0.30);
+    --accent:#30D158;        /* iOS green — "go / gains". swap this one var to gainzy's real accent */
+    --accent-press:#28B14C;
+    --pr:#FFD60A;            /* iOS yellow for PR lightning */
+
+    --sf:-apple-system,"SF Pro Text","SF Pro Display","Helvetica Neue",system-ui,sans-serif;
+    --sf-num:-apple-system,"SF Pro Display","Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+
+  .stage{
+    min-height:100%;
+    background:#161618;
+    display:flex;align-items:center;justify-content:center;
+    padding:36px 16px;font-family:var(--sf);
+  }
+  .phone{
+    width:390px;max-width:100%;
+    background:#000;border-radius:46px;padding:11px;
+    box-shadow:0 40px 90px -24px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.06) inset;
+  }
+  .screenwrap{
+    position:relative;height:780px;background:var(--bg);
+    border-radius:36px;overflow:hidden;color:var(--label);
+  }
+  /* notch */
+  .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:118px;height:32px;background:#000;border-radius:18px;z-index:20;}
+
+  .statusbar{
+    height:50px;display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 26px 6px;font-size:15px;font-weight:600;letter-spacing:.02em;color:#fff;
+  }
+  .statusbar .right{display:flex;gap:6px;align-items:center;font-size:13px;}
+
+  .screen{
+    position:absolute;inset:50px 0 0 0;display:flex;flex-direction:column;
+    opacity:0;transform:translateX(26px);pointer-events:none;
+    transition:opacity .34s cubic-bezier(.32,.72,0,1),transform .34s cubic-bezier(.32,.72,0,1);
+  }
+  .screen.active{opacity:1;transform:none;pointer-events:auto;}
+  .screen.exit-left{opacity:0;transform:translateX(-22px);}
+  .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .scroll::-webkit-scrollbar{width:0;}
+
+  /* nav bar */
+  .navbar{display:flex;align-items:center;height:44px;padding:0 8px;position:relative;}
+  .navback{
+    display:inline-flex;align-items:center;gap:1px;background:none;border:0;cursor:pointer;
+    color:var(--accent);font-family:var(--sf);font-size:17px;padding:6px 8px;
+  }
+  .navback svg{width:12px;height:20px;}
+
+  /* large title */
+  .largetitle{padding:4px 22px 10px;}
+  .largetitle h1{font-size:34px;line-height:1.06;font-weight:700;letter-spacing:-.02em;color:var(--label);}
+  .largetitle .sub{font-size:15px;color:var(--label-2);margin-top:7px;letter-spacing:-.01em;}
+
+  /* section header (lowercase, gainzy voice) */
+  .sechead{font-size:13px;color:var(--label-2);padding:18px 22px 7px;letter-spacing:.01em;}
+
+  /* grouped inset list */
+  .group{margin:0 16px 10px;background:var(--elev);border-radius:14px;overflow:hidden;}
+  .row{
+    display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;position:relative;
+    transition:background .12s ease;
+  }
+  .row:active{background:var(--elev-2);}
+  .row + .row::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep);}
+  .row .chev{margin-left:auto;color:var(--label-3);flex:0 0 auto;}
+  .row .chev svg{width:8px;height:13px;display:block;}
+
+  /* gym row */
+  .gym-main{flex:1;min-width:0;}
+  .gym-name{font-size:17px;font-weight:600;letter-spacing:-.01em;}
+  .gym-sub{font-size:13px;color:var(--label-2);margin-top:2px;}
+  .gym-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+  .gym-dist{font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;}
+  .brandchips{display:flex;gap:4px;}
+  .chip{font-size:9px;font-weight:700;letter-spacing:.04em;color:#fff;padding:3px 6px;border-radius:5px;text-transform:uppercase;}
+  .here-pill{
+    display:inline-block;margin-left:8px;vertical-align:middle;
+    background:rgba(48,209,88,.16);color:var(--accent);
+    font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:0;
+  }
+
+  /* machine icon */
+  .mbadge{
+    width:38px;height:38px;border-radius:9px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:14px;font-weight:700;letter-spacing:.02em;
+  }
+  .mthumb{width:38px;height:38px;border-radius:9px;flex:0 0 auto;object-fit:cover;background:#1c1c1e;}
+  .micon{width:38px;height:38px;border-radius:9px;flex:0 0 auto;background:var(--elev-2);display:flex;align-items:center;justify-content:center;color:var(--label-2);position:relative;overflow:hidden;}
+  .mthumb-over{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#e9e9ee;border-radius:9px;}
+  .m-main{flex:1;min-width:0;}
+  .m-brand{font-size:11px;color:var(--label-3);font-weight:500;letter-spacing:.02em;}
+  .m-name{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-top:1px;}
+  .m-muscle{font-size:13px;color:var(--label-2);margin-top:2px;}
+
+  /* segmented control (iOS) */
+  .segwrap{padding:6px 16px 4px;}
+  .segment{display:flex;background:var(--elev);border-radius:9px;padding:2px;position:relative;}
+  .seg{
+    flex:1;text-align:center;font-size:13px;font-weight:600;color:var(--label);
+    padding:7px 0;border-radius:7px;cursor:pointer;z-index:2;transition:color .15s ease;
+    letter-spacing:-.01em;
+  }
+  .seg.off{color:var(--label-2);font-weight:500;}
+  .seg-thumb{
+    position:absolute;top:2px;bottom:2px;border-radius:7px;background:#636366;z-index:1;
+    transition:left .26s cubic-bezier(.32,.72,0,1),width .26s cubic-bezier(.32,.72,0,1);
+    box-shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+
+  /* ---- log screen ---- */
+  .log-id{padding:6px 22px 2px;display:flex;align-items:center;gap:12px;}
+  .log-id .mbadge,.log-id .micon,.log-id .mthumb{width:56px;height:56px;border-radius:13px;font-size:18px;}
+  .log-id .micon svg{width:34px;height:34px;}
+  .log-id .txt{min-width:0;}
+  .log-id .b{font-size:12px;color:var(--label-3);font-weight:500;}
+  .log-id .n{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:1px;}
+
+  /* hero: last time / beat it */
+  .lastcard{
+    margin:16px 16px 0;background:var(--elev);border-radius:14px;padding:15px 18px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .lastcard .l{font-size:13px;color:var(--label-2);}
+  .lastcard .l b{color:var(--label);font-weight:600;font-variant-numeric:tabular-nums;}
+  .beat{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--accent);}
+  .beat svg{width:13px;height:13px;}
+  .beat.first{color:var(--label-3);font-weight:500;}
+
+  /* weight + reps controls */
+  .controls{display:flex;gap:12px;padding:16px 16px 0;}
+  .ctl{flex:1;background:var(--elev);border-radius:14px;padding:14px 12px 16px;text-align:center;}
+  .ctl .cap{font-size:12px;color:var(--label-2);}
+  .ctl .val{font-family:var(--sf-num);font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:2px;font-variant-numeric:tabular-nums;}
+  .ctl .val .u{font-size:16px;color:var(--label-2);font-weight:600;margin-left:2px;letter-spacing:0;}
+  .pm{display:flex;gap:8px;justify-content:center;margin-top:10px;}
+  .pmbtn{
+    width:42px;height:42px;border-radius:50%;border:0;background:var(--elev-2);color:var(--label);
+    font-size:22px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:transform .08s ease,background .12s ease;
+  }
+  .pmbtn:active{transform:scale(.9);background:#3A3A3C;}
+
+  .delta{font-size:11px;color:var(--label-3);margin-top:8px;height:13px;font-variant-numeric:tabular-nums;}
+  .delta.up{color:var(--accent);}
+
+  /* log button */
+  .cta{padding:18px 16px 6px;}
+  .cta button{
+    width:100%;background:var(--accent);color:#00350F;border:0;border-radius:14px;
+    padding:16px;font-family:var(--sf);font-size:17px;font-weight:700;cursor:pointer;letter-spacing:-.01em;
+    transition:transform .08s ease,background .12s ease;
+  }
+  .cta button:active{transform:scale(.98);background:var(--accent-press);}
+
+  /* today's sets */
+  .sets{padding:10px 16px 26px;}
+  .sets .hd{display:flex;justify-content:space-between;align-items:baseline;padding:8px 6px 4px;}
+  .sets .hd .t{font-size:13px;color:var(--label-2);}
+  .sets .hd .t b{color:var(--label);font-weight:600;}
+  .sets .hd .v{font-size:13px;color:var(--label-3);font-variant-numeric:tabular-nums;}
+  .setnote{display:flex;gap:8px;align-items:flex-start;margin:2px 6px 8px;padding:9px 12px;background:rgba(48,209,88,.09);border:.5px solid rgba(48,209,88,.18);border-radius:11px;cursor:pointer;}
+  .setnote svg{width:15px;height:15px;flex:0 0 auto;margin-top:1px;color:var(--accent);}
+  .setnote span{font-size:13px;line-height:1.4;color:var(--label);letter-spacing:-.01em;white-space:pre-wrap;}
+  .setlist{background:var(--elev);border-radius:14px;overflow:hidden;}
+  .setrow{
+    display:flex;align-items:center;gap:13px;padding:13px 16px;position:relative;
+    font-variant-numeric:tabular-nums;animation:pop .32s cubic-bezier(.32,1.4,.5,1);
+  }
+  .setrow + .setrow::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep);}
+  .setrow .sn{min-width:24px;padding:0 3px;box-sizing:border-box;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .setrow .sv{font-size:16px;font-weight:500;}
+  .setrow .sv .x{color:var(--label-3);margin:0 5px;}
+  .setrow .pr{margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--pr);font-size:12px;font-weight:700;}
+  .setrow .pr svg{width:13px;height:13px;}
+  .setrow .done{margin-left:auto;color:var(--accent);}
+  .setrow .done svg{width:18px;height:18px;display:block;}
+  /* failed attempt (0 reps): kept in history, shown muted with a red cross */
+  .setrow.failed .sv{color:var(--label-3);}
+  .setrow .fail{margin-left:auto;color:#FF453A;}
+  .setrow .fail svg{width:17px;height:17px;display:block;}
+  /* edit a logged set */
+  .setrow .se-edit{width:30px;height:30px;border-radius:8px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:background .12s ease,color .12s ease;}
+  .setrow .se-edit:active{background:var(--elev-2);color:var(--label);}
+  .setrow .se-edit svg{width:16px;height:16px;}
+  .setrow.editing{gap:8px;}
+  .setrow.editing .x{margin:0 2px;}
+  .setrow .se-in{width:56px;background:var(--bg);border:.5px solid rgba(255,255,255,.14);border-radius:8px;color:var(--label);font-family:var(--sf);font-size:16px;font-weight:600;text-align:center;padding:7px 4px;-moz-appearance:textfield;}
+  .setrow .se-in:focus{outline:none;border-color:var(--accent);}
+  .setrow .se-in::-webkit-outer-spin-button,.setrow .se-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .setrow .se-u{color:var(--label-3);font-size:13px;}
+  .setrow .se-btn{width:34px;height:34px;border-radius:9px;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .setrow .se-btn svg{width:17px;height:17px;}
+  .setrow .se-btn.del{background:var(--elev-2);color:#FF453A;margin-left:auto;}
+  .setrow .se-btn.save{background:var(--accent);color:#00350F;}
+  .empty{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
+
+  @keyframes pop{from{opacity:0;transform:translateY(-7px);}to{opacity:1;transform:none;}}
+
+  /* PR toast */
+  .toast{
+    position:absolute;left:16px;right:16px;bottom:24px;
+    background:rgba(40,40,42,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border:.5px solid rgba(255,255,255,.12);border-radius:16px;padding:13px 16px;
+    display:flex;align-items:center;gap:11px;z-index:30;
+    opacity:0;transform:translateY(16px);pointer-events:none;
+    transition:opacity .26s ease,transform .26s cubic-bezier(.32,.72,0,1);
+  }
+  .toast.show{opacity:1;transform:none;}
+  .toast .ic{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .toast .ic.ok{background:rgba(48,209,88,.2);color:var(--accent);}
+  .toast .ic.pr{background:rgba(255,214,10,.2);color:var(--pr);}
+  .toast .ic svg{width:17px;height:17px;}
+  .toast .tt{font-size:15px;font-weight:600;letter-spacing:-.01em;}
+  .toast .ts{font-size:13px;color:var(--label-2);margin-top:1px;}
+
+  /* ---- per-exercise note: button + bottom sheet ---- */
+  .note-btn{margin-left:auto;flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:var(--elev);border:0;color:var(--label-2);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .12s ease,color .12s ease;}
+  .note-btn:active{background:var(--elev-2);}
+  .note-btn svg{width:19px;height:19px;}
+  .note-btn.has{color:var(--accent);}
+  .note-btn.has::after{content:"";position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--elev);}
+  .sheet-back{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .26s ease;z-index:40;}
+  .sheet-back.show{opacity:1;pointer-events:auto;}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--elev);border-radius:20px 20px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s cubic-bezier(.32,.72,0,1);z-index:41;}
+  .sheet.show{transform:none;}
+  .sheet-grip{width:36px;height:5px;border-radius:3px;background:var(--elev-2);margin:6px auto 12px;}
+  .sheet-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;}
+  .sheet-hd .t{font-size:16px;font-weight:700;letter-spacing:-.01em;}
+  .sheet-hd .t span{display:block;font-size:12px;font-weight:500;color:var(--label-3);margin-top:1px;}
+  .sheet-hd .done{background:transparent;border:0;color:var(--accent);font-family:var(--sf);font-size:16px;font-weight:700;cursor:pointer;padding:0;}
+  .note-area{width:100%;min-height:120px;resize:none;background:var(--bg);border:.5px solid rgba(255,255,255,.08);border-radius:13px;color:var(--label);font-family:var(--sf);font-size:15px;line-height:1.45;padding:13px 14px;letter-spacing:-.01em;box-sizing:border-box;}
+  .note-area:focus{outline:none;border-color:rgba(255,255,255,.18);}
+  .note-area::placeholder{color:var(--label-3);}
+
+  /* ---- confirm dialog ---- */
+  .confirm-back{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:50;}
+  .confirm-back.show{opacity:1;pointer-events:auto;}
+  .confirm{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;width:min(300px,82%);background:var(--elev);border-radius:18px;padding:20px 20px 16px;z-index:51;text-align:center;transition:opacity .2s ease,transform .2s cubic-bezier(.32,.72,0,1);}
+  .confirm.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+  .confirm-t{font-size:17px;font-weight:700;letter-spacing:-.01em;}
+  .confirm-m{font-size:14px;color:var(--label-2);margin-top:7px;line-height:1.4;}
+  .confirm-m:empty{display:none;}
+  .confirm-row{display:flex;gap:10px;margin-top:18px;}
+  .confirm-btn{flex:1;border:0;border-radius:11px;padding:12px;font-family:var(--sf);font-size:15px;font-weight:700;cursor:pointer;}
+  .confirm-btn.cancel{background:var(--elev-2);color:var(--label);}
+  .confirm-btn.cancel:active{background:#3A3A3C;}
+  .confirm-btn.danger{background:#FF453A;color:#fff;}
+  .confirm-btn.danger:active{background:#d63a30;}
+
+  /* ---- custom workout builder ---- */
+  .wname-input{width:100%;background:transparent;border:0;color:var(--label);font-family:var(--sf);font-size:17px;font-weight:600;padding:14px 16px;letter-spacing:-.01em;}
+  .wname-input:focus{outline:none;}
+  .count-badge{color:var(--label-3);font-weight:400;}
+  .addex{width:100%;background:var(--elev);color:var(--accent);border:0;border-radius:14px;padding:14px;font-family:var(--sf);font-size:16px;font-weight:600;cursor:pointer;transition:background .12s ease;}
+  .addex:active{background:var(--elev-2);}
+  .draftrow .rm{margin-left:auto;width:28px;height:28px;border-radius:50%;background:var(--elev-2);border:0;color:#FF453A;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .draftrow .dphoto{width:34px;height:34px;border-radius:9px;background:var(--elev-2);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .draftrow .dphoto:active{background:#3A3A3C;}
+  .draftrow .dphoto svg{width:16px;height:16px;}
+  .draftrow .drag{width:30px;height:34px;margin-left:-6px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:grab;flex:0 0 auto;touch-action:none;}
+  .draftrow .drag:active{cursor:grabbing;color:var(--label);}
+  .draftrow .drag svg{width:19px;height:19px;}
+  .draftrow.dragging{background:var(--elev-2);border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.45);position:relative;z-index:5;}
+  .draftrow.dragging::before{display:none;}
+  /* saved-workout row actions: start / edit / delete */
+  .wactions{display:flex;align-items:center;gap:8px;flex:0 0 auto;}
+  .wbtn{display:flex;align-items:center;gap:5px;border:0;border-radius:9px;font-family:var(--sf);font-weight:700;cursor:pointer;flex:0 0 auto;transition:background .12s ease,color .12s ease;}
+  .wbtn svg{display:block;}
+  .wbtn.start{background:var(--accent);color:#00350F;font-size:13px;padding:8px 13px 8px 11px;letter-spacing:-.01em;}
+  .wbtn.start svg{width:13px;height:13px;}
+  .wbtn.start:active{background:#28b14e;}
+  .wbtn.edit{width:34px;height:34px;justify-content:center;background:var(--elev-2);color:var(--label-2);}
+  .wbtn.edit svg{width:16px;height:16px;}
+  .wbtn.edit:active{background:#3A3A3C;color:var(--label);}
+  .row .rm{width:34px;height:34px;border-radius:50%;background:var(--elev-2);border:0;color:#FF453A;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .12s ease;}
+  .row .rm:active{background:#3A3A3C;}
+  .draftrow .rm:active{background:#3A3A3C;}
+  #startbtn:disabled{background:var(--elev);color:var(--label-3);cursor:default;}
+  #savebtn{background:var(--elev);color:var(--label);}
+  #savebtn:disabled{background:var(--elev);color:var(--label-3);cursor:default;}
+  .savebtn{margin-left:auto;flex:0 0 auto;background:var(--elev-2);color:var(--accent);border:0;border-radius:9px;padding:7px 13px;font-family:var(--sf);font-size:13px;font-weight:700;cursor:pointer;}
+  .savebtn:active{background:#3A3A3C;}
+  .picker{margin:0;}
+  /* keep the search box fixed and let the matches scroll on their own */
+  #cat-results{max-height:44vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+  .chev.plus{color:var(--accent);font-size:22px;font-weight:400;line-height:1;}
+  .empty-draft{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
+
+  /* ---- session bar + next ---- */
+  .sessbar{margin:0 16px 14px;display:flex;justify-content:space-between;align-items:center;padding:9px 12px 9px 16px;background:rgba(48,209,88,.12);border-radius:12px;}
+  .sb-name{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:-.01em;}
+  .sb-right{display:flex;align-items:center;gap:6px;flex:0 0 auto;}
+  .sb-prog{font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;min-width:34px;text-align:center;}
+  .sb-arw{width:28px;height:28px;border-radius:8px;background:rgba(48,209,88,.16);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:opacity .15s ease,background .12s ease;}
+  .sb-arw:active{background:rgba(48,209,88,.3);}
+  .sb-arw svg{width:14px;height:14px;display:block;}
+  .sb-arw:disabled{opacity:.25;cursor:default;background:rgba(48,209,88,.16);}
+
+  /* ---- routine overview ---- */
+  .viewbtn{margin-left:auto;width:36px;height:36px;border-radius:10px;background:var(--elev);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .viewbtn:active{background:var(--elev-2);}
+  .viewbtn svg{width:19px;height:19px;}
+  .ov-notes{display:block;width:calc(100% - 32px);margin:2px 16px 16px;min-height:46px;resize:none;background:var(--elev);border:0;border-radius:12px;color:var(--label);font-family:var(--sf);font-size:14px;line-height:1.4;padding:12px 14px;letter-spacing:-.01em;box-sizing:border-box;}
+  .ov-notes:focus{outline:none;}
+  .ov-notes::placeholder{color:var(--label-3);}
+  .ov-card{margin:0 16px 14px;background:var(--elev);border-radius:16px;overflow:hidden;}
+  .ov-head{display:flex;align-items:center;gap:11px;padding:13px 14px;cursor:pointer;}
+  .ov-head:active{background:var(--elev-2);}
+  .ov-head .micon,.ov-head .mbadge,.ov-head .mthumb{width:38px;height:38px;border-radius:10px;font-size:14px;}
+  .ov-head .ov-tt{flex:1;min-width:0;}
+  .ov-head .ov-b{font-size:11px;color:var(--label-3);font-weight:500;}
+  .ov-head .ov-n{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+  .ov-head .ov-go{color:var(--label-3);flex:0 0 auto;}
+  .ov-head .ov-go svg{width:8px;height:13px;display:block;}
+  .ov-note{flex:0 0 auto;width:32px;height:32px;border-radius:9px;background:var(--elev-2);border:0;color:var(--label-2);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .12s ease,color .12s ease;}
+  .ov-note:active{background:#3A3A3C;}
+  .ov-note svg{width:16px;height:16px;}
+  .ov-note.has{color:var(--accent);}
+  .ov-note.has::after{content:"";position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--elev-2);}
+  /* setups: A/B/C picked in the note sheet header. the chosen letter takes the place of the
+     note dot, and sets logged on a setup carry its letter */
+  .note-seg{display:flex;gap:4px;margin:0 12px;align-self:center;flex:0 0 auto;}
+  .note-seg button,.setup-seg button{width:34px;height:30px;border-radius:9px;border:0;background:var(--elev-2);color:var(--label-2);font-family:var(--sf);font-size:14px;font-weight:700;cursor:pointer;}
+  .note-seg button.on,.setup-seg button.on{background:var(--accent);color:#00350F;}
+  /* the same A/B/C toggle on the log screen, between "last time" and weight/reps */
+  .setupbar{display:flex;align-items:center;margin:12px 16px 0;padding:8px 8px 8px 18px;background:var(--elev);border-radius:14px;}
+  .setupbar .cap{font-size:13px;color:var(--label-2);margin-right:auto;}
+  .setup-seg{display:flex;gap:4px;}
+  #note-sheet .sheet-hd .t{flex:1;min-width:0;}
+  #note-sheet .sheet-hd .t span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .note-btn[data-setup]::after,.ov-note[data-setup]::after{content:attr(data-setup);position:absolute;top:2px;right:2px;width:auto;min-width:14px;height:14px;padding:0 2px;box-sizing:border-box;border-radius:5px;background:var(--accent);color:#00350F;font-size:10px;font-weight:800;line-height:14px;text-align:center;}
+  .note-btn[data-setup]::after{box-shadow:0 0 0 2px var(--elev);}
+  .ov-note[data-setup]::after{box-shadow:0 0 0 2px var(--elev-2);}
+  .stag{font-size:11px;font-weight:700;color:var(--accent);margin-left:6px;}
+  .ov-set .stag,.sd-i .stag,.setrow .sn .stag{font-size:10px;margin-left:1px;}
+  /* a logged set's number opens the sheet that chooses its setup (none, A, B or C).
+     the badge is small, so its touch area reaches 8px past it */
+  button.sn,button.ov-set{border:0;font-family:var(--sf);cursor:pointer;position:relative;}
+  button.sn::before,button.ov-set::before{content:"";position:absolute;inset:-8px;}
+  button.sn:active,button.ov-set:active{opacity:.6;}
+  .ssu-opt{display:flex;align-items:center;gap:12px;width:100%;padding:11px 2px;background:transparent;border:0;border-top:.5px solid var(--sep);color:var(--label);font-family:var(--sf);text-align:left;cursor:pointer;}
+  .ssu-opt:first-child{border-top:0;}
+  .ssu-opt .code{width:32px;height:32px;border-radius:9px;background:var(--elev-2);color:var(--label-2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex:0 0 auto;}
+  .ssu-opt.on .code{background:var(--accent);color:#00350F;}
+  .ssu-opt .tx{flex:1;min-width:0;}
+  .ssu-opt .tx b{display:block;font-size:15px;font-weight:600;}
+  .ssu-opt .tx span{display:block;font-size:12px;color:var(--label-3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ssu-opt .ck{color:var(--accent);font-size:18px;font-weight:700;}
+  .ps-sets .stag{font-size:10px;margin-left:3px;}
+  .ov-tblh,.ov-row{display:grid;grid-template-columns:34px 1fr 1fr 1fr 30px;align-items:center;gap:8px;padding:6px 14px;}
+  .ov-tblh{padding-top:2px;padding-bottom:2px;}
+  .ov-tblh span{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--label-3);text-align:center;}
+  .ov-tblh span:first-child{text-align:left;}
+  .ov-row + .ov-row{margin-top:-2px;}
+  .ov-set{min-width:24px;padding:0 3px;box-sizing:border-box;justify-self:start;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+  .ov-prev{font-size:13px;color:var(--label-3);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ov-in{width:100%;background:var(--bg);border:.5px solid rgba(255,255,255,.12);border-radius:8px;color:var(--label);font-family:var(--sf);font-size:15px;font-weight:600;text-align:center;padding:7px 2px;box-sizing:border-box;-moz-appearance:textfield;}
+  .ov-in:focus{outline:none;border-color:var(--accent);}
+  .ov-in::-webkit-outer-spin-button,.ov-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .ov-del{width:28px;height:28px;border-radius:7px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .ov-del:active{background:var(--elev-2);color:#FF453A;}
+  .ov-del svg{width:15px;height:15px;}
+  .ov-empty{padding:8px 14px 4px;font-size:13px;color:var(--label-3);}
+  .ov-add{width:calc(100% - 20px);margin:6px 10px 10px;background:var(--elev-2);color:var(--accent);border:0;border-radius:10px;padding:11px;font-family:var(--sf);font-size:14px;font-weight:600;cursor:pointer;}
+  .ov-add:active{background:#3A3A3C;}
+  .next-btn{width:100%;background:var(--elev);color:var(--label);border:0;border-radius:14px;padding:16px;font-family:var(--sf);font-size:17px;font-weight:600;cursor:pointer;transition:background .12s ease;}
+  .next-btn:active{background:var(--elev-2);}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+  /* ===== PWA full-screen overrides (real device is the frame) ===== */
+  html,body{height:100%;margin:0;background:#000;}
+  .app{position:fixed;inset:0;background:var(--bg);color:var(--label);overflow:hidden;font-family:var(--sf);}
+  .screen{inset:max(env(safe-area-inset-top),12px) 0 0 0;}
+  .scroll{padding-bottom:calc(env(safe-area-inset-bottom) + 12px);}
+  .toast{bottom:calc(24px + env(safe-area-inset-bottom));}
+  .navbar{padding-top:2px;}
+
+  /* desktop preview: dock the full-screen app inside a centred phone frame.
+     real phones (narrow viewport) keep the native edge-to-edge layout. */
+  @media (min-width:600px){
+    html,body{background:#0a0a0a;}
+    body{display:flex;align-items:center;justify-content:center;}
+    .app{
+      position:relative;inset:auto;
+      width:390px;height:min(844px,96vh);
+      border-radius:46px;overflow:hidden;
+      box-shadow:0 0 0 11px #000,0 0 0 12px rgba(255,255,255,.08),
+                 0 40px 90px -24px rgba(0,0,0,.9);
+    }
+  }
+  /* ===== history / progress charts ===== */
+  .histcard{margin:0 16px 12px;background:var(--elev);border-radius:14px;padding:14px 16px 12px;}
+  .histhd{display:flex;align-items:center;gap:8px;}
+  .histdot{width:10px;height:10px;border-radius:3px;flex:0 0 auto;}
+  .histname{font-size:15px;font-weight:600;color:var(--label);letter-spacing:-.01em;}
+  .histtrend{margin-left:auto;font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;}
+  .histtrend.up{color:var(--accent);}
+  .histtrend.down{color:#FF6B6B;}
+  .histchart{display:block;width:100%;height:auto;margin:10px 0 8px;overflow:visible;}
+  .histaxis{display:flex;justify-content:space-between;font-size:11px;color:var(--label-3);font-variant-numeric:tabular-nums;margin-top:-2px;}
+  .histmeta{font-size:12px;color:var(--label-3);margin-top:7px;}
+  /* previous-workout session detail */
+  .ps-ex{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);}
+  .ps-exl{display:flex;align-items:center;gap:9px;min-width:0;}
+  .ps-ex .micon{width:30px;height:30px;border-radius:8px;}
+  .ps-ex .micon svg{width:22px;height:22px;}
+  .ps-ex .mthumb-over{border-radius:8px;}
+  .sd-exh{display:flex;align-items:center;gap:10px;}
+  .ps-ex:first-of-type{margin-top:8px;}
+  .ps-exn{font-size:13px;color:var(--label);}
+  .ps-b{color:var(--accent);font-size:11px;text-transform:lowercase;}
+  .ps-sets{font-size:12.5px;color:var(--label-2);text-align:right;font-variant-numeric:tabular-nums;white-space:normal;}
+  .ps-pr{color:var(--accent);font-size:10px;font-weight:700;margin-left:4px;}
+  /* editable previous-workout rows */
+  .ps-ex2{padding:8px 0;border-top:1px solid rgba(255,255,255,.08);}
+  .ps-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
+  .ps-i{width:16px;color:var(--label-3);font-size:12px;flex:0 0 auto;}
+  .ps-in{width:56px;background:var(--elev-2);border:1px solid rgba(255,255,255,.10);border-radius:8px;color:var(--label);padding:6px;font-size:13px;text-align:center;font-variant-numeric:tabular-nums;}
+  .ps-x{font-size:11px;color:var(--label-3);}
+  .ps-del{margin-left:auto;background:none;border:none;color:var(--label-3);font-size:13px;cursor:pointer;padding:4px;}
+  .ps-delw{margin-left:8px;background:none;border:none;color:var(--label-3);font-size:14px;cursor:pointer;}
+  /* previous-workout editor screen */
+  .tapcard{cursor:pointer;}
+  .sd-card{margin:0 16px 12px;background:var(--elev);border-radius:14px;padding:14px 16px;}
+  .sd-exh{font-size:15px;font-weight:600;color:var(--label);margin-bottom:8px;}
+  .sd-exh .micon{width:34px;height:34px;border-radius:9px;flex:0 0 auto;}
+  .sd-note{margin:-2px 0 10px;padding:8px 11px;background:rgba(48,209,88,.09);border:.5px solid rgba(48,209,88,.18);border-radius:10px;font-size:13px;line-height:1.4;color:var(--label);white-space:pre-wrap;letter-spacing:-.01em;}
+  .sd-snote{margin:0 16px 12px;}
+  .sd-tblh{display:grid;grid-template-columns:34px 1fr 1fr 36px;gap:8px;font-size:11px;color:var(--label-3);text-transform:uppercase;letter-spacing:.4px;padding:0 0 4px;}
+  .sd-row{display:grid;grid-template-columns:34px 1fr 1fr 36px;gap:8px;align-items:center;padding:4px 0;}
+  .sd-row .ps-in{width:100%;}
+  .sd-i{color:var(--label-3);font-size:13px;}
+  /* tap-to-enlarge lightbox */
+  #log-thumb .mthumb-over{cursor:zoom-in;}
+  .imgview{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;}
+  .imgview.show{display:flex;}
+  .imgview img{max-width:100%;max-height:100%;object-fit:contain;border-radius:14px;background:#e9e9ee;}
+  .imgview-x{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;width:40px;height:40px;border-radius:50%;
+    background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .imgview-x svg{width:20px;height:20px;}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- ===== screen: home menu ===== -->
+      <section class="screen active" id="s-home">
+        <div class="largetitle">
+          <h1>rackd</h1>
+          <div class="sub">track the exact machine in front of you.</div>
+        </div>
+        <div class="scroll">
+          <div id="home-active"></div>
+          <div class="sechead">start</div>
+          <div class="group">
+            <div class="row" onclick="goGyms()">
+              <div class="mbadge" style="background:#0A6EBD"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-4h6v4"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">choose gym</div>
+                <div class="m-muscle" id="home-gym-sub">log against a gym's machines</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+            <div class="row" onclick="goWorkouts()">
+              <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7v10M17.5 7v10M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">workout</div>
+                <div class="m-muscle" id="home-work-sub">build, save and track workouts</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
+          <div class="sechead">progress</div>
+          <div class="group">
+            <div class="row" onclick="goHistory()">
+              <div class="mbadge" style="background:#E8551F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M7.5 15l3.5-4 3 2.5 5-7"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">history</div>
+                <div class="m-muscle">improvements per muscle group</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
+          <div class="sechead">data</div>
+          <div class="group">
+            <div class="row" onclick="openExport()">
+              <div class="mbadge" style="background:#0E9F6E"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4M5 21h14"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">export backup</div>
+                <div class="m-muscle">save your sets &amp; workouts as json</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+            <div class="row" onclick="openImport()">
+              <div class="mbadge" style="background:#6B7280"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M8 7l4-4 4 4M5 21h14"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">import backup</div>
+                <div class="m-muscle">restore from a json backup</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
+          <div class="sechead" id="home-work-head" style="display:none;">your workouts</div>
+          <div id="home-worklist"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: history ===== -->
+      <section class="screen" id="s-history">
+        <div class="navbar">
+          <button class="navback" onclick="goHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>history</h1>
+          <div class="sub">your improvements, per muscle group.</div>
+        </div>
+        <div class="scroll">
+          <div class="group" style="margin-bottom:14px;">
+            <div class="row" onclick="goSessions()">
+              <div class="mbadge" style="background:#2C2C2E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l3 2"/></svg></div>
+              <div class="m-main"><div class="m-name">previous workouts</div><div class="m-muscle">every completed session, set by set</div></div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
+          <div id="histbody"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: previous workouts (completed sessions) ===== -->
+      <section class="screen" id="s-sessions">
+        <div class="navbar">
+          <button class="navback" onclick="goHistory()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            history
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>previous workouts</h1>
+          <div class="sub">every workout you've finished.</div>
+        </div>
+        <div class="scroll">
+          <div id="sessbody"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: previous-workout editor ===== -->
+      <section class="screen" id="s-session-detail">
+        <div class="navbar">
+          <button class="navback" onclick="goSessions()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            previous workouts
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="sd-title">workout</h1>
+          <div class="sub" id="sd-sub"></div>
+        </div>
+        <div class="scroll">
+          <div id="sd-body"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: gyms ===== -->
+      <section class="screen" id="s-gym">
+        <div class="navbar">
+          <button class="navback" onclick="goHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>choose your gym</h1>
+          <div class="sub">your machines load from its floor.</div>
+        </div>
+        <div class="scroll">
+          <div id="gymlist"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: workouts ===== -->
+      <section class="screen" id="s-workouts">
+        <div class="navbar">
+          <button class="navback" onclick="goHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>workouts</h1>
+          <div class="sub">build a new one, or continue a saved workout.</div>
+        </div>
+        <div class="scroll">
+          <div id="work-active"></div>
+          <div class="sechead">start</div>
+          <div class="group">
+            <div class="row" onclick="openCustom()">
+              <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">build a custom workout</div>
+                <div class="m-muscle">pick your own exercises · any gym</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+            <div class="row" onclick="goRoutines()">
+              <div class="mbadge" style="background:#7B5EA7"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 5v14h16V5M9 5v14M15 5v14"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">preset routines</div>
+                <div class="m-muscle">ppl · upper/lower · full body · bro split</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+            <div class="row" onclick="openCatalog()">
+              <div class="mbadge" style="background:#2C2C2E"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">browse the full catalog</div>
+                <div class="m-muscle">by movement → brand → model</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
+          <div class="sechead" id="work-head" style="display:none;">your workouts</div>
+          <div id="worklist"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: preset routines ===== -->
+      <section class="screen" id="s-routines">
+        <div class="navbar">
+          <button class="navback" onclick="goWorkouts()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            workouts
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>routines</h1>
+          <div class="sub">common training splits, built from the default exercise library. tap a day to start.</div>
+        </div>
+        <div class="scroll"><div id="routinelist"></div></div>
+      </section>
+
+      <!-- ===== screen 2: machines ===== -->
+      <section class="screen" id="s-machines">
+        <div class="navbar">
+          <button class="navback" onclick="goGym()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            gyms
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="m-title">on the floor</h1>
+          <div class="sub" id="m-sub">tap the exact machine in front of you.</div>
+        </div>
+        <div class="segwrap">
+          <div class="segment" id="segment">
+            <div class="seg-thumb" id="seg-thumb"></div>
+          </div>
+        </div>
+        <div class="scroll">
+          <div id="mlist"></div>
+        </div>
+      </section>
+
+      <!-- ===== catalog browse: movement → brand → model ===== -->
+      <section class="screen" id="s-cat-move">
+        <div class="navbar">
+          <button class="navback" onclick="catHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            <span id="cat-back-label">home</span>
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>what movement?</h1>
+          <div class="sub">pick the exercise, then the brand, then the exact machine.</div>
+        </div>
+        <div class="scroll"><div id="catmove"></div></div>
+      </section>
+
+      <section class="screen" id="s-cat-brand">
+        <div class="navbar">
+          <button class="navback" onclick="show('s-cat-move')">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            movements
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="catb-title">brand</h1>
+          <div class="sub">who makes the one in front of you?</div>
+        </div>
+        <div class="scroll"><div id="catbrand"></div></div>
+      </section>
+
+      <section class="screen" id="s-cat-model">
+        <div class="navbar">
+          <button class="navback" onclick="show('s-cat-brand')">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            brands
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="catm-title">model</h1>
+          <div class="sub" id="catm-sub">pick the exact model.</div>
+        </div>
+        <div class="scroll"><div id="catmodel"></div></div>
+      </section>
+
+      <!-- ===== screen: custom workout builder ===== -->
+      <section class="screen" id="s-custom">
+        <div class="navbar">
+          <button class="navback" onclick="goWorkouts()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            workouts
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>new workout</h1>
+          <div class="sub">name it, add your exercises, start training.</div>
+        </div>
+        <div class="scroll">
+          <div class="sechead">name</div>
+          <div class="group"><input id="wname" class="wname-input" value="push day" maxlength="28" /></div>
+          <div class="sechead">exercises <span class="count-badge" id="ex-count"></span></div>
+          <div class="group" id="draftlist"></div>
+          <div class="cta" style="padding-bottom:0;"><button class="addex" onclick="togglePicker()" id="addex-btn">+ add exercise</button></div>
+          <div id="picker" class="picker" style="display:none;"></div>
+          <div class="cta">
+            <div style="display:flex;gap:10px;">
+              <button id="savebtn" onclick="saveCustom()" disabled style="flex:0 0 auto;width:auto;">+ add to home</button>
+              <button id="startbtn" onclick="startCustom()" disabled style="flex:1;width:auto;">start workout</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== screen 3: log ===== -->
+      <section class="screen" id="s-log">
+        <div class="navbar">
+          <button class="navback" onclick="backFromLog()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            <span id="back-gym">machines</span>
+          </button>
+          <button class="viewbtn" id="log-viewbtn" onclick="openOverview()" style="display:none;" aria-label="overview" title="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </button>
+        </div>
+        <div class="log-id">
+          <div id="log-thumb" onclick="enlargeThumb(this)"></div>
+          <div class="txt">
+            <div class="b" id="log-brand">hammer strength</div>
+            <div class="n" id="log-name">iso-lateral chest press</div>
+          </div>
+          <button class="note-btn" id="note-btn" onclick="openNotes()" aria-label="exercise note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/><path d="M8 9h8M8 13h5"/></svg>
+          </button>
+        </div>
+
+        <div class="scroll">
+          <div class="sessbar" id="sessbar" style="display:none;">
+            <span class="sb-name" id="sb-name">push day</span>
+            <span class="sb-right">
+              <button class="sb-arw" id="sb-prev" onclick="prevExercise()" aria-label="previous exercise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <span class="sb-prog" id="sb-prog">1 / 4</span>
+              <button class="sb-arw" id="sb-next" onclick="gotoNext()" aria-label="next exercise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </span>
+          </div>
+          <div class="lastcard">
+            <div class="l" id="last-l">last time · <b>3×10 @ 68kg</b></div>
+            <div class="beat" id="beat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it</div>
+          </div>
+          <div class="setupbar">
+            <span class="cap">setup</span>
+            <div class="setup-seg" id="setup-seg"></div>
+          </div>
+
+          <div class="controls">
+            <div class="ctl">
+              <div class="cap">weight</div>
+              <div class="val"><span id="wt">68</span><span class="u">kg</span></div>
+              <div class="pm">
+                <button class="pmbtn" onclick="bumpW(-2.5)">−</button>
+                <button class="pmbtn" onclick="bumpW(2.5)">+</button>
+              </div>
+              <div class="delta" id="wt-delta"></div>
+            </div>
+            <div class="ctl">
+              <div class="cap">reps</div>
+              <div class="val"><span id="rp">10</span></div>
+              <div class="pm">
+                <button class="pmbtn" onclick="bumpR(-1)">−</button>
+                <button class="pmbtn" onclick="bumpR(1)">+</button>
+              </div>
+              <div class="delta">&nbsp;</div>
+            </div>
+          </div>
+
+          <div class="cta"><button onclick="logSet()">log set</button></div>
+
+          <div class="sets">
+            <div class="hd"><span class="t">today · <b id="sets-machine">this machine</b></span><span class="v" id="vol">—</span></div>
+            <div class="setnote" id="setnote" style="display:none;" onclick="openNotes()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/></svg>
+              <span id="setnote-txt"></span>
+            </div>
+            <div class="setlist" id="setlist"><div class="empty">no sets yet. log your first.</div></div>
+          </div>
+
+          <div class="cta" id="next-cta" style="display:none;padding-top:0;">
+            <div style="display:flex;gap:10px;">
+              <button class="next-btn" id="prev-btn" onclick="prevExercise()" style="flex:0 0 auto;width:auto;background:#2C2C2E;color:#fff;display:none;">← prev</button>
+              <button class="next-btn" id="next-btn" onclick="nextExercise()" style="flex:1;width:auto;">next exercise →</button>
+            </div>
+          </div>
+          <div class="cta" id="log-add-cta" style="display:none;padding-top:0;">
+            <button class="addex" id="log-sess-addex-btn" onclick="toggleLogSessPicker()">+ add exercise</button>
+          </div>
+          <div id="log-sess-picker" class="picker" style="display:none;"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: routine overview (all exercises at a glance) ===== -->
+      <section class="screen" id="s-overview">
+        <div class="navbar">
+          <button class="navback" onclick="backFromLog()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            <span id="ov-back">workouts</span>
+          </button>
+          <button class="viewbtn" onclick="openFocus()" aria-label="focus view" title="focus view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/></svg>
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="ov-title">push day</h1>
+          <div class="sub" id="ov-sub">tap an exercise to focus it.</div>
+        </div>
+        <div class="scroll">
+          <textarea class="ov-notes" id="ov-notes" placeholder="workout notes…" onchange="saveSessNote()"></textarea>
+          <div id="ov-list"></div>
+          <div class="cta" style="padding-bottom:0;"><button class="addex" id="sess-addex-btn" onclick="toggleSessPicker()">+ add exercise</button></div>
+          <div id="sess-picker" class="picker" style="display:none;"></div>
+          <div class="cta"><button class="next-btn" style="background:var(--accent);color:#00350F;" onclick="finishFromOverview()">finish workout</button></div>
+        </div>
+      </section>
+
+      <div class="toast" id="toast">
+        <div class="ic ok" id="toast-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div><div class="tt" id="toast-t">set logged</div><div class="ts" id="toast-s">3×10 @ 68kg</div></div>
+      </div>
+
+      <div class="sheet-back" id="note-back" onclick="closeNotes()"></div>
+      <div class="sheet" id="note-sheet">
+        <div class="sheet-grip"></div>
+        <div class="sheet-hd">
+          <div class="t">note<span id="note-sub">this exercise</span></div>
+          <div class="note-seg" id="note-seg"></div>
+          <button class="done" onclick="closeNotes()">done</button>
+        </div>
+        <textarea class="note-area" id="note-area" placeholder="e.g. seat height 4 · last pin · grip just outside shoulders…"></textarea>
+      </div>
+
+      <!-- a logged set's setup: tap the set's number to choose none / A / B / C -->
+      <div class="sheet-back" id="ssu-back" onclick="closeSetSetup()"></div>
+      <div class="sheet" id="ssu-sheet">
+        <div class="sheet-grip"></div>
+        <div class="sheet-hd">
+          <div class="t">setup<span id="ssu-sub">set 1</span></div>
+          <button class="done" onclick="closeSetSetup()">done</button>
+        </div>
+        <div id="ssu-list"></div>
+      </div>
+
+      <!-- data backup: export / import -->
+      <div class="sheet-back" id="data-back" onclick="closeData()"></div>
+      <div class="sheet" id="data-sheet">
+        <div class="sheet-grip"></div>
+        <div class="sheet-hd">
+          <div class="t">backup<span id="data-sub"></span></div>
+          <button class="done" onclick="closeData()">done</button>
+        </div>
+        <textarea class="note-area" id="data-area" spellcheck="false" autocapitalize="off" autocorrect="off" style="height:150px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;line-height:1.35;white-space:pre;overflow:auto;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button id="data-sec" onclick="dataSecondary()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--elev-2);background:transparent;color:var(--label);font-family:var(--sf);font-size:15px;font-weight:600;cursor:pointer;"></button>
+          <button id="data-pri" onclick="dataPrimary()" style="flex:1;padding:12px;border-radius:12px;border:0;background:var(--accent);color:#00350F;font-family:var(--sf);font-size:15px;font-weight:700;cursor:pointer;"></button>
+        </div>
+      </div>
+
+      <input type="file" id="custphoto" accept="image/*" style="display:none" onchange="onCustPhoto(this)">
+
+      <div class="confirm-back" id="confirm-back" onclick="closeConfirm()"></div>
+      <div class="confirm" id="confirm" role="alertdialog">
+        <div class="confirm-t" id="confirm-t">remove this routine?</div>
+        <div class="confirm-m" id="confirm-m"></div>
+        <div class="confirm-row">
+          <button class="confirm-btn cancel" onclick="closeConfirm()">cancel</button>
+          <button class="confirm-btn danger" id="confirm-ok" onclick="doConfirm()">remove</button>
+        </div>
+      </div>
+
+      <!-- tap-to-enlarge machine photo -->
+      <div class="imgview" id="imgview" onclick="closeImgView()">
+        <button class="imgview-x" onclick="closeImgView()" aria-label="close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+        <img id="imgview-img" alt="machine">
+      </div>
+</div>
+<script>
+// DEV: no service worker — always load fresh code. Unregister any previously
+// installed SW and wipe its caches so a stale index.html can't be served back.
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});
+}
+if(window.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});}).catch(function(){});}
+</script>
+<script src="icons.js"></script>
+<script>
+  const BRANDS={
+    'hammer strength':{abbr:'HS',color:'#B71C1C'},
+    'technogym':{abbr:'TG',color:'#2C2C2E'},
+    'life fitness':{abbr:'LF',color:'#C4161C'},
+    'cybex':{abbr:'CX',color:'#0A6EBD'},
+    'matrix':{abbr:'MX',color:'#E8551F'},
+    'precor':{abbr:'PR',color:'#1A8E6E'},
+    'barbell':{abbr:'BB',color:'#48484A'},
+    'dumbbell':{abbr:'DB',color:'#48484A'},
+    'cable':{abbr:'CA',color:'#5A5A5C'},
+    'bodyweight':{abbr:'BW',color:'#3A6B4F'},
+    'kettlebells':{abbr:'KB',color:'#6B5A3A'},
+    'bands':{abbr:'BD',color:'#5A5A5C'},
+    'machine':{abbr:'MA',color:'#48484A'},
+    'e-z curl bar':{abbr:'EZ',color:'#48484A'},
+    'medicine ball':{abbr:'MB',color:'#6B5A3A'},
+    'exercise ball':{abbr:'EB',color:'#6B5A3A'},
+    'other':{abbr:'EX',color:'#48484A'},
+  };
+
+  // the live catalog API (api/  →  uvicorn main:app). If unreachable, the app falls
+  // back to the bundled sample data below, so it still works fully offline.
+  // localhost while developing on the PC; the deployed Azure backend everywhere else
+  // (phone / hosted PWA) — so a redeploy never silently points the app at a dead localhost.
+  // localhost:<port> on the PC dev server → the local API. But the Capacitor app
+  // is ALSO served from https://localhost (no port) — that's NOT the dev PC, it must
+  // use the deployed backend. So only treat it as dev when there's an explicit port
+  // and we're not running natively.
+  const NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
+  const PC_DEV=!NATIVE&&(location.hostname==='localhost'||location.hostname==='127.0.0.1')&&location.port!=='';
+  const API=PC_DEV
+    ? 'http://127.0.0.1:8000'
+    : 'https://rackd-api-sguhring.azurewebsites.net';
+  const USER='me';   // single local user for now (on-device, no accounts)
+  // ===== bundled catalog (catalog/catalog.json + catalog/img/, written by api/export_bundle.py) =====
+  // the phone build ships the whole machine catalog with every photo, so browsing and
+  // search work offline and never depend on the hosted API being current. when the
+  // bundle is missing (PC dev server without an export) the same calls go to the API.
+  let CATALOG=null, _catalogLoad=null;
+  function loadCatalogBundle(){
+    if(_catalogLoad) return _catalogLoad;
+    _catalogLoad=(async()=>{
+      try{
+        const r=await fetch('catalog/catalog.json',{cache:'no-store'});
+        if(!r.ok) return null;
+        const d=await r.json();
+        if(!d||!Array.isArray(d.machines)||!d.machines.length) return null;
+        d.exBySlug={}; (d.exercises||[]).forEach(e=>{ d.exBySlug[e.slug]=e; });
+        d.byEx={}; d.machines.forEach(m=>{ if(m.exercise)(d.byEx[m.exercise]=d.byEx[m.exercise]||[]).push(m); });
+        CATALOG=d;
+      }catch(e){ CATALOG=null; }
+      return CATALOG;
+    })();
+    return _catalogLoad;
+  }
+  // same row shape the API's /catalog/machines and /catalog/search return
+  const catRow=m=>({machine_id:m.id, brand:m.brand, model:m.model, machine_type:m.machine_type,
+    muscle_label:m.muscle_label, muscle_group:(CATALOG.exBySlug[m.exercise]||{}).muscle_group||null,
+    image_url:m.img||null});
+  async function catalogGet(kind,p={}){
+    const c=await loadCatalogBundle();
+    if(!c){
+      const path={exercises:'/catalog/exercises',
+        brands:`/catalog/brands?exercise=${encodeURIComponent(p.exercise||'')}`,
+        machines:`/catalog/machines?exercise=${encodeURIComponent(p.exercise||'')}&brand=${encodeURIComponent(p.brand||'')}`,
+        search:`/catalog/search?q=${encodeURIComponent(p.q||'')}`}[kind];
+      try{ const r=await fetch(API+path); return r.ok?await r.json():[]; }catch(e){ return []; }
+    }
+    if(kind==='exercises')
+      return c.exercises.filter(e=>(c.byEx[e.slug]||[]).length)
+        .map(e=>({slug:e.slug, name:e.name, muscle_group:e.muscle_group, machine_count:c.byEx[e.slug].length}));
+    if(kind==='brands'){
+      const n={}; (c.byEx[p.exercise]||[]).forEach(m=>{ n[m.brand]=(n[m.brand]||0)+1; });
+      return Object.keys(n).sort((a,b)=>n[b]-n[a]||a.localeCompare(b)).map(b=>({brand:b, count:n[b]}));
+    }
+    if(kind==='machines')
+      return (c.byEx[p.exercise]||[]).filter(m=>!p.brand||m.brand===p.brand)
+        .sort((a,b)=>a.model.localeCompare(b.model)).map(catRow);
+    if(kind==='search'){
+      const q=(p.q||'').trim(); if(q.length<2) return [];
+      return c.machines
+        .map(m=>({m, s:fuzzyScore(q,[m.brand, m.model, m.machine_type||'', m.muscle_label||'', (c.exBySlug[m.exercise]||{}).name||''])}))
+        .filter(x=>x.s>0)
+        .sort((a,b)=>b.s-a.s||a.m.brand.localeCompare(b.m.brand)||a.m.model.localeCompare(b.m.model))
+        .slice(0, p.limit||30).map(x=>catRow(x.m));
+    }
+    return [];
+  }
+  const PALETTE=['#B71C1C','#0A6EBD','#1A8E6E','#E8551F','#7B5EA7','#C4161C','#2C7A4B',
+                 '#B58100','#0F6E6E','#9A3B8C','#3A5BBF','#A04515'];
+  // style for ANY brand: known ones keep their colour; unknown ones get a stable badge.
+  function brandStyle(b){
+    if(BRANDS[b]) return BRANDS[b];
+    let h=7; for(const c of (b||'?')) h=(h*33+c.charCodeAt(0))>>>0;
+    const letters=(b||'?').replace(/[^a-z]/gi,'');
+    return {abbr:(letters.slice(0,2)||'?').toUpperCase(), color:PALETTE[h%PALETTE.length]};
+  }
+
+  // ===== machine artwork =====
+  // 'icon' = our own stylized line icons (own IP, no logos — safe to commercialize);
+  // 'photo' = the scraped product photos (copyright risk — dev only);
+  // 'badge' = brand initials only.
+  const IMAGES_MODE='photo'; // 'photo' = local cutouts in img/ (work offline) | 'original' = remote product photos (need internet) | 'icon' | 'badge'
+  // ICONS + ICON_VIEWBOX are defined in icons.js (loaded before this script).
+  const GROUP_ICON={push:'press', pull:'pulldown', legs:'legpress', core:'ab'};
+  // model-name keyword -> icon key (most specific first)
+  const ICON_KEYWORDS=[
+    ['leg press','legpress'],['hack squat','legpress'],['squat','legpress'],
+    ['leg extension','leg'],['leg curl','leg'],['hamstring','leg'],['glute','leg'],
+    ['abduct','leg'],['adduct','leg'],['calf','calf'],
+    ['chest press','press'],['bench press','press'],['incline','press'],['decline','press'],
+    ['shoulder press','shoulder'],['overhead','shoulder'],['multi-press','shoulder'],
+    ['lateral raise','shoulder'],['lateral pull','pulldown'],['lat pull','pulldown'],
+    ['pulldown','pulldown'],['pull-up','pulldown'],['chin','pulldown'],
+    ['row','row'],['rear delt','fly'],['pec','fly'],['fly','fly'],['pullover','pulldown'],
+    ['curl','curl'],['bicep','curl'],['tricep','curl'],['pushdown','curl'],['extension','curl'],
+    ['abdominal','ab'],['ab crunch','ab'],['crunch','ab'],['torso','ab'],['back extension','ab'],
+    ['press','press'],
+  ];
+  function iconKeyFor(name,group){
+    const n=(name||'').toLowerCase();
+    for(const [kw,key] of ICON_KEYWORDS){ if(n.includes(kw)) return key; }
+    return GROUP_ICON[group]||'machine';
+  }
+  function badgeHTML(brand){const s=brandStyle((brand||'').toLowerCase());
+    return `<div class="mbadge" style="background:${s.color}">${s.abbr}</div>`;}
+  // local edited-photo filename for a source image (matches edit_images.py)
+  function imgHash(s){let h=5381;for(let i=0;i<s.length;i++){h=(Math.imul(h,33)^s.charCodeAt(i))>>>0;}return h.toString(16);}
+  // the thumbnail for a machine/exercise row, honouring IMAGES_MODE.
+  // base = our icon; in 'photo' mode the edited cutout overlays it, falling back to
+  // the icon automatically if the cutout is missing/failed.
+  function thumbHTML(brand,name,group,image_url){
+    if(IMAGES_MODE==='badge') return badgeHTML(brand);
+    const key=iconKeyFor(name,group);
+    const icon=ICONS[key]?`<svg width="30" height="30" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="${window.ICON_STROKE||3}" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg>`:'';
+    let over='';
+    if(image_url && (IMAGES_MODE==='photo' || IMAGES_MODE==='original')){
+      // 'original' = the real product photo as found; 'photo' = our local cutout.
+      // already-embedded images (data: URIs) or img/ paths are used as-is (offline-safe);
+      // remote URLs map to a pre-rendered local cutout so they work offline too.
+      const isSvg = /\.svg(?:$|[?#])/i.test(image_url);
+      const cutout = /^(data:|img\/|catalog\/)/.test(image_url) || isSvg ? image_url : `img/${imgHash(image_url)}.png`;
+      const src = IMAGES_MODE==='original' ? image_url : cutout;
+      // if the local cutout is missing, fall back to the real remote image, then the icon
+      const orig = (src!==image_url) ? image_url.replace(/"/g,'&quot;') : '';
+      over=`<img class="mthumb-over" src="${src}"${orig?` data-orig="${orig}"`:''} loading="lazy" onerror="if(!this._f&&this.dataset.orig){this._f=1;this.src=this.dataset.orig;}else{this.remove();}">`;
+    }
+    return `<div class="micon">${icon}${over||(icon?'':badgeHTML(brand))}</div>`;
+  }
+
+  // generic free-weight moves available in any gym (custom workouts)
+  const GENERIC=[
+    {brand:'barbell',name:'barbell bench press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'barbell',name:'overhead press',group:'push',muscle:'delts',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'barbell',name:'barbell back squat',group:'legs',muscle:'quads · glutes',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'barbell',name:'deadlift',group:'pull',muscle:'posterior chain',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'barbell',name:'barbell row',group:'pull',muscle:'mid-back',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'dumbbell',name:'dumbbell curl',group:'pull',muscle:'biceps',lastW:0,lastR:0,lastS:0,date:''},
+  ];
+
+  // hand-added exercises that ship with the app (always available in the picker).
+  const BUILTIN_EXTRAS=[
+    {brand:'cable',name:'seated pullover',group:'pull',muscle:'lats · chest',img:'',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'cable',name:'seated overhead triceps extension',group:'push',muscle:'triceps',img:'',lastW:0,lastR:0,lastS:0,date:''},
+  ];
+
+  // each gym is a SUBSET of the global catalog — the core idea, preserved.
+  // (this is fallback data; loadGymsFromAPI() replaces it with the live catalog)
+  let GYMS=[
+    {id:'benfica',name:'fitness hub',area:'benfica · lisboa',dist:'400 m',here:true,machines:[
+      {brand:'hammer strength',name:'iso-lateral chest press',group:'push',muscle:'chest · front delts',lastW:68,lastR:10,lastS:3,date:'4 jun'},
+      {brand:'hammer strength',name:'iso-lateral row',group:'pull',muscle:'lats · mid-back',lastW:61,lastR:12,lastS:3,date:'4 jun'},
+      {brand:'life fitness',name:'insignia lat pulldown',group:'pull',muscle:'lats · biceps',lastW:54,lastR:12,lastS:4,date:'2 jun'},
+      {brand:'cybex',name:'eagle nx leg press',group:'legs',muscle:'quads · glutes',lastW:140,lastR:10,lastS:4,date:'1 jun'},
+      {brand:'cybex',name:'eagle nx leg extension',group:'legs',muscle:'quads',lastW:47,lastR:15,lastS:3,date:'1 jun'},
+      {brand:'life fitness',name:'insignia shoulder press',group:'push',muscle:'delts · triceps',lastW:40,lastR:10,lastS:3,date:'30 may'},
+    ]},
+    {id:'saldanha',name:'phive wellness club',area:'saldanha · lisboa',dist:'2.1 km',here:false,machines:[
+      {brand:'technogym',name:'selection pro chest press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
+      {brand:'technogym',name:'selection pro leg press',group:'legs',muscle:'quads · glutes',lastW:0,lastR:0,lastS:0,date:''},
+      {brand:'technogym',name:'pure lat machine',group:'pull',muscle:'lats',lastW:0,lastR:0,lastS:0,date:''},
+      {brand:'matrix',name:'ultra seated row',group:'pull',muscle:'mid-back',lastW:0,lastR:0,lastS:0,date:''},
+      {brand:'precor',name:'discovery shoulder press',group:'push',muscle:'delts',lastW:0,lastR:0,lastS:0,date:''},
+    ]},
+    {id:'alvalade',name:'fitness up',area:'alvalade · lisboa',dist:'3.4 km',here:false,machines:[
+      {brand:'matrix',name:'aura chest press',group:'push',muscle:'chest',lastW:0,lastR:0,lastS:0,date:''},
+      {brand:'matrix',name:'aura leg curl',group:'legs',muscle:'hamstrings',lastW:0,lastR:0,lastS:0,date:''},
+      {brand:'precor',name:'vitality lat pulldown',group:'pull',muscle:'lats',lastW:0,lastR:0,lastS:0,date:''},
+    ]},
+  ];
+  const GROUPS=['all','push','pull','legs'];
+
+  let st={gym:null,m:null,w:0,r:10,filter:'all',sets:[],session:null};
+  let draft={name:'push day',items:[]};
+  // the exercise picker is shared: 'draft' = building/editing a saved workout,
+  // 'session' = adding to the LIVE workout in progress (never touches the saved template).
+  let pickMode='draft';
+  function pickArr(){ return (pickMode==='session'&&st.session)?st.session.items:draft.items; }
+  function activeScreenId(){ const s=document.querySelector('.screen.active'); return s?s.id:''; }
+  function pickPanel(){ return pickMode==='session'?(activeScreenId()==='s-log'?'log-sess-picker':'sess-picker'):'picker'; }
+  function pickBtnId(panel){ return ({picker:'addex-btn','sess-picker':'sess-addex-btn','log-sess-picker':'log-sess-addex-btn'})[panel]; }
+  function pickRefresh(){
+    if(pickMode==='session'){
+      updateSessionBar();
+      if(activeScreenId()==='s-overview') renderOverview();
+      const p=document.getElementById(pickPanel()); if(p&&p.style.display!=='none') renderPicker();
+    }
+    else { renderDraft(); if(document.getElementById('picker').style.display!=='none') renderPicker(); }
+  }
+
+  // ===== on-device persistence (localStorage) =====
+  const LS='rackd.v1';
+  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];d.active=d.active||null;return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[],active:null};}}
+  // a swallowed write is how a finished workout silently disappears: the set lands in
+  // memory, the screen renders it, and the next launch reloads the last DB that fit.
+  // localStorage is a few MB and every machine photo is stored inline, so quota is
+  // reachable — say so loudly instead of losing the session.
+  let _saveWarned=false;
+  function saveDB(){
+    try{ localStorage.setItem(LS,JSON.stringify(DB)); _saveWarned=false; return true; }
+    catch(e){
+      if(!_saveWarned){
+        _saveWarned=true;
+        try{ toastMsg(true,'could not save','storage is full — export a backup, this workout is not on disk yet'); }catch(_){}
+      }
+      return false;
+    }
+  }
+  // the in-progress workout is a live DUPLICATE of the preset: its own idx + items,
+  // so edits/sets during the workout never touch the saved preset. Persisted so the
+  // "current workout" card survives an app restart until the user taps finish.
+  function persistActive(){ DB.active = st.session ? {name:st.session.name,items:st.session.items,idx:st.session.idx,wid:st.session.wid,startedAt:st.session.startedAt||null} : null; saveDB(); }
+  let DB=loadDB();
+  // ---- one-time cleanup: machines logged as "custom" before they existed in the catalog.
+  // brand+name is the identity used everywhere — sets, saved sessions, workout presets and
+  // the per-machine notes — so all four have to move together or the machine's history splits
+  // in two and "last time on this machine" stops seeing the older sets.
+  const LEGACY_MACHINES=[
+    {from:['custom','acurate lat zug'],        to:['stairmaster','arcuate lat pull']},
+    {from:['custom','arcuate rudermaschiene'], to:['stairmaster','arcuate seated row']},
+    {from:['custom','hbp leg extension'],      to:['hbp','standardline beinstreck maschine, sitzend 0402']},
+    {from:['custom','hbp leg curl lying'],     to:['hbp','standardline beinbeuge maschine, liegend 0403']},
+  ];
+  function migrateLegacyMachines(){
+    if(DB.mig_machines) return;
+    const hit={}; LEGACY_MACHINES.forEach(r=>{hit[r.from[0]+'|'+r.from[1]]=r.to;});
+    const remap=o=>{ if(!o||!o.name) return false; const t=hit[(o.brand||'')+'|'+o.name]; if(!t) return false; o.brand=t[0]; o.name=t[1]; return true; };
+    let n=0;
+    (DB.sets||[]).forEach(s=>{ if(remap(s)) n++; });
+    (DB.sessions||[]).forEach(s=>(s.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    // notes are keyed brand|name, sometimes behind a workout-scope prefix — keep the prefix,
+    // and never clobber a note the real machine already carries.
+    const notes=DB.notes||{};
+    Object.keys(notes).forEach(k=>{
+      const r=LEGACY_MACHINES.find(x=>{const f=x.from[0]+'|'+x.from[1]; return k===f||k.endsWith('|'+f);});
+      if(!r) return;
+      const f=r.from[0]+'|'+r.from[1], nk=k.slice(0,k.length-f.length)+r.to[0]+'|'+r.to[1];
+      notes[nk]=(notes[nk]&&notes[nk]!==notes[k])?notes[nk]+'\n'+notes[k]:notes[k];
+      delete notes[k]; n++;
+    });
+    DB.notes=notes;
+    // the custom stand-ins are duplicates of real catalog machines now
+    DB.custom=(DB.custom||[]).filter(c=>!hit[(c.brand||'')+'|'+c.name]);
+    DB.mig_machines=1; saveDB();
+    if(n) console.log('[rackd] migrated '+n+' legacy custom reference(s)');
+  }
+  migrateLegacyMachines();
+  // ---- round two: machines that only reached the catalog in the Aug-29 rebuild (HBP,
+  // GervaSport, StairMaster, Strive) plus one Panatta name that never lined up. Needs its
+  // own flag — mig_machines is already 1 on any device that ran the first round, so
+  // appending to LEGACY_MACHINES above would silently never execute.
+  const LEGACY_MACHINES_2=[
+    {from:['custom','strive shoulder press'], to:['strive','smart strength shoulder press s-103']},
+    {from:['custom','prime butterfly'],       to:['prime fitness','prime hybrid pec fly']},
+    {from:['custom','gerva sport bizeps'],    to:['gervasport','classic biceps curl c080']},
+    // logged under the line name; the catalog drops it: "FREEWEIGHT HP High Row" -> "HP High Row"
+    {from:['panatta','freeweight hp high row (1hp503)'], to:['panatta','hp high row (1hp503)']},
+    // deliberately NOT migrated: "48 bizeps curl" and "panatta sup" stay custom — no
+    // catalog machine matches them, and a wrong link would attach real sets to the
+    // wrong machine (loads are not comparable across machines).
+  ];
+  function migrateLegacyMachines2(){
+    if(DB.mig_machines2) return;
+    const hit={}; LEGACY_MACHINES_2.forEach(r=>{hit[r.from[0]+'|'+r.from[1]]=r.to;});
+    const remap=o=>{ if(!o||!o.name) return false; const t=hit[(o.brand||'')+'|'+o.name]; if(!t) return false; o.brand=t[0]; o.name=t[1]; return true; };
+    let n=0;
+    (DB.sets||[]).forEach(s=>{ if(remap(s)) n++; });
+    (DB.sessions||[]).forEach(s=>(s.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    const notes=DB.notes||{};
+    Object.keys(notes).forEach(k=>{
+      const r=LEGACY_MACHINES_2.find(x=>{const f=x.from[0]+'|'+x.from[1]; return k===f||k.endsWith('|'+f);});
+      if(!r) return;
+      const f=r.from[0]+'|'+r.from[1], nk=k.slice(0,k.length-f.length)+r.to[0]+'|'+r.to[1];
+      notes[nk]=(notes[nk]&&notes[nk]!==notes[k])?notes[nk]+'\n'+notes[k]:notes[k];
+      delete notes[k]; n++;
+    });
+    DB.notes=notes;
+    DB.custom=(DB.custom||[]).filter(c=>!hit[(c.brand||'')+'|'+c.name]);
+    DB.mig_machines2=1; saveDB();
+    if(n) console.log('[rackd] migrated '+n+' further legacy reference(s)');
+  }
+  migrateLegacyMachines2();
+  // one-time: two exercises added to the "Back, Arms & Full Body" preset. presets are user
+  // data, so this ships as a guarded migration rather than a code-level default. runs after
+  // the machine migration so it sees canonical brand+name.
+  function migratePresetAdds(){
+    if(DB.mig_preset_ba) return;
+    const w=(DB.workouts||[]).find(x=>x&&x.name==='Back, Arms & Full Body');
+    if(w){
+      w.items=w.items||[];
+      const has=(b,n)=>w.items.some(i=>i&&i.brand===b&&i.name===n);
+      const mk=(b,n,g,mu)=>{
+        const src=(DB.custom||[]).find(c=>c&&c.brand===b&&c.name===n)||{};
+        return {brand:b,name:n,group:src.group||g,muscle:src.muscle||mu||'',img:src.img||'',lastW:0,lastR:0,lastS:0,date:''};
+      };
+      if(!has('custom','48 bizeps curl')) w.items.push(mk('custom','48 bizeps curl','pull','biceps'));
+      if(!has('barbell','barbell strict curl')){
+        // not in the shipped library — register it so it stays searchable and reusable
+        if(!(DB.custom||[]).some(c=>c&&c.brand==='barbell'&&c.name==='barbell strict curl'))
+          DB.custom.push({brand:'barbell',name:'barbell strict curl',group:'pull',muscle:'biceps',img:'',lastW:0,lastR:0,lastS:0,date:''});
+        w.items.push(mk('barbell','barbell strict curl','pull','biceps'));
+      }
+    }
+    DB.mig_preset_ba=1; saveDB();
+  }
+  migratePresetAdds();
+  // ---- one-time: a single preset holding every distinct exercise from the last five
+  // sessions (31 Jul - 21 Aug). Runs after migrateLegacyMachines2 so the Panatta high row
+  // is already under its canonical name.
+  //
+  // Two deliberate edits to what the sessions actually contain:
+  //   * "monolith standing multi flight (1mth028)" is dropped — despite the name that
+  //     machine is the cable tower, logged by mistake in place of the real standing multi
+  //     flight, which is "fit evo standing multi flight machine (1fe028)" and takes its slot
+  //   * only one of the two Nautilus pullovers is kept (nitro plus, the more recent)
+  // Basis are the last five TRAINING DAYS (19-27 Aug), not the last five saved
+  // sessions: everything after 21 Aug was logged as sets without the session ever
+  // being finished — one workout is still open in DB.active — so going by sessions
+  // silently ignores the three most recent workouts.
+  const PRESET_ALL='everything (last 5 training days)';
+  const PRESET_ITEMS=[
+    ['barbell','barbell bench press','push','chest'],
+    ['barbell','barbell curl','pull','biceps'],
+    ['barbell','spider curls','pull','biceps'],
+    ['watson','animal adjustable hack squat (0042)','legs','quads · glutes'],
+    ['hbp','standardline beinstreck maschine, sitzend 0402','legs','quads'],
+    ['hbp','standardline beinbeuge maschine, liegend 0403','legs','hamstrings'],
+    ['strive','smart strength arm curl s-101','pull','biceps'],
+    ['nautilus','nitro compound row','pull','mid-back'],
+    ['panatta','freeweight special super rowing machine circular (1fw204)','pull','mid-back · lats'],
+    ['panatta','freeweight special super lat pulldown circular (1fw101)','pull','lats'],
+    ['panatta','freeweight special super high row (1fw003)','pull','upper-back · lats'],
+    ['panatta','fit evo standing multi flight machine (1fe028)','push','side delts'],
+    ['stairmaster','arcuate lat pull','pull','lats'],
+    ['stairmaster','arcuate seated row','pull','mid-back · lats'],
+    ['gervasport','classic biceps curl c080','pull','biceps'],
+    ['custom','48 bizeps curl','pull','biceps'],
+    ['custom','panatta sup','core',''],
+  ];
+  function migratePresetAll(){
+    if(DB.mig_preset_all) return;
+    DB.workouts=DB.workouts||[];
+    if(!DB.workouts.some(w=>w&&w.name===PRESET_ALL)){
+      const items=PRESET_ITEMS.map(([b,n,g,mu])=>{
+        // free-weight moves are not in the machine catalog, so register them as custom
+        // once — otherwise they are not searchable and cannot be reused in another preset
+        if(b==='barbell'&&!(DB.custom||[]).some(c=>c&&c.brand===b&&c.name===n))
+          (DB.custom=DB.custom||[]).push({brand:b,name:n,group:g,muscle:mu,img:'',lastW:0,lastR:0,lastS:0,date:''});
+        const src=(DB.custom||[]).find(c=>c&&c.brand===b&&c.name===n)||{};
+        return {brand:b,name:n,group:g,muscle:mu,img:src.img||'',lastW:0,lastR:0,lastS:0,date:''};
+      });
+      DB.workouts.push({id:'wall5'+Date.now().toString(36),name:PRESET_ALL,items:items});
+    }
+    DB.mig_preset_all=1; saveDB();
+  }
+  migratePresetAll();
+  // one-time: the custom stand-ins carried accidental screenshots rather than machine photos,
+  // and renaming them onto real machines left one preset holding the same machine twice. pin the
+  // shipped catalog photo where we actually have one, drop the screenshot, and de-duplicate —
+  // but only for the identities this migration created, since a preset may legitimately repeat
+  // a machine on purpose.
+  const MACHINE_IMG={'stairmaster|arcuate lat pull':'img/stairmaster-arcuate-lat-pull.jpg'};
+  const NO_IMAGE={};   // brand|name pairs that must stay photo-less (none right now)
+  function migrateMachineImages(){
+    if(DB.mig_img1) return;
+    const pin=o=>{ if(!o||!o.name) return; const k=(o.brand||'')+'|'+o.name;
+      if(MACHINE_IMG[k]) o.img=MACHINE_IMG[k]; else if(NO_IMAGE[k]) o.img=''; };
+    const targets={}; LEGACY_MACHINES.forEach(r=>{targets[r.to[0]+'|'+r.to[1]]=1;});
+    (DB.custom||[]).forEach(pin);
+    (DB.workouts||[]).forEach(w=>{
+      (w.items||[]).forEach(pin);
+      const seen={};
+      w.items=(w.items||[]).filter(i=>{
+        const k=((i&&i.brand)||'')+'|'+((i&&i.name)||'');
+        if(!targets[k]) return true;
+        if(seen[k]) return false; seen[k]=1; return true;
+      });
+    });
+    DB.mig_img1=1; saveDB();
+  }
+  migrateMachineImages();
+  // ---- round three: GervaSport rows were bare codes ("classic c080") until the catalog got
+  // their real names from the manufacturer's archived site (api/gervasport_names.py). the
+  // code stays at the end of the new name. same four places as the rounds above, plus the
+  // set KEY: rounds one and two rewrote brand/name but left s.key on the old identity, and
+  // setsFor() matches on the key — so every set they moved (the gerva curl, the arcuate
+  // rows, hbp, strive, prime, panatta high row) dropped out of "last time" and PRs. any set
+  // whose key disagrees with its own brand|name is re-keyed to it here.
+  const GERVA_RENAME={
+    'classic c080':'classic biceps curl c080',
+    'classic c082iso':'classic iso-lateral shoulder press c082iso',
+    'classic c040':'classic lateral raise c040', 'classic c082':'classic shoulder press c082',
+    'classic c044':'classic pec fly c044', 'classic c045':'classic pec fly / rear delt c045',
+    'classic c046':'classic vertical chest press c046',
+    'classic c078':'classic seated chest & triceps dip c078',
+    'classic cg085':'classic plate-loaded smith machine cg085',
+    'classic c032':'classic chest-supported t-bar row c032',
+    'classic c035':'classic chest-supported seated row c035',
+    'classic c052a':'classic kneeling assisted chin & dip c052a',
+    'classic c001':'classic 45-degree leg press c001',
+    'classic c005':'classic horizontal leg press c005', 'classic c007':'classic hack squat c007',
+    'classic c008':'classic squat stand c008', 'classic c011':'classic lying leg curl c011',
+    'classic c012':'classic leg extension c012', 'classic c015':'classic squat cage c015',
+    'classic c016':'classic standing calf & squat c016',
+    'classic c018':'classic seated calf raise (plate-loaded) c018',
+    'classic c019':'classic standing glute c019', 'classic c021':'classic glute machine c021',
+    'classic c021a':'classic kneeling glute kickback c021a', 'classic c022':'classic adductor c022',
+    'classic c023':'classic abductor c023', 'classic c058':'classic 45-degree calf raise c058',
+    'classic c059':'classic seated calf raise c059',
+    'classic c043':'classic iso-lateral lat pulldown c043',
+    'classic c048':'classic iso-lateral incline press c048',
+    'classic ce001':'classic lever incline press ce001',
+    'classic ce002':'classic lever bench press ce002',
+    'classic ce004':'classic lever shoulder press ce004',
+    'classic ce005':'classic lever t-bar row ce005', 'classic ce006':'classic lever lat pulldown ce006',
+    'classic ce008':'classic lever leg press ce008', 'classic c050':'classic decline press bench c050',
+    'classic c053':'classic olympic bench press c053', 'classic c056':'classic incline press bench c056',
+    'classic c069':'classic crunch bench c069', 'classic c071':'classic adjustable ab bench c071',
+    'classic c073':'classic ab crunch bench c073', 'classic c079':'classic preacher curl bench c079',
+    'classic c083':'classic shoulder press bench c083', 'classic c168':'classic sit-up bench c168',
+    'classic c094':'classic flat bench c094', 'classic cg061':'classic hyperextension cg061',
+    'classic c090':'classic multi-station cable crossover c090',
+    'classic c109':'classic plate tree c109', 'classic c164a':'classic barbell rack c164a',
+    'classic c057':'classic total abdominal crunch c057',
+    'classic c060':'classic lower back extension c060', 'exclusive s080':'exclusive biceps curl s080',
+    'exclusive s052':'exclusive assisted chin & dip s052',
+    'exclusive s052a':'exclusive standing assisted chin & dip s052a',
+    'exclusive s046':'exclusive vertical chest press s046',
+    'exclusive s011':'exclusive lying leg curl s011', 'exclusive s012':'exclusive leg extension s012',
+    'exclusive s019':'exclusive standing glute s019',
+    'exclusive s021':'exclusive kneeling glute kickback s021',
+    'exclusive s023':'exclusive abductor s023', 'exclusive s057':'exclusive total abdominal crunch s057',
+    'exclusive s060':'exclusive lower back extension s060',
+    'fitness f057':'fitness total abdominal crunch f057',
+    'fitness f060':'fitness lower back extension f060', 'fitness f061':'fitness upper ab crunch f061',
+    'fitness f080':'fitness biceps curl f080', 'fitness f081':'fitness triceps extension f081',
+    'fitness f011d':'fitness lying leg curl (plate-loaded) f011d',
+    'fitness f076d':'fitness vertical chest press (plate-loaded) f076d',
+    'fitness f078d':'fitness seated dip (plate-loaded) f078d',
+    'fitness f035':'fitness chest-supported seated row f035',
+    'fitness f040':'fitness lateral raise f040', 'fitness f082':'fitness shoulder press f082',
+    'fitness f005':'fitness horizontal leg press f005',
+    'fitness f010':'fitness 45-degree calf raise f010', 'fitness f011':'fitness lying leg curl f011',
+    'fitness f012':'fitness leg extension f012', 'fitness f014':'fitness seated leg curl f014',
+    'fitness f016':'fitness standing calf & squat f016', 'fitness f036':'fitness pullover f036',
+    'fitness f044':'fitness pec fly f044', 'fitness f045':'fitness pec fly / rear delt f045',
+    'fitness f046':'fitness vertical chest press f046',
+    'fitness f078':'fitness seated chest & triceps dip f078'
+  };
+  function migrateLegacyMachines3(){
+    if(DB.mig_machines3) return;
+    const remap=o=>{ if(!o||o.brand!=='gervasport'||!GERVA_RENAME[o.name]) return false; o.name=GERVA_RENAME[o.name]; return true; };
+    let n=0;
+    (DB.sets||[]).forEach(s=>{
+      if(remap(s)) n++;
+      if(s&&s.name&&mkey(s.key)!==(s.brand||'')+'|'+s.name){ s.key=(s.brand||'')+'|'+s.name; n++; }
+    });
+    (DB.sessions||[]).forEach(s=>(s.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(i=>{ if(remap(i)) n++; }));
+    (DB.custom||[]).forEach(c=>{ if(remap(c)) n++; });
+    if(DB.active) (DB.active.items||[]).forEach(i=>{ if(remap(i)) n++; });
+    const notes=DB.notes||{};
+    Object.keys(notes).forEach(k=>{
+      const old=Object.keys(GERVA_RENAME).find(o=>{const f='gervasport|'+o; return k===f||k.endsWith('|'+f);});
+      if(!old) return;
+      const f='gervasport|'+old, nk=k.slice(0,k.length-f.length)+'gervasport|'+GERVA_RENAME[old];
+      notes[nk]=(notes[nk]&&notes[nk]!==notes[k])?notes[nk]+'\n'+notes[k]:notes[k];
+      delete notes[k]; n++;
+    });
+    DB.notes=notes;
+    DB.mig_machines3=1; saveDB();
+    if(n) console.log('[rackd] migrated '+n+' gervasport / set-key reference(s)');
+  }
+  migrateLegacyMachines3();
+  // ---- a set is now stamped with the session that recorded it (s.sid). before this, a set
+  // belonged to a session only by "same calendar day", so anything logged after you tapped
+  // finish — or on a machine that was never in the workout — was invisible in history for
+  // good. stamp the sets of every session saved before the flag existed, matching on the
+  // machine first, then on the load alone (older sessions still carry pre-rename names).
+  function migrateSetSids(){
+    if(DB.mig_setsid) return;
+    const dk=ts=>{const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime();};
+    const k=o=>((o.brand||'')+'|'+o.name).toLowerCase();
+    const byDay={}; (DB.sets||[]).forEach(s=>{ if(s&&s.ts)(byDay[dk(s.ts)]||(byDay[dk(s.ts)]=[])).push(s); });
+    const ofDay={}; (DB.sessions||[]).forEach(x=>{ if(x&&x.ts)(ofDay[dk(x.ts)]||(ofDay[dk(x.ts)]=[])).push(x); });
+    (DB.sessions||[]).forEach(sess=>{
+      const day=byDay[dk(sess.ts)]||[];
+      (sess.items||[]).forEach(it=>(it.sets||[]).forEach(x=>{
+        const hit=day.find(s=>!s.sid&&k(s)===k(it)&&s.w===x.w&&s.r===x.r)
+               || day.find(s=>!s.sid&&k(s)===k(it))
+               || day.find(s=>!s.sid&&s.w===x.w&&s.r===x.r);
+        if(hit) hit.sid=sess.id;
+      }));
+    });
+    // one session that day means everything logged that day belongs to it — the old rule,
+    // applied once so no historic set surfaces as "not saved".
+    Object.keys(byDay).forEach(d=>{ const ss=ofDay[d]||[];
+      if(ss.length===1) byDay[d].forEach(s=>{ if(!s.sid) s.sid=ss[0].id; }); });
+    DB.mig_setsid=1; saveDB();
+  }
+  migrateSetSids();
+  // ---- one-time: a preset of every distinct exercise from the last seven training days
+  // (18 Sep - 2 Oct), in first-trained order. the gerva leg curl was logged as the custom
+  // "gerva sport leg curk" (photo was a black frame); it is the classic c011 from the same
+  // floor as the c080 curl, and the c012 leg extension next to it is added on request.
+  // both nautilus pullovers and both leg extensions are kept on purpose.
+  const PRESET_7='last 7 training days';
+  const PRESET_7_ITEMS=[
+    ['barbell','barbell bench press','push','chest',''],
+    ['strive','smart strength arm curl s-101','pull','biceps','catalog/img/2969.jpg'],
+    ['watson','animal adjustable hack squat (0042)','legs','quads · glutes','catalog/img/2516.jpg'],
+    ['panatta','freeweight special super high row (1fw003)','pull','upper-back · lats','catalog/img/2797.jpg'],
+    ['custom','48 bizeps curl','pull','biceps',''],
+    ['nautilus','nitro evo pullover','pull','lats','catalog/img/1111.jpg'],
+    ['panatta','freeweight special super lat pulldown circular (1fw101)','pull','lats','catalog/img/2793.jpg'],
+    ['barbell','barbell curl','pull','biceps',''],
+    ['hbp','standardline beinstreck maschine, sitzend 0402','legs','quads',''],
+    ['gervasport','classic lying leg curl c011','legs','hamstrings','catalog/img/3229.jpg'],
+    ['gervasport','classic leg extension c012','legs','quads','catalog/img/3230.jpg'],
+    ['brightway','pl01 chest press','push','chest','catalog/img/4105.jpg'],
+    ['nautilus','nitro pullover','pull','lats','catalog/img/1137.jpg'],
+  ];
+  function migratePreset7(){
+    if(DB.mig_preset_7) return;
+    DB.workouts=DB.workouts||[];
+    if(!DB.workouts.some(w=>w&&w.name===PRESET_7)){
+      const items=PRESET_7_ITEMS.map(([b,n,g,mu,img])=>{
+        // no catalog photo (custom / hbp) -> reuse the one the user took for it
+        const src=(DB.custom||[]).find(c=>c&&c.brand===b&&c.name===n)||{};
+        return {brand:b,name:n,group:g,muscle:mu,img:img||src.img||'',lastW:0,lastR:0,lastS:0,date:''};
+      });
+      DB.workouts.push({id:'wlast7'+Date.now().toString(36),name:PRESET_7,items:items});
+    }
+    DB.mig_preset_7=1; saveDB();
+  }
+  migratePreset7();
+  // ---- one-time: the first take on setups (the 20 oct debug build) tagged every set
+  // 'standard' or a free-form code, appended '|setup:<code>' to the set key, and kept the
+  // setups in their own localStorage entry — outside rackd.v1, so no backup ever had them.
+  // fold that into A/B/C: no setup = untagged, keys back to brand|name, and each saved
+  // setup's name + note becomes that letter's note on its machine.
+  function migrateSetups(){
+    if(DB.mig_setups) return;
+    DB.setups=DB.setups||{};
+    (DB.sets||[]).forEach(s=>{
+      if(!s) return;
+      if(typeof s.key==='string'&&s.key.includes('|setup:')) s.key=s.key.split('|setup:')[0];
+      if(s.setup==='standard'||s.setup==='') delete s.setup;
+    });
+    (DB.sessions||[]).forEach(ss=>(ss&&ss.items||[]).forEach(it=>(it.sets||[]).forEach(x=>{
+      if(x&&x.setup==='standard') delete x.setup; })));
+    let old={}; try{ old=JSON.parse(localStorage.getItem('rackd_setups'))||{}; }catch(e){}
+    Object.keys(old).forEach(mk=>(Array.isArray(old[mk])?old[mk]:[]).forEach(o=>{
+      if(!o||!o.code||o.code==='standard') return;
+      const rec=DB.setups[mk]||(DB.setups[mk]={notes:{}});
+      const txt=[o.name&&o.name!==o.code?o.name:'', o.note||''].filter(Boolean).join(' · ');
+      if(txt&&!rec.notes[o.code]) rec.notes[o.code]=txt;
+    }));
+    DB.mig_setups=1; saveDB();
+  }
+  migrateSetups();
+  const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  // a machine's history belongs to the MACHINE, not to whichever workout you opened it from.
+  // keys are brand|name. sets written before this fix carry a context scope in front
+  // ('w<wid>|', 'g<gym>|', 'cat|', 'custom|'), which split one machine into a separate
+  // timeline per workout — so the same curl logged in WA1 was invisible in WA3, and PRs
+  // never fired. mkey() strips that prefix at read time, so legacy sets and notes still
+  // resolve without rewriting anything already stored on the device.
+  function mkey(k){return String(k||'').split('|').slice(-2).join('|');}
+  function keyFor(m){return m.brand+'|'+m.name;}
+  function setsFor(k){const mk=mkey(k);return DB.sets.filter(s=>mkey(s.key)===mk);}
+  // ---- setups: A, B or C per machine, picked in the note sheet ----
+  // a setup is one way of using a machine (seat 4 · pad 2, another handle, one arm…), so
+  // like two machines its numbers only compare with each other: "last time", the weight
+  // delta and PRs follow the machine's selected letter, and no letter is the machine's
+  // normal history. the choice sticks per machine until it is changed; every set records
+  // the letter it was logged on, and each letter keeps its own note.
+  const SETUPS=['A','B','C'];
+  function setupRec(k){return (DB.setups||{})[mkey(k)]||{notes:{}};}
+  function curSetup(k){return setupRec(k).cur||'';}
+  function setupSets(k){const l=curSetup(k);return setsFor(k).filter(s=>(s.setup||'')===l);}
+  function stagHTML(l){return l?`<span class="stag">${escHTML(l)}</span>`:'';}
+  // a logged set can be put on another letter afterwards (tap its number, choose in the sheet),
+  // for when the setup was forgotten or picked wrong. its PR is re-judged against the sets
+  // before it on the new letter, and the machine moves with it (the note button, the A/B/C
+  // toggle and "last time" show that letter), so the sets that follow log on it too.
+  function prFor(k,m,s){
+    if(isFail(s)) return false;
+    let best=s.setup?0:(m.lastW||0);
+    setsFor(k).forEach(x=>{if(x!==s&&x.ts<s.ts&&(x.setup||'')===(s.setup||'')&&!isFail(x)&&x.w>best)best=x.w;});
+    return best>0&&s.w>best;
+  }
+  function setSetSetup(k,m,s,l){                 // s: a live DB.sets entry, l: 'A'|'B'|'C'|'' (none)
+    if(l) s.setup=l; else delete s.setup;
+    s.pr=prFor(k,m,s);
+    const rec=editSetupRec(k); if(l) rec.cur=l; else delete rec.cur;
+    saveDB();
+  }
+  let setupTarget=null;   // {k,m,i,after}: the set the sheet is choosing for, and what to re-render
+  function openSetSetup(k,m,i,after){
+    const s=todays(k)[i]; if(!s)return;
+    setupTarget={k,m,i,after};
+    const notes=setupRec(k).notes||{}, cur=s.setup||'';
+    document.getElementById('ssu-sub').textContent=`set ${i+1} · ${m.name}`;
+    document.getElementById('ssu-list').innerHTML=['',...SETUPS].map(l=>
+      `<button class="ssu-opt${l===cur?' on':''}" onclick="chooseSetSetup('${l}')">
+        <span class="code">${l||'–'}</span>
+        <span class="tx"><b>${l?'setup '+l:'no setup'}</b><span>${l?escHTML(String(notes[l]||'no note yet')):"the machine's normal history"}</span></span>
+        ${l===cur?'<span class="ck">✓</span>':''}</button>`).join('');
+    document.getElementById('ssu-back').classList.add('show');
+    document.getElementById('ssu-sheet').classList.add('show');
+  }
+  function chooseSetSetup(l){
+    const t=setupTarget; closeSetSetup(); if(!t)return;
+    const s=todays(t.k)[t.i]; if(!s)return;
+    setSetSetup(t.k,t.m,s,l); t.after();
+  }
+  function closeSetSetup(){
+    document.getElementById('ssu-back').classList.remove('show');
+    document.getElementById('ssu-sheet').classList.remove('show');
+    setupTarget=null;
+  }
+  // notes are keyed like sets, so they need the same legacy fallback
+  function noteFor(k){
+    const mk=mkey(k); if(!mk) return '';
+    if(DB.notes[mk]!=null) return String(DB.notes[mk]);
+    const legacy=Object.keys(DB.notes).find(n=>!n.startsWith('sess:')&&mkey(n)===mk);
+    return legacy?String(DB.notes[legacy]):'';
+  }
+  // clear every copy of a machine's note — the clean key and any legacy scoped ones —
+  // so clearing a note can't have an old workout-scoped copy resurface behind it.
+  function dropNote(k){
+    const mk=mkey(k); if(!mk) return;
+    Object.keys(DB.notes).forEach(n=>{if(!n.startsWith('sess:')&&mkey(n)===mk) delete DB.notes[n];});
+  }
+  // the top set of the most recent training day. skipToday leaves today's own sets out,
+  // so "last time" keeps showing the number you came in to beat even after you log.
+  function sessionOf(k,m,skipToday){
+    const all=setupSets(k), today=new Date().toDateString();
+    if(all.length){
+      const days={};all.forEach(s=>{const d=new Date(s.ts).toDateString();(days[d]=days[d]||[]).push(s);});
+      const latest=Object.keys(days).filter(d=>!skipToday||d!==today).sort((a,b)=>new Date(b)-new Date(a))[0];
+      if(latest){
+        const ds=days[latest];
+        const ok=ds.filter(s=>!isFail(s));                       // prefer the best *successful* set
+        const top=(ok.length?ok:ds).reduce((mx,s)=>s.w>mx.w?s:mx,(ok.length?ok:ds)[0]);
+        const dt=new Date(latest);
+        return{w:top.w,r:top.r,s:ds.length,date:dt.getDate()+' '+MON[dt.getMonth()]};
+      }
+    }
+    if(!curSetup(k)&&m.lastW)return{w:m.lastW,r:m.lastR,s:m.lastS,date:m.date};
+    return null;
+  }
+  function lastSession(k,m){ return sessionOf(k,m,false); }   // incl. today — seeds the weight/reps you continue at
+  function prevSession(k,m){ return sessionOf(k,m,true); }    // excl. today — what "last time" should show
+  // a set logged with 0 reps is a FAILED attempt: it stays in the history, but it never
+  // counts as a best/PR and never stands in as the "last time" number to beat.
+  function isFail(s){ return !s.r; }
+  function bestWeight(k,m){let best=curSetup(k)?0:(m.lastW||0);setupSets(k).forEach(s=>{if(!isFail(s)&&s.w>best)best=s.w;});return best;}
+  function todays(k){const t=new Date().toDateString();return setsFor(k).filter(s=>new Date(s.ts).toDateString()===t);}
+
+  function show(id){
+    document.querySelectorAll('.screen').forEach(s=>{
+      if(s.id!==id&&s.classList.contains('active')) s.classList.add('exit-left');
+      s.classList.remove('active');
+    });
+    const el=document.getElementById(id);
+    setTimeout(()=>{document.querySelectorAll('.screen').forEach(s=>s.classList.remove('exit-left'));},0);
+    el.classList.add('active');
+    if(id==='s-home'||id==='s-workouts') renderActive();   // keep the "current workout" card fresh on every visit
+    const sc=el.querySelector('.scroll'); if(sc) sc.scrollTop=0;
+  }
+  function goHome(){ renderHome(); show('s-home'); }
+  function goGyms(){ renderGyms(); show('s-gym'); }
+  function goWorkouts(){ renderWorkouts(); show('s-workouts'); }
+  function goGym(){show('s-gym');}       // back-target from the machines screen (gyms list)
+  function goMachines(){show('s-machines');}
+  function goHistory(){ renderHistory(); show('s-history'); }
+
+  // ===== history: per-muscle-group improvement charts =====
+  // weight isn't comparable across machines, so we don't compare single loads. Instead we
+  // trend *training volume* (Σ reps×kg) per muscle group per day — a fair aggregate of effort.
+  const GROUP_META={
+    push:{label:'push', color:'#E8551F'},
+    pull:{label:'pull', color:'#0A6EBD'},
+    legs:{label:'legs', color:'#7B5EA7'},
+    core:{label:'core', color:'#1A8E6E'},
+  };
+  function histDay(ts){const d=new Date(ts);return d.getDate()+' '+MON[d.getMonth()];}
+  // a line chart from [{ts,vol}] points, scaled to fill the card; no libraries (offline-safe)
+  function histChart(pts,color){
+    const W=320,H=92,pad=10;
+    if(pts.length<2){
+      return `<svg class="histchart" viewBox="0 0 ${W} ${H}"><circle cx="${W/2}" cy="${H/2}" r="3.6" fill="${color}"/></svg>`;
+    }
+    const xs=pts.map(p=>p.ts), vs=pts.map(p=>p.vol);
+    const minX=Math.min(...xs), maxX=Math.max(...xs), minV=Math.min(...vs), maxV=Math.max(...vs);
+    const sx=(maxX-minX)||1, sv=(maxV-minV)||1;
+    const X=t=>pad+(t-minX)/sx*(W-2*pad);
+    const Y=v=>(H-pad)-(v-minV)/sv*(H-2*pad);
+    const line=pts.map(p=>X(p.ts).toFixed(1)+','+Y(p.vol).toFixed(1)).join(' ');
+    const area=`${pad.toFixed(1)},${(H-pad).toFixed(1)} ${line} ${(W-pad).toFixed(1)},${(H-pad).toFixed(1)}`;
+    const dots=pts.map(p=>`<circle cx="${X(p.ts).toFixed(1)}" cy="${Y(p.vol).toFixed(1)}" r="2.6" fill="${color}"/>`).join('');
+    return `<svg class="histchart" viewBox="0 0 ${W} ${H}">`
+      +`<polygon points="${area}" fill="${color}" fill-opacity="0.12"/>`
+      +`<polyline points="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`
+      +dots+`</svg>`;
+  }
+  function renderHistory(){
+    const wrap=document.getElementById('histbody');
+    const sets=(DB.sets||[]).filter(s=>s&&s.ts);
+    if(!sets.length){wrap.innerHTML='<div class="empty">no history yet — log some sets and your progress shows up here.</div>';return;}
+    // map an exercise name → its muscle group (known machines first, else a keyword guess)
+    const gmap={};
+    try{pool().forEach(x=>{if(x&&x.name&&x.group)gmap[x.name]=x.group;});}catch(e){}
+    const groupOf=n=>gmap[n]||guessGroup(n);
+    // bucket sets by group, then by calendar day, summing volume
+    const byGroup={};
+    sets.forEach(s=>{
+      const g=groupOf(s.name);
+      const d=new Date(s.ts); d.setHours(0,0,0,0); const dk=d.getTime();
+      const G=byGroup[g]||(byGroup[g]={days:{},sets:0,prs:0});
+      G.sets++; if(s.pr)G.prs++;
+      (G.days[dk]||(G.days[dk]={ts:dk,vol:0})).vol+=(s.w||0)*(s.r||0);
+    });
+    let html='';
+    ['push','pull','legs','core'].forEach(g=>{
+      const G=byGroup[g]; if(!G)return;
+      const meta=GROUP_META[g]||{label:g,color:'var(--accent)'};
+      const pts=Object.values(G.days).sort((a,b)=>a.ts-b.ts);
+      const first=pts[0].vol, last=pts[pts.length-1].vol;
+      let trend, cls='';
+      if(pts.length<2){ trend='log again to see a trend'; }
+      else if(first>0){ const pct=Math.round((last-first)/first*100); cls=pct>=0?'up':'down'; trend=(pct>=0?'+':'')+pct+'% since '+histDay(pts[0].ts); }
+      else { trend='since '+histDay(pts[0].ts); }
+      html+=`<div class="histcard">
+        <div class="histhd">
+          <span class="histdot" style="background:${meta.color}"></span>
+          <span class="histname">${meta.label}</span>
+          <span class="histtrend ${cls}">${trend}</span>
+        </div>
+        ${histChart(pts,meta.color)}
+        ${pts.length>1?`<div class="histaxis"><span>${histDay(pts[0].ts)}</span><span>${histDay(pts[pts.length-1].ts)}</span></div>`:''}
+        <div class="histmeta">${pts.length} session${pts.length!==1?'s':''} · ${G.sets} set${G.sets!==1?'s':''} · ${G.prs} pr${G.prs!==1?'s':''} · volume in kg</div>
+      </div>`;
+    });
+    wrap.innerHTML=html;
+  }
+
+  // ===== tap-to-enlarge machine photo =====
+  function openImgView(src){ if(!src)return; document.getElementById('imgview-img').src=src; document.getElementById('imgview').classList.add('show'); }
+  function closeImgView(){ const v=document.getElementById('imgview'); v.classList.remove('show'); document.getElementById('imgview-img').src=''; }
+  function enlargeThumb(el){ const img=el.querySelector('.mthumb-over'); if(img) openImgView(img.currentSrc||img.src); }
+  // any machine photo, anywhere → tap to enlarge. capture phase + stopPropagation so the
+  // tap doesn't also trigger the surrounding row's navigation.
+  document.addEventListener('click', function(e){
+    const t = e.target;
+    if (t && t.tagName === 'IMG' && t.classList.contains('mthumb-over')) {
+      e.stopPropagation(); e.preventDefault();
+      openImgView(t.currentSrc || t.src);
+    }
+  }, true);
+
+  // ===== previous workouts: list of completed sessions (editable) =====
+  function goSessions(){ renderSessions(); show('s-sessions'); }
+  function fmtW(w){ return w%1===0?w:(+w).toFixed(1); }
+  const dayKey=ts=>{const d=new Date(ts);d.setHours(0,0,0,0);return d.getTime();};
+  // days you logged sets on but never finished as a session. this used to be today-only,
+  // so a day you didn't tap "finish" on dropped out of this screen at midnight — the sets
+  // stayed in DB.sets and kept feeding the charts, but nothing here ever showed them again.
+  // every unfinished day now gets its own card and can still be archived after the fact.
+  function unsavedDays(){
+    const days={};
+    (DB.sets||[]).forEach(s=>{
+      if(!s||!s.ts||s.sid) return;              // s.sid = already part of a saved session
+      const k=dayKey(s.ts);
+      const D=days[k]||(days[k]={key:k, ts:s.ts, by:{}, order:[]});
+      if(s.ts>D.ts) D.ts=s.ts;                    // the session inherits that day's last set time
+      const g=(s.brand||'')+'|'+s.name;
+      if(!D.by[g]){ D.by[g]={brand:s.brand,name:s.name,sets:[]}; D.order.push(g); }
+      D.by[g].sets.push(s);
+    });
+    const today=dayKey(Date.now());
+    return Object.keys(days).map(k=>days[k])
+      .map(D=>({key:D.key, ts:D.ts, isToday:D.key===today, groups:D.order.map(g=>D.by[g])}))
+      .sort((a,b)=>b.key-a.key);
+  }
+  // archive one unfinished day into previous workouts (covers logging without a started workout)
+  function saveDayAsSession(key){
+    key=+key;
+    if(st.session && key===dayKey(Date.now())){ finishSession(); renderSessions(); show('s-sessions'); return; }
+    const day=unsavedDays().find(d=>d.key===key); if(!day) return;
+    const items=day.groups.map(g=>({brand:g.brand,name:g.name,sets:g.sets.map(s=>({w:s.w,r:s.r,pr:!!s.pr,...(s.setup?{setup:s.setup}:{})}))}));
+    const id='s'+Date.now().toString(36);
+    day.groups.forEach(g=>g.sets.forEach(s=>{ s.sid=id; }));   // these sets are now accounted for
+    DB.sessions.push({id, wid:null, name:'workout', ts:day.ts, items});
+    const ok=saveDB(); renderSessions();
+    if(!ok) return;                            // saveDB() already warned that nothing was written
+    toastMsg(false,'saved to history', day.isToday
+      ? 'today’s workout is now in previous workouts'
+      : histDay(day.ts)+' is now in previous workouts');
+  }
+  // one card per training day, newest first. saved sessions and days you logged without
+  // finishing a workout live in the SAME chronological list — pending days used to be
+  // rendered as a block above every saved session, so the workout you finished yesterday
+  // sat below four older unfinished days and read as missing.
+  // a session record stores only brand+name, so its rows have no photo of their own.
+  // look it up in the workouts and exercises that do carry one — history should show the
+  // same machine picture as every other screen.
+  let _photoIX=null;
+  function photoIndex(rebuild){
+    if(!_photoIX||rebuild){
+      const IX={}, put=o=>{ if(o&&o.name&&o.img&&!IX[imgKey(o)]) IX[imgKey(o)]=o.img; };
+      (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(put));
+      (DB.custom||[]).forEach(put);
+      _photoIX=IX;
+    }
+    return _photoIX;
+  }
+  const photoFor=(b,n)=>photoIndex()[((b||'')+'|'+(n||'')).toLowerCase()]||'';
+  const exRow=(brand,name,sets)=>`<div class="ps-ex">
+      <div class="ps-exl">${thumbHTML(brand,name,guessGroup(name),photoFor(brand,name))}
+        <div class="ps-exn">${name}${brand&&brand!=='custom'?` <span class="ps-b">${brand}</span>`:''}</div></div>
+      <div class="ps-sets">${sets}</div>
+    </div>`;
+  function pendingCard(day){
+    const nsets=day.groups.reduce((a,it)=>a+it.sets.length,0);
+    const d=new Date(day.ts);
+    const label=day.isToday?'today':d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
+    return `<div class="histcard">
+      <div class="histhd"><span class="histname">${label}</span><span class="histtrend">${day.isToday?'in progress':'not saved'}</span></div>
+      <div class="histmeta">${day.groups.length} exercise${day.groups.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''}</div>
+      ${day.groups.map(it=>exRow(it.brand,it.name,it.sets.map(x=>`${x.r}×${fmtW(x.w)}${stagHTML(x.setup)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · '))).join('')}
+      <button class="ov-add" style="margin-top:10px;" onclick="saveDayAsSession(${day.key})">${day.isToday?'finish &amp; save to history':'save to history'}</button>
+    </div>`;
+  }
+  // saved sessions: read-only summary cards, tap to open the editor screen
+  function savedCard(s){
+    const d=new Date(s.ts);
+    const date=d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
+    const items=s.items||[];
+    const nsets=items.reduce((a,it)=>a+(it.sets?it.sets.length:0),0);
+    const ex=items.map(it=>exRow(it.brand,it.name,
+      (it.sets||[]).map(x=>`${x.r}×${fmtW(x.w)}${stagHTML(x.setup)}${x.pr?'<span class="ps-pr">PR</span>':''}`).join(' · ')||'—')).join('');
+    return `<div class="histcard tapcard" onclick="openSession('${s.id}')">
+      <div class="histhd"><span class="histname">${s.name||'workout'}</span><span class="histtrend">${date}</span>
+        <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span></div>
+      <div class="histmeta">${items.length} exercise${items.length!==1?'s':''} · ${nsets} set${nsets!==1?'s':''} · tap to edit</div>
+      ${ex}
+    </div>`;
+  }
+  function renderSessions(){
+    const wrap=document.getElementById('sessbody');
+    photoIndex(true);
+    const ss=(DB.sessions||[]).filter(s=>s&&s.ts);
+    const pending=unsavedDays();
+    if(!ss.length && !pending.length){ wrap.innerHTML='<div class="empty">no completed workouts yet — finish a workout and it shows up here.</div>'; return; }
+    const cards=[...pending.map(d=>({ts:d.ts, html:pendingCard(d)})),
+                 ...ss.map(s=>({ts:s.ts, html:savedCard(s)}))].sort((a,b)=>b.ts-a.ts);
+    wrap.innerHTML=cards.map(c=>c.html).join('');
+  }
+
+  // ----- session editor (its own screen) -----
+  let curSess=null;
+  function openSession(sid){ curSess=sid; renderSessionDetail(); show('s-session-detail'); }
+  function renderSessionDetail(){
+    photoIndex(true);
+    const s=(DB.sessions||[]).find(x=>x.id===curSess);
+    if(!s){ goSessions(); return; }
+    const d=new Date(s.ts);
+    document.getElementById('sd-title').textContent=s.name||'workout';
+    document.getElementById('sd-sub').textContent=d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();
+    const items=s.items||[];
+    // notes: prefer the snapshot stored on the record; fall back to the live DB.notes
+    // entry (so sessions saved before notes were snapshotted still show them).
+    const noteOf=it=>(it.note||'').trim()||noteFor(it.brand+'|'+it.name).trim();
+    const sNote=(s.note||'').trim()||(DB.notes['sess:'+(s.wid||s.name)]||'').trim();
+    const noteBox=(txt,extra)=>txt?`<div class="sd-note${extra||''}">${escHTML(txt)}</div>`:'';
+    const body=items.map((it,ei)=>`
+      <div class="sd-card">
+        <div class="sd-exh">${thumbHTML(it.brand,it.name,guessGroup(it.name),photoFor(it.brand,it.name))}
+          <span>${it.name}${it.brand&&it.brand!=='custom'?` <span class="ps-b">${it.brand}</span>`:''}</span></div>
+        ${noteBox(noteOf(it))}${Object.keys(it.setups||{}).map(l=>noteBox(l+' · '+it.setups[l])).join('')}
+        <div class="sd-tblh"><span>set</span><span>kg</span><span>reps</span><span></span></div>
+        ${(it.sets||[]).map((x,xi)=>`<div class="sd-row">
+            <span class="sd-i">${xi+1}${stagHTML(x.setup)}</span>
+            <input class="ps-in" type="number" inputmode="decimal" step="0.5" min="0" value="${x.w}" onchange="sessEdit('${s.id}',${ei},${xi},'w',this.value)">
+            <input class="ps-in" type="number" inputmode="numeric" min="0" value="${x.r}" onchange="sessEdit('${s.id}',${ei},${xi},'r',this.value)">
+            <button class="ps-del" onclick="sessDelSet('${s.id}',${ei},${xi})" aria-label="delete set">✕</button>
+          </div>`).join('')}
+        <button class="ov-add" onclick="sessAddSet('${s.id}',${ei})">+ add set</button>
+      </div>`).join('');
+    document.getElementById('sd-body').innerHTML=noteBox(sNote,' sd-snote')+body+
+      `<div class="cta"><button class="next-btn" style="background:#3a1416;color:#ff9aa2;" onclick="sessDel('${s.id}')">delete this workout</button></div>`;
+  }
+  function sessEdit(sid,ei,xi,field,val){
+    const s=(DB.sessions||[]).find(x=>x.id===sid); if(!s||!s.items[ei])return;
+    const set=s.items[ei].sets[xi]; if(!set)return;
+    if(field==='w'){ const w=parseFloat((val||'').replace(',','.')); if(!isNaN(w)) set.w=Math.max(0,Math.round(w*10)/10); }
+    else { const r=parseInt(val,10); if(!isNaN(r)) set.r=Math.max(0,Math.min(99,r)); }
+    set.pr=false; saveDB();
+  }
+  function sessAddSet(sid,ei){
+    const s=(DB.sessions||[]).find(x=>x.id===sid); if(!s||!s.items[ei])return;
+    const sets=s.items[ei].sets, last=sets[sets.length-1];
+    sets.push({w:last?last.w:0, r:last?last.r:10, pr:false, ...(last&&last.setup?{setup:last.setup}:{})});
+    saveDB(); renderSessionDetail();
+  }
+  function sessDelSet(sid,ei,xi){
+    const s=(DB.sessions||[]).find(x=>x.id===sid); if(!s||!s.items[ei])return;
+    s.items[ei].sets.splice(xi,1);
+    if(!s.items[ei].sets.length) s.items.splice(ei,1);
+    if(!s.items.length){ DB.sessions=DB.sessions.filter(x=>x.id!==sid); saveDB(); goSessions(); return; }
+    saveDB(); renderSessionDetail();
+  }
+  function sessDel(sid){
+    const s=(DB.sessions||[]).find(x=>x.id===sid);
+    askConfirm('delete this workout?',`“${s?s.name:'this workout'}” will be removed from your history. this can’t be undone.`,'delete',
+      ()=>{ DB.sessions=(DB.sessions||[]).filter(x=>x.id!==sid); saveDB(); goSessions(); });
+  }
+
+  // ---- screen 1 ----
+  function chipsFor(g){
+    // prefer the brand names the API gives per gym; else derive from loaded machines.
+    const names=g.brands||(g.machines?[...new Set(g.machines.map(m=>m.brand))]:[]);
+    return names.slice(0,3).map(b=>{const s=brandStyle(b);
+      return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');}
+  function renderGyms(){
+    document.getElementById('gymlist').innerHTML='<div class="group">'+GYMS.map(g=>`
+      <div class="row" onclick="openGym('${g.id}')">
+        <div class="gym-main">
+          <div class="gym-name">${g.name}${g.here?'<span class="here-pill">you\u2019re here</span>':''}</div>
+          <div class="gym-sub">${g.area} · ${g.count!=null?g.count:(g.machines?g.machines.length:0)} machines</div>
+        </div>
+        <div class="gym-right">
+          <span class="gym-dist">${g.dist||''}</span>
+          <span class="brandchips">${chipsFor(g)}</span>
+        </div>
+        <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+      </div>`).join('')+'</div>';
+  }
+
+  // ---- screen 2 ----
+  async function openGym(id){
+    st.gym=GYMS.find(g=>g.id===id); st.filter='all'; st.catalog=false;
+    document.getElementById('m-title').textContent=st.gym.name;
+    document.getElementById('m-sub').textContent='tap the exact machine in front of you.';
+    document.getElementById('back-gym').textContent=st.gym.name.split(' ')[0];
+    if(!st.gym.machines){                       // lazy-load this gym's floor from the API
+      document.getElementById('mlist').innerHTML='<div class="empty">loading…</div>';
+      st.gym.machines=await fetchMachines(st.gym.id);
+    }
+    buildSegment(); renderMachines(); show('s-machines');
+  }
+  async function fetchMachines(gymId){
+    try{
+      const r=await fetch(`${API}/gyms/${gymId}/machines?user_id=${encodeURIComponent(USER)}`);
+      if(!r.ok) throw 0;
+      return (await r.json()).map(m=>({
+        brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
+        group:m.muscle_group||'core', muscle:m.muscle_label||'', img:m.image_url||'',
+        lastW:m.last?m.last.weight_kg:0, lastR:m.last?m.last.reps:0,
+        lastS:m.last?m.last.sets:0, date:''}));
+    }catch(e){ return []; }
+  }
+  // ===== catalog browse: movement → brand → model (uses the live API) =====
+  let cat={move:null,moveName:null,group:null,brand:null,models:[]};
+  function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+  function escHTML(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function chev(){return '<span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>';}
+
+  async function openCatalog(add){
+    cat.add=!!add;   // add-mode: tapping a model adds it to the custom workout draft
+    if(cat.add) cat.returnScreen=activeScreenId();
+    document.getElementById('cat-back-label').textContent=cat.add?'workout':'workouts';
+    document.getElementById('catmove').innerHTML='<div class="empty">loading…</div>';
+    show('s-cat-move');
+    let list=[];
+    list=await catalogGet('exercises');
+    if(!list.length){document.getElementById('catmove').innerHTML='<div class="empty">catalog unavailable — no bundled catalog and the API is offline.</div>';return;}
+    let html='';
+    ['push','pull','legs','core'].forEach(g=>{
+      const items=list.filter(e=>(e.muscle_group||'core')===g);
+      if(!items.length)return;
+      html+=`<div class="sechead">${g}</div><div class="group">`;
+      items.forEach(e=>{html+=`<div class="row" onclick="catPickMove('${esc(e.slug)}','${esc(e.name)}','${e.muscle_group||'core'}')">
+        <div class="m-main"><div class="m-name">${e.name.toLowerCase()}</div>
+          <div class="m-muscle">${e.machine_count} model${e.machine_count!==1?'s':''}</div></div>${chev()}</div>`;});
+      html+='</div>';
+    });
+    document.getElementById('catmove').innerHTML=html;
+  }
+  async function catPickMove(slug,name,group){
+    cat.move=slug; cat.moveName=name; cat.group=group;
+    document.getElementById('catb-title').textContent=name.toLowerCase();
+    document.getElementById('catbrand').innerHTML='<div class="empty">loading…</div>';
+    show('s-cat-brand');
+    let list=[];
+    list=await catalogGet('brands',{exercise:slug});
+    let html='<div class="group">';
+    list.forEach(b=>{const s=brandStyle(b.brand.toLowerCase());
+      html+=`<div class="row" onclick="catPickBrand('${esc(b.brand)}')">
+        <div class="mbadge" style="background:${s.color}">${s.abbr}</div>
+        <div class="m-main"><div class="m-name">${b.brand.toLowerCase()}</div>
+          <div class="m-muscle">${b.count} model${b.count!==1?'s':''}</div></div>${chev()}</div>`;});
+    html+='</div>';
+    document.getElementById('catbrand').innerHTML=list.length?html:'<div class="empty">no brands.</div>';
+  }
+  async function catPickBrand(brand){
+    cat.brand=brand;
+    document.getElementById('catm-title').textContent=brand.toLowerCase();
+    document.getElementById('catm-sub').textContent=cat.moveName.toLowerCase()+' · pick the exact model.';
+    document.getElementById('catmodel').innerHTML='<div class="empty">loading…</div>';
+    show('s-cat-model');
+    let list=[];
+    list=await catalogGet('machines',{exercise:cat.move, brand});
+    cat.models=list;
+    const s=brandStyle(brand.toLowerCase());
+    let html='<div class="group">';
+    list.forEach((m,i)=>{html+=`<div class="row" onclick="catPickModel(${i})">
+      ${thumbHTML(brand, m.model, cat.group, m.image_url)}
+      <div class="m-main"><div class="m-name">${m.model.toLowerCase()}</div>
+        <div class="m-muscle">${m.machine_type||''}${m.muscle_label?(' · '+m.muscle_label):''}</div></div>${chev()}</div>`;});
+    html+='</div>';
+    document.getElementById('catmodel').innerHTML=list.length?html:'<div class="empty">no models.</div>';
+  }
+  function catPickModel(i){
+    const m=cat.models[i]; if(!m)return;
+    const item={brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
+                group:cat.group, muscle:m.muscle_label||'', img:m.image_url||'',
+                lastW:0,lastR:0,lastS:0,date:''};
+    if(cat.add){                                   // adding to a workout (builder or live session)
+      if(!pickArr().some(d=>d.name===item.name&&d.brand===item.brand)) pickArr().push(item);
+      if(pickMode==='session'&&cat.returnScreen==='s-log'){ show('s-log'); updateSessionBar(); }
+      else if(pickMode==='session'){ show('s-overview'); renderOverview(); }
+      else { show('s-custom'); renderDraft(); if(document.getElementById('picker').style.display!=='none') renderPicker(); }
+      return;
+    }
+    st.gym=null; st.session=null; st.catalog=true; // browsing → log directly
+    loadLog(item);
+  }
+  function catHome(){ if(cat.add) show(pickMode==='session'?(cat.returnScreen||'s-overview'):'s-custom'); else show('s-workouts'); }
+
+  function buildSegment(){
+    const seg=document.getElementById('segment');
+    seg.querySelectorAll('.seg').forEach(e=>e.remove());
+    GROUPS.forEach(g=>{
+      const d=document.createElement('div');
+      d.className='seg'+(g===st.filter?'':' off'); d.textContent=g;
+      d.onclick=()=>setFilter(g); seg.appendChild(d);
+    });
+    moveThumb();
+  }
+  function setFilter(g){st.filter=g;
+    document.querySelectorAll('#segment .seg').forEach(e=>e.classList.toggle('off',e.textContent!==g));
+    moveThumb(); renderMachines();}
+  function moveThumb(){
+    const seg=document.getElementById('segment');const segs=[...seg.querySelectorAll('.seg')];
+    const i=GROUPS.indexOf(st.filter);if(i<0||!segs[i])return;
+    const thumb=document.getElementById('seg-thumb');
+    const w=seg.clientWidth-4, each=w/GROUPS.length;
+    thumb.style.width=each+'px'; thumb.style.left=(2+i*each)+'px';
+  }
+  function renderMachines(){
+    const list=st.gym.machines.filter(m=>st.filter==='all'||m.group===st.filter);
+    const ordered=[...list].sort((a,b)=>GROUPS.indexOf(a.group)-GROUPS.indexOf(b.group));
+    let html='';let last=null;
+    ordered.forEach(m=>{
+      if(st.filter==='all'&&m.group!==last){ if(html)html+='</div>'; html+=`<div class="sechead">${m.group}</div><div class="group">`; last=m.group; }
+      else if(!html){ html+='<div class="group">'; }
+      html+=`<div class="row" onclick="openMachine('${st.gym.id}','${m.name}')">
+        ${thumbHTML(m.brand, m.name, m.group, m.img)}
+        <div class="m-main">
+          <div class="m-brand">${m.brand}</div>
+          <div class="m-name">${m.name}</div>
+          <div class="m-muscle">${m.muscle}</div>
+        </div>
+        <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+      </div>`;
+    });
+    if(html)html+='</div>';
+    document.getElementById('mlist').innerHTML=html||'<div class="empty">no machines in this group.</div>';
+  }
+
+  // ---- screen 3 ----
+  function openMachine(gid,name){
+    st.gym=GYMS.find(x=>x.id===gid);
+    st.session=null; st.catalog=false;
+    loadLog(st.gym.machines.find(m=>m.name===name));
+  }
+  function loadLog(m){
+    st.m=m; st.machineKey=keyFor(m); const ls=lastSession(st.machineKey,m); st.w=ls?ls.w:(m.lastW||60); st.r=ls?ls.r:(m.lastR||10);
+    document.getElementById('log-thumb').innerHTML=thumbHTML(m.brand,m.name,m.group,m.img);
+    document.getElementById('log-brand').textContent=m.brand;
+    document.getElementById('log-name').textContent=m.name;
+    document.getElementById('sets-machine').textContent=m.name;
+    renderLast();
+    if(!st.session) document.getElementById('back-gym').textContent = st.gym ? st.gym.name.split(' ')[0] : 'back';
+    updateSessionBar();
+    editIdx=-1;
+    renderW(); renderR(); renderSets();
+    document.getElementById('note-back').classList.remove('show');
+    document.getElementById('note-sheet').classList.remove('show');
+    refreshNoteBtn();
+    if(st.session) persistActive();   // remember where we are in the in-progress workout
+    show('s-log');
+  }
+  // the "last time" card, for the machine's selected setup
+  function renderLast(){
+    const l=curSetup(st.machineKey), ps=prevSession(st.machineKey,st.m);   // "last time" = the session before today
+    const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
+    if(ps){
+      lastL.innerHTML=`last time${l?' · '+l:''} · <b>${ps.s}×${ps.r} @ ${ps.w}kg</b>`;
+      beat.className='beat'; beat.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> beat it';
+    } else {
+      lastL.innerHTML=l?`first time on <b>setup ${l}</b>`:'first time on <b>this</b> exercise';
+      beat.className='beat first'; beat.textContent='set a baseline';
+    }
+  }
+  function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-workouts'); else goMachines(); }
+
+  // ---- custom workout builder ----
+  function pool(){
+    const seen={}, out=[];
+    (DB.custom||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});   // your own exercises first
+    BUILTIN_EXTRAS.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});     // app-shipped extras
+    // gym.machines is null until that gym is opened (lazy-loaded from the API), so guard it
+    GYMS.forEach(g=>(g.machines||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}}));
+    const base=LIBRARY.length?LIBRARY:GENERIC;   // ExerciseDB defaults (offline fallback: GENERIC)
+    base.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});
+    return out;
+  }
+  function guessGroup(n){
+    n=(n||'').toLowerCase();
+    if(/squat|leg|lunge|calf|glute|hip|hamstring|quad/.test(n)) return 'legs';
+    if(/row|pull|curl|lat|chin|deadlift|shrug|rear|back/.test(n)) return 'pull';
+    if(/press|push|dip|fly|chest|shoulder|tricep|delt|raise/.test(n)) return 'push';
+    return 'core';
+  }
+  // create a custom exercise from the search box text; persists in DB.custom so it's
+  // reusable, and adds it to the workout being built.
+  function addCustomEx(){
+    const name=(catQuery||'').trim().toLowerCase(); if(name.length<2) return;
+    let ex=(DB.custom||[]).find(m=>m.name===name);
+    if(!ex){
+      ex={brand:'custom', name, group:guessGroup(name), muscle:'', img:'', lastW:0,lastR:0,lastS:0,date:''};
+      DB.custom.push(ex); saveDB();
+    }
+    if(!pickArr().some(d=>d.name===name)) pickArr().push({...ex});
+    if(pickMode==='session') renderOverview(); else renderDraft();
+    renderCatResults();
+    pickCustomPhoto(name);                 // immediately offer to attach a photo
+  }
+  // attach a photo (from the device) to a custom exercise — downscaled to a data URI
+  let _photoTarget=null;
+  function pickCustomPhoto(name){ _photoTarget=name; const inp=document.getElementById('custphoto'); if(inp){ inp.value=''; inp.click(); } }
+  function onCustPhoto(inp){
+    const f=inp.files&&inp.files[0]; if(!f||!_photoTarget) return;
+    const name=_photoTarget, rd=new FileReader();
+    rd.onload=()=>{
+      const im=new Image();
+      im.onload=()=>{
+        const max=720, sc=Math.min(1,max/Math.max(im.width,im.height));
+        const cw=Math.round(im.width*sc), ch=Math.round(im.height*sc);
+        const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+        const cx=cv.getContext('2d'); cx.fillStyle='#e9e9ee'; cx.fillRect(0,0,cw,ch); cx.drawImage(im,0,0,cw,ch);
+        try{ applyCustomPhoto(name, cv.toDataURL('image/jpeg',0.85)); }
+        catch(e){ applyCustomPhoto(name, rd.result); }
+      };
+      im.onerror=()=>applyCustomPhoto(name, rd.result);
+      im.src=rd.result;
+    };
+    rd.readAsDataURL(f);
+  }
+  function applyCustomPhoto(name,uri){
+    const ex=(DB.custom||[]).find(m=>m.name===name); if(ex) ex.img=uri;
+    draft.items.forEach(d=>{if(d.name===name) d.img=uri;});
+    if(st.session) st.session.items.forEach(d=>{if(d.name===name) d.img=uri;});
+    if(st.m&&st.m.name===name){ st.m.img=uri; const lt=document.getElementById('log-thumb'); if(lt) lt.innerHTML=thumbHTML(st.m.brand,st.m.name,st.m.group,uri); }
+    saveDB();
+    renderDraft();
+    if(document.getElementById('cat-results')) renderCatResults();
+    toastMsg(false,'photo added','attached to “'+name+'”');
+  }
+  function openCustom(){
+    st.catalog=false; catQuery=''; catResults=[];
+    draft={name:'push day',items:[]};
+    document.getElementById('wname').value='push day';
+    document.getElementById('picker').style.display='none';
+    document.getElementById('addex-btn').textContent='+ add exercise';
+    renderDraft(); show('s-custom');
+  }
+  function editWorkout(wid,ev){              // open a saved workout in the builder to modify it
+    if(ev)ev.stopPropagation();
+    const w=DB.workouts.find(x=>x.id===wid); if(!w)return;
+    st.catalog=false; catQuery=''; catResults=[];
+    draft={name:w.name, items:w.items.slice(), savedId:w.id};   // savedId → re-save updates in place
+    document.getElementById('wname').value=w.name;
+    document.getElementById('picker').style.display='none';
+    document.getElementById('addex-btn').textContent='+ add exercise';
+    renderDraft(); show('s-custom');
+  }
+  function renderDraft(){
+    const dl=document.getElementById('draftlist');
+    document.getElementById('ex-count').textContent=draft.items.length?('· '+draft.items.length):'';
+    if(!draft.items.length){ dl.innerHTML='<div class="empty-draft">no exercises yet — add some below.</div>'; }
+    else dl.innerHTML=draft.items.map((m,i)=>`
+      <div class="row draftrow" data-i="${i}">
+        <button class="drag" onpointerdown="dragStart(event)" aria-label="reorder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14M5 15h14"/></svg></button>
+        ${thumbHTML(m.brand,m.name,m.group,m.img)}
+        <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
+        ${m.brand==='custom'?`<button class="dphoto" onclick="pickCustomPhoto('${esc(m.name)}')" aria-label="add photo" title="add photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.2-1.8A1 1 0 0 1 9 4.7h6a1 1 0 0 1 .8.5L17 7h2.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>`:''}
+        <button class="rm" onclick="removeEx(${i})">−</button>
+      </div>`).join('');
+    document.getElementById('startbtn').disabled=!draft.items.length;
+    document.getElementById('savebtn').disabled=!draft.items.length;
+  }
+  // drag-and-drop reorder of the draft exercises (pointer events → works on touch + mouse)
+  let _drag=null;
+  function dragStart(e){
+    e.preventDefault();
+    const row=e.target.closest('.draftrow'), list=document.getElementById('draftlist');
+    if(!row||!list)return;
+    _drag={row,list};
+    row.classList.add('dragging');
+    window.addEventListener('pointermove',dragMove);
+    window.addEventListener('pointerup',dragEnd,{once:true});
+  }
+  function dragMove(e){
+    if(!_drag)return;
+    const {row,list}=_drag, y=e.clientY;
+    let after=null;
+    for(const r of list.querySelectorAll('.draftrow:not(.dragging)')){
+      const b=r.getBoundingClientRect();
+      if(y < b.top + b.height/2){ after=r; break; }
+    }
+    if(after) list.insertBefore(row,after); else list.appendChild(row);
+  }
+  function dragEnd(){
+    if(!_drag)return;
+    const {row,list}=_drag;
+    row.classList.remove('dragging');
+    window.removeEventListener('pointermove',dragMove);
+    const order=[...list.querySelectorAll('.draftrow')].map(r=>+r.dataset.i);
+    draft.items=order.map(i=>draft.items[i]);
+    _drag=null;
+    renderDraft();
+  }
+
+  function togglePicker(){
+    pickMode='draft';
+    const p=document.getElementById('picker'), btn=document.getElementById('addex-btn');
+    if(p.style.display==='none'){ renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
+    else { p.style.display='none'; btn.textContent='+ add exercise'; }
+  }
+  // ---- catalog search (inside the builder) ----
+  let catQuery='', catResults=[], catSearchT=null;
+  function normSearch(s){
+    return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  }
+  function editDist(a,b,max=2){
+    if(a===b)return 0;
+    if(Math.abs(a.length-b.length)>max)return max+1;
+    let prev=Array.from({length:b.length+1},(_,i)=>i);
+    for(let i=1;i<=a.length;i++){
+      let cur=[i], best=cur[0];
+      for(let j=1;j<=b.length;j++){
+        const cost=a[i-1]===b[j-1]?0:1;
+        const v=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+cost);
+        cur[j]=v; if(v<best)best=v;
+      }
+      if(best>max)return max+1;
+      prev=cur;
+    }
+    return prev[b.length];
+  }
+  function fuzzyScore(query, fields){
+    const q=normSearch(query); if(q.length<2)return 0;
+    const hay=normSearch(fields.join(' ')); if(!hay)return 0;
+    const qWords=q.split(/\s+/).filter(Boolean);
+    const hWords=hay.split(/\s+/).filter(Boolean);
+    let total=0;
+    for(const qw of qWords){
+      let best=0;
+      for(const hw of hWords){
+        if(hw===qw) best=Math.max(best,110);
+        else if((qw.length>=2&&hw.startsWith(qw))||(hw.length>=3&&qw.startsWith(hw))) best=Math.max(best,88);
+        else if((qw.length>=3&&hw.includes(qw))||(hw.length>=4&&qw.includes(hw))) best=Math.max(best,72);
+        else if(qw.length>=4){
+          const max=qw.length<=4?1:2;
+          const d=editDist(qw,hw,max);
+          if(d<=max) best=Math.max(best, qw.length<=4?58:66);
+        }
+      }
+      if(!best)return 0;
+      total+=best;
+    }
+    if(hay.includes(q)) total+=45;
+    if(hay.startsWith(q)) total+=35;
+    return total/qWords.length;
+  }
+  function onCatSearch(q){
+    catQuery=q; clearTimeout(catSearchT);
+    if(q.trim().length<2){ catResults=[]; renderCatResults(); return; }
+    catSearchT=setTimeout(async()=>{
+      // generic exercise library + any loaded gym machines (client-side)
+      const local=pool().map(m=>({m,score:fuzzyScore(q,[m.brand,m.name,m.muscle,m.group])}))
+        .filter(x=>x.score>0)
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,40)
+        .map(x=>({brand:x.m.brand,model:x.m.name,muscle_group:x.m.group,muscle_label:x.m.muscle,image_url:x.m.img,_score:x.score}));
+      // branded machines (API)
+      let api=[];
+      api=await catalogGet('search',{q:q.trim()});
+      const seen=new Set();
+      catResults=[...local, ...api].filter(m=>{
+        const key=(m.brand||'').toLowerCase()+'|'+(m.model||'').toLowerCase();
+        if(seen.has(key))return false; seen.add(key); return true;
+      }).slice(0,60);
+      renderCatResults();
+    },220);
+  }
+  function renderCatResults(){
+    const el=document.getElementById('cat-results'); if(!el)return;
+    const q=catQuery.trim();
+    if(q.length<2){ el.innerHTML=''; return; }
+    let html='';
+    if(catResults.length){
+      html+='<div class="group">'+catResults.map((m,i)=>{
+        const added=pickArr().some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
+        return `<div class="row" onclick="addCatalogResult(${i})">
+          ${thumbHTML(m.brand, m.model, m.muscle_group, m.image_url)}
+          <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
+          <span class="chev plus">${added?'\u2713':'+'}</span>
+        </div>`;}).join('')+'</div>';
+    } else {
+      html+='<div class="empty-draft">no catalog matches.</div>';
+    }
+    // always let you add the typed text as your own exercise (with a photo)
+    const added=draft.items.some(d=>d.name===q.toLowerCase());
+    html+='<div class="sechead">your own</div><div class="group">'
+      +`<div class="row" onclick="addCustomEx()">
+          <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div class="m-main"><div class="m-brand">custom exercise \u00b7 add a photo</div><div class="m-name">${q.toLowerCase()}</div></div>
+          <span class="chev plus">${added?'\u2713':'+'}</span>
+        </div></div>`;
+    el.innerHTML=html;
+  }
+  function addCatalogResult(i){
+    const m=catResults[i]; if(!m)return;
+    const item={brand:(m.brand||'').toLowerCase(), name:(m.model||'').toLowerCase(),
+                group:m.muscle_group||'core', muscle:m.muscle_label||'', img:m.image_url||'',
+                lastW:0,lastR:0,lastS:0,date:''};
+    if(!pickArr().some(d=>d.name===item.name&&d.brand===item.brand)) pickArr().push(item);
+    if(pickMode==='session') renderOverview(); else renderDraft();
+    renderCatResults();   // not renderPicker \u2192 keeps the search box focused
+  }
+
+  function renderPicker(){
+    const avail=pool().filter(m=>!pickArr().some(d=>d.name===m.name));
+    let html='<div class="sechead">search</div><div class="group" style="padding:7px 12px;">'
+      +`<input id="cat-search" class="wname-input" placeholder="search machine, brand or movement\u2026" value="${(catQuery||'').replace(/"/g,'&quot;')}" oninput="onCatSearch(this.value)" autocomplete="off">`
+      +`</div><div id="cat-results"></div>`;
+    // browse the whole catalog (movement \u2192 brand \u2192 model)
+    html+='<div class="sechead">from the catalog</div><div class="group">'
+      +`<div class="row" onclick="openCatalog(true)">
+          <div class="mbadge" style="background:#2C2C2E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+          <div class="m-main"><div class="m-name">browse the full catalog</div><div class="m-muscle">any movement \u00b7 brand \u00b7 model</div></div>
+          <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+        </div></div>`;
+    ['push','pull','legs','core'].forEach(gr=>{
+      const all=avail.filter(m=>m.group===gr); if(!all.length)return;
+      const items=all.slice(0,40);   // cap; the search box covers the rest of the library
+      const more=all.length-items.length;
+      html+=`<div class="sechead">${gr} \u00b7 quick add${more>0?` \u00b7 +${more} more, use search`:''}</div><div class="group">`+items.map(m=>{const b=brandStyle(m.brand);return `
+        <div class="row" onclick="addEx('${esc(m.name)}')">
+          <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
+          <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
+          <span class="chev plus">+</span>
+        </div>`;}).join('')+`</div>`;
+    });
+    // only one picker may hold the cat-search/cat-results IDs at a time.
+    const panel=pickPanel();
+    ['picker','sess-picker','log-sess-picker'].forEach(id=>{
+      if(id===panel)return;
+      const el=document.getElementById(id); if(el){ el.innerHTML=''; el.style.display='none'; }
+      const btn=document.getElementById(pickBtnId(id)); if(btn) btn.textContent='+ add exercise';
+    });
+    document.getElementById(panel).innerHTML=html;
+    renderCatResults();
+    if(catQuery){const inp=document.getElementById('cat-search'); if(inp){inp.focus(); inp.setSelectionRange(inp.value.length,inp.value.length);}}
+  }
+  function addEx(name){ const m=pool().find(x=>x.name===name); if(m){ pickArr().push({...m}); pickRefresh(); } }
+  function removeEx(i){ draft.items.splice(i,1); renderDraft(); if(document.getElementById('picker').style.display!=='none')renderPicker(); }
+  function startCustom(){
+    if(!draft.items.length)return;
+    const nm=document.getElementById('wname').value.trim()||'workout';
+    const wid=ensureSaved(nm);          // persist so it shows on home (reuses an earlier save)
+    st.gym=null; st.catalog=false;
+    st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid,startedAt:Date.now()};
+    loadLog(st.session.items[0]);
+  }
+  function saveCustom(){                  // add to the home screen without starting now
+    if(!draft.items.length)return;
+    const nm=document.getElementById('wname').value.trim()||'workout';
+    ensureSaved(nm); renderHome();
+    toastMsg(false,'added to home','“'+nm+'” is now on your home screen');
+    goHome();
+  }
+  // ---- saved workouts (on-device) ----
+  function saveWorkout(name,items){
+    const id='w'+Date.now().toString(36);
+    DB.workouts.push({id,name,items,created:Date.now()});
+    saveDB();
+    return id;
+  }
+  // ---- starter routines (the user's real gym splits) — seeded per device ----
+  // items are REAL catalog machines (brand/model/muscle + bundled image), loaded from
+  // starter_machines.json. versioned so an updated mapping upgrades existing devices.
+  const imgKey=o=>((o&&o.brand||'')+'|'+(o&&o.name||'')).toLowerCase();
+  // a workout item carries its OWN copy of the machine photo, so anything that built an
+  // item without one — a migration reading only DB.custom, an exercise picked before we
+  // shipped its photo — sticks at img:'' forever and renders as a bare icon. rebuild the
+  // brand|name -> photo index from the seed file plus your own exercises and fill the gaps.
+  function backfillImages(seed){
+    const IX={};
+    const put=o=>{ if(o&&o.name&&o.img&&!IX[imgKey(o)]) IX[imgKey(o)]=o.img; };
+    ((seed&&seed.workouts)||[]).forEach(w=>(w.items||[]).forEach(put));
+    (DB.custom||[]).forEach(put);
+    let n=0;
+    const fill=o=>{ if(o&&o.name&&!o.img&&IX[imgKey(o)]){ o.img=IX[imgKey(o)]; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    if(n){ persistActive(); saveDB(); }
+    return n;
+  }
+  // the seed file is generated from historical logs, so it still spells some machines the
+  // way they were logged before we canonicalised them. run every seed item through the same
+  // renames the migrations applied — otherwise a seed bump re-adds the old identity next to
+  // the new one and the workout grows a duplicate exercise.
+  const SEED_RENAME=[...LEGACY_MACHINES, ...LEGACY_MACHINES_2,
+    ...Object.keys(GERVA_RENAME).map(o=>({from:['gervasport',o], to:['gervasport',GERVA_RENAME[o]]})),
+    // the cable tower logged in place of the real standing multi flight (see migratePresetAll)
+    {from:['panatta','monolith standing multi flight (1mth028)'],
+     to:  ['panatta','fit evo standing multi flight machine (1fe028)']}];
+  function canonSeedItems(items){
+    const hit={}; SEED_RENAME.forEach(r=>{ hit[(r.from[0]+'|'+r.from[1]).toLowerCase()]=r.to; });
+    const out=[], at={};
+    (items||[]).forEach(it=>{
+      const t=hit[imgKey(it)];
+      const c=t?{...it, brand:t[0], name:t[1]}:it;
+      const k=imgKey(c), j=at[k];
+      if(j===undefined){ at[k]=out.length; out.push(c); return; }
+      if(!out[j].img && c.img) out[j].img=c.img;      // a rename can collide with the real
+    });                                               // machine — keep whichever has the photo
+    return out;
+  }
+  // starter_machines.json only carries the photos for the machines it seeds, but the
+  // catalog the API serves has one for nearly every model (e.g. panatta hp high row
+  // 1hp503). anything still blank after the local pass is looked up there — online only,
+  // offline simply leaves the icon and retries on the next launch.
+  const NO_PHOTO_BRANDS={custom:1, barbell:1, dumbbell:1, cable:1};
+  async function backfillFromCatalog(){
+    const need={};
+    const scan=o=>{ if(o&&o.name&&!o.img&&o.brand&&!NO_PHOTO_BRANDS[o.brand]) need[imgKey(o)]=o.name; };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(scan));
+    (DB.custom||[]).forEach(scan);
+    const keys=Object.keys(need);
+    if(!keys.length) return 0;
+    const found={};
+    for(const k of keys.slice(0,25)){
+      try{
+        const list=await catalogGet('search',{q:need[k]});
+        // same identity the catalog picker builds an item with: brand|model, lowercased
+        const hit=(list||[]).find(m=>m&&m.image_url&&((m.brand||'')+'|'+(m.model||'')).toLowerCase()===k);
+        if(hit) found[k]=hit.image_url;
+      }catch(e){ return 0; }                   // no connection — leave it for next time
+    }
+    let n=0;
+    const fill=o=>{ if(o&&o.name&&!o.img&&found[imgKey(o)]){ o.img=found[imgKey(o)]; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    if(n){ persistActive(); saveDB(); renderWorkouts(); renderHome(); }
+    return n;
+  }
+  // every workout item carries its own copy of the machine photo from the moment it was
+  // added, so a new catalog build never reached machines you already train on. when the
+  // bundled catalog's version changes, every item that maps to a catalog machine
+  // (brand|model, lowercased — the identity the picker builds) takes the bundle's photo:
+  // brochure renders replace the old marketplace shots in WA1/WA2/... too.
+  async function refreshImagesFromBundle(){
+    const c=await loadCatalogBundle(); if(!c) return 0;
+    if(DB.catalogV===c.version) return 0;
+    const IX={};
+    c.machines.forEach(m=>{ if(m.img&&/^catalog\//.test(m.img)) IX[(m.brand+'|'+m.model).toLowerCase()]=m.img; });
+    let n=0;
+    const fill=o=>{ if(!o||!o.name) return; const k=imgKey(o); if(IX[k]&&o.img!==IX[k]){ o.img=IX[k]; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    DB.catalogV=c.version; persistActive(); saveDB();
+    if(n){ renderWorkouts(); renderHome(); }
+    return n;
+  }
+  async function seedStarterWorkouts(){
+    try{
+      const r=await fetch('starter_machines.json',{cache:'no-store'});
+      if(!r.ok) return;
+      const data=await r.json();
+      (data.workouts||[]).forEach(w=>{ w.items=canonSeedItems(w.items); });
+      if((DB.starterSeedV||0) < data.version){
+        data.workouts.forEach((w,i)=>{
+          const ex=DB.workouts.find(x=>x.name===w.name);
+          if(ex){
+            // merge, never overwrite: a seed bump must not drop exercises you added to a
+            // workout yourself. matched machines take the refreshed photo/muscle data,
+            // machines new to the seed are appended.
+            const at={}; (ex.items||[]).forEach((it,j)=>{ at[imgKey(it)]=j; });
+            (w.items||[]).forEach(it=>{
+              const j=at[imgKey(it)];
+              if(j===undefined){ ex.items.push(it); return; }
+              const cur=ex.items[j];
+              if(it.img) cur.img=it.img;
+              if(it.muscle) cur.muscle=it.muscle;
+              if(it.group) cur.group=it.group;
+            });
+          }
+          else { DB.workouts.push({id:'w'+Date.now().toString(36)+i, name:w.name, items:w.items, created:Date.now()}); }
+        });
+        DB.starterSeedV=data.version; DB.starterSeeded=true;
+      }
+      // runs on every launch, not just a version bump: items created after the last seed
+      // (and the ones migratePresetAll built from DB.custom alone) need repairing too.
+      backfillImages(data);
+      saveDB();
+      renderWorkouts(); renderHome();
+      backfillFromCatalog();                  // the rest comes from the API catalog, if online
+      refreshImagesFromBundle();              // new catalog build -> newer photos for existing items
+    }catch(e){ /* offline / missing file: keep whatever workouts already exist */ }
+  }
+  function ensureSaved(nm){               // create once per draft; update on re-save (no dups)
+    if(draft.savedId){
+      const w=DB.workouts.find(x=>x.id===draft.savedId);
+      if(w){ w.name=nm; w.items=draft.items.slice(); saveDB(); return w.id; }
+    }
+    draft.savedId=saveWorkout(nm, draft.items.slice());
+    return draft.savedId;
+  }
+  function startWorkout(wid){
+    const w=DB.workouts.find(x=>x.id===wid); if(!w||!w.items.length)return;
+    st.gym=null; st.catalog=false;
+    st.session={name:w.name,items:w.items.slice(),idx:0,wid:w.id,startedAt:Date.now()};
+    loadLog(st.session.items[0]);
+  }
+  // ---- confirm dialog (app-styled, not a native popup) ----
+  let confirmCb=null;
+  function askConfirm(title,msg,okLabel,onOk){
+    document.getElementById('confirm-t').textContent=title;
+    document.getElementById('confirm-m').textContent=msg||'';
+    document.getElementById('confirm-ok').textContent=okLabel||'remove';
+    confirmCb=onOk;
+    document.getElementById('confirm-back').classList.add('show');
+    document.getElementById('confirm').classList.add('show');
+  }
+  function closeConfirm(){
+    confirmCb=null;
+    document.getElementById('confirm-back').classList.remove('show');
+    document.getElementById('confirm').classList.remove('show');
+  }
+  function doConfirm(){ const cb=confirmCb; closeConfirm(); if(cb)cb(); }
+
+  function deleteWorkout(wid,ev){
+    if(ev)ev.stopPropagation();
+    const w=DB.workouts.find(x=>x.id===wid);
+    askConfirm('remove this routine?',
+      `“${w?w.name:'this workout'}” will be deleted. this can’t be undone.`,
+      'remove',
+      ()=>{ DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderHome(); renderWorkouts(); });
+  }
+  // finishing a workout: snapshot the sets logged today for each exercise so the
+  // workout AND its individual results are saved together as one dated session.
+  // (the per-set history in DB.sets — which powers "last time on this machine" —
+  // is already written by logSet; this adds the redoable completed-workout record.)
+  function saveSession(){
+    if(!st.session) return false;
+    // Which sets belong to this workout? Previously this was "sets logged today",
+    // so finishing the morning after — or any time the tap landed on a later
+    // calendar day than the training — matched nothing and silently saved nothing.
+    // Anchor on when the session actually started instead.
+    const since=sessionSince();
+    // EVERY set logged since the workout started belongs to it — including sets on a machine
+    // that was never in the workout (picked straight from the gym or the catalog mid-session).
+    // those used to be dropped from the record: they stayed in DB.sets and fed the charts,
+    // but because the day now counted as "saved", no card in history ever showed them again.
+    const mine=(DB.sets||[]).filter(s=>s&&s.ts>=since&&!s.sid);
+    if(!mine.length) return 'empty';          // nothing logged — don't save an empty session
+    const id='s'+Date.now().toString(36);
+    const order=[], by={};
+    const slot=(brand,name)=>{ const k=(brand||'')+'|'+name;
+      if(!by[k]){ by[k]={brand:brand,name:name,sets:[]}; order.push(k); } return by[k]; };
+    st.session.items.forEach(m=>slot(m.brand,m.name));      // keep the workout's own order
+    mine.forEach(s=>{ slot(s.brand,s.name).sets.push({w:s.w,r:s.r,pr:!!s.pr,...(s.setup?{setup:s.setup}:{})}); s.sid=id; });
+    const items=order.map(k=>by[k]).filter(it=>it.sets.length);
+    items.forEach(it=>{ const k=it.brand+'|'+it.name, note=noteFor(k).trim();   // per-machine note
+      if(note) it.note=note;
+      const notes=setupRec(k).notes||{}, used={};                // + the note of each setup trained on
+      it.sets.forEach(x=>{ if(x.setup&&notes[x.setup]) used[x.setup]=notes[x.setup]; });
+      if(Object.keys(used).length) it.setups=used; });
+    if(!items.length) return 'empty';
+    const rec={id, wid:st.session.wid||null, name:st.session.name, ts:Date.now(), items};
+    const snote=(DB.notes[sessNoteKey()]||'').trim();   // snapshot the workout-level note
+    if(snote) rec.note=snote;
+    DB.sessions.push(rec);
+    return saveDB();                          // false here = the write failed, not "nothing logged"
+  }
+  // Start of the current workout. Sessions started before startedAt existed (and any
+  // restored from an older "current workout") fall back to the most recent day on
+  // which these machines were actually trained, so finishing them still records.
+  function sessionSince(){
+    if(!st.session) return Date.now();
+    if(st.session.startedAt) return st.session.startedAt;
+    const ts=st.session.items.flatMap(m=>setsFor(keyFor(m)).map(s=>s.ts||0));
+    if(!ts.length) return Date.now();
+    const last=new Date(Math.max.apply(null,ts));
+    return new Date(last.getFullYear(),last.getMonth(),last.getDate()).getTime();
+  }
+  function lastDone(wid){                      // most recent date this workout was completed
+    const ts=DB.sessions.filter(s=>s.wid===wid).map(s=>s.ts);
+    if(!ts.length) return '';
+    const d=new Date(Math.max.apply(null,ts));
+    return d.getDate()+' '+MON[d.getMonth()];
+  }
+  function workoutRow(w){
+    const ld=lastDone(w.id);
+    return `<div class="row" onclick="startWorkout('${w.id}')">
+      <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7v10M17.5 7v10M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></div>
+      <div class="m-main"><div class="m-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}${ld?` · last done ${ld}`:''}</div></div>
+      <div class="wactions">
+        <button class="wbtn start" onclick="event.stopPropagation();startWorkout('${w.id}')" aria-label="start workout"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg> start</button>
+        <button class="wbtn edit" onclick="editWorkout('${w.id}',event)" aria-label="edit workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+        <button class="rm" onclick="deleteWorkout('${w.id}',event)" aria-label="delete workout">−</button>
+      </div>
+    </div>`;
+  }
+  function renderWorkouts(){
+    const html=DB.workouts.length?('<div class="group">'+DB.workouts.map(workoutRow).join('')+'</div>'):'';
+    [['work-head','worklist'],['home-work-head','home-worklist']].forEach(([h,l])=>{
+      const head=document.getElementById(h), list=document.getElementById(l);
+      if(!head||!list)return;
+      head.style.display=DB.workouts.length?'':'none';
+      list.innerHTML=html;
+    });
+  }
+  // ---- preset routines (common splits, built from the default exercise library) ----
+  const PRESETS=[
+    {id:'ppl', name:'push / pull / legs', short:'ppl', desc:'3-day · the most popular split', days:[
+      {name:'push', ex:[{q:'bench press',equip:'barbell'},{q:'incline press'},{q:'shoulder press',equip:'dumbbell'},{q:'lateral raise'},{q:'triceps pushdown'}]},
+      {name:'pull', ex:[{q:'barbell row'},{q:'lat pulldown'},{q:'seated cable row'},{q:'face pull'},{q:'bicep curl'}]},
+      {name:'legs', ex:[{q:'squat',equip:'barbell'},{q:'leg press'},{q:'leg curl'},{q:'leg extension'},{q:'calf raise'}]},
+    ]},
+    {id:'ul', name:'upper / lower', short:'u/l', desc:'4-day · strength + size', days:[
+      {name:'upper', ex:[{q:'bench press',equip:'barbell'},{q:'barbell row'},{q:'shoulder press'},{q:'lat pulldown'},{q:'bicep curl'},{q:'triceps pushdown'}]},
+      {name:'lower', ex:[{q:'squat',equip:'barbell'},{q:'romanian deadlift'},{q:'leg press'},{q:'leg curl'},{q:'calf raise'}]},
+    ]},
+    {id:'fb', name:'full body', short:'full body', desc:'3-day · time-efficient', days:[
+      {name:'full body', ex:[{q:'squat',equip:'barbell'},{q:'bench press',equip:'barbell'},{q:'barbell row'},{q:'shoulder press'},{q:'calf raise'}]},
+    ]},
+    {id:'bro', name:'bro split', short:'bro', desc:'5-day · one muscle group a day', days:[
+      {name:'chest', ex:[{q:'bench press',equip:'barbell'},{q:'incline press'},{q:'fly'},{q:'triceps pushdown'}]},
+      {name:'back', ex:[{q:'deadlift',equip:'barbell'},{q:'lat pulldown'},{q:'barbell row'},{q:'seated cable row'}]},
+      {name:'shoulders', ex:[{q:'shoulder press'},{q:'lateral raise'},{q:'reverse fly'},{q:'shrug'}]},
+      {name:'arms', ex:[{q:'barbell curl'},{q:'triceps pushdown'},{q:'hammer curl'},{q:'preacher curl'}]},
+      {name:'legs', ex:[{q:'squat',equip:'barbell'},{q:'leg press'},{q:'leg curl'},{q:'leg extension'},{q:'calf raise'}]},
+    ]},
+  ];
+  function resolveLib(q,equip){
+    const words=q.toLowerCase().split(/\s+/);
+    let cands=pool().filter(m=>{const n=(m.name||'').toLowerCase(); return words.every(w=>n.includes(w));});
+    if(equip){const e=cands.filter(m=>m.brand===equip); if(e.length)cands=e;}
+    return cands[0]||null;
+  }
+  function goRoutines(){ renderRoutines(); show('s-routines'); }
+  function renderRoutines(){
+    document.getElementById('routinelist').innerHTML=PRESETS.map(r=>
+      `<div class="sechead">${r.name} · ${r.desc}</div><div class="group">`+r.days.map((d,i)=>`
+        <div class="row" onclick="startRoutineDay('${r.id}',${i})">
+          <div class="mbadge" style="background:var(--accent);color:#00350F;font-weight:700;">${i+1}</div>
+          <div class="m-main"><div class="m-name">${d.name}</div><div class="m-muscle">${d.ex.length} exercises · tap to start</div></div>
+          <button class="savebtn" onclick="saveRoutineDay('${r.id}',${i},event)">save</button>
+        </div>`).join('')+`</div>`).join('');
+  }
+  function saveRoutineDay(rid,di,ev){
+    if(ev)ev.stopPropagation();
+    const items=routineItems(rid,di);
+    if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
+    const r=PRESETS.find(x=>x.id===rid); const day=r.days[di];
+    saveWorkout(`${r.short} · ${day.name}`, items);
+    renderHome();
+    toastMsg(false,'saved',`“${r.short} · ${day.name}” saved to your workouts`);
+  }
+  function routineItems(rid,di){
+    const r=PRESETS.find(x=>x.id===rid); if(!r)return []; const day=r.days[di]; if(!day)return [];
+    return day.ex.map(e=>resolveLib(e.q,e.equip)).filter(Boolean)
+      .map(m=>({brand:m.brand,name:m.name,group:m.group,muscle:m.muscle,img:m.img,lastW:0,lastR:0,lastS:0,date:''}));
+  }
+  function startRoutineDay(rid,di){
+    const r=PRESETS.find(x=>x.id===rid); if(!r)return; const day=r.days[di]; if(!day)return;
+    const items=routineItems(rid,di);
+    if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
+    st.gym=null; st.catalog=false;
+    st.session={name:`${r.short} · ${day.name}`, items, idx:0, wid:`r-${rid}-${di}`, startedAt:Date.now()};  // stable key → tracks history per routine day
+    loadLog(items[0]);
+  }
+
+  // the "current workout" card — a live in-progress session, shown on the home screen
+  // until finished. tapping it resumes exactly where you left off.
+  function renderActive(){
+    const els=[document.getElementById('home-active'),document.getElementById('work-active')].filter(Boolean);
+    if(!els.length) return;
+    if(!st.session){ els.forEach(e=>e.innerHTML=''); return; }
+    const s=st.session, n=s.items.length;
+    const at=Math.min((s.idx||0),n-1)+1;
+    const done=s.items.filter(m=>todays(keyFor(m)).length).length;
+    const html=`<div class="sechead">in progress</div>
+      <div class="group">
+        <div class="row" onclick="resumeSession()">
+          <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg></div>
+          <div class="m-main">
+            <div class="m-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">current workout</div>
+            <div class="m-muscle">${s.name} · exercise ${at}/${n}${done?` · ${done} logged`:''}</div>
+          </div>
+          <div class="wactions">
+            <button class="wbtn start" onclick="event.stopPropagation();resumeSession()" aria-label="resume workout"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg> resume</button>
+            <button class="wbtn edit" onclick="event.stopPropagation();finishSession()" aria-label="finish workout">finish</button>
+            <button class="rm" onclick="event.stopPropagation();discardSession()" aria-label="discard workout">−</button>
+          </div>
+        </div>
+      </div>`;
+    els.forEach(e=>e.innerHTML=html);
+  }
+  function resumeSession(){
+    if(!st.session) return;
+    st.gym=null; st.catalog=false;
+    st.session.idx=Math.min(st.session.idx||0, st.session.items.length-1);
+    // open the full duplicated day (every exercise + the sets logged so far) so the
+    // temporary session and its individual changes are all visible at a glance.
+    openOverview();
+  }
+  function renderHome(){
+    renderGyms(); renderWorkouts(); renderActive();
+    const gs=document.getElementById('home-gym-sub');
+    if(gs) gs.textContent=(GYMS.length||0)+" gyms · log against their machines";
+    const ws=document.getElementById('home-work-sub');
+    if(ws) ws.textContent=DB.workouts.length?(DB.workouts.length+' saved · build a new one'):'build, save and track workouts';
+  }
+  function updateSessionBar(){
+    const bar=document.getElementById('sessbar'), nc=document.getElementById('next-cta');
+    const lac=document.getElementById('log-add-cta');
+    if(st.session){
+      bar.style.display='flex'; nc.style.display='block';
+      if(lac) lac.style.display='block';
+      document.getElementById('sb-name').textContent=st.session.name;
+      document.getElementById('sb-prog').textContent=(st.session.idx+1)+' / '+st.session.items.length;
+      const sp=document.getElementById('sb-prev'), sn=document.getElementById('sb-next');
+      if(sp) sp.disabled = st.session.idx<=0;
+      if(sn) sn.disabled = st.session.idx>=st.session.items.length-1;
+      const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='flex';
+      document.getElementById('next-btn').textContent= st.session.idx<st.session.items.length-1 ? 'next exercise →' : 'finish workout';
+      const pb=document.getElementById('prev-btn'); if(pb) pb.style.display = st.session.idx>0 ? '' : 'none';
+      document.getElementById('back-gym').textContent=st.session.name;
+    } else {
+      bar.style.display='none'; nc.style.display='none'; if(lac) lac.style.display='none';
+      const lp=document.getElementById('log-sess-picker'); if(lp){ lp.style.display='none'; lp.innerHTML=''; }
+      const lb=document.getElementById('log-sess-addex-btn'); if(lb) lb.textContent='+ add exercise';
+      const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='none';
+    }
+  }
+  function nextExercise(){
+    if(!st.session)return;
+    if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
+    else finishSession();
+  }
+  function prevExercise(){
+    if(!st.session||st.session.idx<=0)return;
+    st.session.idx--; loadLog(st.session.items[st.session.idx]);
+  }
+  // step to the next exercise from the session bar (without finishing the workout —
+  // that's the bottom button's job; the bar arrow just navigates and stops at the end).
+  function gotoNext(){
+    if(!st.session)return;
+    if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
+  }
+
+  // ---- routine overview: all exercises + their sets on one screen ----
+  function sessNoteKey(){ return st.session ? ('sess:'+(st.session.wid||st.session.name)) : null; }
+  function saveSessNote(){
+    const k=sessNoteKey(); if(!k)return;
+    const v=document.getElementById('ov-notes').value;
+    if(v.trim()) DB.notes[k]=v.trim(); else delete DB.notes[k];
+    saveDB();
+  }
+  function openOverview(){
+    if(!st.session)return;
+    const p=document.getElementById('sess-picker'); if(p){ p.style.display='none'; p.innerHTML=''; }
+    const lp=document.getElementById('log-sess-picker'); if(lp){ lp.style.display='none'; lp.innerHTML=''; }
+    const b=document.getElementById('sess-addex-btn'); if(b) b.textContent='+ add exercise';
+    const lb=document.getElementById('log-sess-addex-btn'); if(lb) lb.textContent='+ add exercise';
+    pickMode='draft';
+    renderOverview(); show('s-overview');
+  }
+  // add an exercise to the LIVE workout (does NOT modify the saved routine/template)
+  function toggleSessPicker(){
+    if(!st.session)return;
+    const p=document.getElementById('sess-picker'), btn=document.getElementById('sess-addex-btn');
+    if(p.style.display==='none'){ pickMode='session'; catQuery=''; catResults=[]; renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
+    else { p.style.display='none'; p.innerHTML=''; btn.textContent='+ add exercise'; pickMode='draft'; }
+  }
+  function toggleLogSessPicker(){
+    if(!st.session)return;
+    const p=document.getElementById('log-sess-picker'), btn=document.getElementById('log-sess-addex-btn');
+    if(p.style.display==='none'){ pickMode='session'; catQuery=''; catResults=[]; renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
+    else { p.style.display='none'; p.innerHTML=''; btn.textContent='+ add exercise'; pickMode='draft'; }
+  }
+  function openFocus(){ if(!st.session)return; loadLog(st.session.items[st.session.idx]); }   // overview → focused log
+  function ovFocus(ei){ if(!st.session)return; st.session.idx=ei; loadLog(st.session.items[ei]); }
+  function renderOverview(){
+    if(!st.session)return;
+    document.getElementById('ov-title').textContent=st.session.name;
+    document.getElementById('ov-back').textContent=st.session.name;
+    document.getElementById('ov-notes').value=DB.notes[sessNoteKey()]||'';
+    document.getElementById('ov-list').innerHTML=st.session.items.map((m,ei)=>{
+      const key=keyFor(m), sets=todays(key), ls=prevSession(key,m);   // prev/last time = before today
+      const prev= ls?`${ls.r}×${ls.w%1===0?ls.w:ls.w.toFixed(1)}`:'—';
+      const rows= sets.length ? sets.map((s,i)=>`
+        <div class="ov-row">
+          <button class="ov-set" onclick="ovSetup(${ei},${i})" aria-label="set ${i+1} setup">${i+1}${stagHTML(s.setup)}</button>
+          <span class="ov-prev">${i===0?prev:'—'}</span>
+          <input class="ov-in" type="number" inputmode="decimal" step="0.5" min="0" value="${s.w}" onchange="ovEdit(${ei},${i},'w',this.value)">
+          <input class="ov-in" type="number" inputmode="numeric" min="0" value="${s.r}" onchange="ovEdit(${ei},${i},'r',this.value)">
+          <button class="ov-del" onclick="ovDel(${ei},${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+        </div>`).join('') : `<div class="ov-empty">${ls?`last time · ${ls.s}×${ls.r} @ ${ls.w%1===0?ls.w:ls.w.toFixed(1)}kg`:'no sets yet — add one.'}</div>`;
+      return `<div class="ov-card">
+        <div class="ov-head" onclick="ovFocus(${ei})">
+          ${thumbHTML(m.brand,m.name,m.group,m.img)}
+          <div class="ov-tt"><div class="ov-b">${m.brand}</div><div class="ov-n">${m.name}</div></div>
+          <button class="ov-note${noteFor(key).trim()||curSetup(key)?' has':''}"${curSetup(key)?` data-setup="${curSetup(key)}"`:''} onclick="event.stopPropagation();openNotesFor(${ei})" aria-label="machine note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/><path d="M8 9h8M8 13h5"/></svg></button>
+          <span class="ov-go"><svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></span>
+        </div>
+        <div class="ov-tblh"><span>set</span><span>prev</span><span>kg</span><span>reps</span><span></span></div>
+        ${rows}
+        <button class="ov-add" onclick="ovAdd(${ei})">+ add set</button>
+      </div>`;
+    }).join('');
+    persistActive();   // exercise list may have changed (added/removed) — keep the duplicate in sync
+  }
+  function ovEdit(ei,i,field,val){
+    const m=st.session.items[ei]; const s=todays(keyFor(m))[i]; if(!s)return;
+    if(field==='w'){ const w=parseFloat((val||'').replace(',','.')); if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10); }
+    else { const r=parseInt(val,10); if(!isNaN(r)) s.r=Math.max(0,Math.min(99,r)); }
+    s.pr=false; saveDB();
+  }
+  function ovSetup(ei,i){ const m=st.session.items[ei]; openSetSetup(keyFor(m),m,i,renderOverview); }
+  function ovAdd(ei){
+    const m=st.session.items[ei], key=keyFor(m), sets=todays(key), last=sets[sets.length-1], ls=lastSession(key,m);
+    const w=last?last.w:(ls?ls.w:(m.lastW||60)), r=last?last.r:(ls?ls.r:(m.lastR||10));
+    const best=bestWeight(key,m);
+    const l=curSetup(key);
+    DB.sets.push({key,brand:m.brand,name:m.name,...(l?{setup:l}:{}),w,r,pr:best>0&&w>best,ts:Date.now()});
+    saveDB(); renderOverview();
+  }
+  function ovDel(ei,i){
+    const m=st.session.items[ei], s=todays(keyFor(m))[i];
+    if(s){ const idx=DB.sets.indexOf(s); if(idx>-1) DB.sets.splice(idx,1); saveDB(); }
+    renderOverview();
+  }
+  function finishSession(){
+    if(!st.session)return;
+    const n=st.session.name; const res=saveSession(); st.session=null; persistActive();
+    renderWorkouts(); renderHome(); show('s-workouts');
+    if(res===true) toastMsg(false,'workout saved','“'+n+'” logged');
+    else if(res==='empty') toastMsg(false,'nothing to log','no sets were recorded in “'+n+'”');
+    // res===false: the write failed and saveDB() already said so — don't claim it was empty
+  }
+  function finishFromOverview(){ finishSession(); }
+  // discard the in-progress workout without logging it as a completed session.
+  // (sets already written to history stay; this only clears the "current workout".)
+  function discardSession(){
+    if(!st.session) return;
+    askConfirm('discard current workout?',
+      'the in-progress workout will be cleared. sets you already logged stay in your history.',
+      'discard',
+      ()=>{ st.session=null; persistActive(); renderWorkouts(); renderHome(); show('s-home'); });
+  }
+  function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
+  function bumpR(d){st.r=Math.max(0,Math.min(99,st.r+d));renderR();}
+  function renderW(){
+    document.getElementById('wt').textContent=st.w%1===0?st.w:st.w.toFixed(1);
+    const dl=document.getElementById('wt-delta');
+    const ps=prevSession(st.machineKey,st.m);   // the same number the "last time" card shows
+    if(ps){
+      const diff=Math.round((st.w-ps.w)*10)/10;
+      if(diff>0){dl.className='delta up';dl.textContent=`+${diff}kg vs last`;}
+      else if(diff<0){dl.className='delta';dl.textContent=`${diff}kg vs last`;}
+      else{dl.className='delta';dl.textContent='= last time';}
+    } else {dl.className='delta';dl.textContent='baseline';}
+  }
+  function renderR(){document.getElementById('rp').textContent=st.r;}
+
+  // ---- per-exercise notes (on-device, keyed per machine like the set history) ----
+  // the sheet also picks the machine's setup: with a letter selected it edits that letter's
+  // note, with none it edits the machine's ordinary note.
+  function refreshNoteBtn(){
+    const note=(st.machineKey && noteFor(st.machineKey).trim())||'';
+    const l=st.machineKey?curSetup(st.machineKey):'', lnote=l?String(setupRec(st.machineKey).notes[l]||''):'';
+    const btn=document.getElementById('note-btn');
+    if(btn){ btn.classList.toggle('has',!!(note||l)); if(l) btn.dataset.setup=l; else delete btn.dataset.setup; }
+    const text=[l?(lnote?l+' · '+lnote:'setup '+l):'', note].filter(Boolean).join('\n');
+    const line=document.getElementById('setnote'), txt=document.getElementById('setnote-txt');
+    if(line&&txt){ txt.textContent=text; line.style.display=text?'flex':'none'; }
+    const seg=document.getElementById('setup-seg');   // the log screen's toggle shows the same letter
+    if(seg) seg.innerHTML=setupSegHTML(l,x=>`toggleSetup('${x}')`);
+  }
+  // the A/B/C toggle above weight/reps: switch the machine between setups right where the
+  // sets are logged (tap the lit letter again for no setup)
+  function setupSegHTML(l,call){
+    return SETUPS.map(x=>`<button class="${x===l?'on':''}" onclick="${call(x)}" aria-label="setup ${x}">${x}</button>`).join('');
+  }
+  function switchSetup(k,x){
+    const rec=editSetupRec(k); if(curSetup(k)===x) delete rec.cur; else rec.cur=x;
+    saveDB();
+  }
+  // on the log screen another letter is another progression, so "last time" and the numbers
+  // you continue at reload for it
+  function toggleSetup(x){
+    if(!st.machineKey)return;
+    switchSetup(st.machineKey,x);
+    const ls=lastSession(st.machineKey,st.m); st.w=ls?ls.w:(st.m.lastW||60); st.r=ls?ls.r:(st.m.lastR||10);
+    renderLast(); renderW(); renderR(); refreshNoteBtn();
+  }
+  let noteTarget=null;   // {key,name,l,l0} of the machine being edited: the letter on screen, and the one it opened on
+  function openNoteSheet(key,name){
+    if(!key)return;
+    noteTarget={key,name,l:curSetup(key),l0:curSetup(key)};
+    document.getElementById('note-sub').textContent=name||'this exercise';
+    renderNoteSheet();
+    document.getElementById('note-back').classList.add('show');
+    document.getElementById('note-sheet').classList.add('show');
+    setTimeout(()=>document.getElementById('note-area').focus(),120);
+  }
+  function renderNoteSheet(){
+    const l=noteTarget.l, ta=document.getElementById('note-area');
+    document.getElementById('note-seg').innerHTML=SETUPS.map(x=>
+      `<button class="${x===l?'on':''}" onclick="pickSetup('${x}')" aria-label="setup ${x}">${x}</button>`).join('');
+    ta.value=l?String(setupRec(noteTarget.key).notes[l]||''):noteFor(noteTarget.key);
+    ta.placeholder=l?`setup ${l} — seat, pads, handle, grip…`:'e.g. seat height 4 · last pin · grip just outside shoulders…';
+  }
+  function editSetupRec(k){DB.setups=DB.setups||{};const mk=mkey(k);return DB.setups[mk]||(DB.setups[mk]={notes:{}});}
+  // tap a letter to put the machine on it (and show its note); tap it again for no setup
+  function pickSetup(x){
+    if(!noteTarget)return;
+    saveNote();                                   // what was typed stays with the letter it was typed under
+    const rec=editSetupRec(noteTarget.key), l=noteTarget.l===x?'':x;
+    if(l) rec.cur=l; else delete rec.cur;
+    noteTarget.l=l; saveDB(); refreshNoteBtn(); renderNoteSheet();
+    if(activeScreenId()==='s-overview') renderOverview();
+  }
+  function openNotes(){ openNoteSheet(st.machineKey, st.m?st.m.name:'this exercise'); }
+  // per-machine note opened from a routine-overview row
+  function openNotesFor(ei){
+    if(!st.session)return;
+    const m=st.session.items[ei]; if(!m)return;
+    openNoteSheet(keyFor(m), m.name);
+  }
+  function saveNote(){
+    if(!noteTarget)return;
+    const v=document.getElementById('note-area').value.trim(), l=noteTarget.l;
+    if(l){ const rec=editSetupRec(noteTarget.key); if(v) rec.notes[l]=v; else delete rec.notes[l]; }
+    else {
+      dropNote(noteTarget.key);                               // drop legacy scoped copies too
+      if(v) DB.notes[mkey(noteTarget.key)]=v;
+    }
+    saveDB(); refreshNoteBtn();
+    if(activeScreenId()==='s-overview') renderOverview();     // refresh the row's note indicator
+  }
+  function closeNotes(){
+    saveNote();
+    document.getElementById('note-back').classList.remove('show');
+    document.getElementById('note-sheet').classList.remove('show');
+    const t=noteTarget; noteTarget=null;
+    // another letter is another progression: reload "last time" and the numbers you continue at
+    if(t&&t.l!==t.l0&&st.m&&mkey(t.key)===mkey(st.machineKey)){
+      const ls=lastSession(st.machineKey,st.m); st.w=ls?ls.w:(st.m.lastW||60); st.r=ls?ls.r:(st.m.lastR||10);
+      renderLast(); renderW(); renderR();
+    }
+  }
+
+  function logSet(){
+    const best=bestWeight(st.machineKey,st.m);
+    const isPR=best>0 && st.w>best, l=curSetup(st.machineKey);
+    DB.sets.push({key:st.machineKey,brand:st.m.brand,name:st.m.name,...(l?{setup:l}:{}),w:st.w,r:st.r,pr:isPR,ts:Date.now()});
+    saveDB();
+    editIdx=-1; renderSets();
+    toast(isPR,st.r,st.w);
+  }
+  let editIdx=-1;                            // index of the logged set currently being edited
+  function renderSets(){
+    const wrap=document.getElementById('setlist');
+    const sets=st.machineKey?todays(st.machineKey):[];
+    if(!sets.length){wrap.innerHTML='<div class="empty">no sets yet. log your first.</div>';document.getElementById('vol').textContent='—';editIdx=-1;return;}
+    wrap.innerHTML=sets.map((s,i)=> i===editIdx ? `
+      <div class="setrow editing">
+        <span class="sn">${i+1}${stagHTML(s.setup)}</span>
+        <input class="se-in" id="se-r" type="number" inputmode="numeric" value="${s.r}" min="0" max="99">
+        <span class="x">×</span>
+        <input class="se-in" id="se-w" type="number" inputmode="decimal" value="${s.w}" step="0.5" min="0"><span class="se-u">kg</span>
+        <button class="se-btn del" onclick="delSet(${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+        <button class="se-btn save" onclick="saveEdit(${i})" aria-label="save set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></button>
+      </div>` : `
+      <div class="setrow${isFail(s)?' failed':''}">
+        <button class="sn" onclick="pickSetSetup(${i})" aria-label="set ${i+1} setup">${i+1}${stagHTML(s.setup)}</button>
+        <span class="sv">${isFail(s)?'<span class="x">failed @</span>'+(s.w%1===0?s.w:s.w.toFixed(1))+' kg':s.r+'<span class="x">×</span>'+(s.w%1===0?s.w:s.w.toFixed(1))+' kg'}</span>
+        ${isFail(s)
+          ? '<span class="fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>'
+          : s.pr
+          ? '<span class="pr"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/></svg>PR</span>'
+          : '<span class="done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>'}
+        <button class="se-edit" onclick="editSet(${i})" aria-label="edit set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+      </div>`).join('');
+    const vol=sets.reduce((t,s)=>t+s.w*s.r,0);
+    document.getElementById('vol').textContent=vol.toLocaleString()+' kg';
+  }
+  function pickSetSetup(i){
+    openSetSetup(st.machineKey,st.m,i,()=>{ renderSets(); renderLast(); renderW(); refreshNoteBtn(); });
+  }
+  function editSet(i){ editIdx=i; renderSets(); const w=document.getElementById('se-w'); if(w){w.focus();if(w.select)w.select();} }
+  function saveEdit(i){
+    const s=todays(st.machineKey)[i];          // a live reference into DB.sets
+    if(s){
+      const r=parseInt(document.getElementById('se-r').value,10);
+      const w=parseFloat((document.getElementById('se-w').value||'').replace(',','.'));
+      if(!isNaN(r)) s.r=Math.max(0,Math.min(99,r));
+      if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10);
+      s.pr=false;                              // hand-edited — drop a possibly-stale PR flag
+      saveDB();
+    }
+    editIdx=-1; renderSets();
+  }
+  function delSet(i){
+    const s=todays(st.machineKey)[i];
+    if(s){ const idx=DB.sets.indexOf(s); if(idx>-1) DB.sets.splice(idx,1); saveDB(); }
+    editIdx=-1; renderSets();
+  }
+
+  let tT;
+  function toast(isPR,r,w){
+    toastMsg(isPR, isPR?'new PR! 🔥':'set logged', `${r}×${w%1===0?w:w.toFixed(1)}kg`);
+  }
+  function toastMsg(isPR,title,sub){
+    const t=document.getElementById('toast');
+    document.getElementById('toast-ic').className='ic '+(isPR?'pr':'ok');
+    document.getElementById('toast-ic').innerHTML=isPR
+      ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+    document.getElementById('toast-t').textContent=title;
+    document.getElementById('toast-s').textContent=sub;
+    t.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),1900);
+  }
+
+  // ===== data backup: export / import =====
+  let dataMode='export';
+  function backupName(){return 'rackd-backup-'+new Date().toISOString().slice(0,10)+'.json';}
+  function currentData(){return localStorage.getItem(LS)||JSON.stringify(DB);}
+  function showData(){document.getElementById('data-back').classList.add('show');document.getElementById('data-sheet').classList.add('show');}
+  function closeData(){document.getElementById('data-back').classList.remove('show');document.getElementById('data-sheet').classList.remove('show');}
+  function openExport(){
+    dataMode='export';
+    const a=document.getElementById('data-area');
+    a.value=currentData(); a.readOnly=true;
+    document.getElementById('data-sub').textContent=' — copy or share your data';
+    document.getElementById('data-pri').textContent='share / save';
+    document.getElementById('data-sec').textContent='copy';
+    showData();
+  }
+  function openImport(){
+    dataMode='import';
+    const a=document.getElementById('data-area');
+    a.value=''; a.readOnly=false; a.placeholder='paste your rackd backup json here…';
+    document.getElementById('data-sub').textContent=' — paste a backup to restore';
+    document.getElementById('data-pri').textContent='import & replace';
+    document.getElementById('data-sec').textContent='paste';
+    showData();
+  }
+  function dataPrimary(){ dataMode==='export'?exportShare():importApply(); }
+  function dataSecondary(){ dataMode==='export'?exportCopy():importPaste(); }
+  async function exportShare(){
+    const data=currentData(), name=backupName();
+    try{                                         // 1) native share sheet (save to Files, send to self…)
+      const file=new File([data],name,{type:'application/json'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'rackd backup'});return;}
+    }catch(e){ if(e&&e.name==='AbortError')return; }
+    try{                                         // 2) fall back to a file download
+      const url=URL.createObjectURL(new Blob([data],{type:'application/json'}));
+      const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),5000);
+      toastMsg(false,'saved',name);
+    }catch(e){ exportCopy(); }                   // 3) last resort: clipboard
+  }
+  async function exportCopy(){
+    try{await navigator.clipboard.writeText(document.getElementById('data-area').value);toastMsg(false,'copied','backup on clipboard');}
+    catch(e){ const a=document.getElementById('data-area');a.readOnly=false;a.focus();a.select();try{document.execCommand('copy');}catch(_){}a.readOnly=true;toastMsg(false,'select all & copy','clipboard blocked'); }
+  }
+  async function importPaste(){
+    try{document.getElementById('data-area').value=await navigator.clipboard.readText();}
+    catch(e){ toastMsg(false,'paste manually','clipboard blocked'); }
+  }
+  function importApply(){
+    const raw=document.getElementById('data-area').value.trim();
+    if(!raw){toastMsg(false,'nothing to import','paste a backup first');return;}
+    let obj; try{obj=JSON.parse(raw);}catch(e){toastMsg(false,'invalid json','check the backup text');return;}
+    if(!obj||typeof obj!=='object'||!Array.isArray(obj.sets)){toastMsg(false,'not a rackd backup','missing "sets"');return;}
+    if(!confirm('replace ALL current data with this backup? your current sets, workouts & history will be overwritten.'))return;
+    localStorage.setItem(LS, JSON.stringify(obj));
+    toastMsg(false,'imported','reloading…');
+    setTimeout(()=>location.reload(),700);
+  }
+
+  window.addEventListener('resize',()=>{if(st.gym)moveThumb();});
+
+  // the generic exercise library (free-exercise-db / ExerciseDB) — default options
+  let LIBRARY=[];
+  async function loadLibrary(){
+    try{
+      const r=await fetch(`${API}/library`); if(!r.ok)return;
+      LIBRARY=(await r.json()).map(e=>({
+        brand:(e.equipment||'other'), name:(e.name||'').toLowerCase(),
+        group:e.muscle_group||'core', muscle:e.muscle_label||'', img:e.image_url||'',
+        lastW:0,lastR:0,lastS:0,date:''}));
+      fillPhotosFromLibrary();
+    }catch(e){ /* offline: pool() falls back to the small GENERIC list */ }
+  }
+  // free-weight moves that came in from a preset or by hand (the barbell curl in "last 7
+  // training days", spider curls…) were stored with no photo, and only 'custom' rows get a
+  // camera button — so every screen showed the bare line icon. the library has a picture
+  // for most of them under the same name (word order, plurals and "medium grip" aside), so
+  // fill the gaps once it is in. only generic moves (brand = a library equipment) are
+  // touched, and a photo that is already set — the user's own included — is never replaced.
+  const libKey=n=>String(n||'').toLowerCase().split(/[^a-z0-9]+/)
+    .filter(w=>w&&w!=='medium'&&w!=='grip')
+    .map(w=>w.length>3&&w.endsWith('s')?w.slice(0,-1):w).sort().join(' ');
+  function fillPhotosFromLibrary(){
+    const exact={}, loose={}, equip=new Set();
+    LIBRARY.forEach(e=>{ if(!e.img) return; equip.add(e.brand);
+      if(!exact[imgKey(e)]) exact[imgKey(e)]=e.img;
+      (loose[libKey(e.name)]=loose[libKey(e.name)]||[]).push(e); });
+    const find=o=>{ if(exact[imgKey(o)]) return exact[imgKey(o)];
+      const c=loose[libKey(o.name)]||[]; return (c.find(e=>e.brand===o.brand)||c[0]||{}).img||''; };
+    let n=0;
+    const fill=o=>{ if(!o||!o.name||o.img||!equip.has(o.brand)) return; const u=find(o); if(u){ o.img=u; n++; } };
+    (DB.workouts||[]).forEach(w=>(w.items||[]).forEach(fill));
+    (DB.custom||[]).forEach(fill);
+    if(st.session) (st.session.items||[]).forEach(fill);
+    draft.items.forEach(fill);
+    fill(st.m);
+    if(!n) return 0;
+    persistActive(); saveDB(); photoIndex(true);   // history rows look photos up here
+    renderWorkouts(); renderHome();
+    const sc=activeScreenId();
+    if(sc==='s-overview') renderOverview(); else if(sc==='s-custom') renderDraft(); else if(sc==='s-sessions') renderSessions();
+    if(st.m) document.getElementById('log-thumb').innerHTML=thumbHTML(st.m.brand,st.m.name,st.m.group,st.m.img);
+    return n;
+  }
+
+  // load the live catalog; keep bundled fallback data if the API isn't running.
+  async function loadGymsFromAPI(){
+    try{
+      const r=await fetch(`${API}/gyms`);
+      if(!r.ok) throw 0;
+      const gyms=await r.json();
+      if(Array.isArray(gyms)&&gyms.length){
+        GYMS=gyms.map((g,i)=>({
+          id:String(g.id), name:(g.name||'').toLowerCase(),
+          area:(g.area||'').toLowerCase(), count:g.machine_count,
+          brands:(g.brands||[]).map(b=>b.toLowerCase()), here:i===0,
+          dist:'', machines:null}));
+        renderHome();
+      }
+    }catch(e){ /* offline: keep the bundled sample gyms */ }
+  }
+  seedStarterWorkouts();   // ensure WA1/WA2/WA3 exist (async; loads real machines + images)
+  // resume an in-progress workout across app restarts (the "current workout" card)
+  if(DB.active && Array.isArray(DB.active.items) && DB.active.items.length){
+    st.session=DB.active;
+  }
+  renderHome();
+  loadGymsFromAPI();
+  loadLibrary();
+</script>
+
+</body>
+</html>

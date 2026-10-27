@@ -36,6 +36,12 @@ class Machine(SQLModel, table=True):
     muscle_label: str | None = None
     image_url: str | None = None
     source: str | None = None
+    # taxonomy (api/load_taxonomy.py): region -> muscle -> movement, plus facets
+    region: str | None = None        # chest / back / legs / ... / functional-other
+    muscle: str | None = None        # primary muscle, e.g. 'upper chest'
+    movement: str | None = None      # implement-agnostic node, e.g. 'chest press'
+    secondary: str | None = None     # 'triceps · front delts'
+    facets: str | None = None        # JSON: {"implement": ..., "angle": ..., ...}
 
 
 class LibraryExercise(SQLModel, table=True):
@@ -82,6 +88,8 @@ class Set(SQLModel, table=True):
     user_id: str = Field(index=True)
     gym_machine_id: int | None = Field(default=None, foreign_key="gymmachine.id")
     exercise_id: int | None = Field(default=None, foreign_key="exercise.id")
+    setup_name: str = "standard"
+    setup_note: str | None = None
     weight_kg: Decimal
     reps: int
     is_pr: bool = False

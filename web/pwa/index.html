@@ -93,7 +93,13 @@
   }
   .row:active{background:var(--elev-2);}
   .row + .row::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep);}
-  .row .chev{margin-left:auto;color:var(--label-3);flex:0 0 auto;}
+  .row .chev{margin-left:auto;color:var(--label-3);flex:0 0 auto;transition:transform .18s ease;}
+  /* recent workouts (history) */
+  .rec-detail{padding:2px 16px 12px;}
+  .rec-ex{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-top:1px solid var(--hair,rgba(255,255,255,.07));}
+  .rec-ex:first-child{border-top:none;}
+  .rec-exn{font-size:13px;color:var(--label-2);}
+  .rec-exs{font-size:13px;color:var(--label);text-align:right;white-space:nowrap;}
   .row .chev svg{width:8px;height:13px;display:block;}
 
   /* gym row */
@@ -140,7 +146,8 @@
 
   /* ---- log screen ---- */
   .log-id{padding:6px 22px 2px;display:flex;align-items:center;gap:12px;}
-  .log-id .mbadge{width:44px;height:44px;border-radius:11px;font-size:16px;}
+  .log-id .mbadge,.log-id .micon,.log-id .mthumb{width:56px;height:56px;border-radius:13px;font-size:18px;}
+  .log-id .micon svg{width:34px;height:34px;}
   .log-id .txt{min-width:0;}
   .log-id .b{font-size:12px;color:var(--label-3);font-weight:500;}
   .log-id .n{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-top:1px;}
@@ -186,7 +193,11 @@
   .sets{padding:10px 16px 26px;}
   .sets .hd{display:flex;justify-content:space-between;align-items:baseline;padding:8px 6px 4px;}
   .sets .hd .t{font-size:13px;color:var(--label-2);}
+  .sets .hd .t b{color:var(--label);font-weight:600;}
   .sets .hd .v{font-size:13px;color:var(--label-3);font-variant-numeric:tabular-nums;}
+  .setnote{display:flex;gap:8px;align-items:flex-start;margin:2px 6px 8px;padding:9px 12px;background:rgba(48,209,88,.09);border:.5px solid rgba(48,209,88,.18);border-radius:11px;cursor:pointer;}
+  .setnote svg{width:15px;height:15px;flex:0 0 auto;margin-top:1px;color:var(--accent);}
+  .setnote span{font-size:13px;line-height:1.4;color:var(--label);letter-spacing:-.01em;white-space:pre-wrap;}
   .setlist{background:var(--elev);border-radius:14px;overflow:hidden;}
   .setrow{
     display:flex;align-items:center;gap:13px;padding:13px 16px;position:relative;
@@ -200,6 +211,20 @@
   .setrow .pr svg{width:13px;height:13px;}
   .setrow .done{margin-left:auto;color:var(--accent);}
   .setrow .done svg{width:18px;height:18px;display:block;}
+  /* edit a logged set */
+  .setrow .se-edit{width:30px;height:30px;border-radius:8px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:background .12s ease,color .12s ease;}
+  .setrow .se-edit:active{background:var(--elev-2);color:var(--label);}
+  .setrow .se-edit svg{width:16px;height:16px;}
+  .setrow.editing{gap:8px;}
+  .setrow.editing .x{margin:0 2px;}
+  .setrow .se-in{width:56px;background:var(--bg);border:.5px solid rgba(255,255,255,.14);border-radius:8px;color:var(--label);font-family:var(--sf);font-size:16px;font-weight:600;text-align:center;padding:7px 4px;-moz-appearance:textfield;}
+  .setrow .se-in:focus{outline:none;border-color:var(--accent);}
+  .setrow .se-in::-webkit-outer-spin-button,.setrow .se-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .setrow .se-u{color:var(--label-3);font-size:13px;}
+  .setrow .se-btn{width:34px;height:34px;border-radius:9px;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .setrow .se-btn svg{width:17px;height:17px;}
+  .setrow .se-btn.del{background:var(--elev-2);color:#FF453A;margin-left:auto;}
+  .setrow .se-btn.save{background:var(--accent);color:#00350F;}
   .empty{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
 
   @keyframes pop{from{opacity:0;transform:translateY(-7px);}to{opacity:1;transform:none;}}
@@ -221,6 +246,40 @@
   .toast .tt{font-size:15px;font-weight:600;letter-spacing:-.01em;}
   .toast .ts{font-size:13px;color:var(--label-2);margin-top:1px;}
 
+  /* ---- per-exercise note: button + bottom sheet ---- */
+  .note-btn{margin-left:auto;flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:var(--elev);border:0;color:var(--label-2);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .12s ease,color .12s ease;}
+  .note-btn:active{background:var(--elev-2);}
+  .note-btn svg{width:19px;height:19px;}
+  .note-btn.has{color:var(--accent);}
+  .note-btn.has::after{content:"";position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--elev);}
+  .sheet-back{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .26s ease;z-index:40;}
+  .sheet-back.show{opacity:1;pointer-events:auto;}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--elev);border-radius:20px 20px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s cubic-bezier(.32,.72,0,1);z-index:41;}
+  .sheet.show{transform:none;}
+  .sheet-grip{width:36px;height:5px;border-radius:3px;background:var(--elev-2);margin:6px auto 12px;}
+  .sheet-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;}
+  .sheet-hd .t{font-size:16px;font-weight:700;letter-spacing:-.01em;}
+  .sheet-hd .t span{display:block;font-size:12px;font-weight:500;color:var(--label-3);margin-top:1px;}
+  .sheet-hd .done{background:transparent;border:0;color:var(--accent);font-family:var(--sf);font-size:16px;font-weight:700;cursor:pointer;padding:0;}
+  .note-area{width:100%;min-height:120px;resize:none;background:var(--bg);border:.5px solid rgba(255,255,255,.08);border-radius:13px;color:var(--label);font-family:var(--sf);font-size:15px;line-height:1.45;padding:13px 14px;letter-spacing:-.01em;box-sizing:border-box;}
+  .note-area:focus{outline:none;border-color:rgba(255,255,255,.18);}
+  .note-area::placeholder{color:var(--label-3);}
+
+  /* ---- confirm dialog ---- */
+  .confirm-back{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:50;}
+  .confirm-back.show{opacity:1;pointer-events:auto;}
+  .confirm{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;width:min(300px,82%);background:var(--elev);border-radius:18px;padding:20px 20px 16px;z-index:51;text-align:center;transition:opacity .2s ease,transform .2s cubic-bezier(.32,.72,0,1);}
+  .confirm.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+  .confirm-t{font-size:17px;font-weight:700;letter-spacing:-.01em;}
+  .confirm-m{font-size:14px;color:var(--label-2);margin-top:7px;line-height:1.4;}
+  .confirm-m:empty{display:none;}
+  .confirm-row{display:flex;gap:10px;margin-top:18px;}
+  .confirm-btn{flex:1;border:0;border-radius:11px;padding:12px;font-family:var(--sf);font-size:15px;font-weight:700;cursor:pointer;}
+  .confirm-btn.cancel{background:var(--elev-2);color:var(--label);}
+  .confirm-btn.cancel:active{background:#3A3A3C;}
+  .confirm-btn.danger{background:#FF453A;color:#fff;}
+  .confirm-btn.danger:active{background:#d63a30;}
+
   /* ---- custom workout builder ---- */
   .wname-input{width:100%;background:transparent;border:0;color:var(--label);font-family:var(--sf);font-size:17px;font-weight:600;padding:14px 16px;letter-spacing:-.01em;}
   .wname-input:focus{outline:none;}
@@ -228,6 +287,26 @@
   .addex{width:100%;background:var(--elev);color:var(--accent);border:0;border-radius:14px;padding:14px;font-family:var(--sf);font-size:16px;font-weight:600;cursor:pointer;transition:background .12s ease;}
   .addex:active{background:var(--elev-2);}
   .draftrow .rm{margin-left:auto;width:28px;height:28px;border-radius:50%;background:var(--elev-2);border:0;color:#FF453A;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .draftrow .dphoto{width:34px;height:34px;border-radius:9px;background:var(--elev-2);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .draftrow .dphoto:active{background:#3A3A3C;}
+  .draftrow .dphoto svg{width:16px;height:16px;}
+  .draftrow .drag{width:30px;height:34px;margin-left:-6px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:grab;flex:0 0 auto;touch-action:none;}
+  .draftrow .drag:active{cursor:grabbing;color:var(--label);}
+  .draftrow .drag svg{width:19px;height:19px;}
+  .draftrow.dragging{background:var(--elev-2);border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.45);position:relative;z-index:5;}
+  .draftrow.dragging::before{display:none;}
+  /* saved-workout row actions: start / edit / delete */
+  .wactions{display:flex;align-items:center;gap:8px;flex:0 0 auto;}
+  .wbtn{display:flex;align-items:center;gap:5px;border:0;border-radius:9px;font-family:var(--sf);font-weight:700;cursor:pointer;flex:0 0 auto;transition:background .12s ease,color .12s ease;}
+  .wbtn svg{display:block;}
+  .wbtn.start{background:var(--accent);color:#00350F;font-size:13px;padding:8px 13px 8px 11px;letter-spacing:-.01em;}
+  .wbtn.start svg{width:13px;height:13px;}
+  .wbtn.start:active{background:#28b14e;}
+  .wbtn.edit{width:34px;height:34px;justify-content:center;background:var(--elev-2);color:var(--label-2);}
+  .wbtn.edit svg{width:16px;height:16px;}
+  .wbtn.edit:active{background:#3A3A3C;color:var(--label);}
+  .row .rm{width:34px;height:34px;border-radius:50%;background:var(--elev-2);border:0;color:#FF453A;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .12s ease;}
+  .row .rm:active{background:#3A3A3C;}
   .draftrow .rm:active{background:#3A3A3C;}
   #startbtn:disabled{background:var(--elev);color:var(--label-3);cursor:default;}
   #savebtn{background:var(--elev);color:var(--label);}
@@ -235,13 +314,53 @@
   .savebtn{margin-left:auto;flex:0 0 auto;background:var(--elev-2);color:var(--accent);border:0;border-radius:9px;padding:7px 13px;font-family:var(--sf);font-size:13px;font-weight:700;cursor:pointer;}
   .savebtn:active{background:#3A3A3C;}
   .picker{margin:0;}
+  /* keep the search box fixed and let the matches scroll on their own */
+  #cat-results{max-height:44vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
   .chev.plus{color:var(--accent);font-size:22px;font-weight:400;line-height:1;}
   .empty-draft{padding:18px 16px;font-size:14px;color:var(--label-3);text-align:center;}
 
   /* ---- session bar + next ---- */
-  .sessbar{margin:0 16px 14px;display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:rgba(48,209,88,.12);border-radius:12px;}
+  .sessbar{margin:0 16px 14px;display:flex;justify-content:space-between;align-items:center;padding:9px 12px 9px 16px;background:rgba(48,209,88,.12);border-radius:12px;}
   .sb-name{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:-.01em;}
-  .sb-prog{font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;}
+  .sb-right{display:flex;align-items:center;gap:6px;flex:0 0 auto;}
+  .sb-prog{font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;min-width:34px;text-align:center;}
+  .sb-arw{width:28px;height:28px;border-radius:8px;background:rgba(48,209,88,.16);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:opacity .15s ease,background .12s ease;}
+  .sb-arw:active{background:rgba(48,209,88,.3);}
+  .sb-arw svg{width:14px;height:14px;display:block;}
+  .sb-arw:disabled{opacity:.25;cursor:default;background:rgba(48,209,88,.16);}
+
+  /* ---- routine overview ---- */
+  .viewbtn{margin-left:auto;width:36px;height:36px;border-radius:10px;background:var(--elev);border:0;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;}
+  .viewbtn:active{background:var(--elev-2);}
+  .viewbtn svg{width:19px;height:19px;}
+  .ov-notes{display:block;width:calc(100% - 32px);margin:2px 16px 16px;min-height:46px;resize:none;background:var(--elev);border:0;border-radius:12px;color:var(--label);font-family:var(--sf);font-size:14px;line-height:1.4;padding:12px 14px;letter-spacing:-.01em;box-sizing:border-box;}
+  .ov-notes:focus{outline:none;}
+  .ov-notes::placeholder{color:var(--label-3);}
+  .ov-card{margin:0 16px 14px;background:var(--elev);border-radius:16px;overflow:hidden;}
+  .ov-head{display:flex;align-items:center;gap:11px;padding:13px 14px;cursor:pointer;}
+  .ov-head:active{background:var(--elev-2);}
+  .ov-head .micon,.ov-head .mbadge,.ov-head .mthumb{width:38px;height:38px;border-radius:10px;font-size:14px;}
+  .ov-head .ov-tt{flex:1;min-width:0;}
+  .ov-head .ov-b{font-size:11px;color:var(--label-3);font-weight:500;}
+  .ov-head .ov-n{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+  .ov-head .ov-go{color:var(--label-3);flex:0 0 auto;}
+  .ov-head .ov-go svg{width:8px;height:13px;display:block;}
+  .ov-tblh,.ov-row{display:grid;grid-template-columns:34px 1fr 1fr 1fr 30px;align-items:center;gap:8px;padding:6px 14px;}
+  .ov-tblh{padding-top:2px;padding-bottom:2px;}
+  .ov-tblh span{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--label-3);text-align:center;}
+  .ov-tblh span:first-child{text-align:left;}
+  .ov-row + .ov-row{margin-top:-2px;}
+  .ov-set{width:24px;height:24px;border-radius:7px;background:var(--elev-2);color:var(--label-2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+  .ov-prev{font-size:13px;color:var(--label-3);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ov-in{width:100%;background:var(--bg);border:.5px solid rgba(255,255,255,.12);border-radius:8px;color:var(--label);font-family:var(--sf);font-size:15px;font-weight:600;text-align:center;padding:7px 2px;box-sizing:border-box;-moz-appearance:textfield;}
+  .ov-in:focus{outline:none;border-color:var(--accent);}
+  .ov-in::-webkit-outer-spin-button,.ov-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .ov-del{width:28px;height:28px;border-radius:7px;background:transparent;border:0;color:var(--label-3);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .ov-del:active{background:var(--elev-2);color:#FF453A;}
+  .ov-del svg{width:15px;height:15px;}
+  .ov-empty{padding:8px 14px 4px;font-size:13px;color:var(--label-3);}
+  .ov-add{width:calc(100% - 20px);margin:6px 10px 10px;background:var(--elev-2);color:var(--accent);border:0;border-radius:10px;padding:11px;font-family:var(--sf);font-size:14px;font-weight:600;cursor:pointer;}
+  .ov-add:active{background:#3A3A3C;}
   .next-btn{width:100%;background:var(--elev);color:var(--label);border:0;border-radius:14px;padding:16px;font-family:var(--sf);font-size:17px;font-weight:600;cursor:pointer;transition:background .12s ease;}
   .next-btn:active{background:var(--elev-2);}
 
@@ -254,6 +373,31 @@
   .scroll{padding-bottom:calc(env(safe-area-inset-bottom) + 12px);}
   .toast{bottom:calc(24px + env(safe-area-inset-bottom));}
   .navbar{padding-top:2px;}
+
+  /* desktop preview: dock the full-screen app inside a centred phone frame.
+     real phones (narrow viewport) keep the native edge-to-edge layout. */
+  @media (min-width:600px){
+    html,body{background:#0a0a0a;}
+    body{display:flex;align-items:center;justify-content:center;}
+    .app{
+      position:relative;inset:auto;
+      width:390px;height:min(844px,96vh);
+      border-radius:46px;overflow:hidden;
+      box-shadow:0 0 0 11px #000,0 0 0 12px rgba(255,255,255,.08),
+                 0 40px 90px -24px rgba(0,0,0,.9);
+    }
+  }
+  /* ===== history / progress charts ===== */
+  .histcard{margin:0 16px 12px;background:var(--elev);border-radius:14px;padding:14px 16px 12px;}
+  .histhd{display:flex;align-items:center;gap:8px;}
+  .histdot{width:10px;height:10px;border-radius:3px;flex:0 0 auto;}
+  .histname{font-size:15px;font-weight:600;color:var(--label);letter-spacing:-.01em;}
+  .histtrend{margin-left:auto;font-size:13px;color:var(--label-2);font-variant-numeric:tabular-nums;}
+  .histtrend.up{color:var(--accent);}
+  .histtrend.down{color:#FF6B6B;}
+  .histchart{display:block;width:100%;height:auto;margin:10px 0 8px;overflow:visible;}
+  .histaxis{display:flex;justify-content:space-between;font-size:11px;color:var(--label-3);font-variant-numeric:tabular-nums;margin-top:-2px;}
+  .histmeta{font-size:12px;color:var(--label-3);margin-top:7px;}
 </style>
 </head>
 <body>
@@ -265,6 +409,7 @@
           <div class="sub">track the exact machine in front of you.</div>
         </div>
         <div class="scroll">
+          <div id="home-active"></div>
           <div class="sechead">start</div>
           <div class="group">
             <div class="row" onclick="goGyms()">
@@ -284,8 +429,37 @@
               <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
             </div>
           </div>
+          <div class="sechead">progress</div>
+          <div class="group">
+            <div class="row" onclick="goHistory()">
+              <div class="mbadge" style="background:#E8551F"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M7.5 15l3.5-4 3 2.5 5-7"/></svg></div>
+              <div class="m-main">
+                <div class="m-name">history</div>
+                <div class="m-muscle">improvements per muscle group</div>
+              </div>
+              <span class="chev"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+            </div>
+          </div>
           <div class="sechead" id="home-work-head" style="display:none;">your workouts</div>
           <div id="home-worklist"></div>
+        </div>
+      </section>
+
+      <!-- ===== screen: history ===== -->
+      <section class="screen" id="s-history">
+        <div class="navbar">
+          <button class="navback" onclick="goHome()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            home
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1>history</h1>
+          <div class="sub">your recent workouts and improvements.</div>
+        </div>
+        <div class="scroll">
+          <div id="recentbody"></div>
+          <div id="histbody"></div>
         </div>
       </section>
 
@@ -466,19 +640,29 @@
             <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
             <span id="back-gym">machines</span>
           </button>
+          <button class="viewbtn" id="log-viewbtn" onclick="openOverview()" style="display:none;" aria-label="overview" title="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </button>
         </div>
         <div class="log-id">
-          <div class="mbadge" id="log-badge">HS</div>
+          <div id="log-thumb"></div>
           <div class="txt">
             <div class="b" id="log-brand">hammer strength</div>
             <div class="n" id="log-name">iso-lateral chest press</div>
           </div>
+          <button class="note-btn" id="note-btn" onclick="openNotes()" aria-label="exercise note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/><path d="M8 9h8M8 13h5"/></svg>
+          </button>
         </div>
 
         <div class="scroll">
           <div class="sessbar" id="sessbar" style="display:none;">
             <span class="sb-name" id="sb-name">push day</span>
-            <span class="sb-prog" id="sb-prog">1 / 4</span>
+            <span class="sb-right">
+              <button class="sb-arw" id="sb-prev" onclick="prevExercise()" aria-label="previous exercise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <span class="sb-prog" id="sb-prog">1 / 4</span>
+              <button class="sb-arw" id="sb-next" onclick="gotoNext()" aria-label="next exercise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </span>
           </div>
           <div class="lastcard">
             <div class="l" id="last-l">last time · <b>3×10 @ 68kg</b></div>
@@ -509,7 +693,11 @@
           <div class="cta"><button onclick="logSet()">log set</button></div>
 
           <div class="sets">
-            <div class="hd"><span class="t">today · this machine</span><span class="v" id="vol">—</span></div>
+            <div class="hd"><span class="t">today · <b id="sets-machine">this machine</b></span><span class="v" id="vol">—</span></div>
+            <div class="setnote" id="setnote" style="display:none;" onclick="openNotes()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V15l-5 5H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M14 20v-4.5A1.5 1.5 0 0 1 15.5 14H20"/></svg>
+              <span id="setnote-txt"></span>
+            </div>
             <div class="setlist" id="setlist"><div class="empty">no sets yet. log your first.</div></div>
           </div>
 
@@ -522,9 +710,53 @@
         </div>
       </section>
 
+      <!-- ===== screen: routine overview (all exercises at a glance) ===== -->
+      <section class="screen" id="s-overview">
+        <div class="navbar">
+          <button class="navback" onclick="backFromLog()">
+            <svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg>
+            <span id="ov-back">workouts</span>
+          </button>
+          <button class="viewbtn" onclick="openFocus()" aria-label="focus view" title="focus view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/></svg>
+          </button>
+        </div>
+        <div class="largetitle">
+          <h1 id="ov-title">push day</h1>
+          <div class="sub" id="ov-sub">tap an exercise to focus it.</div>
+        </div>
+        <div class="scroll">
+          <textarea class="ov-notes" id="ov-notes" placeholder="workout notes…" onchange="saveSessNote()"></textarea>
+          <div id="ov-list"></div>
+          <div class="cta"><button class="next-btn" style="background:var(--accent);color:#00350F;" onclick="finishFromOverview()">finish workout</button></div>
+        </div>
+      </section>
+
       <div class="toast" id="toast">
         <div class="ic ok" id="toast-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div><div class="tt" id="toast-t">set logged</div><div class="ts" id="toast-s">3×10 @ 68kg</div></div>
+      </div>
+
+      <div class="sheet-back" id="note-back" onclick="closeNotes()"></div>
+      <div class="sheet" id="note-sheet">
+        <div class="sheet-grip"></div>
+        <div class="sheet-hd">
+          <div class="t">note<span id="note-sub">this exercise</span></div>
+          <button class="done" onclick="closeNotes()">done</button>
+        </div>
+        <textarea class="note-area" id="note-area" placeholder="e.g. seat height 4 · last pin · grip just outside shoulders…"></textarea>
+      </div>
+
+      <input type="file" id="custphoto" accept="image/*" style="display:none" onchange="onCustPhoto(this)">
+
+      <div class="confirm-back" id="confirm-back" onclick="closeConfirm()"></div>
+      <div class="confirm" id="confirm" role="alertdialog">
+        <div class="confirm-t" id="confirm-t">remove this routine?</div>
+        <div class="confirm-m" id="confirm-m"></div>
+        <div class="confirm-row">
+          <button class="confirm-btn cancel" onclick="closeConfirm()">cancel</button>
+          <button class="confirm-btn danger" id="confirm-ok" onclick="doConfirm()">remove</button>
+        </div>
       </div>
 </div>
 <script>
@@ -554,7 +786,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // the live catalog API (api/  →  uvicorn main:app). If unreachable, the app falls
   // back to the bundled sample data below, so it still works fully offline.
-  const API='http://127.0.0.1:8000';
+  // localhost while developing on the PC; the deployed Azure backend everywhere else
+  // (phone / hosted PWA) — so a redeploy never silently points the app at a dead localhost.
+  const API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')
+    ? 'http://127.0.0.1:8000'
+    : 'https://rackd-api-sguhring.azurewebsites.net';
   const USER='me';   // single local user for now (on-device, no accounts)
   const PALETTE=['#B71C1C','#0A6EBD','#1A8E6E','#E8551F','#7B5EA7','#C4161C','#2C7A4B',
                  '#B58100','#0F6E6E','#9A3B8C','#3A5BBF','#A04515'];
@@ -570,7 +806,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // 'icon' = our own stylized line icons (own IP, no logos — safe to commercialize);
   // 'photo' = the scraped product photos (copyright risk — dev only);
   // 'badge' = brand initials only.
-  const IMAGES_MODE='original'; // 'original' = real product photos as found | 'photo' = cutouts | 'icon' | 'badge'
+  const IMAGES_MODE='photo'; // 'photo' = local cutouts in img/ (work offline) | 'original' = remote product photos (need internet) | 'icon' | 'badge'
   // ICONS + ICON_VIEWBOX are defined in icons.js (loaded before this script).
   const GROUP_ICON={push:'press', pull:'pulldown', legs:'legpress', core:'ab'};
   // model-name keyword -> icon key (most specific first)
@@ -605,10 +841,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const icon=ICONS[key]?`<svg width="30" height="30" viewBox="${ICON_VIEWBOX}" fill="none" stroke="currentColor" stroke-width="${window.ICON_STROKE||3}" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]}</svg>`:'';
     let over='';
     if(image_url && (IMAGES_MODE==='photo' || IMAGES_MODE==='original')){
-      // 'original' = the real product photo as found; 'photo' = our local cutout
+      // 'original' = the real product photo as found; 'photo' = our local cutout.
+      // already-embedded images (data: URIs) or img/ paths are used as-is (offline-safe);
+      // remote URLs map to a pre-rendered local cutout so they work offline too.
       const src = IMAGES_MODE==='original'
         ? image_url
-        : (image_url.indexOf('img/')===0 ? image_url : `img/${imgHash(image_url)}.png`);
+        : (/^(data:|img\/)/.test(image_url) ? image_url : `img/${imgHash(image_url)}.png`);
       over=`<img class="mthumb-over" src="${src}" loading="lazy" onerror="this.remove()">`;
     }
     return `<div class="micon">${icon}${over||(icon?'':badgeHTML(brand))}</div>`;
@@ -622,6 +860,12 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     {brand:'barbell',name:'deadlift',group:'pull',muscle:'posterior chain',lastW:0,lastR:0,lastS:0,date:''},
     {brand:'barbell',name:'barbell row',group:'pull',muscle:'mid-back',lastW:0,lastR:0,lastS:0,date:''},
     {brand:'dumbbell',name:'dumbbell curl',group:'pull',muscle:'biceps',lastW:0,lastR:0,lastS:0,date:''},
+  ];
+
+  // hand-added exercises that ship with the app (always available in the picker).
+  const BUILTIN_EXTRAS=[
+    {brand:'cable',name:'seated pullover',group:'pull',muscle:'lats · chest',img:'',lastW:0,lastR:0,lastS:0,date:''},
+    {brand:'cable',name:'seated overhead triceps extension',group:'push',muscle:'triceps',img:'',lastW:0,lastR:0,lastS:0,date:''},
   ];
 
   // each gym is a SUBSET of the global catalog — the core idea, preserved.
@@ -655,7 +899,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 
   // ===== on-device persistence (localStorage) =====
   const LS='rackd.v1';
-  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];return d;}catch(e){return{sets:[],workouts:[]};}}
+  function loadDB(){try{const d=JSON.parse(localStorage.getItem(LS))||{};d.sets=d.sets||[];d.workouts=d.workouts||[];d.sessions=d.sessions||[];d.notes=d.notes||{};d.custom=d.custom||[];d.active=d.active||null;return d;}catch(e){return{sets:[],workouts:[],sessions:[],notes:{},custom:[],active:null};}}
   function saveDB(){try{localStorage.setItem(LS,JSON.stringify(DB));}catch(e){}}
   let DB=loadDB();
   const MON=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
@@ -676,6 +920,32 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function bestWeight(k,m){let best=m.lastW||0;setsFor(k).forEach(s=>{if(s.w>best)best=s.w;});return best;}
   function todays(k){const t=new Date().toDateString();return DB.sets.filter(s=>s.key===k&&new Date(s.ts).toDateString()===t);}
 
+  // ===== active workout (persisted) =====
+  // the running workout is mirrored into DB.active so it survives navigating home and
+  // app/WebView reloads — that's what powers the "current workout" card on the home screen.
+  function sessScope(s){ s=s||st.session; return s ? (s.wid?('w'+s.wid):'custom') : null; }
+  // merge into st.session.items any exercise logged *today* under this session's scope that
+  // isn't already in the preset/template (e.g. machines added on the fly). Without this they'd
+  // stay logged in DB.sets but invisible, because the overview only renders st.session.items.
+  function reconcileSession(){
+    if(!st.session) return;
+    const have=new Set(st.session.items.map(m=>m.brand+'|'+m.name));
+    const pre=sessScope()+'|', t=new Date().toDateString();
+    DB.sets.forEach(s=>{
+      if(!s.key||s.key.indexOf(pre)!==0) return;
+      if(new Date(s.ts).toDateString()!==t) return;
+      const id=s.brand+'|'+s.name; if(have.has(id)) return;
+      have.add(id);
+      st.session.items.push({brand:s.brand,name:s.name,group:guessGroup(s.name),muscle:'',img:'',lastW:0,lastR:0,lastS:0,date:'',adhoc:true});
+    });
+  }
+  function setActive(){
+    if(!st.session){ return; }
+    DB.active={name:st.session.name, wid:st.session.wid||null, items:st.session.items.slice(), idx:st.session.idx||0, ts:Date.now()};
+    saveDB();
+  }
+  function clearActive(){ DB.active=null; saveDB(); }
+
   function show(id){
     document.querySelectorAll('.screen').forEach(s=>{
       if(s.id!==id&&s.classList.contains('active')) s.classList.add('exit-left');
@@ -691,6 +961,116 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   function goWorkouts(){ renderWorkouts(); show('s-workouts'); }
   function goGym(){show('s-gym');}       // back-target from the machines screen (gyms list)
   function goMachines(){show('s-machines');}
+  function goHistory(){ renderHistory(); show('s-history'); }
+
+  // ===== history: per-muscle-group improvement charts =====
+  // weight isn't comparable across machines, so we don't compare single loads. Instead we
+  // trend *training volume* (Σ reps×kg) per muscle group per day — a fair aggregate of effort.
+  const GROUP_META={
+    push:{label:'push', color:'#E8551F'},
+    pull:{label:'pull', color:'#0A6EBD'},
+    legs:{label:'legs', color:'#7B5EA7'},
+    core:{label:'core', color:'#1A8E6E'},
+  };
+  function histDay(ts){const d=new Date(ts);return d.getDate()+' '+MON[d.getMonth()];}
+  // a line chart from [{ts,vol}] points, scaled to fill the card; no libraries (offline-safe)
+  function histChart(pts,color){
+    const W=320,H=92,pad=10;
+    if(pts.length<2){
+      return `<svg class="histchart" viewBox="0 0 ${W} ${H}"><circle cx="${W/2}" cy="${H/2}" r="3.6" fill="${color}"/></svg>`;
+    }
+    const xs=pts.map(p=>p.ts), vs=pts.map(p=>p.vol);
+    const minX=Math.min(...xs), maxX=Math.max(...xs), minV=Math.min(...vs), maxV=Math.max(...vs);
+    const sx=(maxX-minX)||1, sv=(maxV-minV)||1;
+    const X=t=>pad+(t-minX)/sx*(W-2*pad);
+    const Y=v=>(H-pad)-(v-minV)/sv*(H-2*pad);
+    const line=pts.map(p=>X(p.ts).toFixed(1)+','+Y(p.vol).toFixed(1)).join(' ');
+    const area=`${pad.toFixed(1)},${(H-pad).toFixed(1)} ${line} ${(W-pad).toFixed(1)},${(H-pad).toFixed(1)}`;
+    const dots=pts.map(p=>`<circle cx="${X(p.ts).toFixed(1)}" cy="${Y(p.vol).toFixed(1)}" r="2.6" fill="${color}"/>`).join('');
+    return `<svg class="histchart" viewBox="0 0 ${W} ${H}">`
+      +`<polygon points="${area}" fill="${color}" fill-opacity="0.12"/>`
+      +`<polyline points="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`
+      +dots+`</svg>`;
+  }
+  // ---- recent workouts: the last 10 completed sessions (from DB.sessions) ----
+  function recentSummary(s){
+    const exs=s.items||[];
+    const sets=exs.reduce((n,it)=>n+(it.sets?it.sets.length:0),0);
+    const vol=exs.reduce((n,it)=>n+(it.sets||[]).reduce((a,x)=>a+(x.w||0)*(x.r||0),0),0);
+    const prs=exs.reduce((n,it)=>n+(it.sets||[]).filter(x=>x.pr).length,0);
+    return {ex:exs.length, sets, vol:Math.round(vol), prs};
+  }
+  function renderRecent(){
+    const wrap=document.getElementById('recentbody'); if(!wrap) return;
+    const ss=(DB.sessions||[]).filter(s=>s&&s.ts).slice().sort((a,b)=>b.ts-a.ts).slice(0,10);
+    if(!ss.length){ wrap.innerHTML=''; return; }
+    let html=`<div class="sechead">last ${ss.length} workout${ss.length!==1?'s':''}</div>`;
+    ss.forEach((s,i)=>{
+      const d=new Date(s.ts), date=d.getDate()+' '+MON[d.getMonth()];
+      const sm=recentSummary(s);
+      const detail=(s.items||[]).map(it=>{
+        const sets=(it.sets||[]).map(x=>x.r+'×'+(x.w%1===0?x.w:x.w.toFixed(1))+(x.pr?' pr':'')).join(', ');
+        return `<div class="rec-ex"><span class="rec-exn">${it.name}</span><span class="rec-exs">${sets||'—'}</span></div>`;
+      }).join('');
+      html+=`<div class="group">
+        <div class="row" onclick="toggleRecent(${i})">
+          <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7v10M17.5 7v10M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></div>
+          <div class="m-main"><div class="m-name">${s.name}</div>
+            <div class="m-muscle">${date} · ${sm.ex} exercise${sm.ex!==1?'s':''} · ${sm.sets} set${sm.sets!==1?'s':''} · ${sm.vol.toLocaleString()} kg${sm.prs?` · ${sm.prs} pr`:''}</div></div>
+          <span class="chev" id="rec-chev-${i}"><svg viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6.5l-5 5"/></svg></span>
+        </div>
+        <div class="rec-detail" id="rec-d-${i}" style="display:none;">${detail}</div>
+      </div>`;
+    });
+    wrap.innerHTML=html;
+  }
+  function toggleRecent(i){
+    const d=document.getElementById('rec-d-'+i), ch=document.getElementById('rec-chev-'+i);
+    if(!d)return; const open=d.style.display!=='none';
+    d.style.display=open?'none':'block';
+    if(ch) ch.style.transform=open?'':'rotate(90deg)';
+  }
+  function renderHistory(){
+    renderRecent();
+    const wrap=document.getElementById('histbody');
+    const sets=(DB.sets||[]).filter(s=>s&&s.ts);
+    if(!sets.length){wrap.innerHTML='<div class="empty">no history yet — log some sets and your progress shows up here.</div>';return;}
+    // map an exercise name → its muscle group (known machines first, else a keyword guess)
+    const gmap={};
+    try{pool().forEach(x=>{if(x&&x.name&&x.group)gmap[x.name]=x.group;});}catch(e){}
+    const groupOf=n=>gmap[n]||guessGroup(n);
+    // bucket sets by group, then by calendar day, summing volume
+    const byGroup={};
+    sets.forEach(s=>{
+      const g=groupOf(s.name);
+      const d=new Date(s.ts); d.setHours(0,0,0,0); const dk=d.getTime();
+      const G=byGroup[g]||(byGroup[g]={days:{},sets:0,prs:0});
+      G.sets++; if(s.pr)G.prs++;
+      (G.days[dk]||(G.days[dk]={ts:dk,vol:0})).vol+=(s.w||0)*(s.r||0);
+    });
+    let html='';
+    ['push','pull','legs','core'].forEach(g=>{
+      const G=byGroup[g]; if(!G)return;
+      const meta=GROUP_META[g]||{label:g,color:'var(--accent)'};
+      const pts=Object.values(G.days).sort((a,b)=>a.ts-b.ts);
+      const first=pts[0].vol, last=pts[pts.length-1].vol;
+      let trend, cls='';
+      if(pts.length<2){ trend='log again to see a trend'; }
+      else if(first>0){ const pct=Math.round((last-first)/first*100); cls=pct>=0?'up':'down'; trend=(pct>=0?'+':'')+pct+'% since '+histDay(pts[0].ts); }
+      else { trend='since '+histDay(pts[0].ts); }
+      html+=`<div class="histcard">
+        <div class="histhd">
+          <span class="histdot" style="background:${meta.color}"></span>
+          <span class="histname">${meta.label}</span>
+          <span class="histtrend ${cls}">${trend}</span>
+        </div>
+        ${histChart(pts,meta.color)}
+        ${pts.length>1?`<div class="histaxis"><span>${histDay(pts[0].ts)}</span><span>${histDay(pts[pts.length-1].ts)}</span></div>`:''}
+        <div class="histmeta">${pts.length} session${pts.length!==1?'s':''} · ${G.sets} set${G.sets!==1?'s':''} · ${G.prs} pr${G.prs!==1?'s':''} · volume in kg</div>
+      </div>`;
+    });
+    wrap.innerHTML=html;
+  }
 
   // ---- screen 1 ----
   function chipsFor(g){
@@ -860,10 +1240,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function loadLog(m){
     st.m=m; st.machineKey=keyFor(m); const ls=lastSession(st.machineKey,m); st.w=ls?ls.w:(m.lastW||60); st.r=ls?ls.r:(m.lastR||10);
-    const b=brandStyle(m.brand);
-    const badge=document.getElementById('log-badge'); badge.style.background=b.color; badge.textContent=b.abbr;
+    document.getElementById('log-thumb').innerHTML=thumbHTML(m.brand,m.name,m.group,m.img);
     document.getElementById('log-brand').textContent=m.brand;
     document.getElementById('log-name').textContent=m.name;
+    document.getElementById('sets-machine').textContent=m.name;
     const lastL=document.getElementById('last-l'), beat=document.getElementById('beat');
     if(ls){
       lastL.innerHTML=`last time · <b>${ls.s}×${ls.r} @ ${ls.w}kg</b>`;
@@ -874,7 +1254,11 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     }
     if(!st.session) document.getElementById('back-gym').textContent = st.gym ? st.gym.name.split(' ')[0] : 'back';
     updateSessionBar();
+    editIdx=-1;
     renderW(); renderR(); renderSets();
+    document.getElementById('note-back').classList.remove('show');
+    document.getElementById('note-sheet').classList.remove('show');
+    refreshNoteBtn();
     show('s-log');
   }
   function backFromLog(){ if(st.catalog) show('s-cat-model'); else if(st.session) show('s-workouts'); else goMachines(); }
@@ -882,11 +1266,64 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   // ---- custom workout builder ----
   function pool(){
     const seen={}, out=[];
+    (DB.custom||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});   // your own exercises first
+    BUILTIN_EXTRAS.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});     // app-shipped extras
     // gym.machines is null until that gym is opened (lazy-loaded from the API), so guard it
     GYMS.forEach(g=>(g.machines||[]).forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}}));
     const base=LIBRARY.length?LIBRARY:GENERIC;   // ExerciseDB defaults (offline fallback: GENERIC)
     base.forEach(m=>{if(!seen[m.name]){seen[m.name]=1;out.push(m);}});
     return out;
+  }
+  function guessGroup(n){
+    n=(n||'').toLowerCase();
+    if(/squat|leg|lunge|calf|glute|hip|hamstring|quad/.test(n)) return 'legs';
+    if(/row|pull|curl|lat|chin|deadlift|shrug|rear|back/.test(n)) return 'pull';
+    if(/press|push|dip|fly|chest|shoulder|tricep|delt|raise/.test(n)) return 'push';
+    return 'core';
+  }
+  // create a custom exercise from the search box text; persists in DB.custom so it's
+  // reusable, and adds it to the workout being built.
+  function addCustomEx(){
+    const name=(catQuery||'').trim().toLowerCase(); if(name.length<2) return;
+    let ex=(DB.custom||[]).find(m=>m.name===name);
+    if(!ex){
+      ex={brand:'custom', name, group:guessGroup(name), muscle:'', img:'', lastW:0,lastR:0,lastS:0,date:''};
+      DB.custom.push(ex); saveDB();
+    }
+    if(!draft.items.some(d=>d.name===name)) draft.items.push({...ex});
+    renderDraft(); renderCatResults();
+    pickCustomPhoto(name);                 // immediately offer to attach a photo
+  }
+  // attach a photo (from the device) to a custom exercise — downscaled to a data URI
+  let _photoTarget=null;
+  function pickCustomPhoto(name){ _photoTarget=name; const inp=document.getElementById('custphoto'); if(inp){ inp.value=''; inp.click(); } }
+  function onCustPhoto(inp){
+    const f=inp.files&&inp.files[0]; if(!f||!_photoTarget) return;
+    const name=_photoTarget, rd=new FileReader();
+    rd.onload=()=>{
+      const im=new Image();
+      im.onload=()=>{
+        const max=720, sc=Math.min(1,max/Math.max(im.width,im.height));
+        const cw=Math.round(im.width*sc), ch=Math.round(im.height*sc);
+        const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+        const cx=cv.getContext('2d'); cx.fillStyle='#e9e9ee'; cx.fillRect(0,0,cw,ch); cx.drawImage(im,0,0,cw,ch);
+        try{ applyCustomPhoto(name, cv.toDataURL('image/jpeg',0.85)); }
+        catch(e){ applyCustomPhoto(name, rd.result); }
+      };
+      im.onerror=()=>applyCustomPhoto(name, rd.result);
+      im.src=rd.result;
+    };
+    rd.readAsDataURL(f);
+  }
+  function applyCustomPhoto(name,uri){
+    const ex=(DB.custom||[]).find(m=>m.name===name); if(ex) ex.img=uri;
+    draft.items.forEach(d=>{if(d.name===name) d.img=uri;});
+    if(st.session) st.session.items.forEach(d=>{if(d.name===name) d.img=uri;});
+    if(st.m&&st.m.name===name){ st.m.img=uri; const lt=document.getElementById('log-thumb'); if(lt) lt.innerHTML=thumbHTML(st.m.brand,st.m.name,st.m.group,uri); }
+    saveDB();
+    renderDraft();
+    if(document.getElementById('cat-results')) renderCatResults();
+    toastMsg(false,'photo added','attached to “'+name+'”');
   }
   function openCustom(){
     st.catalog=false; catQuery=''; catResults=[];
@@ -896,19 +1333,63 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     document.getElementById('addex-btn').textContent='+ add exercise';
     renderDraft(); show('s-custom');
   }
+  function editWorkout(wid,ev){              // open a saved workout in the builder to modify it
+    if(ev)ev.stopPropagation();
+    const w=DB.workouts.find(x=>x.id===wid); if(!w)return;
+    st.catalog=false; catQuery=''; catResults=[];
+    draft={name:w.name, items:w.items.slice(), savedId:w.id};   // savedId → re-save updates in place
+    document.getElementById('wname').value=w.name;
+    document.getElementById('picker').style.display='none';
+    document.getElementById('addex-btn').textContent='+ add exercise';
+    renderDraft(); show('s-custom');
+  }
   function renderDraft(){
     const dl=document.getElementById('draftlist');
     document.getElementById('ex-count').textContent=draft.items.length?('· '+draft.items.length):'';
     if(!draft.items.length){ dl.innerHTML='<div class="empty-draft">no exercises yet — add some below.</div>'; }
-    else dl.innerHTML=draft.items.map((m,i)=>{const b=brandStyle(m.brand);return `
-      <div class="row draftrow">
-        <div class="mbadge" style="background:${b.color}">${b.abbr}</div>
+    else dl.innerHTML=draft.items.map((m,i)=>`
+      <div class="row draftrow" data-i="${i}">
+        <button class="drag" onpointerdown="dragStart(event)" aria-label="reorder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14M5 15h14"/></svg></button>
+        ${thumbHTML(m.brand,m.name,m.group,m.img)}
         <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.name}</div></div>
+        ${m.brand==='custom'?`<button class="dphoto" onclick="pickCustomPhoto('${esc(m.name)}')" aria-label="add photo" title="add photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.2-1.8A1 1 0 0 1 9 4.7h6a1 1 0 0 1 .8.5L17 7h2.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>`:''}
         <button class="rm" onclick="removeEx(${i})">−</button>
-      </div>`;}).join('');
+      </div>`).join('');
     document.getElementById('startbtn').disabled=!draft.items.length;
     document.getElementById('savebtn').disabled=!draft.items.length;
   }
+  // drag-and-drop reorder of the draft exercises (pointer events → works on touch + mouse)
+  let _drag=null;
+  function dragStart(e){
+    e.preventDefault();
+    const row=e.target.closest('.draftrow'), list=document.getElementById('draftlist');
+    if(!row||!list)return;
+    _drag={row,list};
+    row.classList.add('dragging');
+    window.addEventListener('pointermove',dragMove);
+    window.addEventListener('pointerup',dragEnd,{once:true});
+  }
+  function dragMove(e){
+    if(!_drag)return;
+    const {row,list}=_drag, y=e.clientY;
+    let after=null;
+    for(const r of list.querySelectorAll('.draftrow:not(.dragging)')){
+      const b=r.getBoundingClientRect();
+      if(y < b.top + b.height/2){ after=r; break; }
+    }
+    if(after) list.insertBefore(row,after); else list.appendChild(row);
+  }
+  function dragEnd(){
+    if(!_drag)return;
+    const {row,list}=_drag;
+    row.classList.remove('dragging');
+    window.removeEventListener('pointermove',dragMove);
+    const order=[...list.querySelectorAll('.draftrow')].map(r=>+r.dataset.i);
+    draft.items=order.map(i=>draft.items[i]);
+    _drag=null;
+    renderDraft();
+  }
+
   function togglePicker(){
     const p=document.getElementById('picker'), btn=document.getElementById('addex-btn');
     if(p.style.display==='none'){ renderPicker(); p.style.display='block'; btn.textContent='done adding'; }
@@ -934,15 +1415,29 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function renderCatResults(){
     const el=document.getElementById('cat-results'); if(!el)return;
-    if(catQuery.trim().length<2){ el.innerHTML=''; return; }
-    if(!catResults.length){ el.innerHTML='<div class="empty-draft">no matches.</div>'; return; }
-    el.innerHTML='<div class="group">'+catResults.map((m,i)=>{
-      const added=draft.items.some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
-      return `<div class="row" onclick="addCatalogResult(${i})">
-        ${thumbHTML(m.brand, m.model, m.muscle_group, m.image_url)}
-        <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
-        <span class="chev plus">${added?'\u2713':'+'}</span>
-      </div>`;}).join('')+'</div>';
+    const q=catQuery.trim();
+    if(q.length<2){ el.innerHTML=''; return; }
+    let html='';
+    if(catResults.length){
+      html+='<div class="group">'+catResults.map((m,i)=>{
+        const added=draft.items.some(d=>d.name===(m.model||'').toLowerCase()&&d.brand===(m.brand||'').toLowerCase());
+        return `<div class="row" onclick="addCatalogResult(${i})">
+          ${thumbHTML(m.brand, m.model, m.muscle_group, m.image_url)}
+          <div class="m-main"><div class="m-brand">${m.brand}</div><div class="m-name">${m.model.toLowerCase()}</div></div>
+          <span class="chev plus">${added?'\u2713':'+'}</span>
+        </div>`;}).join('')+'</div>';
+    } else {
+      html+='<div class="empty-draft">no catalog matches.</div>';
+    }
+    // always let you add the typed text as your own exercise (with a photo)
+    const added=draft.items.some(d=>d.name===q.toLowerCase());
+    html+='<div class="sechead">your own</div><div class="group">'
+      +`<div class="row" onclick="addCustomEx()">
+          <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div class="m-main"><div class="m-brand">custom exercise \u00b7 add a photo</div><div class="m-name">${q.toLowerCase()}</div></div>
+          <span class="chev plus">${added?'\u2713':'+'}</span>
+        </div></div>`;
+    el.innerHTML=html;
   }
   function addCatalogResult(i){
     const m=catResults[i]; if(!m)return;
@@ -988,6 +1483,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const wid=ensureSaved(nm);          // persist so it shows on home (reuses an earlier save)
     st.gym=null; st.catalog=false;
     st.session={name:nm,items:draft.items.slice(),idx:0,wid:wid};
+    reconcileSession(); setActive();
     loadLog(st.session.items[0]);
   }
   function saveCustom(){                  // add to the home screen without starting now
@@ -1016,20 +1512,67 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     const w=DB.workouts.find(x=>x.id===wid); if(!w||!w.items.length)return;
     st.gym=null; st.catalog=false;
     st.session={name:w.name,items:w.items.slice(),idx:0,wid:w.id};
+    reconcileSession(); setActive();
     loadLog(st.session.items[0]);
   }
+  // ---- confirm dialog (app-styled, not a native popup) ----
+  let confirmCb=null;
+  function askConfirm(title,msg,okLabel,onOk){
+    document.getElementById('confirm-t').textContent=title;
+    document.getElementById('confirm-m').textContent=msg||'';
+    document.getElementById('confirm-ok').textContent=okLabel||'remove';
+    confirmCb=onOk;
+    document.getElementById('confirm-back').classList.add('show');
+    document.getElementById('confirm').classList.add('show');
+  }
+  function closeConfirm(){
+    confirmCb=null;
+    document.getElementById('confirm-back').classList.remove('show');
+    document.getElementById('confirm').classList.remove('show');
+  }
+  function doConfirm(){ const cb=confirmCb; closeConfirm(); if(cb)cb(); }
+
   function deleteWorkout(wid,ev){
     if(ev)ev.stopPropagation();
-    DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderHome();
+    const w=DB.workouts.find(x=>x.id===wid);
+    askConfirm('remove this routine?',
+      `“${w?w.name:'this workout'}” will be deleted. this can’t be undone.`,
+      'remove',
+      ()=>{ DB.workouts=DB.workouts.filter(x=>x.id!==wid); saveDB(); renderHome(); renderWorkouts(); });
+  }
+  // finishing a workout: snapshot the sets logged today for each exercise so the
+  // workout AND its individual results are saved together as one dated session.
+  // (the per-set history in DB.sets — which powers "last time on this machine" —
+  // is already written by logSet; this adds the redoable completed-workout record.)
+  function saveSession(){
+    if(!st.session) return;
+    reconcileSession();                         // include on-the-fly exercises in the saved record
+    const t=new Date().toDateString();
+    const items=st.session.items.map(m=>({
+      brand:m.brand, name:m.name,
+      sets:setsFor(keyFor(m)).filter(s=>new Date(s.ts).toDateString()===t).map(s=>({w:s.w,r:s.r,pr:!!s.pr})),
+    })).filter(it=>it.sets.length);
+    if(!items.length) return;                 // nothing logged — don't save an empty session
+    DB.sessions.push({id:'s'+Date.now().toString(36), wid:st.session.wid||null,
+                      name:st.session.name, ts:Date.now(), items});
+    saveDB();
+  }
+  function lastDone(wid){                      // most recent date this workout was completed
+    const ts=DB.sessions.filter(s=>s.wid===wid).map(s=>s.ts);
+    if(!ts.length) return '';
+    const d=new Date(Math.max.apply(null,ts));
+    return d.getDate()+' '+MON[d.getMonth()];
   }
   function workoutRow(w){
-    const chips=[...new Set(w.items.map(it=>it.brand))].slice(0,3)
-      .map(b=>{const s=brandStyle(b);return `<span class="chip" style="background:${s.color}">${s.abbr}</span>`;}).join('');
+    const ld=lastDone(w.id);
     return `<div class="row" onclick="startWorkout('${w.id}')">
-      <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8V4z"/></svg></div>
-      <div class="m-main"><div class="m-name">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}</div></div>
-      <span class="brandchips">${chips}</span>
-      <button class="rm" onclick="deleteWorkout('${w.id}',event)">−</button>
+      <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7v10M17.5 7v10M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></div>
+      <div class="m-main"><div class="m-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${w.name}</div><div class="m-muscle">${w.items.length} exercise${w.items.length!==1?'s':''}${ld?` · last done ${ld}`:''}</div></div>
+      <div class="wactions">
+        <button class="wbtn start" onclick="event.stopPropagation();startWorkout('${w.id}')" aria-label="start workout"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg> start</button>
+        <button class="wbtn edit" onclick="editWorkout('${w.id}',event)" aria-label="edit workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+        <button class="rm" onclick="deleteWorkout('${w.id}',event)" aria-label="delete workout">−</button>
+      </div>
     </div>`;
   }
   function renderWorkouts(){
@@ -1099,15 +1642,55 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
     if(!items.length){ toastMsg(false,'one sec','exercise library still loading — try again'); return; }
     st.gym=null; st.catalog=false;
     st.session={name:`${r.short} · ${day.name}`, items, idx:0, wid:`r-${rid}-${di}`};  // stable key → tracks history per routine day
+    reconcileSession(); setActive();
     loadLog(items[0]);
   }
 
   function renderHome(){
-    renderGyms(); renderWorkouts();
+    renderActiveCard(); renderGyms(); renderWorkouts();
     const gs=document.getElementById('home-gym-sub');
     if(gs) gs.textContent=(GYMS.length||0)+" gyms · log against their machines";
     const ws=document.getElementById('home-work-sub');
     if(ws) ws.textContent=DB.workouts.length?(DB.workouts.length+' saved · build a new one'):'build, save and track workouts';
+  }
+  // home-screen "current workout" card — shows the in-progress workout (preset + anything
+  // logged on the fly today) and lets you jump back into it. Survives reloads via DB.active.
+  function renderActiveCard(){
+    const wrap=document.getElementById('home-active'); if(!wrap) return;
+    const a=DB.active;
+    if(!a){ wrap.innerHTML=''; return; }
+    const pre=(a.wid?('w'+a.wid):'custom')+'|', t=new Date().toDateString();
+    const names=new Set((a.items||[]).map(m=>m.brand+'|'+m.name)); let logged=0;
+    DB.sets.forEach(s=>{ if(s.key&&s.key.indexOf(pre)===0&&new Date(s.ts).toDateString()===t){ names.add(s.brand+'|'+s.name); logged++; } });
+    const ex=names.size;
+    const kind=a.wid?'preset':'custom';
+    wrap.innerHTML=`<div class="sechead">current session (${kind})</div><div class="group">
+      <div class="row" onclick="resumeActive()">
+        <div class="mbadge" style="background:var(--accent);color:#00350F"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg></div>
+        <div class="m-main"><div class="m-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.name}</div>
+          <div class="m-muscle">${ex} exercise${ex!==1?'s':''} · ${logged} set${logged!==1?'s':''} logged · tap to resume</div></div>
+        <div class="wactions">
+          <button class="wbtn start" onclick="event.stopPropagation();resumeActive()" aria-label="resume workout"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg> resume</button>
+          <button class="rm" onclick="endActive(event)" aria-label="finish workout">−</button>
+        </div>
+      </div></div>`;
+  }
+  function resumeActive(){
+    const a=DB.active; if(!a){ renderHome(); return; }
+    st.gym=null; st.catalog=false;
+    st.session={name:a.name, items:(a.items||[]).slice(), idx:a.idx||0, wid:a.wid};
+    reconcileSession(); setActive();
+    renderOverview(); show('s-overview');
+  }
+  function endActive(ev){
+    if(ev)ev.stopPropagation();
+    const a=DB.active; if(!a)return;
+    askConfirm('finish this workout?', `“${a.name}” will be saved and cleared from your home screen.`, 'finish', ()=>{
+      st.gym=null; st.catalog=false;
+      st.session={name:a.name, items:(a.items||[]).slice(), idx:a.idx||0, wid:a.wid};
+      reconcileSession(); saveSession(); st.session=null; clearActive();
+      renderHome(); toastMsg(false,'workout saved','“'+a.name+'” logged');
+    });
   }
   function updateSessionBar(){
     const bar=document.getElementById('sessbar'), nc=document.getElementById('next-cta');
@@ -1115,20 +1698,95 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
       bar.style.display='flex'; nc.style.display='block';
       document.getElementById('sb-name').textContent=st.session.name;
       document.getElementById('sb-prog').textContent=(st.session.idx+1)+' / '+st.session.items.length;
+      const sp=document.getElementById('sb-prev'), sn=document.getElementById('sb-next');
+      if(sp) sp.disabled = st.session.idx<=0;
+      if(sn) sn.disabled = st.session.idx>=st.session.items.length-1;
+      const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='flex';
       document.getElementById('next-btn').textContent= st.session.idx<st.session.items.length-1 ? 'next exercise →' : 'finish workout';
       const pb=document.getElementById('prev-btn'); if(pb) pb.style.display = st.session.idx>0 ? '' : 'none';
       document.getElementById('back-gym').textContent=st.session.name;
-    } else { bar.style.display='none'; nc.style.display='none'; }
+    } else { bar.style.display='none'; nc.style.display='none'; const vb=document.getElementById('log-viewbtn'); if(vb) vb.style.display='none'; }
   }
   function nextExercise(){
     if(!st.session)return;
-    if(st.session.idx<st.session.items.length-1){ st.session.idx++; loadLog(st.session.items[st.session.idx]); }
-    else { const n=st.session.name; st.session=null; renderWorkouts(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged'); }
+    if(st.session.idx<st.session.items.length-1){ st.session.idx++; setActive(); loadLog(st.session.items[st.session.idx]); }
+    else finishSession();
   }
   function prevExercise(){
     if(!st.session||st.session.idx<=0)return;
-    st.session.idx--; loadLog(st.session.items[st.session.idx]);
+    st.session.idx--; setActive(); loadLog(st.session.items[st.session.idx]);
   }
+  // step to the next exercise from the session bar (without finishing the workout —
+  // that's the bottom button's job; the bar arrow just navigates and stops at the end).
+  function gotoNext(){
+    if(!st.session)return;
+    if(st.session.idx<st.session.items.length-1){ st.session.idx++; setActive(); loadLog(st.session.items[st.session.idx]); }
+  }
+
+  // ---- routine overview: all exercises + their sets on one screen ----
+  function sessNoteKey(){ return st.session ? ('sess:'+(st.session.wid||st.session.name)) : null; }
+  function saveSessNote(){
+    const k=sessNoteKey(); if(!k)return;
+    const v=document.getElementById('ov-notes').value;
+    if(v.trim()) DB.notes[k]=v.trim(); else delete DB.notes[k];
+    saveDB();
+  }
+  function openOverview(){ if(!st.session)return; renderOverview(); show('s-overview'); }
+  function openFocus(){ if(!st.session)return; loadLog(st.session.items[st.session.idx]); }   // overview → focused log
+  function ovFocus(ei){ if(!st.session)return; st.session.idx=ei; setActive(); loadLog(st.session.items[ei]); }
+  function renderOverview(){
+    if(!st.session)return;
+    reconcileSession(); setActive();
+    document.getElementById('ov-title').textContent=st.session.name;
+    document.getElementById('ov-back').textContent=st.session.name;
+    document.getElementById('ov-notes').value=DB.notes[sessNoteKey()]||'';
+    document.getElementById('ov-list').innerHTML=st.session.items.map((m,ei)=>{
+      const key=keyFor(m), sets=todays(key), ls=lastSession(key,m);
+      const prev= ls?`${ls.r}×${ls.w%1===0?ls.w:ls.w.toFixed(1)}`:'—';
+      const rows= sets.length ? sets.map((s,i)=>`
+        <div class="ov-row">
+          <span class="ov-set">${i+1}</span>
+          <span class="ov-prev">${i===0?prev:'—'}</span>
+          <input class="ov-in" type="number" inputmode="decimal" step="0.5" min="0" value="${s.w}" onchange="ovEdit(${ei},${i},'w',this.value)">
+          <input class="ov-in" type="number" inputmode="numeric" min="1" value="${s.r}" onchange="ovEdit(${ei},${i},'r',this.value)">
+          <button class="ov-del" onclick="ovDel(${ei},${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+        </div>`).join('') : '<div class="ov-empty">no sets yet — add one.</div>';
+      return `<div class="ov-card">
+        <div class="ov-head" onclick="ovFocus(${ei})">
+          ${thumbHTML(m.brand,m.name,m.group,m.img)}
+          <div class="ov-tt"><div class="ov-b">${m.brand}</div><div class="ov-n">${m.name}</div></div>
+          <span class="ov-go"><svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></span>
+        </div>
+        <div class="ov-tblh"><span>set</span><span>prev</span><span>kg</span><span>reps</span><span></span></div>
+        ${rows}
+        <button class="ov-add" onclick="ovAdd(${ei})">+ add set</button>
+      </div>`;
+    }).join('');
+  }
+  function ovEdit(ei,i,field,val){
+    const m=st.session.items[ei]; const s=todays(keyFor(m))[i]; if(!s)return;
+    if(field==='w'){ const w=parseFloat((val||'').replace(',','.')); if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10); }
+    else { const r=parseInt(val,10); if(!isNaN(r)) s.r=Math.max(1,Math.min(99,r)); }
+    s.pr=false; saveDB();
+  }
+  function ovAdd(ei){
+    const m=st.session.items[ei], key=keyFor(m), sets=todays(key), last=sets[sets.length-1], ls=lastSession(key,m);
+    const w=last?last.w:(ls?ls.w:(m.lastW||60)), r=last?last.r:(ls?ls.r:(m.lastR||10));
+    const best=bestWeight(key,m);
+    DB.sets.push({key,brand:m.brand,name:m.name,w,r,pr:best>0&&w>best,ts:Date.now()});
+    saveDB(); renderOverview();
+  }
+  function ovDel(ei,i){
+    const m=st.session.items[ei], s=todays(keyFor(m))[i];
+    if(s){ const idx=DB.sets.indexOf(s); if(idx>-1) DB.sets.splice(idx,1); saveDB(); }
+    renderOverview();
+  }
+  function finishSession(){
+    if(!st.session)return;
+    const n=st.session.name; saveSession(); st.session=null; clearActive();
+    renderWorkouts(); renderHome(); show('s-workouts'); toastMsg(false,'workout saved','“'+n+'” logged');
+  }
+  function finishFromOverview(){ finishSession(); }
   function bumpW(d){st.w=Math.max(0,Math.round((st.w+d)*10)/10);renderW();}
   function bumpR(d){st.r=Math.max(1,Math.min(30,st.r+d));renderR();}
   function renderW(){
@@ -1143,28 +1801,84 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
   }
   function renderR(){document.getElementById('rp').textContent=st.r;}
 
+  // ---- per-exercise notes (on-device, keyed per machine like the set history) ----
+  function refreshNoteBtn(){
+    const note=(st.machineKey && (DB.notes[st.machineKey]||'').trim())||'';
+    const btn=document.getElementById('note-btn'); if(btn) btn.classList.toggle('has',!!note);
+    const line=document.getElementById('setnote'), txt=document.getElementById('setnote-txt');
+    if(line&&txt){ txt.textContent=note; line.style.display=note?'flex':'none'; }
+  }
+  function openNotes(){
+    if(!st.machineKey)return;
+    document.getElementById('note-sub').textContent=st.m?st.m.name:'this exercise';
+    const ta=document.getElementById('note-area');
+    ta.value=DB.notes[st.machineKey]||'';
+    document.getElementById('note-back').classList.add('show');
+    document.getElementById('note-sheet').classList.add('show');
+    setTimeout(()=>ta.focus(),120);
+  }
+  function saveNote(){
+    if(!st.machineKey)return;
+    const v=document.getElementById('note-area').value;
+    if(v.trim()) DB.notes[st.machineKey]=v.trim(); else delete DB.notes[st.machineKey];
+    saveDB(); refreshNoteBtn();
+  }
+  function closeNotes(){
+    saveNote();
+    document.getElementById('note-back').classList.remove('show');
+    document.getElementById('note-sheet').classList.remove('show');
+  }
+
   function logSet(){
     const best=bestWeight(st.machineKey,st.m);
     const isPR=best>0 && st.w>best;
     DB.sets.push({key:st.machineKey,brand:st.m.brand,name:st.m.name,w:st.w,r:st.r,pr:isPR,ts:Date.now()});
     saveDB();
-    renderSets();
+    editIdx=-1; renderSets();
     toast(isPR,st.r,st.w);
   }
+  let editIdx=-1;                            // index of the logged set currently being edited
   function renderSets(){
     const wrap=document.getElementById('setlist');
     const sets=st.machineKey?todays(st.machineKey):[];
-    if(!sets.length){wrap.innerHTML='<div class="empty">no sets yet. log your first.</div>';document.getElementById('vol').textContent='—';return;}
-    wrap.innerHTML=sets.map((s,i)=>`
+    if(!sets.length){wrap.innerHTML='<div class="empty">no sets yet. log your first.</div>';document.getElementById('vol').textContent='—';editIdx=-1;return;}
+    wrap.innerHTML=sets.map((s,i)=> i===editIdx ? `
+      <div class="setrow editing">
+        <span class="sn">${i+1}</span>
+        <input class="se-in" id="se-r" type="number" inputmode="numeric" value="${s.r}" min="1" max="99">
+        <span class="x">×</span>
+        <input class="se-in" id="se-w" type="number" inputmode="decimal" value="${s.w}" step="0.5" min="0"><span class="se-u">kg</span>
+        <button class="se-btn del" onclick="delSet(${i})" aria-label="delete set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+        <button class="se-btn save" onclick="saveEdit(${i})" aria-label="save set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></button>
+      </div>` : `
       <div class="setrow">
         <span class="sn">${i+1}</span>
         <span class="sv">${s.r}<span class="x">×</span>${s.w%1===0?s.w:s.w.toFixed(1)} kg</span>
         ${s.pr
           ? '<span class="pr"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/></svg>PR</span>'
           : '<span class="done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>'}
+        <button class="se-edit" onclick="editSet(${i})" aria-label="edit set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
       </div>`).join('');
     const vol=sets.reduce((t,s)=>t+s.w*s.r,0);
     document.getElementById('vol').textContent=vol.toLocaleString()+' kg';
+  }
+  function editSet(i){ editIdx=i; renderSets(); const w=document.getElementById('se-w'); if(w){w.focus();if(w.select)w.select();} }
+  function saveEdit(i){
+    const s=todays(st.machineKey)[i];          // a live reference into DB.sets
+    if(s){
+      const r=parseInt(document.getElementById('se-r').value,10);
+      const w=parseFloat((document.getElementById('se-w').value||'').replace(',','.'));
+      if(!isNaN(r)) s.r=Math.max(1,Math.min(99,r));
+      if(!isNaN(w)) s.w=Math.max(0,Math.round(w*10)/10);
+      s.pr=false;                              // hand-edited — drop a possibly-stale PR flag
+      saveDB();
+    }
+    editIdx=-1; renderSets();
+  }
+  function delSet(i){
+    const s=todays(st.machineKey)[i];
+    if(s){ const idx=DB.sets.indexOf(s); if(idx>-1) DB.sets.splice(idx,1); saveDB(); }
+    editIdx=-1; renderSets();
   }
 
   let tT;

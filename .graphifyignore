@@ -1,0 +1,14 @@
+# graphify also honors .gitignore; this covers local-only files that git doesn't ignore.
+
+# personal workout data / phone + azure snapshots
+backups/
+
+# build artifacts and the local db
+*.apk
+*.zip
+*.db
+
+# loose screenshots, brochure pdfs, scratch notes
+*.png
+*.pdf
+docs/command*.txt

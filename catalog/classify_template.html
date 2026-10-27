@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rackd · classify machines</title>
+<style>
+  :root { --bg:#0d0f12; --card:#16191e; --line:#262b33; --txt:#e7eaee; --dim:#8b94a3;
+          --accent:#e8ff59; --good:#36d399; --warn:#f5a524; --bad:#f0506e; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt);
+         font:14px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  header { position:sticky; top:0; z-index:5; background:rgba(13,15,18,.96);
+           backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:12px 16px; }
+  h1 { font-size:15px; font-weight:600; margin:0 0 8px; letter-spacing:.2px; }
+  h1 small { color:var(--dim); font-weight:400; margin-left:8px; }
+  .bar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  input, select, button { background:var(--card); color:var(--txt); border:1px solid var(--line);
+           border-radius:8px; padding:7px 10px; font-size:13px; font-family:inherit; }
+  input::placeholder { color:var(--dim); }
+  button { cursor:pointer; }
+  button.primary { background:var(--accent); color:#11140a; border-color:var(--accent); font-weight:600; }
+  button.add { border-color:var(--accent); color:var(--accent); }
+  .stat { color:var(--dim); font-size:12px; margin-left:auto; }
+  .stat b { color:var(--txt); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+          gap:14px; padding:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px;
+          overflow:hidden; display:flex; flex-direction:column; position:relative; }
+  .card.done { border-color:var(--good); }
+  .card.todo { border-color:var(--warn); }
+  .card.deleted { opacity:.4; border-color:var(--bad); }
+  .card.deleted .photo, .card.deleted .fields { filter:grayscale(1); }
+  .del { position:absolute; top:8px; right:8px; z-index:2; width:26px; height:26px;
+         padding:0; border-radius:50%; background:rgba(13,15,18,.8); border:1px solid var(--line);
+         color:var(--dim); font-size:14px; line-height:1; }
+  .del:hover { color:var(--bad); border-color:var(--bad); }
+  .card.deleted .del { color:var(--good); border-color:var(--good); }   /* acts as restore */
+  .photo { aspect-ratio:1/1; background:
+           radial-gradient(circle at 50% 40%, #20242b 0%, #14171c 70%);
+           display:flex; align-items:center; justify-content:center; }
+  .photo img { width:100%; height:100%; object-fit:contain; padding:10px; }
+  .photo .noimg { color:var(--dim); font-size:12px; }
+  .meta { padding:9px 11px 2px; }
+  .brand-in { width:100%; border:none; background:transparent; color:var(--accent);
+              font-size:11px; padding:0; text-transform:lowercase; letter-spacing:.3px; }
+  .model-in { width:100%; border:none; background:transparent; color:var(--txt);
+              font-size:12.5px; padding:2px 0; resize:none; min-height:2.6em; line-height:1.3; }
+  .fields { padding:6px 11px 11px; display:flex; flex-direction:column; gap:6px; }
+  .fld { display:flex; flex-direction:column; gap:2px; }
+  .fld label { font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.4px; }
+  .fld input, .fld select { width:100%; padding:6px 8px; font-size:12.5px; }
+  .fld input.unset, .fld select.unset { border-color:var(--warn); color:var(--warn); }
+  .fld select { appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%238b94a3' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 8px center; padding-right:24px; }
+  .hidden { display:none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>classify &amp; edit machines <small>see the photo → set function · type · muscles. delete or add as needed.</small></h1>
+  <div class="bar">
+    <input id="q" placeholder="search brand / model…" autocomplete="off">
+    <select id="filter">
+      <option value="all">all</option>
+      <option value="todo">needs a function</option>
+      <option value="done">classified</option>
+      <option value="edited">edited</option>
+      <option value="deleted">deleted</option>
+    </select>
+    <select id="byfn"></select>
+    <select id="photomode" title="which photo to show">
+      <option value="cutout">photo: cutout</option>
+      <option value="original">photo: original</option>
+    </select>
+    <button class="add" id="addbtn">+ add machine</button>
+    <button class="primary" id="export">export json</button>
+    <span class="stat" id="stat"></span>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+
+<datalist id="dl-muscle"></datalist>
+
+<script>
+const BASE = /*__DATA__*/null;            // scraped machines
+const FUNCTIONS = /*__FUNCTIONS__*/null;  // suggestion lists
+const TYPES = /*__TYPES__*/null;
+const MUSCLES = /*__MUSCLES__*/null;
+const KEY = 'rackd.classify.v3';
+
+// persisted state: per-id field edits, deletions, and freshly added machines.
+let state = { edits:{}, deleted:{}, added:[] };
+try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch(e) {}
+state.edits = state.edits || {}; state.deleted = state.deleted || {}; state.added = state.added || [];
+const save = () => localStorage.setItem(KEY, JSON.stringify(state));
+
+// all machines = scraped + user-added; effective fields apply edits on top of base.
+function allMachines() { return BASE.concat(state.added); }
+function eff(m, field) {
+  const e = state.edits[m.id];
+  return (e && field in e) ? e[field] : (m[field] || '');
+}
+function setField(id, field, value) {
+  const m = allMachines().find(x => x.id === id); if(!m) return;
+  const base = m[field] || '';
+  state.edits[id] = state.edits[id] || {};
+  if (value === base) { delete state.edits[id][field]; if(!Object.keys(state.edits[id]).length) delete state.edits[id]; }
+  else state.edits[id][field] = value;
+  save();
+}
+const isEdited = m => (m.id in state.edits) || m.added;
+
+// ---- muscles stay type-or-pick (composite values like "quads · glutes") ----
+const fill = (el, arr) => el.innerHTML = arr.map(v => `<option value="${v.replace(/"/g,'&quot;')}">`).join('');
+fill(document.getElementById('dl-muscle'), MUSCLES);
+
+// function + type are real comboboxes: always-browsable list of every existing
+// value (scraped + anything you've added), kept fresh as you add new ones.
+function fieldOptions(field, seed) {
+  const set = new Set(seed);
+  for (const m of allMachines()) { const v = eff(m, field); if (v) set.add(v); }
+  return [...set].sort();
+}
+let curFnOpts = [], curTypeOpts = [];
+function comboHTML(field, cur, opts, ok, emptyLabel) {
+  const list = (cur && !opts.includes(cur)) ? opts.concat(cur) : opts;   // keep odd/edited values visible
+  return `<select class="f combo ${ok ? '' : 'unset'}" data-f="${field}">
+      <option value="" ${cur ? '' : 'selected'}>${emptyLabel}</option>
+      ${list.map(o => `<option value="${esc(o)}" ${o === cur ? 'selected' : ''}>${o}</option>`).join('')}
+      <option value="__add__">＋ add new…</option>
+    </select>`;
+}
+
+document.getElementById('byfn').innerHTML =
+  '<option value="">— any function —</option>' +
+  FUNCTIONS.map(f => `<option value="${f}">${f}</option>`).join('');
+
+// ---- render ----
+const grid = document.getElementById('grid');
+const esc = s => (s||'').replace(/"/g,'&quot;');
+
+// which photo to show. 'original' is the as-found product shot (clearer, but
+// needs internet); 'cutout' is our local background-removed PNG (works offline).
+let photoMode = localStorage.getItem('rackd.classify.photo') || 'cutout';
+const onerr = `onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'noimg',textContent:'no photo'}))"`;
+function photoHTML(m) {
+  const primary = photoMode === 'original' ? (m.imgurl || m.img) : (m.img || m.imgurl);
+  return primary
+    ? `<img src="${esc(primary)}" loading="lazy" ${onerr}>`
+    : `<div class="noimg">no photo</div>`;
+}
+
+function cardHTML(m) {
+  const fn = eff(m,'fn'), type = eff(m,'type'), muscle = eff(m,'muscle');
+  const done = !!fn, del = !!state.deleted[m.id];
+  const cls = del ? 'deleted' : (done ? 'done' : 'todo');
+  const photo = photoHTML(m);
+  return `<div class="card ${cls}" data-id="${m.id}">
+    <button class="del" title="delete / restore">${del ? '↺' : '✕'}</button>
+    <div class="photo">${photo}</div>
+    <div class="meta">
+      <input class="brand-in f" data-f="brand" value="${esc(m.brand)}" placeholder="brand">
+      <textarea class="model-in f" data-f="model" placeholder="model">${m.model||''}</textarea>
+    </div>
+    <div class="fields">
+      <div class="fld"><label>function</label>
+        ${comboHTML('fn', fn, curFnOpts, done, '— unclassified —')}</div>
+      <div class="fld"><label>type</label>
+        ${comboHTML('type', type, curTypeOpts, !!type, '— none —')}</div>
+      <div class="fld"><label>muscles</label>
+        <input class="f" data-f="muscle" list="dl-muscle" value="${esc(muscle)}" placeholder="e.g. quads · glutes"></div>
+    </div>
+  </div>`;
+}
+
+function render() {
+  curFnOpts = fieldOptions('fn', FUNCTIONS);
+  curTypeOpts = fieldOptions('type', TYPES);
+  grid.innerHTML = allMachines().map(cardHTML).join('');
+  applyFilter();
+}
+
+// text-field edits (brand, model, muscles) — delegated
+grid.addEventListener('input', e => {
+  const inp = e.target.closest('input.f, textarea.f'); if(!inp) return;
+  setField(inp.closest('.card').dataset.id, inp.dataset.f, inp.value.trim());
+});
+
+// combobox edits (function, type) — pick existing or add a new value
+grid.addEventListener('change', e => {
+  const sel = e.target.closest('select.combo'); if(!sel) return;
+  const card = sel.closest('.card'), id = card.dataset.id, field = sel.dataset.f;
+  let val = sel.value, added = false;
+  if (val === '__add__') {
+    const label = field === 'fn' ? 'function' : field;
+    val = (prompt(`new ${label} (lowercase-with-dashes):`, '') || '').trim();
+    if (!val) { sel.value = eff(allMachines().find(m => m.id === id), field); return; }
+    added = true;
+  }
+  setField(id, field, val);
+  if (field === 'fn') {
+    const on = !!val;
+    if (!state.deleted[id]) { card.classList.toggle('done', on); card.classList.toggle('todo', !on); }
+    sel.classList.toggle('unset', !on);
+  } else {
+    sel.classList.toggle('unset', !val);
+  }
+  if (added) render();              // a new option just appeared → propagate to every card
+  else { applyFilter(); updateStat(); }
+});
+
+// delete / restore
+grid.addEventListener('click', e => {
+  const btn = e.target.closest('.del'); if(!btn) return;
+  const card = btn.closest('.card'), id = card.dataset.id;
+  if (state.deleted[id]) delete state.deleted[id]; else state.deleted[id] = true;
+  save();
+  const del = !!state.deleted[id];
+  card.classList.toggle('deleted', del);
+  btn.textContent = del ? '↺' : '✕';
+  if (!del) { const on = !!eff(allMachines().find(m=>m.id===id),'fn');
+              card.classList.toggle('done', on); card.classList.toggle('todo', !on); }
+  applyFilter();
+});
+
+// add machine
+let addSeq = 0;
+document.getElementById('addbtn').addEventListener('click', () => {
+  const url = prompt('image url for the new machine (optional — leave blank for none):', '') || '';
+  const id = 'new-' + Date.now() + '-' + (addSeq++);
+  state.added.unshift({ id, brand:'', model:'', type:'', muscle:'', fn:'', img:'', imgurl:url.trim(), added:true });
+  save(); render();
+  grid.querySelector(`[data-id="${id}"] .brand-in`)?.focus();
+});
+
+// ---- filter / search ----
+const q = document.getElementById('q'), filter = document.getElementById('filter'), byfn = document.getElementById('byfn');
+function applyFilter() {
+  const term = q.value.trim().toLowerCase(), mode = filter.value, only = byfn.value;
+  const byId = Object.fromEntries(allMachines().map(m => [m.id, m]));
+  for (const card of grid.children) {
+    const m = byId[card.dataset.id]; if(!m) continue;
+    const fn = eff(m,'fn'), del = !!state.deleted[m.id];
+    let show = true;
+    if (mode === 'deleted') show = del;
+    else if (del) show = false;                 // hide deleted unless explicitly viewing them
+    else if (mode === 'todo') show = !fn;
+    else if (mode === 'done') show = !!fn;
+    else if (mode === 'edited') show = isEdited(m);
+    if (show && only) show = fn === only;
+    if (show && term) show = (eff(m,'brand')+' '+eff(m,'model')).toLowerCase().includes(term);
+    card.classList.toggle('hidden', !show);
+  }
+  updateStat();
+}
+[q, filter, byfn].forEach(el => el.addEventListener('input', applyFilter));
+
+// photo cutout / original toggle
+const photomode = document.getElementById('photomode');
+photomode.value = photoMode;
+photomode.addEventListener('change', () => {
+  photoMode = photomode.value;
+  localStorage.setItem('rackd.classify.photo', photoMode);
+  render();
+});
+
+function updateStat() {
+  const live = allMachines().filter(m => !state.deleted[m.id]);
+  const done = live.filter(m => eff(m,'fn')).length;
+  const shown = [...grid.children].filter(c => !c.classList.contains('hidden')).length;
+  const ndel = Object.keys(state.deleted).length, nadd = state.added.length;
+  document.getElementById('stat').innerHTML =
+    `<b>${done}</b>/${live.length} classified · <b>${live.length-done}</b> to go` +
+    (nadd?` · <b>${nadd}</b> added`:'') + (ndel?` · <b>${ndel}</b> deleted`:'') +
+    ` · showing <b>${shown}</b>`;
+}
+
+// ---- export ----
+document.getElementById('export').addEventListener('click', () => {
+  const out = allMachines()
+    .filter(m => !state.deleted[m.id])
+    .map(m => ({
+      id:m.id, brand:eff(m,'brand'), model:eff(m,'model'),
+      machine_type:eff(m,'type'), muscle_label:eff(m,'muscle'),
+      exercise: eff(m,'fn') || null,
+      image_url: m.imgurl || undefined,
+      edited: isEdited(m) || undefined, added: m.added || undefined,
+    }));
+  const payload = { machines: out, deleted: Object.keys(state.deleted) };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'classifications.json'; a.click();
+});
+
+render();
+</script>
+</body>
+</html>

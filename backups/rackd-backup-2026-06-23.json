@@ -1,0 +1,311 @@
+{
+  "sets": [
+    {
+      "key": "wwmqpece8j|barbell|barbell incline bench press - medium grip",
+      "brand": "barbell",
+      "name": "barbell incline bench press - medium grip",
+      "w": 142.5,
+      "r": 1,
+      "pr": false,
+      "ts": 1782204950241
+    },
+    {
+      "key": "wwmqpece8j|barbell|barbell incline bench press - medium grip",
+      "brand": "barbell",
+      "name": "barbell incline bench press - medium grip",
+      "w": 100,
+      "r": 10,
+      "pr": false,
+      "ts": 1782204964274
+    },
+    {
+      "key": "wwmqpece8j|machine|ab crunch machine",
+      "brand": "machine",
+      "name": "ab crunch machine",
+      "w": 50,
+      "r": 8,
+      "pr": false,
+      "ts": 1782205521014
+    },
+    {
+      "key": "wwmqpece8j|machine|smith machine stiff-legged deadlift",
+      "brand": "machine",
+      "name": "smith machine stiff-legged deadlift",
+      "w": 30,
+      "r": 8,
+      "pr": false,
+      "ts": 1782206147341
+    },
+    {
+      "key": "wwmqpece8j|machine|smith machine bent over row",
+      "brand": "machine",
+      "name": "smith machine bent over row",
+      "w": 100,
+      "r": 8,
+      "pr": false,
+      "ts": 1782206454770
+    },
+    {
+      "key": "wwmqpece8j|cable|seated overhead triceps extension",
+      "brand": "cable",
+      "name": "seated overhead triceps extension",
+      "w": 70,
+      "r": 8,
+      "pr": false,
+      "ts": 1782207135657
+    },
+    {
+      "key": "wwmqpece8j|cable|triceps pushdown",
+      "brand": "cable",
+      "name": "triceps pushdown",
+      "w": 80,
+      "r": 9,
+      "pr": false,
+      "ts": 1782207417827
+    },
+    {
+      "key": "wwmqpece8j|cable|seated pullover",
+      "brand": "cable",
+      "name": "seated pullover",
+      "w": 70,
+      "r": 10,
+      "pr": false,
+      "ts": 1782207452572
+    },
+    {
+      "key": "wwmqpece8j|gymleco|342 lying leg curl",
+      "brand": "gymleco",
+      "name": "342 lying leg curl",
+      "w": 60,
+      "r": 8,
+      "pr": false,
+      "ts": 1782207887230
+    }
+  ],
+  "workouts": [
+    {
+      "id": "wmqpece8j",
+      "name": "Day 1",
+      "items": [
+        {
+          "brand": "barbell",
+          "name": "barbell incline bench press - medium grip",
+          "group": "push",
+          "muscle": "chest",
+          "img": "https://raw.githubusercontent.com/chaosbastler/opentraining-exercises/master/svg/Bench-press-1.svg",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "barbell",
+          "name": "barbell bench press - medium grip",
+          "group": "push",
+          "muscle": "chest",
+          "img": "https://raw.githubusercontent.com/chaosbastler/opentraining-exercises/master/svg/Bench-press-1.svg",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "cable",
+          "name": "seated overhead triceps extension",
+          "group": "push",
+          "muscle": "triceps",
+          "img": "",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "cable",
+          "name": "triceps pushdown",
+          "group": "push",
+          "muscle": "triceps",
+          "img": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "machine",
+          "name": "smith machine bent over row",
+          "group": "pull",
+          "muscle": "middle back",
+          "img": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Bent_Over_Row/0.jpg",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "gymleco",
+          "name": "342 lying leg curl",
+          "group": "legs",
+          "muscle": "hamstrings",
+          "img": "https://cdn.shopify.com/s/files/1/0850/4147/9946/files/Gi-342.02.jpg?v=1734421559",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "cable",
+          "name": "seated pullover",
+          "group": "pull",
+          "muscle": "lats · chest",
+          "img": "",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "bodyweight",
+          "name": "decline crunch",
+          "group": "core",
+          "muscle": "abdominals",
+          "img": "https://raw.githubusercontent.com/chaosbastler/opentraining-exercises/master/svg/Decline-crunch-1.svg",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "machine",
+          "name": "ab crunch machine",
+          "group": "core",
+          "muscle": "abdominals",
+          "img": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Ab_Crunch_Machine/0.jpg",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        },
+        {
+          "brand": "machine",
+          "name": "smith machine stiff-legged deadlift",
+          "group": "legs",
+          "muscle": "hamstrings",
+          "img": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Stiff-Legged_Deadlift/0.jpg",
+          "lastW": 0,
+          "lastR": 0,
+          "lastS": 0,
+          "date": ""
+        }
+      ],
+      "created": 1782143698195
+    }
+  ],
+  "sessions": [
+    {
+      "id": "smqqgkytd",
+      "wid": "wmqpece8j",
+      "name": "Day 1",
+      "ts": 1782207923521,
+      "items": [
+        {
+          "brand": "barbell",
+          "name": "barbell incline bench press - medium grip",
+          "sets": [
+            {
+              "w": 142.5,
+              "r": 1,
+              "pr": false
+            },
+            {
+              "w": 100,
+              "r": 10,
+              "pr": false
+            }
+          ]
+        },
+        {
+          "brand": "cable",
+          "name": "seated overhead triceps extension",
+          "sets": [
+            {
+              "w": 70,
+              "r": 8,
+              "pr": false
+            }
+          ]
+        },
+        {
+          "brand": "cable",
+          "name": "triceps pushdown",
+          "sets": [
+            {
+              "w": 80,
+              "r": 9,
+              "pr": false
+            }
+          ]
+        },
+        {
+          "brand": "machine",
+          "name": "smith machine bent over row",
+          "sets": [
+            {
+              "w": 100,
+              "r": 8,
+              "pr": false
+            }
+          ]
+        },
+        {
+          "brand": "gymleco",
+          "name": "342 lying leg curl",
+          "sets": [
+            {
+              "w": 60,
+              "r": 8,
+              "pr": false
+            }
+          ]
+        },
+        {
+          "brand": "cable",
+          "name": "seated pullover",
+          "sets": [
+            {
+              "w": 70,
+              "r": 10,
+              "pr": false
+            }
+          ]
+        },
+        {
+          "brand": "machine",
+          "name": "ab crunch machine",
+          "sets": [
+            {
+              "w": 50,
+              "r": 8,
+              "pr": false
+            }
+          ]
+        },
+        {
+          "brand": "machine",
+          "name": "smith machine stiff-legged deadlift",
+          "sets": [
+            {
+              "w": 30,
+              "r": 8,
+              "pr": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "wwmqpece8j|cable|seated overhead triceps extension": "7 löcher 3 ritzel"
+  },
+  "custom": []
+}

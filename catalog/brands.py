@@ -68,6 +68,7 @@ _BRAND_ALIASES: dict[str, list[str]] = {
     "Bodycraft": ["bodycraft"],
     "Pendulum": ["pendulum"],
     "Gymleco": ["gymleco"],
+    "David": ["david", "david health", "david health solutions"],
 }
 
 # (alias, canonical) sorted longest-alias-first so specific names win.
